@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-09-27T14:00:24.221Z</updated>
+  <updated>2021-09-28T13:43:40.715Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-labs练习-less5-6</title>
+    <link href="http://example.com/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/"/>
+    <id>http://example.com/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/</id>
+    <published>2021-09-28T12:18:07.000Z</published>
+    <updated>2021-09-28T13:43:40.715Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。</p></blockquote><h1 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然如此，我们依然在域名最后先加上一个单引号。</p><span id="more"></span><p>回车来了，报错就有了。这是一段与less-1完全一致的报错，加上注释后回显恢复正常，再用and 1=1和and 1=2检验后可以确定这里存在注入点。既然存在注入点，那就有解开它的方法。但是显然，不管我们怎样更改id的值，得到的永远只有那句“You are in……..”。</p><p>显然前四关使用union联合查询的方法在这关不起作用。那么我们就得换个思路了，提示指向了双查询注入，那么我们就将目光放到双查询注入上。<br><a href="https://blog.csdn.net/wn314/article/details/89297560">双查询注入原理浅析</a><br>我们可以先通过上面的网址简单了解双查询注入的运行原理，了解之后我们将这段floor()报错的语句摘取出来：<br><code>and (select 1 from (select count(*),concat((查询语句),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p><p>这段代码就是我们解开问题的关键所在，将这段代码中的查询语句改为database()并补入域名之中，可以发现报错已经回显了当前所在的数据库名：<br><img src="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png"></p><p>这时我们也许会有疑问了，为什么数据库的名字变成了“security1”呢？其实这不是因为数据库的名字变了，而是这个“1”为floor()报错语句中输出的一部分，无论输出什么都会出现这个“1”，因此数据库的实际名称仍然为“security”。</p><p>既然问题解决了，那么就进入了愉快的爆库流程了，但是当我们在获取表中的数据时，出现了这么一行：</p><ul><li>Subquery returns more than 1 row</li></ul><p>我们页面的信息超过了一行，在我们使用了group_concat函数的情况下显示这个报错说明了这里的字符长度超过了64位。这种情况下，我们应该使用limit数来进行一个个输出：<br><code>select concat(列名) from 数据库名.数据表名 limit 0,1</code><br><img src="https://i.loli.net/2021/09/28/1BGWukLCISofDxE.png"></p><h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>用完floor()报错后，我就在想有没有其他的报错方法也能达到相同的效果呢，结果还真有：<br><code>updatexml(1,concat(0x7e, 查询语句,0x7e),1)</code><br>或者<br><code>extractvalue(1,concat(0x7e,查询语句,0x7e))</code><br>这两句代码的具体语法可以参考下面这个链接的教程：<br><a href="https://blog.csdn.net/zpy1998zpy/article/details/80631036">方法2中的报错注入</a></p><p>这里简单介绍下这两句代码的报错原理，这两句代码的第二个参数需要设置Xpath格式的字符串，而“0x7e”，即“~”开头不符合其语法，concat()函数为字符串连接函数不符合规则，导致代码中括号内的结果以错误的形式报出，达到目的。</p><p>而这两句代码的字符串限制为32位，因此在进行爆表流程时，我们也应该使用limit函数将数据一行一行显示出来，达到同样效果。<br><img src="https://i.loli.net/2021/09/28/QF2cqUDsCgvHzpi.png"></p><h1 id="less-6"><a href="#less-6" class="headerlink" title="less-6"></a>less-6</h1><p>观察less-6的标题，发现好像就是把单引号变成了双引号，那是不是我们也只要将代码中id后面的单引号变成双引号呢？</p><p>要是真的这么想，那你可真是太聪明了，这关真的就只要把单引号改成双引号就可以了，然后就根据第五关的方法就可以顺利解开了。<br><img src="https://i.loli.net/2021/09/28/g6x4jGnhWv8ESP2.png"><br><img src="https://i.loli.net/2021/09/28/GF8TrDVClogQ4wy.png"></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过练习靶场中的less5-6，我们了解并学习了sql注入中的双重查询注入与报错回显，这两关靶场的新内容明显多于前四个靶场，越往后深入，我们也会学习到更多的新内容。因此我们必须记录下自己的学习历程，不断进步，不断提高。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;less-5&quot;&gt;&lt;a href=&quot;#less-5&quot; class=&quot;headerlink&quot; title=&quot;less-5&quot;&gt;&lt;/a&gt;less-5&lt;/h1&gt;&lt;h2 id=&quot;方法1&quot;&gt;&lt;a href=&quot;#方法1&quot; class=&quot;headerlink&quot; title=&quot;方法1&quot;&gt;&lt;/a&gt;方法1&lt;/h2&gt;&lt;p&gt;进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然如此，我们依然在域名最后先加上一个单引号。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>sqli-labs练习-less2-4</title>
