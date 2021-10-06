@@ -81,24 +81,20 @@
 
 
 
-<meta name="description" content="前言进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。  less-5方法1进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然">
+<meta name="description" content="前言进入第10关后，我们就要开始接触POST注入了,11-16关在注入操作上并未与前面有较大差别，我们可以根据题目要求进行注入，从第17关开始网页中开始加入过滤，这要求我们学习更多的注入姿势来解决问题。   注意下面所列出的代码是基于php5版本的，若搭建的靶场为php7版本的，代码可能会有一定出入。  less11-16不说废话，直接上代码，以less-12的代码为例，下面也以less-12为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习-less5-6">
-<meta property="og:url" content="http://example.com/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/index.html">
+<meta property="og:title" content="sqli-labs练习-less11-17">
+<meta property="og:url" content="http://example.com/2021/10/05/sqli-labs%E7%BB%83%E4%B9%A0-less11-17/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。  less-5方法1进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然">
+<meta property="og:description" content="前言进入第10关后，我们就要开始接触POST注入了,11-16关在注入操作上并未与前面有较大差别，我们可以根据题目要求进行注入，从第17关开始网页中开始加入过滤，这要求我们学习更多的注入姿势来解决问题。   注意下面所列出的代码是基于php5版本的，若搭建的靶场为php7版本的，代码可能会有一定出入。  less11-16不说废话，直接上代码，以less-12的代码为例，下面也以less-12为">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/1BGWukLCISofDxE.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/QF2cqUDsCgvHzpi.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/g6x4jGnhWv8ESP2.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/GF8TrDVClogQ4wy.png">
-<meta property="article:published_time" content="2021-09-28T12:18:07.000Z">
-<meta property="article:modified_time" content="2021-09-28T13:43:40.715Z">
+<meta property="og:image" content="https://i.loli.net/2021/10/06/9KPsyivCWEurRag.png">
+<meta property="article:published_time" content="2021-10-05T12:47:48.000Z">
+<meta property="article:modified_time" content="2021-10-06T06:12:25.134Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/06/9KPsyivCWEurRag.png">
 
 
 
@@ -128,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/09/28/sqli-labs练习-less5-6/"/>
+  <link rel="canonical" href="http://example.com/2021/10/05/sqli-labs练习-less11-17/"/>
 
 
 
 
 
-  <title>sqli-labs练习-less5-6 | mrl64's Blog</title>
+  <title>sqli-labs练习-less11-17 | mrl64's Blog</title>
   
 
 
@@ -271,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/05/sqli-labs%E7%BB%83%E4%B9%A0-less11-17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -288,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less5-6</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less11-17</h1>
         
 
         <div class="post-meta">
@@ -300,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-28T20:18:07+08:00">
-                2021-09-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-05T20:47:48+08:00">
+                2021-10-05
               </time>
             
 
@@ -361,26 +357,30 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>进入第10关后，我们就要开始接触POST注入了,11-16关在注入操作上并未与前面有较大差别，我们可以根据题目要求进行注入，从第17关开始网页中开始加入过滤，这要求我们学习更多的注入姿势来解决问题。</p>
 </blockquote>
-<h1 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然如此，我们依然在域名最后先加上一个单引号。</p>
+<blockquote>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>下面所列出的代码是基于php5版本的，若搭建的靶场为php7版本的，代码可能会有一定出入。</p>
+</blockquote>
+<h1 id="less11-16"><a href="#less11-16" class="headerlink" title="less11-16"></a>less11-16</h1><p>不说废话，直接上代码，以less-12的代码为例，下面也以less-12为例进行分析，其他的关卡都可以凭借题目进行注入，因此不再详解：</p>
 <span id="more"></span>
 
-<p>回车来了，报错就有了。这是一段与less-1完全一致的报错，加上注释后回显恢复正常，再用and 1=1和and 1=2检验后可以确定这里存在注入点。既然存在注入点，那就有解开它的方法。但是显然，不管我们怎样更改id的值，得到的永远只有那句“You are in……..”。</p>
-<p>显然前四关使用union联合查询的方法在这关不起作用。那么我们就得换个思路了，提示指向了双查询注入，那么我们就将目光放到双查询注入上。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wn314/article/details/89297560">双查询注入原理浅析</a><br>我们可以先通过上面的网址简单了解双查询注入的运行原理，了解之后我们将这段floor()报错的语句摘取出来：<br><code>and (select 1 from (select count(*),concat((查询语句),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
-<p>这段代码就是我们解开问题的关键所在，将这段代码中的查询语句改为database()并补入域名之中，可以发现报错已经回显了当前所在的数据库名：<br><img src="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png"></p>
-<p>这时我们也许会有疑问了，为什么数据库的名字变成了“security1”呢？其实这不是因为数据库的名字变了，而是这个“1”为floor()报错语句中输出的一部分，无论输出什么都会出现这个“1”，因此数据库的实际名称仍然为“security”。</p>
-<p>既然问题解决了，那么就进入了愉快的爆库流程了，但是当我们在获取表中的数据时，出现了这么一行：</p>
-<ul>
-<li>Subquery returns more than 1 row</li>
-</ul>
-<p>我们页面的信息超过了一行，在我们使用了group_concat函数的情况下显示这个报错说明了这里的字符长度超过了64位。这种情况下，我们应该使用limit数来进行一个个输出：<br><code>select concat(列名) from 数据库名.数据表名 limit 0,1</code><br><img src="https://i.loli.net/2021/09/28/1BGWukLCISofDxE.png"></p>
-<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>用完floor()报错后，我就在想有没有其他的报错方法也能达到相同的效果呢，结果还真有：<br><code>updatexml(1,concat(0x7e, 查询语句,0x7e),1)</code><br>或者<br><code>extractvalue(1,concat(0x7e,查询语句,0x7e))</code><br>这两句代码的具体语法可以参考下面这个链接的教程：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zpy1998zpy/article/details/80631036">方法2中的报错注入</a></p>
-<p>这里简单介绍下这两句代码的报错原理，这两句代码的第二个参数需要设置Xpath格式的字符串，而“0x7e”，即“~”开头不符合其语法，concat()函数为字符串连接函数不符合规则，导致代码中括号内的结果以错误的形式报出，达到目的。</p>
-<p>而这两句代码的字符串限制为32位，因此在进行爆表流程时，我们也应该使用limit函数将数据一行一行显示出来，达到同样效果。<br><img src="https://i.loli.net/2021/09/28/QF2cqUDsCgvHzpi.png"></p>
-<h1 id="less-6"><a href="#less-6" class="headerlink" title="less-6"></a>less-6</h1><p>观察less-6的标题，发现好像就是把单引号变成了双引号，那是不是我们也只要将代码中id后面的单引号变成双引号呢？</p>
-<p>要是真的这么想，那你可真是太聪明了，这关真的就只要把单引号改成双引号就可以了，然后就根据第五关的方法就可以顺利解开了。<br><img src="https://i.loli.net/2021/09/28/g6x4jGnhWv8ESP2.png"><br><img src="https://i.loli.net/2021/09/28/GF8TrDVClogQ4wy.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过练习靶场中的less5-6，我们了解并学习了sql注入中的双重查询注入与报错回显，这两关靶场的新内容明显多于前四个靶场，越往后深入，我们也会学习到更多的新内容。因此我们必须记录下自己的学习历程，不断进步，不断提高。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">if(isset($_POST[&#x27;uname&#x27;]) &amp;&amp; isset($_POST[&#x27;passwd&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">	$uname=$_POST[&#x27;uname&#x27;];</span><br><span class="line">	$passwd=$_POST[&#x27;passwd&#x27;];</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">	// connectivity</span><br><span class="line">	$uname=&#x27;&quot;&#x27;.$uname.&#x27;&quot;&#x27;;</span><br><span class="line">	$passwd=&#x27;&quot;&#x27;.$passwd.&#x27;&quot;&#x27;; </span><br><span class="line">	@$sql=&quot;SELECT username, password FROM users WHERE username=($uname) and password=($passwd) LIMIT 0,1&quot;;</span><br><span class="line">	$result=mysql_query($sql);</span><br><span class="line">	$row = mysql_fetch_array($result);</span><br></pre></td></tr></table></figure>
+
+<p>我们可以发现从本质上来说，POST与GET的差别不是很大，作为HTTP请求的两种基本方法，他们最大的区别就在于GET是把参数写进了URL中，从指定的资源请求数据，而POST是向指定的资源提交要被处理的数据，是要我们上传数据的。两者具体的区别可以通过下面这篇文章学习：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/tags/html-httpmethods.html">HTTP：GET对比POST</a></p>
+<p>进入靶场我们可以发现多出了一个输入框，现在我们可以输入一个账号密码了，而不是在域名中输入一个id。通过上面的代码，比如当我们输入账号为1，密码为1后，就相当于POST了一个<code>$uname=1&amp;$passwd=1</code>，并且传入sql中进行查找，不过显然数据库中没有这一组账号密码，因此提示我们登录失败了。</p>
+<p>注入的关键还是那行查询代码。我们发现查询代码中首先对我们POST的两个变量添加了双引号并且打上了括号，接着可以发现$uname在$passwd的前面，这就意味着我们从输入账户的那一栏添加注释可以屏蔽掉密码栏。知道这些后，我们就可以开始进行注入了<br>注意：在使用注释“–+”时用空格代替“+”号，不然会报错，或者直接使用其他注释方法。</p>
+<p>接下来就是使用order by爆字段，可以发现这次的字段数为2：<br><img src="https://i.loli.net/2021/10/06/9KPsyivCWEurRag.png"><br>这里也推荐使用火狐中的插件hackbar，可以去网上自行搜寻旧版本免费试用，新版本需要收费。</p>
+<p>到此为止，剩下的事情就是熟悉的爆库了。熟练运用之前靶场中学会的查询、盲注等多种方法。特别提示，如果在做第十四关时发现标题和第十三关一样，那请你千万不要相信标题。</p>
+<h1 id="less-17"><a href="#less-17" class="headerlink" title="less-17"></a>less-17</h1><p>第十七关它又不一样了。首先，当你在进行初始测试时，它会对你进行无情嘲讽，让你上头，但接着你发现无论怎样在账户中注入，都只有对你的嘲讽出现。你不得不冷静下来，翻开源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function check_input($value)</span><br><span class="line">	&#123;</span><br><span class="line">	if(!empty($value))</span><br><span class="line">		&#123;</span><br><span class="line">		// truncation (see comments)</span><br><span class="line">		$value = substr($value,0,15);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		// Stripslashes if magic quotes enabled</span><br><span class="line">	if (get_magic_quotes_gpc())</span><br><span class="line">			&#123;</span><br><span class="line">			$value = stripslashes($value);</span><br><span class="line">			&#125;</span><br><span class="line">	if (!ctype_digit($value))</span><br><span class="line">			&#123;</span><br><span class="line">			$value = &quot;&#x27;&quot; . mysql_real_escape_string($value) . &quot;&#x27;&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">		</span><br><span class="line">	else</span><br><span class="line">		    &#123;</span><br><span class="line">		    $value = intval($value);</span><br><span class="line">		    &#125;</span><br><span class="line">	return $value;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现了这段check_input函数，并且还发现了$uname这个变量进行了一次check_input函数。接下来我们详细分析一下这个函数：</p>
+<p>第一个判断，如果输入的值不为空，截取最多15个字符，这意味着我们想进行注入的话只能保证字符在15个以内，现在对于我们来说这几乎是不可能的。</p>
+<p>接着判断当前设置中get_magic_quotes_gpc是否开启了，如果开启了的话将会为通过get、post与cookie传来的数据中的引号前加入反斜杠，相当于自动为数据进行了一次addslashes()，因此如果开启，则通过stripslashes()函数删去其中的反斜杠。</p>
+<p>最后判断输入的值是否为十进制纯数字，如果不是则将值中的特殊字符转义，否则取整。以下这些字符会被mysql_real_escape_string()转义：\x00（空值），\n（换行），\r（回车） ，反斜杠，单引号，双引号，\x1a（十六进制）</p>
+<p>这段函数对用户名实行了保护，因此我们不能从用户名中入手了，但是翻看源码，它居然没有保护密码。因此我们只要获得一个合法的用户名，就可以从密码栏入手了：<br><code>$uname=admin&amp;$passwd=&#39; order by 3#</code><br>如此一来，我们就可以开始爆库了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>POST注入方法与GET注入大同小异，但是对输入的数据进行一定的过滤却给我们造成了一定的麻烦，而且这样的过滤在以后会愈发严苛。因此接下来我们要开始学习抓包工具的使用，对网页进行新的注入。</p>
 
       
     </div>
@@ -411,8 +411,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/" rel="next" title="sqli-labs练习-less2-4">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less2-4
+              <a href="/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-10/" rel="next" title="sqli-labs练习-less8-10">
+                <i class="fa fa-chevron-left"></i> sqli-labs练习-less8-10
               </a>
             
           </div>
@@ -420,10 +420,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/" rel="prev" title="sqli-labs练习-less7">
-                sqli-labs练习-less7 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-5"><span class="nav-number"></span> <span class="nav-text">less-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%951"><span class="nav-number">1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%952"><span class="nav-number">2.</span> <span class="nav-text">方法2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-6"><span class="nav-number"></span> <span class="nav-text">less-6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less11-16"><span class="nav-number"></span> <span class="nav-text">less11-16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-17"><span class="nav-number"></span> <span class="nav-text">less-17</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
