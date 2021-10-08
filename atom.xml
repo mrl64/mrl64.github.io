@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-06T06:12:25.134Z</updated>
+  <updated>2021-10-08T15:44:02.597Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-labs练习-less18-22</title>
+    <link href="http://example.com/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/"/>
+    <id>http://example.com/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/</id>
+    <published>2021-10-07T12:05:42.000Z</published>
+    <updated>2021-10-08T15:44:02.597Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接下来的几关我们需要用到抓包工具来帮助我们进行解题，我们用到了burp suite工具（需要JAVA环境），并且通过下面几个靶场具体分析学习这个工具的使用。</p></blockquote><h1 id="less-18"><a href="#less-18" class="headerlink" title="less-18"></a>less-18</h1><p>首先进入网页，我们发现显示了当前的ip地址，但这似乎对我们并没有什么用。依然尝试随便输入，发现提示登录失败，简单注入也没有报错回显。我们去查看下源码，发现账户密码都被check_input函数保护起来了，因此我们显然不能在这个页面中进行注入了。</p><span id="more"></span><p>既然页面不能注入，我们就进行抓包操作，先随意输入一组账号密码，得到抓包结果：<br><img src="https://i.loli.net/2021/10/07/6dmMYtAD2USWI4c.png"></p><p>想要进行注入操作，我们就要先了解这些请求头的含义，这里举几个常用的请求头为例：</p><ul><li>HOST：指定被请求资源的Internet主机与端口号</li><li>User-Agent：允许客户端将操作系统、浏览器等信息报告给服务器</li><li>Referer：当前访问的URL的上一个URL</li><li>X-Forwarded-For：请求端IP</li><li>Cookie：一段文本，一般用来储存用户资料，相当重要</li></ul><p>不过在这里我们似乎找不到注入点，那我们试着输入一段正确的账户密码。我们这里有两种操作：</p><ol><li>我们在Proxy下直接更改账户密码并将其forward，我们可以回到浏览器查看结果</li><li>我们使用ctrl+r将其发送到Repeater中，在并request中修改账户密码，将其go到response中，并在response中的render下查看结果</li></ol><p>这里我们选方法2：<br><img src="https://i.loli.net/2021/10/07/XWHqS4Eycx6uRF2.png"><br>ps：这里密码为123456是因为在做24关的时候改密了，正常密码应该也为admin</p><p>我们可以发现这时返回了User-Agent，我们可以通过源码分析这段的注入原理：<br><code>$insert=&quot;INSERT INTO &#39;security&#39;.&#39;uagents&#39; (&#39;uagent&#39;, &#39;ip_address&#39;, &#39;username&#39;) VALUES (&#39;$uagent&#39;, &#39;$IP&#39;, $uname)&quot;;</code></p><p>这段代码便是我们注入的关键，这一次不是select语句，而是insert语句。这段代码会在登陆成功后回显uagent，并将uagent、IP、uname插入到security数据库的uagents表的uagent、ip_address、username三个字段中。并且结合其他代码我们可以知道，只有输入正确的账号密码才能进入到这个insert语句，因此我们可以判断注入点就在User-Agent中。</p><p>找到注入点后，我们就可以通过之前使用过的很多语句进行爆库了：<br><img src="https://i.loli.net/2021/10/07/4HShdcKno2RBzvt.png"><br>还可以使用时间盲注或者其他类型的报错等等，这里不再赘述。</p><h1 id="less-19"><a href="#less-19" class="headerlink" title="less-19"></a>less-19</h1><p>十九关与十八关的差别不大，输入admin发现这次回显的是Referer内容，那我们就猜测注入点在referer中，通过查询源码发现也确实如此，那么我们就可以进行爆库了。<br><img src="https://i.loli.net/2021/10/08/LYcdEMAT7rwzqXm.png"></p><h1 id="less-20"><a href="#less-20" class="headerlink" title="less-20"></a>less-20</h1><p>通过标题提示我们知道这道题的关键在于cookie上。我们先去查看一波源码，发现这次的select语句对$cookie进行了查询，那么我们大可判断这次的注入点在cookie中。</p><p>我们来先分析burp suite是如何进行这关的抓包的：<br>首先先验证账户密码是否正确，如果正确的话就进行set cookie<br><img src="https://i.loli.net/2021/10/08/midMaqUKQZCY69I.png"></p><p>接下来forward之后我们就可以发现cookie已经被记录了下来：<br><img src="https://i.loli.net/2021/10/08/VL9TNUMhBs3WXge.png"><br>同时我们得知cookie只记录下了uname，这时我们修改cookie为1，用浏览器开发者工具读取cookie，发现admin依然保存在value值中。我们就可以判断当页面request时，若cookie中存在uname则直接读取，因此这题注入点就在cookie中。</p><p>找到了注入点，我们就可以开始平平无奇的爆库了，直接简单的查询语句加注释就行。</p><h1 id="less21-22"><a href="#less21-22" class="headerlink" title="less21-22"></a>less21-22</h1><p>到这里我们就进入了靶场的第二页了，恭喜自己能更进一步了。我们进入21关，基于base64的cookie注入。这里关于base64的知识可以参考下面这个文章：<br><a href="https://blog.csdn.net/fengbingchun/article/details/85016088">base64介绍</a></p><p>我们首先用burp suite进行抓包，发现这次的cookie中出现了这段代码：<br><code>Cookie: uname=YWRtaW4%3D</code><br>这里的%3D就是“=”，这是一段很经典的base64，不过我们自然不用一个个自己解码，burp suite中的Decoder模块中的decode as就可以进行base64的编码与解码，那么我们就先进行解码，结果为admin。<br><img src="https://i.loli.net/2021/10/08/LwigJRbC8SDW2hE.png"></p><p>不过这题同第20关的区别也就在这里了，其他的操作与20关并无相异，注意注入是否有括号，接着我们只要将原来输入的代码先进性base64编码再注入就行了。<br><img src="https://i.loli.net/2021/10/08/rAIm37VyjxguGhH.png"><br><img src="https://i.loli.net/2021/10/08/Ve1yzAnGw8JBhWC.png"></p><p>而第22关是基于双引号的报错，只要使用双引号就行了</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>进入了靶场的Page2，难度比起Page1显著增加，接下来将会对特殊符号进行过滤，这又是新的挑战了。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;接下来的几关我们需要用到抓包工具来帮助我们进行解题，我们用到了burp suite工具（需要JAVA环境），并且通过下面几个靶场具体分析学习这个工具的使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;less-18&quot;&gt;&lt;a href=&quot;#less-18&quot; class=&quot;headerlink&quot; title=&quot;less-18&quot;&gt;&lt;/a&gt;less-18&lt;/h1&gt;&lt;p&gt;首先进入网页，我们发现显示了当前的ip地址，但这似乎对我们并没有什么用。依然尝试随便输入，发现提示登录失败，简单注入也没有报错回显。我们去查看下源码，发现账户密码都被check_input函数保护起来了，因此我们显然不能在这个页面中进行注入了。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>sqli-labs练习-less11-17</title>
