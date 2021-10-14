@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-08T15:44:02.597Z</updated>
+  <updated>2021-10-14T09:52:40.860Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bugku-web练习</title>
+    <link href="http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/"/>
+    <id>http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/</id>
+    <published>2021-10-14T06:55:42.000Z</published>
+    <updated>2021-10-14T09:52:40.860Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。</p></blockquote><h1 id="滑稽"><a href="#滑稽" class="headerlink" title="滑稽"></a>滑稽</h1><p>看图实在费眼睛，直接f12查看源码找到flag走人就行了</p><span id="more"></span><h1 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h1><p>可以看到进入页面后是一道非常简单的计算题，答案一眼就能看出是70，但是我们打算输入时却发现，我们只能输入一个数字。使用f12查看源码，发现了这么一行：<br><code>&lt;input type=&quot;text&quot; class=&quot;input&quot; maxlength=&quot;1&quot;&gt;</code></p><p>输入的最大长度为1，那么我们把1改成2，再输入进行验证就可以得到flag了。<br><img src="https://i.loli.net/2021/10/14/VbeMC1hKi4rpqnt.png"></p><h1 id="GET-amp-amp-POST"><a href="#GET-amp-amp-POST" class="headerlink" title="GET &amp;&amp; POST"></a>GET &amp;&amp; POST</h1><p>非常直白的题目，这两题的页面都提供了php代码，分别以get和post上传一个waht=flag，flag就会回显出来了</p><h1 id="矛盾"><a href="#矛盾" class="headerlink" title="矛盾"></a>矛盾</h1><p>我们分析这题的代码，可以知道我们需要以get的方式上传一个数值为1的非数字，这样看来确实是矛盾的。但是我们可以发现这里的判断符为==而并非===，因此不比较两个变量的类型，这样我们就可以输入字符串而并非数字来进行判断。<br>这里我们get传入一个num=1a就可以了</p><h1 id="头等舱"><a href="#头等舱" class="headerlink" title="头等舱"></a>头等舱</h1><p>web中与头相关我们首先想到的就是响应头和请求头了，因此这题直接查看网页的响应头，发现flag就在其中。</p><h1 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h1><p>这题一进去我们查看源码，抓包等都一无所获，因此我们要想到对网页进行路径扫描，这里我们用了御剑进行扫描，发现了shell.php，也就是被人上传木马了。</p><p>我们进入shell.php，发现需要密码，如果你能灵机一动猜出密码是hack的话，那恭喜你，得到了flag，否则的话还是老老实实进行字典爆破吧。</p><h1 id="你必须让他停下"><a href="#你必须让他停下" class="headerlink" title="你必须让他停下"></a>你必须让他停下</h1><p>进入页面后发现页面一直在刷新，但是在查看源码时可以发现有一次刷新是可以显示flag的，那么我们就耐心抓包，抓到flag就算成功。</p><h1 id="本地管理员"><a href="#本地管理员" class="headerlink" title="本地管理员"></a>本地管理员</h1><p>进入页面发现要输入账号密码，尝试输入后发现ip禁止访问，我们通过抓包添加一个xxf的请求头，将其设置为127.0.0.1，接着提示了无效凭证，那么估计就是密码的问题了，爆破密码直接无脑字典，爆出来密码为test123，最后登录获取flag。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上八题都是比较简单的题目，主要接触了ctf题目的类型与解题思路，为周六的校赛做准备。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;滑稽&quot;&gt;&lt;a href=&quot;#滑稽&quot; class=&quot;headerlink&quot; title=&quot;滑稽&quot;&gt;&lt;/a&gt;滑稽&lt;/h1&gt;&lt;p&gt;看图实在费眼睛，直接f12查看源码找到flag走人就行了&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -bugku -ctf" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-bugku-ctf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs练习-less23-28</title>
+    <link href="http://example.com/2021/10/14/sqli-labs%E7%BB%83%E4%B9%A0-less23-28/"/>
+    <id>http://example.com/2021/10/14/sqli-labs%E7%BB%83%E4%B9%A0-less23-28/</id>
+    <published>2021-10-14T06:55:11.000Z</published>
+    <updated>2021-10-14T06:55:11.999Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>sqli-labs练习-less18-22</title>
