@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web前端 -mysql," />
+  <meta name="keywords" content="-web前端 -write up -ctf," />
 
 
 
@@ -81,28 +81,24 @@
 
 
 
-<meta name="description" content="前言接下来的几关我们需要用到抓包工具来帮助我们进行解题，我们用到了burp suite工具（需要JAVA环境），并且通过下面几个靶场具体分析学习这个工具的使用。  less-18首先进入网页，我们发现显示了当前的ip地址，但这似乎对我们并没有什么用。依然尝试随便输入，发现提示登录失败，简单注入也没有报错回显。我们去查看下源码，发现账户密码都被check_input函数保护起来了，因此我们显然不能">
+<meta name="description" content="前言由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习-less18-22">
-<meta property="og:url" content="http://example.com/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/index.html">
+<meta property="og:title" content="攻防世界">
+<meta property="og:url" content="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言接下来的几关我们需要用到抓包工具来帮助我们进行解题，我们用到了burp suite工具（需要JAVA环境），并且通过下面几个靶场具体分析学习这个工具的使用。  less-18首先进入网页，我们发现显示了当前的ip地址，但这似乎对我们并没有什么用。依然尝试随便输入，发现提示登录失败，简单注入也没有报错回显。我们去查看下源码，发现账户密码都被check_input函数保护起来了，因此我们显然不能">
+<meta property="og:description" content="前言由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/10/07/6dmMYtAD2USWI4c.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/07/XWHqS4Eycx6uRF2.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/07/4HShdcKno2RBzvt.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/08/LYcdEMAT7rwzqXm.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/08/midMaqUKQZCY69I.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/08/VL9TNUMhBs3WXge.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/08/LwigJRbC8SDW2hE.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/08/rAIm37VyjxguGhH.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/08/Ve1yzAnGw8JBhWC.png">
-<meta property="article:published_time" content="2021-10-07T12:05:42.000Z">
-<meta property="article:modified_time" content="2021-10-08T15:44:02.597Z">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/JIupjWC1et4V2KS.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/6XSFjNi1s3BctL7.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/cNXPd4EyxomCKws.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/l3EHVFv48JWZrCm.png">
+<meta property="article:published_time" content="2021-10-17T08:19:20.000Z">
+<meta property="article:modified_time" content="2021-10-17T13:36:46.969Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web前端 -mysql">
+<meta property="article:tag" content="-web前端 -write up -ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/07/6dmMYtAD2USWI4c.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png">
 
 
 
@@ -132,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/07/sqli-labs练习-less18-22/"/>
+  <link rel="canonical" href="http://example.com/2021/10/17/攻防世界/"/>
 
 
 
 
 
-  <title>sqli-labs练习-less18-22 | mrl64's Blog</title>
+  <title>攻防世界 | mrl64's Blog</title>
   
 
 
@@ -275,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -292,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less18-22</h1>
+          <h1 class="post-title" itemprop="name headline">攻防世界</h1>
         
 
         <div class="post-meta">
@@ -304,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-07T20:05:42+08:00">
-                2021-10-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-17T16:19:20+08:00">
+                2021-10-17
               </time>
             
 
@@ -365,39 +361,28 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接下来的几关我们需要用到抓包工具来帮助我们进行解题，我们用到了burp suite工具（需要JAVA环境），并且通过下面几个靶场具体分析学习这个工具的使用。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。</p>
 </blockquote>
-<h1 id="less-18"><a href="#less-18" class="headerlink" title="less-18"></a>less-18</h1><p>首先进入网页，我们发现显示了当前的ip地址，但这似乎对我们并没有什么用。依然尝试随便输入，发现提示登录失败，简单注入也没有报错回显。我们去查看下源码，发现账户密码都被check_input函数保护起来了，因此我们显然不能在这个页面中进行注入了。</p>
 <span id="more"></span>
 
-<p>既然页面不能注入，我们就进行抓包操作，先随意输入一组账号密码，得到抓包结果：<br><img src="https://i.loli.net/2021/10/07/6dmMYtAD2USWI4c.png"></p>
-<p>想要进行注入操作，我们就要先了解这些请求头的含义，这里举几个常用的请求头为例：</p>
-<ul>
-<li>HOST：指定被请求资源的Internet主机与端口号</li>
-<li>User-Agent：允许客户端将操作系统、浏览器等信息报告给服务器</li>
-<li>Referer：当前访问的URL的上一个URL</li>
-<li>X-Forwarded-For：请求端IP</li>
-<li>Cookie：一段文本，一般用来储存用户资料，相当重要</li>
-</ul>
-<p>不过在这里我们似乎找不到注入点，那我们试着输入一段正确的账户密码。我们这里有两种操作：</p>
-<ol>
-<li>我们在Proxy下直接更改账户密码并将其forward，我们可以回到浏览器查看结果</li>
-<li>我们使用ctrl+r将其发送到Repeater中，在并request中修改账户密码，将其go到response中，并在response中的render下查看结果</li>
-</ol>
-<p>这里我们选方法2：<br><img src="https://i.loli.net/2021/10/07/XWHqS4Eycx6uRF2.png"><br>ps：这里密码为123456是因为在做24关的时候改密了，正常密码应该也为admin</p>
-<p>我们可以发现这时返回了User-Agent，我们可以通过源码分析这段的注入原理：<br><code>$insert=&quot;INSERT INTO &#39;security&#39;.&#39;uagents&#39; (&#39;uagent&#39;, &#39;ip_address&#39;, &#39;username&#39;) VALUES (&#39;$uagent&#39;, &#39;$IP&#39;, $uname)&quot;;</code></p>
-<p>这段代码便是我们注入的关键，这一次不是select语句，而是insert语句。这段代码会在登陆成功后回显uagent，并将uagent、IP、uname插入到security数据库的uagents表的uagent、ip_address、username三个字段中。并且结合其他代码我们可以知道，只有输入正确的账号密码才能进入到这个insert语句，因此我们可以判断注入点就在User-Agent中。</p>
-<p>找到注入点后，我们就可以通过之前使用过的很多语句进行爆库了：<br><img src="https://i.loli.net/2021/10/07/4HShdcKno2RBzvt.png"><br>还可以使用时间盲注或者其他类型的报错等等，这里不再赘述。</p>
-<h1 id="less-19"><a href="#less-19" class="headerlink" title="less-19"></a>less-19</h1><p>十九关与十八关的差别不大，输入admin发现这次回显的是Referer内容，那我们就猜测注入点在referer中，通过查询源码发现也确实如此，那么我们就可以进行爆库了。<br><img src="https://i.loli.net/2021/10/08/LYcdEMAT7rwzqXm.png"></p>
-<h1 id="less-20"><a href="#less-20" class="headerlink" title="less-20"></a>less-20</h1><p>通过标题提示我们知道这道题的关键在于cookie上。我们先去查看一波源码，发现这次的select语句对$cookie进行了查询，那么我们大可判断这次的注入点在cookie中。</p>
-<p>我们来先分析burp suite是如何进行这关的抓包的：<br>首先先验证账户密码是否正确，如果正确的话就进行set cookie<br><img src="https://i.loli.net/2021/10/08/midMaqUKQZCY69I.png"></p>
-<p>接下来forward之后我们就可以发现cookie已经被记录了下来：<br><img src="https://i.loli.net/2021/10/08/VL9TNUMhBs3WXge.png"><br>同时我们得知cookie只记录下了uname，这时我们修改cookie为1，用浏览器开发者工具读取cookie，发现admin依然保存在value值中。我们就可以判断当页面request时，若cookie中存在uname则直接读取，因此这题注入点就在cookie中。</p>
-<p>找到了注入点，我们就可以开始平平无奇的爆库了，直接简单的查询语句加注释就行。</p>
-<h1 id="less21-22"><a href="#less21-22" class="headerlink" title="less21-22"></a>less21-22</h1><p>到这里我们就进入了靶场的第二页了，恭喜自己能更进一步了。我们进入21关，基于base64的cookie注入。这里关于base64的知识可以参考下面这个文章：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/fengbingchun/article/details/85016088">base64介绍</a></p>
-<p>我们首先用burp suite进行抓包，发现这次的cookie中出现了这段代码：<br><code>Cookie: uname=YWRtaW4%3D</code><br>这里的%3D就是“=”，这是一段很经典的base64，不过我们自然不用一个个自己解码，burp suite中的Decoder模块中的decode as就可以进行base64的编码与解码，那么我们就先进行解码，结果为admin。<br><img src="https://i.loli.net/2021/10/08/LwigJRbC8SDW2hE.png"></p>
-<p>不过这题同第20关的区别也就在这里了，其他的操作与20关并无相异，注意注入是否有括号，接着我们只要将原来输入的代码先进性base64编码再注入就行了。<br><img src="https://i.loli.net/2021/10/08/rAIm37VyjxguGhH.png"><br><img src="https://i.loli.net/2021/10/08/Ve1yzAnGw8JBhWC.png"></p>
-<p>而第22关是基于双引号的报错，只要使用双引号就行了</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>进入了靶场的Page2，难度比起Page1显著增加，接下来将会对特殊符号进行过滤，这又是新的挑战了。</p>
+<h1 id="command-execution"><a href="#command-execution" class="headerlink" title="command_execution"></a>command_execution</h1><p>这题难度不是很高，但在web新手题里应该算是最难的了，这题要求我们运用到linux常用指令。不过在这之前，先简单说下提示中的waf，waf为web提供保护，可以有效防护sql注入等等手段，可以和防火墙结合起来一起理解。</p>
+<p>接着我们再介绍linux的命令执行中的“&amp;”和“|”的作用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c1 &amp;&amp; c2 先执行c1再执行c2</span><br><span class="line">c1 &amp; c2 先执行c2后执行c1</span><br><span class="line">c1 || c2 c1执行失败后执行c2，反之不执行c2</span><br><span class="line">c1 | c2 只执行c2</span><br></pre></td></tr></table></figure>
+
+<p>除了这些，我们还得了解linux基本指令。这题我们使用了ls指令和cat指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls 查看目录文件</span><br><span class="line">cat 读取文件</span><br></pre></td></tr></table></figure>
+
+<p>了解了这些，我们就可以解题了。我们直接查找当前目录下的文件：<br><img src="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png"></p>
+<p>就像这样，我们一级一级往上查找，找到根目录后进入home中，我们就可以发现flag就躺在里面，用cat指令打开查看就好了。<br><img src="https://i.loli.net/2021/10/17/JIupjWC1et4V2KS.png"><br><img src="https://i.loli.net/2021/10/17/6XSFjNi1s3BctL7.png"><br><img src="https://i.loli.net/2021/10/17/cNXPd4EyxomCKws.png"></p>
+<h1 id="simple-js"><a href="#simple-js" class="headerlink" title="simple_js"></a>simple_js</h1><p>按照道理来说，见面就要输密码的题，一般不太可能字典爆破的出来，再结合题目指向了js，那么我们就去查看网页的js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;JS&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function dechiffre(pass_enc)&#123;</span><br><span class="line">        var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;</span><br><span class="line">        var tab  = pass_enc.split(&#x27;,&#x27;);</span><br><span class="line">                var tab2 = pass.split(&#x27;,&#x27;);var i,j,k,l=0,m,n,o,p = &quot;&quot;;i = 0;j = tab.length;</span><br><span class="line">                        k = j + (l) + (n=0);</span><br><span class="line">                        n = tab2.length;</span><br><span class="line">                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;o = tab[i-l];p += String.fromCharCode((o = tab2[i]));</span><br><span class="line">                                if(i == 5)break;&#125;</span><br><span class="line">                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;</span><br><span class="line">                        o = tab[i-l];</span><br><span class="line">                                if(i &gt; 5 &amp;&amp; i &lt; k-1)</span><br><span class="line">                                        p += String.fromCharCode((o = tab2[i]));</span><br><span class="line">                        &#125;</span><br><span class="line">        p += String.fromCharCode(tab2[17]);</span><br><span class="line">        pass = p;return pass;</span><br><span class="line">    &#125;</span><br><span class="line">    String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));</span><br><span class="line"></span><br><span class="line">    h = window.prompt(&#x27;Enter password&#x27;);</span><br><span class="line">    alert( dechiffre(h) );</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>我们发现了一串/x……代码，这串代码的格式为十六进制码，我们把它转换为对应的ascii码值，得出的文本十进制再进行一次转换，得到密码为786OsErtk12，这就是flag内容。</p>
+<h1 id="isc-6"><a href="#isc-6" class="headerlink" title="isc-6"></a>isc-6</h1><p>根据题目我们进入报表中心，发现了熟悉的get点，这里下意识先进行sql注入，但发现全部尝试都失败了，果断排除sql注入。再经历了御剑，抓包的洗礼也没发现有问题，审计源码也没有问题，种种可能性都被排除，那么我们只能把目光锁定在id值上了。</p>
+<p>写一个最简单的脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for m in range(10001):</span><br><span class="line">    print(m)</span><br></pre></td></tr></table></figure>
+
+<p>输出的数据放入burp suite中进行字典爆破，发现当id值为2333时，返回的长度不同，那么我们把2333get上去，flag就显示出来了。<br><img src="https://i.loli.net/2021/10/17/l3EHVFv48JWZrCm.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>因为这周没做靶场，就拿这周练习的题目写了点wp，实际上做的题不止这些，不过有些因为过于简单，有些因为比较复杂，就都没有写出来，等实验室的比赛平台开了就去写比赛的wp。</p>
 
       
     </div>
@@ -415,7 +400,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web%E5%89%8D%E7%AB%AF-mysql/" rel="tag"># -web前端 -mysql</a>
+            <a href="/tags/web%E5%89%8D%E7%AB%AF-write-up-ctf/" rel="tag"># -web前端 -write up -ctf</a>
           
         </div>
       
@@ -428,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/05/sqli-labs%E7%BB%83%E4%B9%A0-less11-17/" rel="next" title="sqli-labs练习-less11-17">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less11-17
+              <a href="/2021/10/14/bugku%E7%BB%83%E4%B9%A0/" rel="next" title="bugku-web练习">
+                <i class="fa fa-chevron-left"></i> bugku-web练习
               </a>
             
           </div>
@@ -437,10 +422,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/14/bugku%E7%BB%83%E4%B9%A0/" rel="prev" title="bugku-web练习">
-                bugku-web练习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -579,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-18"><span class="nav-number"></span> <span class="nav-text">less-18</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-19"><span class="nav-number"></span> <span class="nav-text">less-19</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-20"><span class="nav-number"></span> <span class="nav-text">less-20</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less21-22"><span class="nav-number"></span> <span class="nav-text">less21-22</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#command-execution"><span class="nav-number"></span> <span class="nav-text">command_execution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-js"><span class="nav-number"></span> <span class="nav-text">simple_js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#isc-6"><span class="nav-number"></span> <span class="nav-text">isc-6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>

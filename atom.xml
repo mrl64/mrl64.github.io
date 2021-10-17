@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-14T09:52:40.860Z</updated>
+  <updated>2021-10-17T13:36:46.969Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>攻防世界</title>
+    <link href="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"/>
+    <id>http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/</id>
+    <published>2021-10-17T08:19:20.000Z</published>
+    <updated>2021-10-17T13:36:46.969Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。</p></blockquote><span id="more"></span><h1 id="command-execution"><a href="#command-execution" class="headerlink" title="command_execution"></a>command_execution</h1><p>这题难度不是很高，但在web新手题里应该算是最难的了，这题要求我们运用到linux常用指令。不过在这之前，先简单说下提示中的waf，waf为web提供保护，可以有效防护sql注入等等手段，可以和防火墙结合起来一起理解。</p><p>接着我们再介绍linux的命令执行中的“&amp;”和“|”的作用：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c1 &amp;&amp; c2 先执行c1再执行c2</span><br><span class="line">c1 &amp; c2 先执行c2后执行c1</span><br><span class="line">c1 || c2 c1执行失败后执行c2，反之不执行c2</span><br><span class="line">c1 | c2 只执行c2</span><br></pre></td></tr></table></figure><p>除了这些，我们还得了解linux基本指令。这题我们使用了ls指令和cat指令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls 查看目录文件</span><br><span class="line">cat 读取文件</span><br></pre></td></tr></table></figure><p>了解了这些，我们就可以解题了。我们直接查找当前目录下的文件：<br><img src="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png"></p><p>就像这样，我们一级一级往上查找，找到根目录后进入home中，我们就可以发现flag就躺在里面，用cat指令打开查看就好了。<br><img src="https://i.loli.net/2021/10/17/JIupjWC1et4V2KS.png"><br><img src="https://i.loli.net/2021/10/17/6XSFjNi1s3BctL7.png"><br><img src="https://i.loli.net/2021/10/17/cNXPd4EyxomCKws.png"></p><h1 id="simple-js"><a href="#simple-js" class="headerlink" title="simple_js"></a>simple_js</h1><p>按照道理来说，见面就要输密码的题，一般不太可能字典爆破的出来，再结合题目指向了js，那么我们就去查看网页的js</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;JS&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function dechiffre(pass_enc)&#123;</span><br><span class="line">        var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;</span><br><span class="line">        var tab  = pass_enc.split(&#x27;,&#x27;);</span><br><span class="line">                var tab2 = pass.split(&#x27;,&#x27;);var i,j,k,l=0,m,n,o,p = &quot;&quot;;i = 0;j = tab.length;</span><br><span class="line">                        k = j + (l) + (n=0);</span><br><span class="line">                        n = tab2.length;</span><br><span class="line">                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;o = tab[i-l];p += String.fromCharCode((o = tab2[i]));</span><br><span class="line">                                if(i == 5)break;&#125;</span><br><span class="line">                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;</span><br><span class="line">                        o = tab[i-l];</span><br><span class="line">                                if(i &gt; 5 &amp;&amp; i &lt; k-1)</span><br><span class="line">                                        p += String.fromCharCode((o = tab2[i]));</span><br><span class="line">                        &#125;</span><br><span class="line">        p += String.fromCharCode(tab2[17]);</span><br><span class="line">        pass = p;return pass;</span><br><span class="line">    &#125;</span><br><span class="line">    String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));</span><br><span class="line"></span><br><span class="line">    h = window.prompt(&#x27;Enter password&#x27;);</span><br><span class="line">    alert( dechiffre(h) );</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><p>我们发现了一串/x……代码，这串代码的格式为十六进制码，我们把它转换为对应的ascii码值，得出的文本十进制再进行一次转换，得到密码为786OsErtk12，这就是flag内容。</p><h1 id="isc-6"><a href="#isc-6" class="headerlink" title="isc-6"></a>isc-6</h1><p>根据题目我们进入报表中心，发现了熟悉的get点，这里下意识先进行sql注入，但发现全部尝试都失败了，果断排除sql注入。再经历了御剑，抓包的洗礼也没发现有问题，审计源码也没有问题，种种可能性都被排除，那么我们只能把目光锁定在id值上了。</p><p>写一个最简单的脚本：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for m in range(10001):</span><br><span class="line">    print(m)</span><br></pre></td></tr></table></figure><p>输出的数据放入burp suite中进行字典爆破，发现当id值为2333时，返回的长度不同，那么我们把2333get上去，flag就显示出来了。<br><img src="https://i.loli.net/2021/10/17/l3EHVFv48JWZrCm.png"></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>因为这周没做靶场，就拿这周练习的题目写了点wp，实际上做的题不止这些，不过有些因为过于简单，有些因为比较复杂，就都没有写出来，等实验室的比赛平台开了就去写比赛的wp。</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -write up -ctf" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-write-up-ctf/"/>
+    
+  </entry>
+  
+  <entry>
     <title>bugku-web练习</title>
     <link href="http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/"/>
     <id>http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/</id>
     <published>2021-10-14T06:55:42.000Z</published>
-    <updated>2021-10-14T09:52:40.860Z</updated>
+    <updated>2021-10-17T08:20:59.229Z</updated>
     
     <content type="html"><![CDATA[<blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。</p></blockquote><h1 id="滑稽"><a href="#滑稽" class="headerlink" title="滑稽"></a>滑稽</h1><p>看图实在费眼睛，直接f12查看源码找到flag走人就行了</p><span id="more"></span><h1 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h1><p>可以看到进入页面后是一道非常简单的计算题，答案一眼就能看出是70，但是我们打算输入时却发现，我们只能输入一个数字。使用f12查看源码，发现了这么一行：<br><code>&lt;input type=&quot;text&quot; class=&quot;input&quot; maxlength=&quot;1&quot;&gt;</code></p><p>输入的最大长度为1，那么我们把1改成2，再输入进行验证就可以得到flag了。<br><img src="https://i.loli.net/2021/10/14/VbeMC1hKi4rpqnt.png"></p><h1 id="GET-amp-amp-POST"><a href="#GET-amp-amp-POST" class="headerlink" title="GET &amp;&amp; POST"></a>GET &amp;&amp; POST</h1><p>非常直白的题目，这两题的页面都提供了php代码，分别以get和post上传一个waht=flag，flag就会回显出来了</p><h1 id="矛盾"><a href="#矛盾" class="headerlink" title="矛盾"></a>矛盾</h1><p>我们分析这题的代码，可以知道我们需要以get的方式上传一个数值为1的非数字，这样看来确实是矛盾的。但是我们可以发现这里的判断符为==而并非===，因此不比较两个变量的类型，这样我们就可以输入字符串而并非数字来进行判断。<br>这里我们get传入一个num=1a就可以了</p><h1 id="头等舱"><a href="#头等舱" class="headerlink" title="头等舱"></a>头等舱</h1><p>web中与头相关我们首先想到的就是响应头和请求头了，因此这题直接查看网页的响应头，发现flag就在其中。</p><h1 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h1><p>这题一进去我们查看源码，抓包等都一无所获，因此我们要想到对网页进行路径扫描，这里我们用了御剑进行扫描，发现了shell.php，也就是被人上传木马了。</p><p>我们进入shell.php，发现需要密码，如果你能灵机一动猜出密码是hack的话，那恭喜你，得到了flag，否则的话还是老老实实进行字典爆破吧。</p><h1 id="你必须让他停下"><a href="#你必须让他停下" class="headerlink" title="你必须让他停下"></a>你必须让他停下</h1><p>进入页面后发现页面一直在刷新，但是在查看源码时可以发现有一次刷新是可以显示flag的，那么我们就耐心抓包，抓到flag就算成功。</p><h1 id="本地管理员"><a href="#本地管理员" class="headerlink" title="本地管理员"></a>本地管理员</h1><p>进入页面发现要输入账号密码，尝试输入后发现ip禁止访问，我们通过抓包添加一个xxf的请求头，将其设置为127.0.0.1，接着提示了无效凭证，那么估计就是密码的问题了，爆破密码直接无脑字典，爆出来密码为test123，最后登录获取flag。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上八题都是比较简单的题目，主要接触了ctf题目的类型与解题思路，为周六的校赛做准备。</p>]]></content>
     
@@ -36,7 +59,7 @@
     <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="-web前端 -bugku -ctf" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-bugku-ctf/"/>
+    <category term="-web前端 -write up -ctf" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-write-up-ctf/"/>
     
   </entry>
   
