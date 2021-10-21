@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-17T13:36:46.969Z</updated>
+  <updated>2021-10-21T12:38:11.366Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-labs练习-less23-27</title>
+    <link href="http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/"/>
+    <id>http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/</id>
+    <published>2021-10-21T07:35:08.000Z</published>
+    <updated>2021-10-21T12:38:11.366Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;less-23&quot;&gt;&lt;a href=&quot;#less-23&quot; class=&quot;headerlink&quot; title=&quot;less-23&quot;&gt;&lt;/a&gt;less-23&lt;/h1&gt;&lt;p&gt;刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>攻防世界</title>

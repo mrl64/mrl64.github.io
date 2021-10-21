@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web前端 -write up -ctf," />
+  <meta name="keywords" content="-web前端 -mysql," />
 
 
 
@@ -81,20 +81,23 @@
 
 
 
-<meta name="description" content="前言由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。  滑稽看图实在费眼睛，直接f12查看源码找到flag走人就行了">
+<meta name="description" content="由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。  less-23刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bugku-web练习">
-<meta property="og:url" content="http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:title" content="sqli-labs练习-less23-27">
+<meta property="og:url" content="http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。  滑稽看图实在费眼睛，直接f12查看源码找到flag走人就行了">
+<meta property="og:description" content="由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。  less-23刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/10/14/VbeMC1hKi4rpqnt.png">
-<meta property="article:published_time" content="2021-10-14T06:55:42.000Z">
-<meta property="article:modified_time" content="2021-10-17T08:20:59.229Z">
+<meta property="og:image" content="https://i.loli.net/2021/10/21/tiSPdayRh48ZTsq.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/21/Q7jmh3VerUbDdTG.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/21/MWP4JZzbUcgpGqE.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/21/jYV9sDbOG7ASW5c.png">
+<meta property="article:published_time" content="2021-10-21T07:35:08.000Z">
+<meta property="article:modified_time" content="2021-10-21T12:38:11.366Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web前端 -write up -ctf">
+<meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/14/VbeMC1hKi4rpqnt.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/21/tiSPdayRh48ZTsq.png">
 
 
 
@@ -124,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/14/bugku练习/"/>
+  <link rel="canonical" href="http://example.com/2021/10/21/sqli-labs练习-less23-27/"/>
 
 
 
 
 
-  <title>bugku-web练习 | mrl64's Blog</title>
+  <title>sqli-labs练习-less23-27 | mrl64's Blog</title>
   
 
 
@@ -267,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -284,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">bugku-web练习</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less23-27</h1>
         
 
         <div class="post-meta">
@@ -296,8 +299,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-14T14:55:42+08:00">
-                2021-10-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-21T15:35:08+08:00">
+                2021-10-21
               </time>
             
 
@@ -357,21 +360,46 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。</p>
+<p>由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。</p>
 </blockquote>
-<h1 id="滑稽"><a href="#滑稽" class="headerlink" title="滑稽"></a>滑稽</h1><p>看图实在费眼睛，直接f12查看源码找到flag走人就行了</p>
+<h1 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h1><p>刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：</p>
 <span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$reg = &quot;/#/&quot;;</span><br><span class="line">$reg1 = &quot;/--/&quot;;</span><br><span class="line">$replace = &quot;&quot;;</span><br><span class="line">$id = preg_replace($reg, $replace, $id);</span><br><span class="line">$id = preg_replace($reg1, $replace, $id);</span><br></pre></td></tr></table></figure>
 
-<h1 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h1><p>可以看到进入页面后是一道非常简单的计算题，答案一眼就能看出是70，但是我们打算输入时却发现，我们只能输入一个数字。使用f12查看源码，发现了这么一行：<br><code>&lt;input type=&quot;text&quot; class=&quot;input&quot; maxlength=&quot;1&quot;&gt;</code></p>
-<p>输入的最大长度为1，那么我们把1改成2，再输入进行验证就可以得到flag了。<br><img src="https://i.loli.net/2021/10/14/VbeMC1hKi4rpqnt.png"></p>
-<h1 id="GET-amp-amp-POST"><a href="#GET-amp-amp-POST" class="headerlink" title="GET &amp;&amp; POST"></a>GET &amp;&amp; POST</h1><p>非常直白的题目，这两题的页面都提供了php代码，分别以get和post上传一个waht=flag，flag就会回显出来了</p>
-<h1 id="矛盾"><a href="#矛盾" class="headerlink" title="矛盾"></a>矛盾</h1><p>我们分析这题的代码，可以知道我们需要以get的方式上传一个数值为1的非数字，这样看来确实是矛盾的。但是我们可以发现这里的判断符为==而并非===，因此不比较两个变量的类型，这样我们就可以输入字符串而并非数字来进行判断。<br>这里我们get传入一个num=1a就可以了</p>
-<h1 id="头等舱"><a href="#头等舱" class="headerlink" title="头等舱"></a>头等舱</h1><p>web中与头相关我们首先想到的就是响应头和请求头了，因此这题直接查看网页的响应头，发现flag就在其中。</p>
-<h1 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h1><p>这题一进去我们查看源码，抓包等都一无所获，因此我们要想到对网页进行路径扫描，这里我们用了御剑进行扫描，发现了shell.php，也就是被人上传木马了。</p>
-<p>我们进入shell.php，发现需要密码，如果你能灵机一动猜出密码是hack的话，那恭喜你，得到了flag，否则的话还是老老实实进行字典爆破吧。</p>
-<h1 id="你必须让他停下"><a href="#你必须让他停下" class="headerlink" title="你必须让他停下"></a>你必须让他停下</h1><p>进入页面后发现页面一直在刷新，但是在查看源码时可以发现有一次刷新是可以显示flag的，那么我们就耐心抓包，抓到flag就算成功。</p>
-<h1 id="本地管理员"><a href="#本地管理员" class="headerlink" title="本地管理员"></a>本地管理员</h1><p>进入页面发现要输入账号密码，尝试输入后发现ip禁止访问，我们通过抓包添加一个xxf的请求头，将其设置为127.0.0.1，接着提示了无效凭证，那么估计就是密码的问题了，爆破密码直接无脑字典，爆出来密码为test123，最后登录获取flag。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上八题都是比较简单的题目，主要接触了ctf题目的类型与解题思路，为周六的校赛做准备。</p>
+<p>这行代码的原理就是检测到id中存在注释符时使用空代替，因此平常的注释方法就失效了，不过我们还有其他的方法——闭合语句法。原来我们要使用注释符是因为我们手动加上了一个单引号导致源码中单引号无法匹配，因此使用注释符将后面的单引号注释掉。不过这个方法现在行不通了，那我们就换个思路，手动闭合单引号就可以了。</p>
+<p>我们可以使用<code>or&#39;1</code>或者<code>or&#39;1&#39;=&#39;1</code>来进行闭合，效果如下：<br><img src="https://i.loli.net/2021/10/21/tiSPdayRh48ZTsq.png"></p>
+<p>不过此处我们无法用单引号闭合在执行order by语句，由于order by之后需要使用数字，这里加入引号使数字转换成了字符串导致错误，我们在这里介绍另一个绕过方法，使用<code>%00</code>：</p>
+<p>具体原理可以参照下面这个链接，简单来说%00截断也就是0x00，系统在读取到0x00后就会停止继续读取，从而起到过滤后面单引号的作用：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zpy1998zpy/article/details/80545408">0x00截断原理</a></p>
+<p>不过既然是截断了，我们在构建注入语句时一定要记得加上分号，效果如下：<br><img src="https://i.loli.net/2021/10/21/Q7jmh3VerUbDdTG.png"></p>
+<p>这样就解决了我们order by的使用问题，接下来就可以进行爆库了。</p>
+<h1 id="less-24"><a href="#less-24" class="headerlink" title="less-24"></a>less-24</h1><p>一道POST题，我们发现这道题就比较复杂了，页面中有很多选项，有忘记密码，有创建账户，原页面是登录。根据标题内容提示我们这关是双重注入，我们先介绍一下双重注入：</p>
+<p>首先我们在http请求中提交一次恶意输入使其保存进数据库中，接着我们第二次提交http请求，为了响应这次的请求程序会检索数据库中的恶意输入，成功则会返回对应结果。</p>
+<p>了解原理后，接下来我们来审查源码，首先是index.php，一上来就是这串代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">session_start();</span><br><span class="line">if (isset($_SESSION[&#x27;username&#x27;]) &amp;&amp; isset($_COOKIE[&#x27;Auth&#x27;])) &#123;</span><br><span class="line">   header(&#x27;Location: logged-in.php&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Session_start()：开始一个会话或者返回已经存在的会话，session函数保证了cookie可以在多个页面中被应用。我们继续审查，会发现几乎每个POST点都被保护的很严密，除了pass_change.php；中的username参数是直接通过session传入的，这就意味着这里存在注入点。</p>
+<p>那么我们首先创造一个账户，用户名为admin’#。注意，字符的转义是暂时的，不会影响存入数据库中的值。</p>
+<p>为什么我们这里要取这个名字，我们来分析更改密码的update代码：<br><code>$sql = &quot;UPDATE users SET PASSWORD=&#39;$pass&#39; where username=&#39;$username&#39; and password=&#39;$curr_pass&#39; &quot;;</code></p>
+<p>这里我们的username对应的值为admin’#,代入代码后我们得到的指令是这样的：<br><code>$sql = &quot;UPDATE users SET PASSWORD=&#39;$pass&#39; where username=&#39;admin&#39;#&#39; and password=&#39;$curr_pass&#39; &quot;;</code></p>
+<p>一目了然，username中的单引号闭合了代码中的单引号，而#起到了过滤作用，使得我们无需验证原密码也可以进行改密，接着我们就可以把admin的密码进行更改了。</p>
+<p>没错，之前写到的admin密码123456我就是在这关改的。最后我们更改密码并登陆admin，解题成功。</p>
+<h1 id="less-25-amp-25a"><a href="#less-25-amp-25a" class="headerlink" title="less-25&amp;25a"></a>less-25&amp;25a</h1><p>这两关本质上是一样的，放一起讲。这关的提示文字都已经贴在我们脸上告诉我们除了注释符，and和or都不能用了。那么首先，23关的%00截断法在这关仍然适用，但如果这样那就和less-23没区别了，那我们换种方法。</p>
+<p>这个替换的原理是检测到or或者and就替换成空格，那么我们可以套娃，套一个<code>anandd</code>或者<code>oorr</code>出来，系统过滤了其中的and和or后，我们还能剩下一个and和or，要注意，只要存在and和or，不管是在单词中还是单独的，我们都需要进行套娃，例如information我们就要写成infoorrmation。</p>
+<p>除此之外，将URL进行编码也是可以的，URL编码直接使用burp suite就可以了。如果是单独的and和or的话，我们也可以用&amp;&amp;和||替换，网上说大小写变形可以注入，但我测试了是不行的，查看源码也是说不区分大小写。</p>
+<p>25a由于没有回显，因此使用盲注就可以了。</p>
+<h1 id="less-26-amp-26a"><a href="#less-26-amp-26a" class="headerlink" title="less-26&amp;26a"></a>less-26&amp;26a</h1><p>现在这关向着不做人更进一步，空格也给过滤掉了，不过问题也不大，对空格的过滤我们有一套完整的解决方案：</p>
+<ul>
+<li>特殊字符（%号家族）：包括但不限于%20 %09 %0a %0b %0c %0d %a0</li>
+<li>注释：/**/</li>
+<li>使用括号，记得要闭合每个括号</li>
+</ul>
+<p>常用的方法就是以上三者，这里使用括号来做示范：<br><code>http://127.0.0.1/Less-26/?id=1%27oorr(extractvalue(1,concat(0x7e,(database()),0x7e)))aandnd%20%271%27=%271</code><br><img src="https://i.loli.net/2021/10/21/MWP4JZzbUcgpGqE.png"></p>
+<p>用联合注入当然也可以。要注意，注释方法也被过滤了，而特殊字符在windows中可能出现无法被替换成空格的问题，因此在windows下建议使用括号进行绕过。</p>
+<p>26a中采用的过滤方式为单引号+括号，且关闭了错误回显，因此只能使用盲注，具体情况和26关一样。</p>
+<h1 id="less-27-amp-27a"><a href="#less-27-amp-27a" class="headerlink" title="less-27&amp;27a"></a>less-27&amp;27a</h1><p>这关就没有过滤and和or了，但是我们失去了union和select，同时我们发现有些过滤语句后面的反斜杠上有m或s，这是什么意思呢，这是设定的修正符，修正符的具体效果参照下面这个链接：<br><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/reference.pcre.pattern.modifiers.php#reference.pcre.pattern.modifiers">正则表达式中的修正符</a></p>
+<p>不过我们发现这里的union select可以使用混合大小写来绕过，而且源码中的正则表达式意味着只要含有就会被过滤，套娃方法在这关就失效了。同时这关的负号也被过滤了，因此id值应该GET一个例如999的数。最后进行爆库就行了。当然报错与盲注一样都是可以的。<br><img src="https://i.loli.net/2021/10/21/jYV9sDbOG7ASW5c.png"></p>
+<p>27a同样是没有报错，与27没有什么差别，盲注就行了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>先写到27关，因为在做28关时发现了linux与windows靶场使用同一个注入方式，linux无法显示而windows正常回显的情况，初步猜测是php版本不同导致的问题，等下回继续研究。</p>
 
       
     </div>
@@ -389,7 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web%E5%89%8D%E7%AB%AF-write-up-ctf/" rel="tag"># -web前端 -write up -ctf</a>
+            <a href="/tags/web%E5%89%8D%E7%AB%AF-mysql/" rel="tag"># -web前端 -mysql</a>
           
         </div>
       
@@ -402,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/" rel="next" title="sqli-labs练习-less18-22">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less18-22
+              <a href="/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="next" title="攻防世界">
+                <i class="fa fa-chevron-left"></i> 攻防世界
               </a>
             
           </div>
@@ -411,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="prev" title="攻防世界">
-                攻防世界 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -553,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BB%91%E7%A8%BD"><span class="nav-number"></span> <span class="nav-text">滑稽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="nav-number"></span> <span class="nav-text">计算器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GET-amp-amp-POST"><span class="nav-number"></span> <span class="nav-text">GET &amp;&amp; POST</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%9B%E7%9B%BE"><span class="nav-number"></span> <span class="nav-text">矛盾</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%B4%E7%AD%89%E8%88%B1"><span class="nav-number"></span> <span class="nav-text">头等舱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91"><span class="nav-number"></span> <span class="nav-text">网站被黑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%A0%E5%BF%85%E9%A1%BB%E8%AE%A9%E4%BB%96%E5%81%9C%E4%B8%8B"><span class="nav-number"></span> <span class="nav-text">你必须让他停下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number"></span> <span class="nav-text">本地管理员</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#less-23"><span class="nav-number">1.</span> <span class="nav-text">less-23</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-24"><span class="nav-number">2.</span> <span class="nav-text">less-24</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-25-amp-25a"><span class="nav-number">3.</span> <span class="nav-text">less-25&amp;25a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-26-amp-26a"><span class="nav-number">4.</span> <span class="nav-text">less-26&amp;26a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-27-amp-27a"><span class="nav-number">5.</span> <span class="nav-text">less-27&amp;27a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
