@@ -81,24 +81,22 @@
 
 
 
-<meta name="description" content="前言进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。  less-5方法1进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然">
+<meta name="description" content="前言专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。  less-28先讲解题思路。通过标题提示与源码的分析，我们知道这题除了过滤注释符与空格之外，还将连续的union select给过滤了：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习-less5-6">
-<meta property="og:url" content="http://example.com/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/index.html">
+<meta property="og:title" content="sqli-lab练习-28及%a0分析">
+<meta property="og:url" content="http://example.com/2021/10/23/sqli-labs%E7%BB%83%E4%B9%A0less-28%E5%8F%8A%a0%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。  less-5方法1进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然">
+<meta property="og:description" content="前言专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。  less-28先讲解题思路。通过标题提示与源码的分析，我们知道这题除了过滤注释符与空格之外，还将连续的union select给过滤了：">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/1BGWukLCISofDxE.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/QF2cqUDsCgvHzpi.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/g6x4jGnhWv8ESP2.png">
-<meta property="og:image" content="https://i.loli.net/2021/09/28/GF8TrDVClogQ4wy.png">
-<meta property="article:published_time" content="2021-09-28T12:18:07.000Z">
-<meta property="article:modified_time" content="2021-09-28T13:43:40.715Z">
+<meta property="og:image" content="https://i.loli.net/2021/10/23/ozNXKe96yBJOPx3.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/23/uTtWAn9vDCcgZp4.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/23/zLVoJ9NZxATj4B1.png">
+<meta property="article:published_time" content="2021-10-23T03:06:28.000Z">
+<meta property="article:modified_time" content="2021-10-23T07:54:08.026Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/23/ozNXKe96yBJOPx3.png">
 
 
 
@@ -128,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/09/28/sqli-labs练习-less5-6/"/>
+  <link rel="canonical" href="http://example.com/2021/10/23/sqli-labs练习less-28及%a0分析/"/>
 
 
 
 
 
-  <title>sqli-labs练习-less5-6 | mrl64's Blog</title>
+  <title>sqli-lab练习-28及%a0分析 | mrl64's Blog</title>
   
 
 
@@ -271,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/28/sqli-labs%E7%BB%83%E4%B9%A0-less5-6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/23/sqli-labs%EF%BF%BD%60less-28%CA%A0%06%EF%BF%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -288,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less5-6</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-lab练习-28及%a0分析</h1>
         
 
         <div class="post-meta">
@@ -300,8 +298,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-28T20:18:07+08:00">
-                2021-09-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-23T11:06:28+08:00">
+                2021-10-23
               </time>
             
 
@@ -361,26 +359,32 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>进入第五个靶场以后，我们需要运用到的知识就更为广泛了，仅凭借less1-4的方式是无法解决问题的。因此我们要后面的靶场中要多去搜索，尽力去理解每一关中的注入类型，学会更多的注入姿势。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。</p>
 </blockquote>
-<h1 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然如此，我们依然在域名最后先加上一个单引号。</p>
+<h1 id="less-28"><a href="#less-28" class="headerlink" title="less-28"></a>less-28</h1><p>先讲解题思路。通过标题提示与源码的分析，我们知道这题除了过滤注释符与空格之外，还将连续的<code>union select</code>给过滤了：</p>
 <span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$id= preg_replace(&#x27;/[\/\*]/&#x27;,&quot;&quot;, $id);	//strip out /*</span><br><span class="line">$id= preg_replace(&#x27;/[--]/&#x27;,&quot;&quot;, $id);	//Strip out --.</span><br><span class="line">$id= preg_replace(&#x27;/[#]/&#x27;,&quot;&quot;, $id);		//Strip out #.</span><br><span class="line">$id= preg_replace(&#x27;/[ +]/&#x27;,&quot;&quot;, $id);	//Strip out spaces.</span><br><span class="line">//$id= preg_replace(&#x27;/select/m&#x27;,&quot;&quot;, $id);</span><br><span class="line">//Strip out spaces.</span><br><span class="line">$id= preg_replace(&#x27;/[ +]/&#x27;,&quot;&quot;, $id)	//Strip out spaces.</span><br><span class="line">$id= preg_replace(&#x27;/union\s+select/i&#x27;,&quot;&quot;, $id);  </span><br><span class="line">//Strip out UNION &amp; SELECT.</span><br><span class="line">return $id;</span><br></pre></td></tr></table></figure>
 
-<p>回车来了，报错就有了。这是一段与less-1完全一致的报错，加上注释后回显恢复正常，再用and 1=1和and 1=2检验后可以确定这里存在注入点。既然存在注入点，那就有解开它的方法。但是显然，不管我们怎样更改id的值，得到的永远只有那句“You are in……..”。</p>
-<p>显然前四关使用union联合查询的方法在这关不起作用。那么我们就得换个思路了，提示指向了双查询注入，那么我们就将目光放到双查询注入上。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wn314/article/details/89297560">双查询注入原理浅析</a><br>我们可以先通过上面的网址简单了解双查询注入的运行原理，了解之后我们将这段floor()报错的语句摘取出来：<br><code>and (select 1 from (select count(*),concat((查询语句),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
-<p>这段代码就是我们解开问题的关键所在，将这段代码中的查询语句改为database()并补入域名之中，可以发现报错已经回显了当前所在的数据库名：<br><img src="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png"></p>
-<p>这时我们也许会有疑问了，为什么数据库的名字变成了“security1”呢？其实这不是因为数据库的名字变了，而是这个“1”为floor()报错语句中输出的一部分，无论输出什么都会出现这个“1”，因此数据库的实际名称仍然为“security”。</p>
-<p>既然问题解决了，那么就进入了愉快的爆库流程了，但是当我们在获取表中的数据时，出现了这么一行：</p>
+<p>过滤是相当严格的，不过我们已经学习了这么多注入方法，既然联合注入语句内容被过滤，我们可以使用盲注法来注入（由于报错不会回显因此不考虑报错注入）。但是我们要练习的就是绕过过滤的方法，因此我们依然采用联合查询进行注入。</p>
+<p>关于注释符与空格的绕过上篇博客已经介绍过了，这里来介绍如何绕过对union select的过滤（单引号+括号注入）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27;)unionunion%0aselect%0aselect%0a1,database(),3;%00</span><br><span class="line"></span><br><span class="line">?id=0&#x27;)ununion%0aselection%0aselect%0a1,database(),3;%00</span><br></pre></td></tr></table></figure>
+
+<p>这种方法是双写绕过，我们发现输入后页面在hint部分回显内容都为正常的联合查询语句，原理都是让union%0aselect被过滤，剩下的内容刚好构成一个新的union%0aselect，从而进行联合查询，当然这里的%a0可以替换为其他不可打印字符代替。<br><img src="https://i.loli.net/2021/10/23/ozNXKe96yBJOPx3.png"></p>
+<p>到这里我们就可以进行爆库操作了。</p>
+<h1 id="关于-a0分析"><a href="#关于-a0分析" class="headerlink" title="关于%a0分析"></a>关于%a0分析</h1><p>这道题其实已经解完了，但是我们在回顾源码中关于union select的过滤语句：<br><code>$id= preg_replace(&#39;/union\s+select/i&#39;,&quot;&quot;, $id); </code></p>
+<p>union的后面有一个\s+，这就意味着所有的空格、空白符以及换行符在这里全部都被过滤了，而这个加号意味着多次匹配，因此我们也不能通过双写空格的方式来绕过。但在这其中，有一个例外：<code>%a0</code></p>
+<p>注意到这个玩意也是我发现其他人构建了一句这样的语句：<br><code>?id=0&#39;)union%a0select(1),(database()),(3);%00</code></p>
+<p>%a0是经过URL编码的不可打印字符，代表的是空格，按道理来说是应该要被过滤掉的，但是居然没有，相当神奇。不过我们在linux下跑php7靶场时，发现了问题：<br><img src="https://i.loli.net/2021/10/23/uTtWAn9vDCcgZp4.png"></p>
+<p>我们想要的数据库名称居然没有正常回显，看下hint的显示，union与select之间居然出现了一个奇怪的符号，这就相当离谱了，我们回主机的靶场上跑：<br><img src="https://i.loli.net/2021/10/23/zLVoJ9NZxATj4B1.png"></p>
+<p>翻译翻译什么叫惊喜，这就叫惊喜，hint语句出来是一样的，但是主机靶场就是不讲道理地回显了数据库名。这里我们开始做推测：</p>
 <ul>
-<li>Subquery returns more than 1 row</li>
+<li>linux系统下读取解析%a0结果与windows系统下结果不同，导致在linux系统下出现语法错误</li>
+<li>php版本不同导致%a0解析结果不同</li>
 </ul>
-<p>我们页面的信息超过了一行，在我们使用了group_concat函数的情况下显示这个报错说明了这里的字符长度超过了64位。这种情况下，我们应该使用limit数来进行一个个输出：<br><code>select concat(列名) from 数据库名.数据表名 limit 0,1</code><br><img src="https://i.loli.net/2021/09/28/1BGWukLCISofDxE.png"></p>
-<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>用完floor()报错后，我就在想有没有其他的报错方法也能达到相同的效果呢，结果还真有：<br><code>updatexml(1,concat(0x7e, 查询语句,0x7e),1)</code><br>或者<br><code>extractvalue(1,concat(0x7e,查询语句,0x7e))</code><br>这两句代码的具体语法可以参考下面这个链接的教程：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zpy1998zpy/article/details/80631036">方法2中的报错注入</a></p>
-<p>这里简单介绍下这两句代码的报错原理，这两句代码的第二个参数需要设置Xpath格式的字符串，而“0x7e”，即“~”开头不符合其语法，concat()函数为字符串连接函数不符合规则，导致代码中括号内的结果以错误的形式报出，达到目的。</p>
-<p>而这两句代码的字符串限制为32位，因此在进行爆表流程时，我们也应该使用limit函数将数据一行一行显示出来，达到同样效果。<br><img src="https://i.loli.net/2021/09/28/QF2cqUDsCgvHzpi.png"></p>
-<h1 id="less-6"><a href="#less-6" class="headerlink" title="less-6"></a>less-6</h1><p>观察less-6的标题，发现好像就是把单引号变成了双引号，那是不是我们也只要将代码中id后面的单引号变成双引号呢？</p>
-<p>要是真的这么想，那你可真是太聪明了，这关真的就只要把单引号改成双引号就可以了，然后就根据第五关的方法就可以顺利解开了。<br><img src="https://i.loli.net/2021/09/28/g6x4jGnhWv8ESP2.png"><br><img src="https://i.loli.net/2021/09/28/GF8TrDVClogQ4wy.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过练习靶场中的less5-6，我们了解并学习了sql注入中的双重查询注入与报错回显，这两关靶场的新内容明显多于前四个靶场，越往后深入，我们也会学习到更多的新内容。因此我们必须记录下自己的学习历程，不断进步，不断提高。</p>
+<p>在此之前，我们首先了解到了这个%a0在此处被解析出的结果，它是空格，但又不完全是，因为如果是空格的话，例如我们使用%0a替换%a0，hint回显应该是连union select一起被过滤了，很显然这里却没有，但是在主机靶场中这个%a0又起到了空格的作用。</p>
+<p>通过在主机另外搭建了一个php7的靶场测试，发现hint是一样的，但是没有数据库名的回显，这证明了php版本是肯定有问题的，但是第一点暂时没有证明，因为现在的linux系统只能安装php7及以上版本。</p>
+<p>通过资料我们发现，%a0解析成空格只有在php5.2.17版本可以通过成功，目前看来应该是php版本的问题。28a采用盲注就行了，甚至28a连空格和注释符都没过滤。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>做这题时发现了神奇的%a0，就单开了一篇博客记录下来，后面三关是waf相关的内容，用到了tomcat与apache双服务器，因此要配置tomcat。</p>
 
       
     </div>
@@ -411,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/" rel="next" title="sqli-labs练习-less2-4">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less2-4
+              <a href="/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/" rel="next" title="sqli-labs练习-less23-27">
+                <i class="fa fa-chevron-left"></i> sqli-labs练习-less23-27
               </a>
             
           </div>
@@ -420,10 +424,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/01/sqli-labs%E7%BB%83%E4%B9%A0-less7/" rel="prev" title="sqli-labs练习-less7">
-                sqli-labs练习-less7 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-5"><span class="nav-number"></span> <span class="nav-text">less-5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%951"><span class="nav-number">1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%952"><span class="nav-number">2.</span> <span class="nav-text">方法2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-6"><span class="nav-number"></span> <span class="nav-text">less-6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-28"><span class="nav-number"></span> <span class="nav-text">less-28</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-a0%E5%88%86%E6%9E%90"><span class="nav-number"></span> <span class="nav-text">关于%a0分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
