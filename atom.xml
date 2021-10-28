@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-10-25T15:00:45.651Z</updated>
+  <updated>2021-10-28T15:46:39.133Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>sqli-labs练习-less-29-37</title>
+    <link href="http://example.com/2021/10/28/sqli-labs%E7%BB%83%E4%B9%A0-less-29-37/"/>
+    <id>http://example.com/2021/10/28/sqli-labs%E7%BB%83%E4%B9%A0-less-29-37/</id>
+    <published>2021-10-28T12:47:12.000Z</published>
+    <updated>2021-10-28T15:46:39.133Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;这几关主要练习waf与单引号过滤的绕过，其中29-31关需要配置好tomcat并开启服务，接下来开始解题&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>学习解析Unicode与gbk编码</title>
     <link href="http://example.com/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/"/>
     <id>http://example.com/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/</id>
     <published>2021-10-25T02:56:38.000Z</published>
-    <updated>2021-10-25T15:00:45.651Z</updated>
+    <updated>2021-10-25T15:14:14.420Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -30,7 +51,7 @@
     
     
     
-    <category term="web" scheme="http://example.com/categories/web/"/>
+    <category term="others" scheme="http://example.com/categories/others/"/>
     
     
     <category term="-编码" scheme="http://example.com/tags/%E7%BC%96%E7%A0%81/"/>
