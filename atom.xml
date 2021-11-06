@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-02T11:42:12.413Z</updated>
+  <updated>2021-11-06T05:50:39.892Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqlmap使用练习</title>
+    <link href="http://example.com/2021/11/06/sqlmap%E4%BD%BF%E7%94%A8%E7%BB%83%E4%B9%A0/"/>
+    <id>http://example.com/2021/11/06/sqlmap%E4%BD%BF%E7%94%A8%E7%BB%83%E4%B9%A0/</id>
+    <published>2021-11-06T01:14:59.000Z</published>
+    <updated>2021-11-06T05:50:39.892Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;手动进行SQL注入效率还是没有工具高啊，掌握对工具的使用可以帮助我们提高效率。先以sqli-labs基础篇为例学习sqlmap基础功能。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>php反序列化漏洞应用</title>
