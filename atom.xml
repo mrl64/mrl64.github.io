@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-06T05:50:39.892Z</updated>
+  <updated>2021-11-11T14:00:44.528Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sql无列名注入与作业wp</title>
+    <link href="http://example.com/2021/11/11/sql%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BD%9C%E4%B8%9Awp/"/>
+    <id>http://example.com/2021/11/11/sql%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BD%9C%E4%B8%9Awp/</id>
+    <published>2021-11-11T09:08:46.000Z</published>
+    <updated>2021-11-11T14:00:44.528Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;实训室讲了mysql的联合查询注入与无列名注入，因为联合查询做靶场就写过了，这里就专门解析无列名注入，并且写下布置的作业wp。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>sqlmap使用练习</title>
