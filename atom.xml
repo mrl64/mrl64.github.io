@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-12T12:23:51.988Z</updated>
+  <updated>2021-11-13T12:38:24.591Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【2021深育杯】misc-login write up</title>
+    <link href="http://example.com/2021/11/13/%E3%80%902021%E6%B7%B1%E8%82%B2%E6%9D%AF%E3%80%91misc-login-write-up/"/>
+    <id>http://example.com/2021/11/13/%E3%80%902021%E6%B7%B1%E8%82%B2%E6%9D%AF%E3%80%91misc-login-write-up/</id>
+    <published>2021-11-13T11:02:51.000Z</published>
+    <updated>2021-11-13T12:38:24.591Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;别问为什么一个web手写了个misc的题，问就是web根本不会。这次比赛连签到题全队做了3题，并列70-80名那一带。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="misc" scheme="http://example.com/categories/misc/"/>
+    
+    
+    <category term="-ctf -misc" scheme="http://example.com/tags/ctf-misc/"/>
+    
+  </entry>
   
   <entry>
     <title>sql无列名注入与作业wp</title>
@@ -347,20 +368,12 @@
     <link href="http://example.com/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/"/>
     <id>http://example.com/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/</id>
     <published>2021-09-27T12:44:02.000Z</published>
-    <updated>2021-09-27T14:00:24.221Z</updated>
+    <updated>2021-11-13T11:09:52.112Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;less-2&quot;&gt;&lt;a href=&quot;#less-2&quot; class=&quot;headerlink&quot; title=&quot;less-2&quot;&gt;&lt;/a&gt;less-2&lt;/h1&gt;&lt;p&gt;又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。&lt;br&gt;less-1输入单引号后的报错：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’ LIMIT 0,1’ at line 1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;less-2输入单引号后的报错：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’ LIMIT 0,1’ at line 1&lt;/li&gt;
-&lt;/ul&gt;</summary>
+&lt;/blockquote&gt;</summary>
     
     
     

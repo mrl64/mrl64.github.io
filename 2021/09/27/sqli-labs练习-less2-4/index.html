@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="前言在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。  less-2又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。less-1输入单引号后的报错：  You have an error in your SQ">
+<meta name="description" content="前言在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs练习-less2-4">
 <meta property="og:url" content="http://example.com/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。  less-2又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。less-1输入单引号后的报错：  You have an error in your SQ">
+<meta property="og:description" content="前言在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/09/27/bWogKnu5CxMd4HI.png">
 <meta property="og:image" content="https://i.loli.net/2021/09/27/xocBKpOmCATIgSr.png">
 <meta property="og:image" content="https://i.loli.net/2021/09/27/vCE83o4WDuNLY9K.png">
 <meta property="article:published_time" content="2021-09-27T12:44:02.000Z">
-<meta property="article:modified_time" content="2021-09-27T14:00:24.221Z">
+<meta property="article:modified_time" content="2021-11-13T11:09:52.112Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
@@ -361,6 +361,8 @@
         <blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。</p>
 </blockquote>
+<span id="more"></span>
+
 <h1 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h1><p>又看到了那段熟悉的提示，依旧十分愉快地输入上id，也十分愉快地看到了熟悉的账户密码。但是我们再次注入单引号时，发现了这次的报错提示与less-1不一样了。<br>less-1输入单引号后的报错：</p>
 <ul>
 <li>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’ LIMIT 0,1’ at line 1</li>
@@ -369,7 +371,6 @@
 <ul>
 <li>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’ LIMIT 0,1’ at line 1</li>
 </ul>
-<span id="more"></span>
 <p>我们发现引号之中的’1’不见了，再结合第二关的提示（GET-Error based-Intiger based），我们就可以知道在这一关中的sql查询代码中原本id两边的单引号不见了，我们去翻阅下源代码，果不其然：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$sql=&quot;SELECT * FROM users WHERE id=$id LIMIT 0,1&quot;;</span><br><span class="line">$result=mysql_query($sql);</span><br><span class="line">$row = mysql_fetch_array($result);</span><br></pre></td></tr></table></figure>
 
@@ -507,7 +508,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -518,7 +519,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -529,7 +530,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
