@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-13T12:38:24.591Z</updated>
+  <updated>2021-11-15T05:27:08.504Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2021极客大挑战-web 部分write up</title>
+    <link href="http://example.com/2021/11/14/2021%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-web-%E9%83%A8%E5%88%86write-up/"/>
+    <id>http://example.com/2021/11/14/2021%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-web-%E9%83%A8%E5%88%86write-up/</id>
+    <published>2021-11-14T11:04:42.000Z</published>
+    <updated>2021-11-15T05:27:08.504Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;2021的极客大挑战结束了，题目还是挺有意思的，也粗略认识学习了很多新东西，web做了11题出来，都大致写下思路吧。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-ctf -web" scheme="http://example.com/tags/ctf-web/"/>
+    
+  </entry>
   
   <entry>
     <title>【2021深育杯】misc-login write up</title>
@@ -425,28 +446,6 @@
     
     
     <category term="-web前端 -html" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-html/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于新手写博客时的常用md语法</title>
-    <link href="http://example.com/2021/09/20/%E5%85%B3%E4%BA%8E%E6%96%B0%E6%89%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E6%97%B6%E7%9A%84%E5%B8%B8%E7%94%A8md%E8%AF%AD%E6%B3%95/"/>
-    <id>http://example.com/2021/09/20/%E5%85%B3%E4%BA%8E%E6%96%B0%E6%89%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E6%97%B6%E7%9A%84%E5%B8%B8%E7%94%A8md%E8%AF%AD%E6%B3%95/</id>
-    <published>2021-09-20T14:23:26.000Z</published>
-    <updated>2021-09-22T13:29:37.868Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言：&quot;&gt;&lt;a href=&quot;#前言：&quot; class=&quot;headerlink&quot; title=&quot;前言：&quot;&gt;&lt;/a&gt;前言：&lt;/h2&gt;&lt;p&gt;当我们搭建完github+hexo的博客进入实验室后，我们所要面对的第一个问题便是如何用markdown语法写下自己的第一篇博客。我在阅读学习markdown语法与一些网上教程说明后，总结了一些常用markdown语法供参考。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;一、关于标题&quot;&gt;&lt;a href=&quot;#一、关于标题&quot; class=&quot;headerlink&quot; title=&quot;一、关于标题&quot;&gt;&lt;/a&gt;一、关于标题&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="other" scheme="http://example.com/categories/other/"/>
-    
-    
-    <category term="-markdown -hexo" scheme="http://example.com/tags/markdown-hexo/"/>
     
   </entry>
   
