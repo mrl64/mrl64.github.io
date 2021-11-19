@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-17T07:59:25.464Z</updated>
+  <updated>2021-11-19T13:53:36.147Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python盲注脚本编写</title>
+    <link href="http://example.com/2021/11/19/python%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/"/>
+    <id>http://example.com/2021/11/19/python%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/</id>
+    <published>2021-11-19T04:47:02.000Z</published>
+    <updated>2021-11-19T13:53:36.147Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;盲注作为sql注入最常见的考点，掌握脚本的编写是十分重要的，盲注脚本分为布尔盲注和时间盲注，同时还有字典法和二分法。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -mysql -python" scheme="http://example.com/tags/web-mysql-python/"/>
+    
+  </entry>
   
   <entry>
     <title>sqli-labs练习-less38-53</title>
@@ -84,7 +105,7 @@
     <link href="http://example.com/2021/11/11/sql%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BD%9C%E4%B8%9Awp/"/>
     <id>http://example.com/2021/11/11/sql%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BD%9C%E4%B8%9Awp/</id>
     <published>2021-11-11T09:08:46.000Z</published>
-    <updated>2021-11-12T12:23:51.988Z</updated>
+    <updated>2021-11-19T13:39:59.601Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -416,28 +437,6 @@
     <summary type="html">&lt;blockquote&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在进行了less-1的靶场练习后，我们就有了完成前4个靶场的能力，只要仔细看好报错语句以及提示，相信less2-4完全不会难住我们。&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs练习 less1</title>
-    <link href="http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1/"/>
-    <id>http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1/</id>
-    <published>2021-09-26T08:25:32.000Z</published>
-    <updated>2021-09-27T14:00:36.082Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，在群文件的《web安全方向入门学习计划表》中就提供了靶场的下载途径。让我们先从sqli-labs开始练习SQL注入。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;关于SQL注入&quot;&gt;&lt;a href=&quot;#关于SQL注入&quot; class=&quot;headerlink&quot; title=&quot;关于SQL注入&quot;&gt;&lt;/a&gt;关于SQL注入&lt;/h1&gt;&lt;p&gt;在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段达到欺骗服务器的目的，因此网站都会对用户输入的数据进行过滤来进行保护。&lt;/p&gt;</summary>
     
     
     

