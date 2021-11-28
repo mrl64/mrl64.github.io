@@ -90,6 +90,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/11/24/splyT1EWKHkcGeQ.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/24/EhZ1daUSeO3NTfI.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/24/RUYuGzQJp74KCyL.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/24/oRzfljBy64DGsCU.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/24/Qd37zgfG1AbyS9w.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/24/HvoqgLYwWfh12y3.png">
@@ -106,7 +107,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/11/26/Yw7WezUm1QDyV5G.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/26/LM2ZU3gFvXnsSw8.png">
 <meta property="article:published_time" content="2021-11-24T06:34:55.000Z">
-<meta property="article:modified_time" content="2021-11-27T13:13:38.062Z">
+<meta property="article:modified_time" content="2021-11-28T15:36:52.269Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web -php">
 <meta name="twitter:card" content="summary">
@@ -387,7 +388,7 @@
 <p>这题涉及到了JS检测，这题起过滤使用的是JS代码，而php代码在js中被读取，因此我们可以在f12审查元素中删去JS代码，或者直接禁用JS调用就可以直接上传php文件了。</p>
 <p>不过一般我们使用另一个方法，使用burp suite抓包：<br><img src="https://i.loli.net/2021/11/24/splyT1EWKHkcGeQ.png"></p>
 <p>在蓝线位置我们发现我们上传的文件，在这里将jpg后缀改为php并forward，就成功上传了文件，我们可以在靶场根目录中的upload文件夹看到我们上传的这个文件。</p>
-<p>由于本地靶场我们知道文件的绝对路径，因此直接蚁剑连接就可以了：<br><img src="https://i.loli.net/2021/11/24/EhZ1daUSeO3NTfI.png"><br>![](<a target="_blank" rel="noopener" href="https://i.loli.net/2021/11/24/RUYuGzQJp74KCyL.png">https://i.loli.net/2021/11/24/RUYuGzQJp74KCyL.png</a></p>
+<p>由于本地靶场我们知道文件的绝对路径，因此直接蚁剑连接就可以了：<br><img src="https://i.loli.net/2021/11/24/EhZ1daUSeO3NTfI.png"><br><img src="https://i.loli.net/2021/11/24/RUYuGzQJp74KCyL.png"></p>
 <p>记得做完之后删除上传的文件。</p>
 <h2 id="Pass-02"><a href="#Pass-02" class="headerlink" title="Pass-02"></a>Pass-02</h2><p>这关涉及到的是MINE，即文件类型绕过，我们同样抓包查看：<br><img src="https://i.loli.net/2021/11/24/oRzfljBy64DGsCU.png"></p>
 <p>我们可以发现这个<code>Content-Type</code>，这里就对你上传的文件进行了一次类型检查，图中网页检查的类型为<code>image/jpeg</code>，这是因为因为我们上传的本身就是jpg文件，因此和第一关一样更改后缀为php就可以了。</p>
@@ -417,7 +418,7 @@
 <p>首先我们要创建一个txt文件，在这个文件中写入<code>SetHandler application/x-httpd-php</code>，接着更改后缀为.htaccess，但是由于windows的命名规则导致文件不能没有文件名，因此我们先随意取一个文件名。当然也可以使用<code>FilesMatch</code>指定文件，示例如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;muma&quot;&gt;</span><br><span class="line">SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
 <p>这意味着文件名字中带有muma的文件会被解析成php。在上传.htaccess文件时要使用burp suite将这个文件的文件名删去。接着只要上传我们的muma1.jpg，用蚁剑连接就可以了。</p>
-<h2 id="Pass-05"><a href="#Pass-05" class="headerlink" title="Pass-05"></a>Pass-05</h2><p>这一关连.htaccess都过滤了，但是我们查看源码发现，这题只过滤了一次。和空格，因此我们构建<code>muma1.php. .</code>文件名就可以成功绕过了，进入upload发现文件依然是<code>muma1.php</code>。</p>
+<h2 id="Pass-05"><a href="#Pass-05" class="headerlink" title="Pass-05"></a>Pass-05</h2><p>这一关连.htaccess都过滤了，但是我们查看源码发现，这题只过滤了一次.和空格，因此我们构建<code>muma1.php. .</code>文件名就可以成功绕过了，进入upload发现文件依然是<code>muma1.php</code>。</p>
 <h2 id="Pass-06"><a href="#Pass-06" class="headerlink" title="Pass-06"></a>Pass-06</h2><p>查看源码发现没有大小写转化，意味着这题可以进行大小写绕过，将文件后缀改为.phP或者.pHp等等都是可以的，当然更改.htaccess的大小写进行绕过同样可行。</p>
 <h2 id="Pass-07"><a href="#Pass-07" class="headerlink" title="Pass-07"></a>Pass-07</h2><p>查看源码发现没有对后缀名去空，那么我们上传一个<code>muma1.php</code>文件，并使用burp suite抓包，将文件名改成<code>muma1.php </code>，后缀名后添加空格即可绕过后端php脚本的检测，再上传到windows服务器上，会自动去除后缀名后的空格。</p>
 <h2 id="Pass-08"><a href="#Pass-08" class="headerlink" title="Pass-08"></a>Pass-08</h2><p>查看源码发现没有过滤后缀中的点，那么我们上传一个php文件后抓包将文件名后缀改成<code>.php.</code>就可以了。windows系统特性会自动忽略最后一个点，添加点即可绕过后端的php检测，而且可以正常解析。</p>
