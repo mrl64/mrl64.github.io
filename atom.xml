@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-30T14:23:22.584Z</updated>
+  <updated>2021-12-01T08:27:19.886Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2021/11/29/http%E5%8D%8F%E8%AE%AE/"/>
     <id>http://example.com/2021/11/29/http%E5%8D%8F%E8%AE%AE/</id>
     <published>2021-11-29T13:47:51.000Z</published>
-    <updated>2021-11-30T14:23:22.584Z</updated>
+    <updated>2021-12-01T08:27:19.886Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -147,7 +147,7 @@
     <link href="http://example.com/2021/11/11/sql%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BD%9C%E4%B8%9Awp/"/>
     <id>http://example.com/2021/11/11/sql%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5%E4%B8%8E%E4%BD%9C%E4%B8%9Awp/</id>
     <published>2021-11-11T09:08:46.000Z</published>
-    <updated>2021-11-19T13:39:59.601Z</updated>
+    <updated>2021-12-01T08:28:17.197Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -159,7 +159,7 @@
     <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
     
   </entry>
   
@@ -168,7 +168,7 @@
     <link href="http://example.com/2021/11/06/sqlmap%E4%BD%BF%E7%94%A8%E7%BB%83%E4%B9%A0/"/>
     <id>http://example.com/2021/11/06/sqlmap%E4%BD%BF%E7%94%A8%E7%BB%83%E4%B9%A0/</id>
     <published>2021-11-06T01:14:59.000Z</published>
-    <updated>2021-11-06T05:50:39.892Z</updated>
+    <updated>2021-12-01T08:28:26.224Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -180,7 +180,7 @@
     <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
     
   </entry>
   
@@ -273,7 +273,7 @@
     <link href="http://example.com/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/"/>
     <id>http://example.com/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/</id>
     <published>2021-10-23T03:06:28.000Z</published>
-    <updated>2021-11-19T14:53:19.598Z</updated>
+    <updated>2021-12-01T08:28:35.452Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -285,7 +285,7 @@
     <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="-web前端 -mysql" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-mysql/"/>
+    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
     
   </entry>
   
@@ -318,7 +318,7 @@
     <link href="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"/>
     <id>http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/</id>
     <published>2021-10-17T08:19:20.000Z</published>
-    <updated>2021-10-17T13:36:46.969Z</updated>
+    <updated>2021-12-01T08:28:48.605Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -330,7 +330,7 @@
     <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="-web前端 -write up -ctf" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-write-up-ctf/"/>
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   
@@ -339,7 +339,7 @@
     <link href="http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/"/>
     <id>http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/</id>
     <published>2021-10-14T06:55:42.000Z</published>
-    <updated>2021-10-17T08:20:59.229Z</updated>
+    <updated>2021-12-01T08:28:56.440Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -352,7 +352,7 @@
     <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="-web前端 -write up -ctf" scheme="http://example.com/tags/web%E5%89%8D%E7%AB%AF-write-up-ctf/"/>
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   
