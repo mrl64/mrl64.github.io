@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-02T14:15:44.465Z</updated>
+  <updated>2021-12-05T09:12:39.426Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cookie、session与token</title>
+    <link href="http://example.com/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/"/>
+    <id>http://example.com/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/</id>
+    <published>2021-12-05T04:29:39.000Z</published>
+    <updated>2021-12-05T09:12:39.426Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于http协议的无状态性，导致服务器收到客户端请求后得到的都是全新的请求，不知道历史记录，为了解决这个问题，便引入了cookie和session来弥补这个不足。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-http -web" scheme="http://example.com/tags/http-web/"/>
+    
+  </entry>
   
   <entry>
     <title>【闽盾杯2021】部分wp</title>
@@ -409,28 +430,6 @@
     <summary type="html">&lt;blockquote&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;接下来的三关就是盲注题了，盲注是SQL注入中最重要的技能，当页面中的数据无法回显到前端时，就需要借助盲注手段来判断。同时，盲注往往也带有着工具或脚本的使用，我们也可以借此机会进行学习。&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs练习-less1-7</title>
-    <link href="http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1-7/"/>
-    <id>http://example.com/2021/09/26/sqli-labs%E7%BB%83%E4%B9%A0-less1-7/</id>
-    <published>2021-09-26T08:25:32.000Z</published>
-    <updated>2021-11-19T15:00:19.797Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在学习完php的基本语言和mysql增删查改语句后，我们已经初步具备了靶场练习的能力，让我们先从sqli-labs开始练习SQL注入。&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;关于SQL注入&quot;&gt;&lt;a href=&quot;#关于SQL注入&quot; class=&quot;headerlink&quot; title=&quot;关于SQL注入&quot;&gt;&lt;/a&gt;关于SQL注入&lt;/h1&gt;&lt;p&gt;在练习靶场之前，我们首先要了解什么是SQL注入。SQL注入常常发生在通过网页获取用户输入的数据并将其插入MySQL数据库中，黑客通过把SQL命令插入到域名、web表单等手段达到欺骗服务器的目的，因此网站都会对用户输入的数据进行过滤来进行保护。&lt;/p&gt;</summary>
     
     
     
