@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web -mysql," />
+  <meta name="keywords" content="-web -sql," />
 
 
 
@@ -81,22 +81,18 @@
 
 
 
-<meta name="description" content="前言专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。">
+<meta name="description" content="前言打了些比赛后发现sql注入还有很多姿势没有学会，这篇博客专门对新见到的sql注入进行补充说明。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-lab练习-less-28及特殊不可打印字符">
-<meta property="og:url" content="http://example.com/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/index.html">
+<meta property="og:title" content="关于sql注入方法的补充">
+<meta property="og:url" content="http://example.com/2021/12/07/%E5%85%B3%E4%BA%8Esql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。">
+<meta property="og:description" content="前言打了些比赛后发现sql注入还有很多姿势没有学会，这篇博客专门对新见到的sql注入进行补充说明。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/10/23/ozNXKe96yBJOPx3.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/23/uTtWAn9vDCcgZp4.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/23/zLVoJ9NZxATj4B1.png">
-<meta property="article:published_time" content="2021-10-23T03:06:28.000Z">
-<meta property="article:modified_time" content="2021-12-01T08:28:35.452Z">
+<meta property="article:published_time" content="2021-12-07T13:26:44.000Z">
+<meta property="article:modified_time" content="2021-12-07T15:53:02.345Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web -mysql">
+<meta property="article:tag" content="-web -sql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/23/ozNXKe96yBJOPx3.png">
 
 
 
@@ -126,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/23/sqli-lab练习-less-28及特殊不可打印字符/"/>
+  <link rel="canonical" href="http://example.com/2021/12/07/关于sql注入方法的补充/"/>
 
 
 
 
 
-  <title>sqli-lab练习-less-28及特殊不可打印字符 | mrl64's Blog</title>
+  <title>关于sql注入方法的补充 | mrl64's Blog</title>
   
 
 
@@ -269,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/07/%E5%85%B3%E4%BA%8Esql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -286,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sqli-lab练习-less-28及特殊不可打印字符</h1>
+          <h1 class="post-title" itemprop="name headline">关于sql注入方法的补充</h1>
         
 
         <div class="post-meta">
@@ -298,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-23T11:06:28+08:00">
-                2021-10-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-07T21:26:44+08:00">
+                2021-12-07
               </time>
             
 
@@ -359,32 +355,27 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。<br>ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>打了些比赛后发现sql注入还有很多姿势没有学会，这篇博客专门对新见到的sql注入进行补充说明。</p>
 </blockquote>
 <span id="more"></span>
 
-<h1 id="less-28"><a href="#less-28" class="headerlink" title="less-28"></a>less-28</h1><p>先讲解题思路。通过标题提示与源码的分析，我们知道这题除了过滤注释符与空格之外，还将连续的<code>union select</code>给过滤了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$id= preg_replace(&#x27;/[\/\*]/&#x27;,&quot;&quot;, $id);	//strip out /*</span><br><span class="line">$id= preg_replace(&#x27;/[--]/&#x27;,&quot;&quot;, $id);	//Strip out --.</span><br><span class="line">$id= preg_replace(&#x27;/[#]/&#x27;,&quot;&quot;, $id);		//Strip out #.</span><br><span class="line">$id= preg_replace(&#x27;/[ +]/&#x27;,&quot;&quot;, $id);	//Strip out spaces.</span><br><span class="line">//$id= preg_replace(&#x27;/select/m&#x27;,&quot;&quot;, $id);</span><br><span class="line">//Strip out spaces.</span><br><span class="line">$id= preg_replace(&#x27;/[ +]/&#x27;,&quot;&quot;, $id)	//Strip out spaces.</span><br><span class="line">$id= preg_replace(&#x27;/union\s+select/i&#x27;,&quot;&quot;, $id);  </span><br><span class="line">//Strip out UNION &amp; SELECT.</span><br><span class="line">return $id;</span><br></pre></td></tr></table></figure>
-
-<p>过滤是相当严格的，不过我们已经学习了这么多注入方法，既然联合注入语句内容被过滤，我们可以使用盲注法来注入（由于报错不会回显因此不考虑报错注入）。但是我们要练习的就是绕过过滤的方法，因此我们依然采用联合查询进行注入。</p>
-<p>关于注释符与空格的绕过上篇博客已经介绍过了，这里来介绍如何绕过对union select的过滤（单引号+括号注入）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27;)unionunion%0aselect%0aselect%0a1,database(),3;%00</span><br><span class="line"></span><br><span class="line">?id=0&#x27;)ununion%0aselection%0aselect%0a1,database(),3;%00</span><br></pre></td></tr></table></figure>
-
-<p>这种方法是双写绕过，我们发现输入后页面在hint部分回显内容都为正常的联合查询语句，原理都是让union%0aselect被过滤，剩下的内容刚好构成一个新的union%0aselect，从而进行联合查询，当然这里的%a0可以替换为其他不可打印字符代替。<br><img src="https://i.loli.net/2021/10/23/ozNXKe96yBJOPx3.png"></p>
-<p>到这里我们就可以进行爆库操作了。</p>
-<h1 id="关于-a0分析"><a href="#关于-a0分析" class="headerlink" title="关于%a0分析"></a>关于%a0分析</h1><p>这道题其实已经解完了，但是我们在回顾源码中关于union select的过滤语句：<br><code>$id= preg_replace(&#39;/union\s+select/i&#39;,&quot;&quot;, $id); </code></p>
-<p>union的后面有一个\s+，这就意味着所有的空格、空白符以及换行符在这里全部都被过滤了，而这个加号意味着多次匹配，因此我们也不能通过双写空格的方式来绕过。但在这其中，有一个例外：<code>%a0</code></p>
-<p>注意到这个玩意也是我发现其他人构建了一句这样的语句：<br><code>?id=0&#39;)union%a0select(1),(database()),(3);%00</code></p>
-<p>%a0是经过URL编码的不可打印字符，代表的是空格，按道理来说是应该要被过滤掉的，但是居然没有，相当神奇。不过我们在linux下跑php7靶场时，发现了问题：<br><img src="https://i.loli.net/2021/10/23/uTtWAn9vDCcgZp4.png"></p>
-<p>我们想要的数据库名称居然没有正常回显，看下hint的显示，union与select之间居然出现了一个奇怪的符号，这就相当离谱了，我们回主机的靶场上跑：<br><img src="https://i.loli.net/2021/10/23/zLVoJ9NZxATj4B1.png"></p>
-<p>翻译翻译什么叫惊喜，这就叫惊喜，hint语句出来是一样的，但是主机靶场就是不讲道理地回显了数据库名。这里我们开始做推测：</p>
-<ul>
-<li>linux系统下读取解析%a0结果与windows系统下结果不同，导致在linux系统下出现语法错误</li>
-<li>php版本不同导致%a0解析结果不同</li>
-</ul>
-<p>在此之前，我们首先了解到了这个%a0在此处被解析出的结果，它是空格，但又不完全是，因为如果是空格的话，例如我们使用%0a替换%a0，hint回显应该是连union select一起被过滤了，很显然这里却没有，但是在主机靶场中这个%a0又起到了空格的作用。</p>
-<p>通过在主机另外搭建了一个php7的靶场测试，发现hint是一样的，但是没有数据库名的回显，这证明了php版本是肯定有问题的，但是第一点暂时没有证明，因为现在的linux系统只能安装php7及以上版本。</p>
-<p>通过资料我们发现，%a0解析成空格只有在php5.2.17版本可以通过成功，目前看来应该是php版本的问题。28a采用盲注就行了，甚至28a连空格和注释符都没过滤。</p>
+<h1 id="模糊查询注入"><a href="#模糊查询注入" class="headerlink" title="模糊查询注入"></a>模糊查询注入</h1><p>这是从unctf的一道题目学习到的。</p>
+<h2 id="关于模糊查询"><a href="#关于模糊查询" class="headerlink" title="关于模糊查询"></a>关于模糊查询</h2><p>模糊查询的语句格式一般如下：<br><code>SELECT 字段(一般用*) FROM 表 WHERE 某字段 Like 条件</code></p>
+<p>在mysql中，模糊查询有四种用法：</p>
+<ol>
+<li><p>匹配任意个数与类型的字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%a%：把某字段中含有a的数据全部搜索出来</span><br><span class="line">where username like %a% and username like %d%：把username字段中含有a与d的数据全部搜索出来</span><br><span class="line">%a%d%：把某字段中含有a和d的数据全部搜索出来，并且a在d的前面</span><br></pre></td></tr></table></figure></li>
+<li><p>匹配任意单个字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_a_：把某字段中三个字的且中间为a的数据全部搜索出来</span><br><span class="line">__a：把某字段中三个字的且最后为a的数据全部搜索出来</span><br><span class="line">等等</span><br></pre></td></tr></table></figure></li>
+<li><p>指定一个范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[abc]1：搜索a1、b1与c1，如果中括号内为连续的数字或字母，可以简写为[1-5]或者[a-e]</span><br></pre></td></tr></table></figure></li>
+<li><p>指定一个范围排除之</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[^abc]1：搜索除a1、b1与c1外_1的结果，如果中括号内为连续的数字或字母，可以简写为[^1-5]或者[^a-e]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="使用条件"><a href="#使用条件" class="headerlink" title="使用条件"></a>使用条件</h2><p>在登录时要登录admin但是被限制登录（例如限制ip）时可以使用模糊查询，也就是已知要查询的数据名时可以使用。</p>
+<h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><p>这是深育杯中的ezsql题目，用到了慢查询日志来进行sql注入。</p>
+<h2 id="关于慢查询日志"><a href="#关于慢查询日志" class="headerlink" title="关于慢查询日志"></a>关于慢查询日志</h2><p>MySQL的慢查询日志用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL语句，会被记录到慢查询日志中。long_query_time的默认值为10。默认情况下，Mysql数据库并不启动慢查询日志，需要我们手动来设置这个参数。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>首先使用<code>setglobal slow_query_log=1;</code>开启慢查询日志，接着用<code>setglobal slow_query_log_file=&#39;&#39;;</code>设置慢查询日志的位置。这里可以直接使用sleep()设置执行时间，如果sleep被过滤了，我们可以修改慢查询日志的时间值：<code>setglobal long_query_time=0.000001;</code>，然后再查询webshell访问就可以了。</p>
 
       
     </div>
@@ -402,7 +393,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web-mysql/" rel="tag"># -web -mysql</a>
+            <a href="/tags/web-sql/" rel="tag"># -web -sql</a>
           
         </div>
       
@@ -415,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/" rel="next" title="sqli-labs练习-less23-27">
-                <i class="fa fa-chevron-left"></i> sqli-labs练习-less23-27
+              <a href="/2021/12/06/%E3%80%90unctf2021%E3%80%91write-up/" rel="next" title="【unctf2021】write up">
+                <i class="fa fa-chevron-left"></i> 【unctf2021】write up
               </a>
             
           </div>
@@ -424,10 +415,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/" rel="prev" title="学习解析Unicode与gbk编码">
-                学习解析Unicode与gbk编码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -566,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-28"><span class="nav-number"></span> <span class="nav-text">less-28</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-a0%E5%88%86%E6%9E%90"><span class="nav-number"></span> <span class="nav-text">关于%a0分析</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="nav-number"></span> <span class="nav-text">模糊查询注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">关于模糊查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">使用条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number"></span> <span class="nav-text">慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">1.</span> <span class="nav-text">关于慢查询日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li></ol></div>
             
 
           </div>

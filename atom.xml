@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-07T04:20:38.593Z</updated>
+  <updated>2021-12-07T15:53:02.345Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于sql注入方法的补充</title>
+    <link href="http://example.com/2021/12/07/%E5%85%B3%E4%BA%8Esql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85/"/>
+    <id>http://example.com/2021/12/07/%E5%85%B3%E4%BA%8Esql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85/</id>
+    <published>2021-12-07T13:26:44.000Z</published>
+    <updated>2021-12-07T15:53:02.345Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;打了些比赛后发现sql注入还有很多姿势没有学会，这篇博客专门对新见到的sql注入进行补充说明。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -sql" scheme="http://example.com/tags/web-sql/"/>
+    
+  </entry>
   
   <entry>
     <title>【unctf2021】write up</title>
@@ -416,27 +437,6 @@
     
     
     <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs练习-less18-22</title>
-    <link href="http://example.com/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/"/>
-    <id>http://example.com/2021/10/07/sqli-labs%E7%BB%83%E4%B9%A0-less18-22/</id>
-    <published>2021-10-07T12:05:42.000Z</published>
-    <updated>2021-11-19T14:50:36.272Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;接下来的几关我们需要用到抓包工具来帮助我们进行解题，我们用到了burp suite工具（需要JAVA环境），并且通过下面几个靶场具体分析学习这个工具的使用。&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
     
   </entry>
   
