@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-07T04:09:15.045Z</updated>
+  <updated>2021-12-07T04:17:33.634Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,19 +21,12 @@
     <link href="http://example.com/2021/12/06/%E3%80%90unctf2021%E3%80%91write-up/"/>
     <id>http://example.com/2021/12/06/%E3%80%90unctf2021%E3%80%91write-up/</id>
     <published>2021-12-06T11:15:46.000Z</published>
-    <updated>2021-12-07T04:09:15.045Z</updated>
+    <updated>2021-12-07T04:17:33.634Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;##前言&lt;br&gt;unctf的题挺有意思的，题型也很新，不过我主要还是做了misc和密码，web涉及到的知识点挺多的，就很多没做出来。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;Misc&quot;&gt;&lt;a href=&quot;#Misc&quot;</summary>
-        
-      
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;unctf的题挺有意思的，题型也很新，不过我主要还是做了misc和密码，web涉及到的知识点挺多的，就很多没做出来。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
