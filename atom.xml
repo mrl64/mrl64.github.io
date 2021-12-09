@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-07T15:53:02.345Z</updated>
+  <updated>2021-12-09T14:49:35.714Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSRF的学习</title>
+    <link href="http://example.com/2021/12/09/CSRF%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2021/12/09/CSRF%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
+    <published>2021-12-09T11:54:33.000Z</published>
+    <updated>2021-12-09T14:49:35.714Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;做DVWA首先遇到的第一个新知识点就是CSRF了，遇到了那学就完事了，多学多练多记肯定是没错的。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -CSRF" scheme="http://example.com/tags/web-CSRF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DVWA练习</title>
+    <link href="http://example.com/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/"/>
+    <id>http://example.com/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/</id>
+    <published>2021-12-08T12:43:20.000Z</published>
+    <updated>2021-12-09T11:53:56.392Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;粗略学习过http协议的相关内容，接下来就是刷靶场的环节了。DVWA涵盖了多种常见的web漏洞供我们练习，综合性较强。&lt;br&gt;0x持续更新中x0&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -DVWA" scheme="http://example.com/tags/web-DVWA/"/>
+    
+  </entry>
   
   <entry>
     <title>关于sql注入方法的补充</title>
@@ -394,49 +436,6 @@
     
     
     <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>攻防世界</title>
-    <link href="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"/>
-    <id>http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/</id>
-    <published>2021-10-17T08:19:20.000Z</published>
-    <updated>2021-12-01T08:28:48.605Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bugku-web练习</title>
-    <link href="http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/"/>
-    <id>http://example.com/2021/10/14/bugku%E7%BB%83%E4%B9%A0/</id>
-    <published>2021-10-14T06:55:42.000Z</published>
-    <updated>2021-12-01T08:28:56.440Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于校赛要开始了，就做了些简单的题目练手，有bugku也有攻防世界的，这篇博客记录几题bugku的题。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;滑稽&quot;&gt;&lt;a href=&quot;#滑稽&quot; class=&quot;headerlink&quot; title=&quot;滑稽&quot;&gt;&lt;/a&gt;滑稽&lt;/h1&gt;&lt;p&gt;看图实在费眼睛，直接f12查看源码找到flag走人就行了&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   

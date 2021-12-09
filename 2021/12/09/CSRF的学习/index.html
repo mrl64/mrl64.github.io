@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-ctf -misc," />
+  <meta name="keywords" content="-web -CSRF," />
 
 
 
@@ -81,22 +81,20 @@
 
 
 
-<meta name="description" content="前言还是太菜了现在，web1那个绕过就是没解出来，工控害人不浅啊（。我解了最简单的两题misc，把wp下。">
+<meta name="description" content="前言做DVWA首先遇到的第一个新知识点就是CSRF了，遇到了那学就完事了，多学多练多记肯定是没错的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【闽盾杯2021】部分wp">
-<meta property="og:url" content="http://example.com/2021/12/02/%E3%80%90%E9%97%BD%E7%9B%BE%E6%9D%AF2021%E3%80%91%E9%83%A8%E5%88%86wp/index.html">
+<meta property="og:title" content="CSRF的学习">
+<meta property="og:url" content="http://example.com/2021/12/09/CSRF%E7%9A%84%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言还是太菜了现在，web1那个绕过就是没解出来，工控害人不浅啊（。我解了最简单的两题misc，把wp下。">
+<meta property="og:description" content="前言做DVWA首先遇到的第一个新知识点就是CSRF了，遇到了那学就完事了，多学多练多记肯定是没错的。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/12/02/nGJpoIazkEeMDRl.png">
-<meta property="og:image" content="https://i.loli.net/2021/12/02/iWjlXNRs3fgnpa1.png">
-<meta property="og:image" content="https://i.loli.net/2021/12/02/1qXgFm3SJbORovw.png">
-<meta property="article:published_time" content="2021-12-02T13:46:41.000Z">
-<meta property="article:modified_time" content="2021-12-06T11:16:37.222Z">
+<meta property="og:image" content="https://s2.loli.net/2021/12/09/4bqeRFVZdgo8Gtw.png">
+<meta property="article:published_time" content="2021-12-09T11:54:33.000Z">
+<meta property="article:modified_time" content="2021-12-09T14:49:35.714Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-ctf -misc">
+<meta property="article:tag" content="-web -CSRF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/12/02/nGJpoIazkEeMDRl.png">
+<meta name="twitter:image" content="https://s2.loli.net/2021/12/09/4bqeRFVZdgo8Gtw.png">
 
 
 
@@ -126,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/12/02/【闽盾杯2021】部分wp/"/>
+  <link rel="canonical" href="http://example.com/2021/12/09/CSRF的学习/"/>
 
 
 
 
 
-  <title>【闽盾杯2021】部分wp | mrl64's Blog</title>
+  <title>CSRF的学习 | mrl64's Blog</title>
   
 
 
@@ -269,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/02/%E3%80%90%E9%97%BD%E7%9B%BE%E6%9D%AF2021%E3%80%91%E9%83%A8%E5%88%86wp/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/09/CSRF%E7%9A%84%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -286,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【闽盾杯2021】部分wp</h1>
+          <h1 class="post-title" itemprop="name headline">CSRF的学习</h1>
         
 
         <div class="post-meta">
@@ -298,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-02T21:46:41+08:00">
-                2021-12-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-09T19:54:33+08:00">
+                2021-12-09
               </time>
             
 
@@ -321,8 +319,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/write-up/" itemprop="url" rel="index">
-                    <span itemprop="name">write up</span>
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
                   </a>
                 </span>
 
@@ -359,18 +357,33 @@
 
       
         <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>还是太菜了现在，web1那个绕过就是没解出来，工控害人不浅啊（。我解了最简单的两题misc，把wp下。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>做DVWA首先遇到的第一个新知识点就是CSRF了，遇到了那学就完事了，多学多练多记肯定是没错的。</p>
 </blockquote>
 <span id="more"></span>
 
-<h1 id="Signin"><a href="#Signin" class="headerlink" title="Signin"></a>Signin</h1><p>下载附件下来发现是一个文本，里面是一串只有0和1的数字码，而且个数为250000个，刚好是500*500，因此怀疑这题是将数字转化为二维码，编写脚本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image</span><br><span class="line">MAX = 500</span><br><span class="line">pic = Image.new(&quot;RGB&quot;,(MAX, MAX))</span><br><span class="line">str = 那串250000位数字</span><br><span class="line">i=0</span><br><span class="line">for y in range (0,MAX):</span><br><span class="line">    for x in range (0,MAX):</span><br><span class="line">        if(str[i] == &#x27;1&#x27;):</span><br><span class="line">            pic.putpixel([x,y],(0, 0, 0))</span><br><span class="line">        else:</span><br><span class="line">            pic.putpixel([x,y],(255,255,255))</span><br><span class="line">        i = i+1</span><br><span class="line">pic.show()</span><br><span class="line">pic.save(&quot;flag.png&quot;)</span><br></pre></td></tr></table></figure>
+<h1 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a>什么是CSRF</h1><p>CSRF（Cross-site request forgery），即跨站请求伪造，缩写为CSRF或者XSRF。</p>
+<p>简单来说，就是攻击者盗用了你的身份进行各种操作。具体流程可以参考下图：<br><img src="https://s2.loli.net/2021/12/09/4bqeRFVZdgo8Gtw.png"></p>
+<p>攻击者通过伪造浏览器请求，向用户之前曾取得信任的网站（即在本地生成了cookie，且必须在同一浏览器下）发送此请求，导致网站接受并认为是用户的操作而执行命令。这个漏洞常常被用来盗号、转账、发送虚假信息等等，利用的是网站只能验证来源用户的浏览器，却不能认证是否为真实该用户进行的操作。</p>
+<h1 id="如何检测CSRF漏洞的存在"><a href="#如何检测CSRF漏洞的存在" class="headerlink" title="如何检测CSRF漏洞的存在"></a>如何检测CSRF漏洞的存在</h1><p>在不存在token的前提下，最简单的方法就是抓包后删去请求头中的Referer再次提交，如果提交仍然有效则说明很大可能存在CSRF漏洞。</p>
+<p>当然我们也可以使用CSRFTester、CSRF-Request-Builder等工具进行检测甚至攻击，关于这工具的使用不具体介绍，可以参考下面的博客进行学习：<br><a target="_blank" rel="noopener" href="http://luckyzmj.cn/posts/a1b686d3.html">CSRF自动化测试-CSRFTester</a></p>
+<h1 id="利用CSRF漏洞进行攻击"><a href="#利用CSRF漏洞进行攻击" class="headerlink" title="利用CSRF漏洞进行攻击"></a>利用CSRF漏洞进行攻击</h1><h2 id="GET与REQUEST"><a href="#GET与REQUEST" class="headerlink" title="GET与REQUEST"></a>GET与REQUEST</h2><p>如果浏览器是以GET方式或REQUEST方式接收请求的话，并且我们了解具体操作的payload，我们就可以在自己搭建的恶意网站中构建一个相似的信息。</p>
+<p>例如，某网站的转账操作是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://www.mrl64.com/Transfercount?id=2333&amp;money=1000&amp;for=2233</span><br><span class="line">//将2333账户中的1000元转入2233的账户中</span><br></pre></td></tr></table></figure>
 
-<p>得到二维码图片，但是缺了一角，我们将其补全：<br><img src="https://i.loli.net/2021/12/02/nGJpoIazkEeMDRl.png"><br><img src="https://i.loli.net/2021/12/02/iWjlXNRs3fgnpa1.png"></p>
-<p>扫码得出flag。</p>
-<h1 id="日志审查"><a href="#日志审查" class="headerlink" title="日志审查"></a>日志审查</h1><p>下载附件是一个access.log，一个日志文件。我们用Notepad++打开并进行url解码，得到阅读性更强的日志。观察最前面几条语句，判断当返回长度等于675时为正确回显，而长度为678则是错误回显。根据题目要求我们提供管理员的密码，我们搜索寻找password部分审计：<br><img src="https://i.loli.net/2021/12/02/1qXgFm3SJbORovw.png"></p>
-<p>这里使用了二分法猜测判断每一位ascii码值，当这个码值大于真实值返回678且大于（真实值-1）的时候返回675就可以判断出该位的ascii码值，并参考表格对照。<br>密码总共十一位，每一位对应的ascii码值分别为：110 103 106 102 100 115 85 98 100 75<br>转化成密码即flag为：ngjfdsUbdK</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今年不是原题杯了，而且很多题目都披着工控的皮，一下觉得不适应。还是要多想、多做、多练。</p>
+<p>那么我就可以在恶意网站中构造写入一个类似的链接，将转账的目标账户写成我的账户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.mrl64.com/Transfercount?id=2333&amp;money=1000&amp;for=mrl64</span><br></pre></td></tr></table></figure>
+
+<p>接着我们把这个链接隐藏在我们的网页中，一般采用图片隐藏：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&#x27;http://www.mrl64.com/Transfercount?id=2333&amp;money=1000&amp;for=mrl64&#x27;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这时，只要用户的客户端完成了<a target="_blank" rel="noopener" href="http://www.mrl64.com的验证登录并保存了该网站的cookie,我们就可以诱导用户进入我们的恶意网站(客户端tab另一页面),这时我们构建的链接就会连着cookie被发送到www.mrl64.com中,链接如果被网站成功响应,那么2333账户中的1000元就会转入我们的帐中./">www.mrl64.com的验证登录并保存了该网站的cookie，我们就可以诱导用户进入我们的恶意网站（客户端tab另一页面），这时我们构建的链接就会连着cookie被发送到www.mrl64.com中，链接如果被网站成功响应，那么2333账户中的1000元就会转入我们的帐中。</a></p>
+<p>而由于_REQUEST[]同样也可以接收以GET请求发送的数据，因此上述的攻击方法同样奏效。</p>
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>POST类型的CSRF使用通常要用到自动提交的表单，访问恶意网站后表单自动提交模拟用户进行一次POST。</p>
+<p>写表单就需要用到JS了，伪造一份跟转账表单一模一样的表单，然后嵌入到iframe中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">　　&lt;head&gt;</span><br><span class="line">　　　　&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">　　　　　　function steal()</span><br><span class="line">　　　　　　&#123;</span><br><span class="line">          　　　　 iframe = document.frames[&quot;steal&quot;];</span><br><span class="line">　　     　　      iframe.document.Submit(&quot;transfer&quot;);</span><br><span class="line">　　　　　　&#125;</span><br><span class="line">　　　　&lt;/script&gt;</span><br><span class="line">　　&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">　　&lt;body onload=&quot;steal()&quot;&gt;</span><br><span class="line">　　　　&lt;iframe name=&quot;steal&quot; display=&quot;none&quot;&gt;</span><br><span class="line">　　　　　　&lt;form method=&quot;POST&quot; name=&quot;Transfercountr&quot;　action=&quot;http://www.mrl64.com/Transfercount.php&quot;&gt;</span><br><span class="line">　　　　　　　　&lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;2333&quot;&gt;</span><br><span class="line">　　　　　　　　&lt;input type=&quot;hidden&quot; name=&quot;money&quot; value=&quot;1000&quot;&gt;</span><br><span class="line">			  &lt;input type=&quot;hidden&quot; name=&quot;for&quot; value=&quot;mrl64&quot;&gt;</span><br><span class="line">　　　　　　&lt;/form&gt;</span><br><span class="line">　　　　&lt;/iframe&gt;</span><br><span class="line">　　&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>大概就像这样。</p>
+<p>详细的攻击方法还可以参考下面这篇博客：<br><a href="CSRF%E6%94%BB%E5%87%BB%E8%AF%A6%E8%A7%A3">CSRF</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>CSRF漏洞实际场景中使用频率较低，但危害性极大，相当容易造成大型网络安全事件。CSRF漏洞还可以搭配XSS漏洞进行更隐蔽的攻击，因此CSRF漏洞被判为高危漏洞。</p>
 
       
     </div>
@@ -388,7 +401,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ctf-misc/" rel="tag"># -ctf -misc</a>
+            <a href="/tags/web-CSRF/" rel="tag"># -web -CSRF</a>
           
         </div>
       
@@ -401,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/11/29/http%E5%8D%8F%E8%AE%AE/" rel="next" title="http协议">
-                <i class="fa fa-chevron-left"></i> http协议
+              <a href="/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/" rel="next" title="DVWA练习">
+                <i class="fa fa-chevron-left"></i> DVWA练习
               </a>
             
           </div>
@@ -410,10 +423,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/" rel="prev" title="cookie、session与token">
-                cookie、session与token <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Signin"><span class="nav-number"></span> <span class="nav-text">Signin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%AE%A1%E6%9F%A5"><span class="nav-number"></span> <span class="nav-text">日志审查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCSRF"><span class="nav-number"></span> <span class="nav-text">什么是CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8BCSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%AD%98%E5%9C%A8"><span class="nav-number"></span> <span class="nav-text">如何检测CSRF漏洞的存在</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A9%E7%94%A8CSRF%E6%BC%8F%E6%B4%9E%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB"><span class="nav-number"></span> <span class="nav-text">利用CSRF漏洞进行攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET%E4%B8%8EREQUEST"><span class="nav-number">1.</span> <span class="nav-text">GET与REQUEST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.</span> <span class="nav-text">POST</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
             
 
           </div>
