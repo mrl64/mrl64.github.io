@@ -89,7 +89,7 @@
 <meta property="og:description" content="前言打了些比赛后发现sql注入还有很多姿势没有学会，这篇博客专门对新见到的sql注入进行补充说明。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-07T13:26:44.000Z">
-<meta property="article:modified_time" content="2021-12-07T15:53:02.345Z">
+<meta property="article:modified_time" content="2021-12-13T15:07:22.728Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web -sql">
 <meta name="twitter:card" content="summary">
@@ -376,6 +376,34 @@
 <h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><p>这是深育杯中的ezsql题目，用到了慢查询日志来进行sql注入。</p>
 <h2 id="关于慢查询日志"><a href="#关于慢查询日志" class="headerlink" title="关于慢查询日志"></a>关于慢查询日志</h2><p>MySQL的慢查询日志用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL语句，会被记录到慢查询日志中。long_query_time的默认值为10。默认情况下，Mysql数据库并不启动慢查询日志，需要我们手动来设置这个参数。</p>
 <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>首先使用<code>setglobal slow_query_log=1;</code>开启慢查询日志，接着用<code>setglobal slow_query_log_file=&#39;&#39;;</code>设置慢查询日志的位置。这里可以直接使用sleep()设置执行时间，如果sleep被过滤了，我们可以修改慢查询日志的时间值：<code>setglobal long_query_time=0.000001;</code>，然后再查询webshell访问就可以了。</p>
+<h1 id="猜测后端payload"><a href="#猜测后端payload" class="headerlink" title="猜测后端payload"></a>猜测后端payload</h1><p>这是buu中的[SUCTF 2019]EasySQL这道题目，有两种解题方法，这里都介绍下。</p>
+<p>跑一下fuzz发现能过滤的基本都过滤了，所以联合、报错、盲注等方法都不能使用。</p>
+<p>这题要我们对后端语句进行猜测，这是这题最难的地方，通过输入非零数字得到的回显1和输入其余字符得不到回显来判断出内部的查询语句可能存在有||，也就是select 输入的数据||内置的一个列名 from 表名。接着使用堆叠注入验证，得出payload大概为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql=&quot;select&quot;.sql=&quot;select&quot;.post[‘query’].&quot;||flag from Flag&quot;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>输入<code>*，1</code>，使语句变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select *,1||flag from Flag</span><br></pre></td></tr></table></figure>
+<p>此时1||flag计算为1，因此payload最终被识别为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select *,1 from Flag</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>使用堆叠注入写入<code>select @@global.sql_mode</code>查看，发现<code>PIPES_AS_CONCAT</code>，因此我们可以进行利用。</p>
+<p>输入<code>1;set sql_mode=pipes_as_concat;select 1</code>，这里使用到了<code>pipes_as_concat</code>使||变为连接操作符，这样就绕过了原本应有的判断导致语句无返回值。</p>
+<p>这里对常见的sql_mode值进行补充：</p>
+<blockquote>
+<p>ONLY_FULL_GROUP_BY：出现在select语句、HAVING条件和ORDER BY语句中的列，必须是GROUP BY的列或者依赖于GROUP BY列的函数列。<br>NO_ZERO_IN_DATE：这个模式影响了是否允许日期中的月份和日包含0。</p>
+</blockquote>
+<blockquote>
+<p>ERROR_FOR_DIVISION_BY_ZERO：在INSERT或UPDATE过程中，如果数据被零除，则产生错误而非警告。如果未给出该模式，那么数据被零除时MySQL返回NULL</p>
+</blockquote>
+<blockquote>
+<p>NO_ENGINE_SUBSTITUTION：如果需要的存储引擎被禁用或未编译，那么抛出错误。不设置此值时，用默认的存储引擎替代，并抛出一个异常</p>
+</blockquote>
+<blockquote>
+<p>PIPES_AS_CONCAT：将”||”视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样的，也和字符串的拼接函数Concat相类似</p>
+</blockquote>
+<blockquote>
+<p>ANSI_QUOTES：启用ANSI_QUOTES后，不能用双引号来引用字符串，因为它被解释为识别符</p>
+</blockquote>
 
       
     </div>
@@ -557,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="nav-number"></span> <span class="nav-text">模糊查询注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">关于模糊查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">使用条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number"></span> <span class="nav-text">慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">1.</span> <span class="nav-text">关于慢查询日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="nav-number"></span> <span class="nav-text">模糊查询注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">关于模糊查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">使用条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number"></span> <span class="nav-text">慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">1.</span> <span class="nav-text">关于慢查询日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8C%9C%E6%B5%8B%E5%90%8E%E7%AB%AFpayload"><span class="nav-number"></span> <span class="nav-text">猜测后端payload</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li></ol></div>
             
 
           </div>
