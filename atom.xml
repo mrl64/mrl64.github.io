@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-16T11:40:14.766Z</updated>
+  <updated>2021-12-16T12:34:45.443Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,17 +21,12 @@
     <link href="http://example.com/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/"/>
     <id>http://example.com/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/</id>
     <published>2021-12-16T07:47:22.000Z</published>
-    <updated>2021-12-16T11:40:14.766Z</updated>
+    <updated>2021-12-16T12:34:45.443Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -68,7 +63,7 @@
     <link href="http://example.com/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/"/>
     <id>http://example.com/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/</id>
     <published>2021-12-08T12:43:20.000Z</published>
-    <updated>2021-12-15T15:09:07.484Z</updated>
+    <updated>2021-12-16T12:55:37.200Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;

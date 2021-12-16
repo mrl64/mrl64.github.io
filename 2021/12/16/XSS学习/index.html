@@ -81,16 +81,16 @@
 
 
 
-<meta name="description" content="前言XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。  关于XSSXSS简介XSS（Cross Site Scripting），跨站脚本攻击，为了与层叠样式表（Cascading Style Sheets，简称CSS）做出区分，故简称为XSS。XSS和SQL注入有一定的相似性，这两者都是由于后台程序对用户输入的不严格过滤导致的，但是XSS">
+<meta name="description" content="前言XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XSS学习">
 <meta property="og:url" content="http://example.com/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。  关于XSSXSS简介XSS（Cross Site Scripting），跨站脚本攻击，为了与层叠样式表（Cascading Style Sheets，简称CSS）做出区分，故简称为XSS。XSS和SQL注入有一定的相似性，这两者都是由于后台程序对用户输入的不严格过滤导致的，但是XSS">
+<meta property="og:description" content="前言XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2021/12/16/mMyG43z1oRtBCwb.png">
 <meta property="article:published_time" content="2021-12-16T07:47:22.000Z">
-<meta property="article:modified_time" content="2021-12-16T11:40:14.766Z">
+<meta property="article:modified_time" content="2021-12-16T12:34:45.443Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web -XSS">
 <meta name="twitter:card" content="summary">
@@ -359,6 +359,8 @@
         <blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。</p>
 </blockquote>
+<span id="more"></span>
+
 <h1 id="关于XSS"><a href="#关于XSS" class="headerlink" title="关于XSS"></a>关于XSS</h1><h2 id="XSS简介"><a href="#XSS简介" class="headerlink" title="XSS简介"></a>XSS简介</h2><p>XSS（Cross Site Scripting），跨站脚本攻击，为了与层叠样式表（Cascading Style Sheets，简称CSS）做出区分，故简称为XSS。XSS和SQL注入有一定的相似性，这两者都是由于后台程序对用户输入的不严格过滤导致的，但是XSS可以不与数据库交互，而是直接对网页代码进行攻击渗透。</p>
 <h2 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h2><p>黑客将恶意JS代码插入进web中，当用户浏览这个网页时，恶意JS代码被执行，达到黑客的目的。</p>
 <p>例如在一个留言板中，我们将<code>&lt;script&gt;alert(&quot;Hey，Hacker!&quot;)&lt;/script&gt;</code>写入，那么此时页面的html代码中将会把这段话插入进去，那么留言板上的代码就变成了：</p>
