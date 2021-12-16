@@ -263,6 +263,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/" itemprop="url">XSS学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-16T15:47:22+08:00">
+                2021-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>XSS可以说是相当繁杂，但也相当重要。XSS的攻击方式多样，手段更是防不胜防，是DVWA中的重点学习模块。</p>
+</blockquote>
+<h1 id="关于XSS"><a href="#关于XSS" class="headerlink" title="关于XSS"></a>关于XSS</h1><h2 id="XSS简介"><a href="#XSS简介" class="headerlink" title="XSS简介"></a>XSS简介</h2><p>XSS（Cross Site Scripting），跨站脚本攻击，为了与层叠样式表（Cascading Style Sheets，简称CSS）做出区分，故简称为XSS。XSS和SQL注入有一定的相似性，这两者都是由于后台程序对用户输入的不严格过滤导致的，但是XSS可以不与数据库交互，而是直接对网页代码进行攻击渗透。</p>
+<h2 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h2><p>黑客将恶意JS代码插入进web中，当用户浏览这个网页时，恶意JS代码被执行，达到黑客的目的。</p>
+<p>例如在一个留言板中，我们将<code>&lt;script&gt;alert(&quot;Hey，Hacker!&quot;)&lt;/script&gt;</code>写入，那么此时页面的html代码中将会把这段话插入进去，那么留言板上的代码就变成了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=”board” </span><br><span class="line">    &lt;script&gt;alert(&quot;Hey，Hacker!&quot;)&lt;/script&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这时如果有用户打开这个留言板，那么浏览器解析html，这时我们写入的JS语句就会被执行，用户的网页上就会弹出写着”Hey，Hacker!”的弹窗。</p>
+<h2 id="XSS脚本注入点"><a href="#XSS脚本注入点" class="headerlink" title="XSS脚本注入点"></a>XSS脚本注入点</h2><p>既然说到XSS与SQL注入是相似的，那么XSS也一定是存在注入点的，下面简单介绍几个常用注入点：</p>
+<ol>
+<li><p>HTML标签之间<br><code>&lt;div&gt;</code>：可以直接写入JS，web会直接执行<br><code>&lt;title&gt;``&lt;iframe&gt;</code>等包含htmlEncode功能的标签：先闭合标签，再写入JS</p>
+</li>
+<li><p>HTML标签之内<br>插入点在value内，type不为hidden：由于web不会执行在value值内的JS代码，因此要使JS从Value中跳出。可以采用闭合标签等多种方法。<br>插入点在value内，type为hidden：由于标签内容不可显示，这时可以闭合标签或者插入新的type（有两个相同type时第二个失效）。</p>
+</li>
+<li><p>其它情况<br>属性可执行伪协议：直接输入<code>JavaScript:脚本内容</code><br>eval()：会直接执行JS语句，因此可以直接输入脚本内容<br>在JS代码中插入：闭合标签或者属性</p>
+</li>
+</ol>
+<h2 id="XSS的危害"><a href="#XSS的危害" class="headerlink" title="XSS的危害"></a>XSS的危害</h2><p>XSS可以窃取用户正在浏览中的cookie，可以劫持流量造成恶意页面跳转。cookie如果被窃取，可能你的验证信息就会被绕过，而页面跳转结合CSRF更会造成极大的危害。</p>
+<h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>按照攻击的形式，XSS被分为三类：反射型XSS、储存型XSS以及基于DOM的XSS。</p>
+<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><p>反射型XSS是把恶意JS脚本通过URL传递给服务器，而服务器若没有进行过滤的话，则会把JS脚本反射给用户使得用户的浏览器执行了恶意JS脚本。例如构建url进行反射型XSS来窃取cookie中的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/DVWA/vulnerabilities/xss_r/?name=%3Cscript%3Ealert%28document.cookie%29%3C%2Fscript%3E#</span><br></pre></td></tr></table></figure>
+
+<h2 id="储存型XSS"><a href="#储存型XSS" class="headerlink" title="储存型XSS"></a>储存型XSS</h2><p>储存型XSS的危害是极大的，由于恶意JS脚本可能被存入数据库中或被以其他方式储存进服务器，那么无论是谁只要再次访问该网页，都有可能执行这段恶意JS脚本。</p>
+<p>前文有提到的留言板就是储存型XSS的经典例子之一，除此以外还有还有用户评论、聊天私信等。对比与反射型XSS，储存型XSS不需要用户访问特定URL，只要用户访问恶意网页就可以了。</p>
+<h2 id="基于DOM的XSS"><a href="#基于DOM的XSS" class="headerlink" title="基于DOM的XSS"></a>基于DOM的XSS</h2><p>DOM（Document Object Model），文档对象模型。我们可以通过对象树来认识DOM：<br><img src="https://s2.loli.net/2021/12/16/mMyG43z1oRtBCwb.png"><br>而通过这个对象模型，JS可以获得创建动态HTML的权利。这也为XSS创造了条件。</p>
+<p>基于DOM的XSS一般不会与服务器进行交互，这个漏洞是由于前端的JS代码不严谨造成的，读取、执行恶意JS代码只由浏览器完成。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>关于XSS的理论学习暂时就这么多了，理论学习是一定要运用到实践上的，接下来就是完成DVWA的三个XSS的实战练习了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/09/CSRF%E7%9A%84%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,154 +1751,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/15/sqli-labs%E7%BB%83%E4%B9%A0-less38-53/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrl64's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/15/sqli-labs%E7%BB%83%E4%B9%A0-less38-53/" itemprop="url">sqli-labs练习-less38-53</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-15T20:29:05+08:00">
-                2021-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>经过几个月的不懈奋战（，终于把靶场前三页全部刷完了，第四页都是挑战题，检验这个靶场的学习成果。最后也会总结sql注入的过程及方法。<br>ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/15/sqli-labs%E7%BB%83%E4%B9%A0-less38-53/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1780,7 +1801,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1802,7 +1823,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

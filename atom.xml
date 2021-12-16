@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-09T14:49:35.714Z</updated>
+  <updated>2021-12-16T11:40:14.766Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>XSS学习</title>
+    <link href="http://example.com/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2021/12/16/XSS%E5%AD%A6%E4%B9%A0/</id>
+    <published>2021-12-16T07:47:22.000Z</published>
+    <updated>2021-12-16T11:40:14.766Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -XSS" scheme="http://example.com/tags/web-XSS/"/>
+    
+  </entry>
   
   <entry>
     <title>CSRF的学习</title>
@@ -404,30 +430,6 @@
     
     <summary type="html">&lt;blockquote&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs练习-less23-27</title>
-    <link href="http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/"/>
-    <id>http://example.com/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/</id>
-    <published>2021-10-21T07:35:08.000Z</published>
-    <updated>2021-11-19T14:51:47.123Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;由于校赛的wp已经出来了我就不写了，把sqli-labs的坑先给填了。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;/blockquote&gt;</summary>
     
     
