@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-16T12:34:45.443Z</updated>
+  <updated>2021-12-18T15:51:39.156Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>php弱类型绕过总结</title>
+    <link href="http://example.com/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/</id>
+    <published>2021-12-18T12:59:01.000Z</published>
+    <updated>2021-12-18T15:51:39.156Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;刷题刷到弱类型绕过，一时兴起，觉得这个部分也是相当有必要做总结的，就开篇博客记录一下。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>buu练习</title>
+    <link href="http://example.com/2021/12/18/buu%E7%BB%83%E4%B9%A0/"/>
+    <id>http://example.com/2021/12/18/buu%E7%BB%83%E4%B9%A0/</id>
+    <published>2021-12-18T12:06:15.000Z</published>
+    <updated>2021-12-18T13:01:40.667Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;考前放松心情，就多刷点题。之前已经提到了一些题目了，这里就不会重复了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>XSS学习</title>
@@ -383,48 +425,6 @@
     
     <summary type="html">&lt;blockquote&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;这几关主要练习waf与单引号过滤的绕过，其中29-31关需要配置好tomcat并开启服务，接下来开始解题&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习解析Unicode与gbk编码</title>
-    <link href="http://example.com/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/"/>
-    <id>http://example.com/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/</id>
-    <published>2021-10-25T02:56:38.000Z</published>
-    <updated>2021-10-25T15:14:14.420Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在做sqli-labs的less-32及后几关时接触到了宽字节注入，就学习了以上四种编码方式并且进行了辨析，通过这篇博客以记录下来。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="others" scheme="http://example.com/categories/others/"/>
-    
-    
-    <category term="-编码" scheme="http://example.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-lab练习-less-28及特殊不可打印字符</title>
-    <link href="http://example.com/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/"/>
-    <id>http://example.com/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/</id>
-    <published>2021-10-23T03:06:28.000Z</published>
-    <updated>2021-12-01T08:28:35.452Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;专门把第28关单拿出来,是因为在做题时遇到了一些问题，就拿出来单写一篇博客。&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     

