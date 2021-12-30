@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="前言考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入alert(document.domain)。  写在前面地址：xss challenge如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行alert(document.domain)跳关。 stage 1Hint：very simple… 确实简单，没有做任何过滤，直接写入就可以了： 1&amp;">
+<meta name="description" content="前言考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入alert(document.domain)。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss challenges">
 <meta property="og:url" content="http://example.com/2021/12/29/xss-challenges/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入alert(document.domain)。  写在前面地址：xss challenge如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行alert(document.domain)跳关。 stage 1Hint：very simple… 确实简单，没有做任何过滤，直接写入就可以了： 1&amp;">
+<meta property="og:description" content="前言考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入alert(document.domain)。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2021/12/30/Fc8pLm9znCqiRIW.png">
 <meta property="og:image" content="https://s2.loli.net/2021/12/30/JWR4OzLNKUCtyPI.png">
 <meta property="og:image" content="https://s2.loli.net/2021/12/30/JX9Fo5Lufzl2nhA.png">
 <meta property="og:image" content="https://s2.loli.net/2021/12/30/SjDb4W7NMq1mGEw.png">
 <meta property="article:published_time" content="2021-12-29T13:54:19.000Z">
-<meta property="article:modified_time" content="2021-12-30T07:34:30.384Z">
+<meta property="article:modified_time" content="2021-12-30T07:38:29.348Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web -XSS">
 <meta name="twitter:card" content="summary">
@@ -362,6 +362,8 @@
         <blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入<code>alert(document.domain)</code>。</p>
 </blockquote>
+<span id="more"></span>
+
 <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>地址：<a target="_blank" rel="noopener" href="https://xss-quiz.int21h.jp/">xss challenge</a><br>如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行<code>alert(document.domain)</code>跳关。</p>
 <h1 id="stage-1"><a href="#stage-1" class="headerlink" title="stage 1"></a>stage 1</h1><p>Hint：very simple…</p>
 <p>确实简单，没有做任何过滤，直接写入就可以了：</p>
@@ -441,7 +443,7 @@
 <p>先总结引号被过滤的几种情况：</p>
 <ol>
 <li>添加属性（onmouseover或onmouseout事件等以及expression）触发弹窗</li>
-<li><code>&quot;``&lt;&gt;</code>都被过滤时可以构造编码</li>
+<li><code>&quot;</code>、<code>&lt;&gt;</code>都被过滤时可以构造编码</li>
 <li>利用IE浏览器反引号翻译成双引号的特性</li>
 </ol>
 
