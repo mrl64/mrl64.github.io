@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-22T13:35:25.222Z</updated>
+  <updated>2021-12-30T07:34:30.384Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>xss challenges</title>
+    <link href="http://example.com/2021/12/29/xss-challenges/"/>
+    <id>http://example.com/2021/12/29/xss-challenges/</id>
+    <published>2021-12-29T13:54:19.000Z</published>
+    <updated>2021-12-30T07:34:30.384Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -XSS" scheme="http://example.com/tags/web-XSS/"/>
+    
+  </entry>
   
   <entry>
     <title>php弱类型绕过总结</title>
@@ -412,27 +438,6 @@
     
     
     <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs练习-less-29-37</title>
-    <link href="http://example.com/2021/10/28/sqli-labs%E7%BB%83%E4%B9%A0-less-29-37/"/>
-    <id>http://example.com/2021/10/28/sqli-labs%E7%BB%83%E4%B9%A0-less-29-37/</id>
-    <published>2021-10-28T12:47:12.000Z</published>
-    <updated>2021-11-19T14:52:14.318Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;这几关主要练习waf与单引号过滤的绕过，其中29-31关需要配置好tomcat并开启服务，接下来开始解题&lt;br&gt;ps.整理了关于sqli-labs靶场的博客，将分散的几篇整合了起来。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
     
   </entry>
   

