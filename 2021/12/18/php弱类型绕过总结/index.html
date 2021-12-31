@@ -89,7 +89,7 @@
 <meta property="og:description" content="前言刷题刷到弱类型绕过，一时兴起，觉得这个部分也是相当有必要做总结的，就开篇博客记录一下。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-18T12:59:01.000Z">
-<meta property="article:modified_time" content="2021-12-22T13:35:25.222Z">
+<meta property="article:modified_time" content="2021-12-31T08:05:40.718Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-web -php">
 <meta name="twitter:card" content="summary">
@@ -381,7 +381,7 @@
 <ol>
 <li><p>数组法<br>md5()/sha()这类函数无法处理数组，如果传入的是数组,md5()返回NULL，加密后得到的也是NULL，满足两个md5值相等；sha()返回false，使条件成立，构建payload：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username[]=1&amp;password[]=2</span><br></pre></td></tr></table></figure></li>
-<li><p>pdf法<br>这个方法之前提到过，当数组被过滤或者md5/sha值不能为空时，就要用到google放出两个md5/sha1值相同而不一样(sha256的值不通)的pdf文件。原理可以参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/caiqiiqi/article/details/68953730">关于SHA1碰撞——比较两个binary的不同之处</a>，构建payload：</p>
+<li><p>pdf法<br>这个方法之前提到过，当数组被过滤或者md5/sha值不能为空时，就要用到google放出两个sha1值相同而不一样(sha256的值不通)的pdf文件。原理可以参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/caiqiiqi/article/details/68953730">关于SHA1碰撞——比较两个binary的不同之处</a>，构建payload：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%20R/Height%203%200%20R/Type%204%200%20R/Subtype%205%200%20R/Filter%206%200%20R/ColorSpace%207%200%20R/Length%208%200%20R/BitsPerComponent%208%3E%3E%0Astream%0A%FF%D8%FF%FE%00%24SHA-1%20is%20dead%21%21%21%21%21%85/%EC%09%239u%9C9%B1%A1%C6%3CL%97%E1%FF%FE%01%7FF%DC%93%A6%B6%7E%01%3B%02%9A%AA%1D%B2V%0BE%CAg%D6%88%C7%F8K%8CLy%1F%E0%2B%3D%F6%14%F8m%B1i%09%01%C5kE%C1S%0A%FE%DF%B7%608%E9rr/%E7%ADr%8F%0EI%04%E0F%C20W%0F%E9%D4%13%98%AB%E1.%F5%BC%94%2B%E35B%A4%80-%98%B5%D7%0F%2A3.%C3%7F%AC5%14%E7M%DC%0F%2C%C1%A8t%CD%0Cx0Z%21Vda0%97%89%60k%D0%BF%3F%98%CD%A8%04F%29%A1&amp;password=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%20R/Height%203%200%20R/Type%204%200%20R/Subtype%205%200%20R/Filter%206%200%20R/ColorSpace%207%200%20R/Length%208%200%20R/BitsPerComponent%208%3E%3E%0Astream%0A%FF%D8%FF%FE%00%24SHA-1%20is%20dead%21%21%21%21%21%85/%EC%09%239u%9C9%B1%A1%C6%3CL%97%E1%FF%FE%01sF%DC%91f%B6%7E%11%8F%02%9A%B6%21%B2V%0F%F9%CAg%CC%A8%C7%F8%5B%A8Ly%03%0C%2B%3D%E2%18%F8m%B3%A9%09%01%D5%DFE%C1O%26%FE%DF%B3%DC8%E9j%C2/%E7%BDr%8F%0EE%BC%E0F%D2%3CW%0F%EB%14%13%98%BBU.%F5%A0%A8%2B%E31%FE%A4%807%B8%B5%D7%1F%0E3.%DF%93%AC5%00%EBM%DC%0D%EC%C1%A8dy%0Cx%2Cv%21V%60%DD0%97%91%D0k%D0%AF%3F%98%CD%A4%BCF%29%B1 </span><br></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="strcmp比较字符串"><a href="#strcmp比较字符串" class="headerlink" title="strcmp比较字符串"></a>strcmp比较字符串</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$flag = &quot;flag&#123;xxxxx&#125;&quot;;</span><br><span class="line">if (isset($_GET[&#x27;a&#x27;])) &#123;</span><br><span class="line">	if (strcmp($_GET[&#x27;a&#x27;], $flag) == 0)</span><br><span class="line">	    die(&#x27;Flag: &#x27;.$flag); </span><br><span class="line">    else</span><br><span class="line">		print &#x27;No&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
@@ -555,7 +555,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -577,7 +577,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
