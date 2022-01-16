@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-31T08:05:27.697Z</updated>
+  <updated>2022-01-16T06:28:50.564Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python库的学习</title>
+    <link href="http://example.com/2022/01/14/python%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2022/01/14/python%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
+    <published>2022-01-14T06:13:55.000Z</published>
+    <updated>2022-01-16T06:28:50.564Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;python，最好的脚本语言，学就完了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="other" scheme="http://example.com/categories/other/"/>
+    
+    
+    <category term="-python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>md5绕过汇总</title>
@@ -412,27 +440,6 @@
     
     
     <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php反序列化漏洞应用</title>
-    <link href="http://example.com/2021/11/01/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%BA%94%E7%94%A8/"/>
-    <id>http://example.com/2021/11/01/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%BA%94%E7%94%A8/</id>
-    <published>2021-11-01T10:07:52.000Z</published>
-    <updated>2021-11-29T13:50:16.402Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;同样是buu，同样是极客大挑战，这次遇到了一题有关于php反序列化漏洞，遇到新东西总是要开博客记录的嘛。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
     
   </entry>
   

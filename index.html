@@ -263,6 +263,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/14/python%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/14/python%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/" itemprop="url">python库的学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-14T14:13:55+08:00">
+                2022-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>python，最好的脚本语言，学就完了。</p>
+</blockquote>
+<h1 id="Requests库"><a href="#Requests库" class="headerlink" title="Requests库"></a>Requests库</h1><p>之前写盲注脚本的时候就用过Requests库了，许多web题也都需要用上这个库。Requests支持cookie、文件上传、自动确定相应内容编码、自动编码等等，因此十分好用。</p>
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p>最简单最常用的方法，http协议中有多种请求方法，我们都可以用requests库中的函数来发送对应请求：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(&#x27;https://www.baidu.com&#x27;) #发送GET请求</span><br><span class="line">r = requests.post(&#x27;https://www.baidu.com&#x27;,data = &#123;&#x27;username&#x27;:&#x27;mrl64&#x27;,&#x27;password&#x27;:&#x27;123hahaha&#x27;&#125;) #发送POST请求</span><br><span class="line">r = requests.head(&#x27;https://www.baidu.com&#x27;) #发送HEAD请求</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取请求头-响应头"><a href="#获取请求头-响应头" class="headerlink" title="获取请求头/响应头"></a>获取请求头/响应头</h2><p>这里用GET举例，感觉直接用bp更快就是了，不过python可以获取指定单一请求头，有时候还是会用到的，POST请求同理。</p>
+<p>获取请求头：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.request.headers</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#x27;User-Agent&#x27;: &#x27;python-requests/2.26.0&#x27;, &#x27;Accept-Encoding&#x27;: &#x27;gzip, deflate&#x27;, &#x27;Accept&#x27;: &#x27;*/*&#x27;, &#x27;Connection&#x27;: &#x27;keep-alive&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取请求头某一属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.request.headers[&#x27;User-Agent&#x27;]  #不区分大小写</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python-requests/2.26.0</span><br></pre></td></tr></table></figure>
+
+<p>获取响应头：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.headers</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#x27;Cache-Control&#x27;: &#x27;private, no-cache, no-store, proxy-revalidate, no-transform&#x27;, &#x27;Connection&#x27;: &#x27;keep-alive&#x27;, &#x27;Content-Encoding&#x27;: &#x27;gzip&#x27;, &#x27;Content-Type&#x27;: &#x27;text/html&#x27;, &#x27;Date&#x27;: &#x27;Sat, 15 Jan 2022 11:50:24 GMT&#x27;, &#x27;Last-Modified&#x27;: &#x27;Mon, 23 Jan 2017 13:24:46 GMT&#x27;, &#x27;Pragma&#x27;: &#x27;no-cache&#x27;, &#x27;Server&#x27;: &#x27;bfe/1.0.8.18&#x27;, &#x27;Set-Cookie&#x27;: &#x27;BDORZ=27315; max-age=86400; domain=.baidu.com; path=/&#x27;, &#x27;Transfer-Encoding&#x27;: &#x27;chunked&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取响应头某一属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.headers[&#x27;Date&#x27;]  #不区分大小写</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Sat, 15 Jan 2022 11:51:41 GMT</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取内容"><a href="#获取内容" class="headerlink" title="获取内容"></a>获取内容</h2><p>本质上和上面那部分大差不差，直接获取html，Requests会自动解码来自服务器的内容，大多数unicode字符集都能被正确编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.text</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type……</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以通过<code>encoding</code>属性来查看编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.encoding</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ISO-8859-1</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取字节对象"><a href="#获取字节对象" class="headerlink" title="获取字节对象"></a>获取字节对象</h2><p>无论响应是文本还是二进制内容，我们都可以用<code>content</code>属性获得bytes对象，Requests 会自动为你解码 gzip 和 deflate 传输编码的响应数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &#x27;https://www.baidu.com&#x27;</span><br><span class="line">r = requests.get(url)</span><br><span class="line">flag = r.content</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">b&#x27;&lt;!DOCTYPE html&gt;\r\n&lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type……</span><br></pre></td></tr></table></figure>
+
+<h2 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h2><p>使用dict类型变量传递参数，这也是在写脚本时非常常用的一个方法。如果要传递GET请求的参数，我们使用<code>params</code>进行传递：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/&quot;</span><br><span class="line">param = &#123;&quot;id&quot;: &quot;1&quot;&#125;</span><br><span class="line">r = requests.get(url, params=param)</span><br><span class="line">flag = r.url</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/?id=1</span><br></pre></td></tr></table></figure>
+
+<p>当然，我们更常用到的是POST请求发送参数或者对请求头进行注入等等，这时候我们应该使用<code>data</code> <code>headers</code> <code>cookie</code>等等进行参数传递：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;https://www.baidu.com&quot;</span><br><span class="line">head = &#123;</span><br><span class="line">    &quot;X-Forwarded-For&quot;: &quot;127.0.0.1&quot;</span><br><span class="line">&#125;</span><br><span class="line">r = requests.get(url, headers=head)</span><br><span class="line">flag = r.request.headers[&#x27;X-Forwarded-For&#x27;]</span><br><span class="line">print(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>传递cookie参数也可以通过这种方式。</p>
+<h2 id="传递json参数"><a href="#传递json参数" class="headerlink" title="传递json参数"></a>传递json参数</h2><p>这点单拎出来讲，因为一般我们post参数，都是直接post，没管post的数据的类型，此时其默认类型为<code>application/x-www-form-urlencoded</code>。但是如果我们需要传递json格式的数据时就需要进行数据类型指定，当然json是可以直接使用<code>json</code>参数传递的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">url=&quot;https://www.baidu.com&quot;</span><br><span class="line">data=&#123;&#x27;a&#x27;=123&#125;</span><br><span class="line">head = &#123;&#x27;Content-Type&#x27;: &#x27;application/json&#x27;&#125;;</span><br><span class="line">r = requests.post(url=, headers=head, data=json.dumps(data))</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"> </span><br><span class="line">data = &#123;</span><br><span class="line">    &#x27;a&#x27;: 123</span><br><span class="line">&#125;</span><br><span class="line">response = requests.post(url=&#x27;url&#x27;, json=data)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Session保持请求"><a href="#Session保持请求" class="headerlink" title="Session保持请求"></a>Session保持请求</h2><p>写dvwa盲注时就用到了session，Session()能在多次请求中保持一些参数，最常用的一般是拿来保持cookie。同样会话对象可以通过GET或POST方法发送请求，我们以POST方法为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import.requests</span><br><span class="line"></span><br><span class="line">s = request.Session()</span><br><span class="line">url = &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/&quot;</span><br><span class="line">head = &#123;&#x27;Cookie&#x27;:&#x27;security=low;PHPSESSID=c2fad3pjoio31n2i15243jrb2n&#x27;&#125;</span><br><span class="line">data = &#123;</span><br><span class="line">&#x27;id&#x27;:&#x27;1&#x27;</span><br><span class="line">&#125;</span><br><span class="line">r = s.post(url,data=data,headers=head)</span><br></pre></td></tr></table></figure>
+
+<p>任何你传递给请求方法的字典都会与已设置会话层数据合并。方法层的参数覆盖会话的参数。</p>
+<p>不过需要注意，就算使用了会话，方法级别的参数也不会被跨请求保持，如下面这个例子，只有第一个请求发送了cookie：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = requests.Session()</span><br><span class="line"></span><br><span class="line">r = s.get(&#x27;http://httpbin.org/cookies&#x27;, cookies=&#123;&#x27;from-my&#x27;: &#x27;browser&#x27;&#125;)</span><br><span class="line">print(r.text)</span><br><span class="line"># &#x27;&#123;&quot;cookies&quot;: &#123;&quot;from-my&quot;: &quot;browser&quot;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">r = s.get(&#x27;http://httpbin.org/cookies&#x27;)</span><br><span class="line">print(r.text)</span><br><span class="line"># &#x27;&#123;&quot;cookies&quot;: &#123;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h1 id="base64库"><a href="#base64库" class="headerlink" title="base64库"></a>base64库</h1><h2 id="base64加解密"><a href="#base64加解密" class="headerlink" title="base64加解密"></a>base64加解密</h2><p>base64.bxxencode接受一个字节数组bytes用于加密，返回一个bytes存储加密之后的内容。<br>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = &quot;mrl64&quot;</span><br><span class="line">t = base64.b64encode(s.encode(&#x27;UTF-8&#x27;))</span><br></pre></td></tr></table></figure>
+
+<p>base64.bxxdecode接受一个存放着密文的bytes，返回一个bytes存放着解密后的内容。<br>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = &#x27;bXJsNjQ=&#x27;</span><br><span class="line">t = base64.b64decode(s)</span><br></pre></td></tr></table></figure>
+
+<p>同时支持base64、base32、base16加解密。</p>
+<h2 id="url编码"><a href="#url编码" class="headerlink" title="url编码"></a>url编码</h2><p>由于标准的Base64编码后可能出现字符+和/，在URL中就不能直接作为参数，所以又有一种”url safe”的base64编码，其实就是把字符+和/分别变成-和_。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">  s = &#x27;mrl64&#x27;</span><br><span class="line"> </span><br><span class="line">    t = base64.urlsafe_b64encode(s.encode(&#x27;UTF-8&#x27;))</span><br><span class="line">    print(t)</span><br><span class="line"> </span><br><span class="line">    t = base64.urlsafe_b64decode(t)</span><br><span class="line">    print(t)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">b&#x27;bXJsNjQ=&#x27;</span><br><span class="line">b&#x27;mrl64&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>具体可以参考下面这篇博客：<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1099008">Python标准库base64用法简介</a></p>
+<h1 id="Pillow"><a href="#Pillow" class="headerlink" title="Pillow"></a>Pillow</h1><p>这个库相当于是PIL的plus版，支持Python3.x，同时兼容原来PIL的功能。这个库主要用来处理图像。</p>
+<p>Pillow库安装成功后，导包时要用PIL来导入，而不能用pillow或Pillow。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import PIL</span><br><span class="line">from PIL import Image</span><br></pre></td></tr></table></figure>
+
+<p>由于是misc方面的内容，而且我也就稍微学了下，就不多叙述了。具体的参考下面这篇博客：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43790276/article/details/108478270">Python Pillow(PIL)库的用法介绍</a></p>
+<p>这里留一个二进制转化二维码脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import PIL from Image</span><br><span class="line">MAX = 25#定义二维码的长款</span><br><span class="line">pic = Image.new(&quot;RGB&quot;,(MAX, MAX))#创建一个图片</span><br><span class="line">str = &quot;&quot;</span><br><span class="line">i=0</span><br><span class="line">for y in range (0,MAX):</span><br><span class="line">    for x in range (0,MAX):</span><br><span class="line">        if(str[i] == &#x27;1&#x27;):</span><br><span class="line">            pic.putpixel([x,y],(0, 0, 0))  #填充像素[坐标],(r,g,b)元组值</span><br><span class="line">        else:</span><br><span class="line">            pic.putpixel([x,y],(255,255,255))</span><br><span class="line">        i = i+1</span><br><span class="line">pic.show() #显示图像</span><br><span class="line">pic.save(&quot;flag.png&quot;) #保存图像</span><br></pre></td></tr></table></figure>
+
+<p>如果给的数据不是二进制字符串而是rgb的值，可以将for循环中的内容稍作改变:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for i in range(0, x):</span><br><span class="line">    for j in range(0, y):</span><br><span class="line">        line = file.readline()  #获取一行的rgb值</span><br><span class="line">        rgb = line.split(&quot;, &quot;)  #分离rgb，文本中逗号后面有空格</span><br><span class="line">        im.putpixel((i, j), (int(rgb[0]), int(rgb[1]), int(rgb[2])))    #将rgb转化为像素</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>python库是python作为脚本语言如此强大的底气所在，这里记录了3个基础的库，在之后我们也会接触学习更多新内容的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/31/md5%E7%BB%95%E8%BF%87%E6%B1%87%E6%80%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,154 +1791,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrl64's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/" itemprop="url">cookie、session与token</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-05T12:29:39+08:00">
-                2021-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于http协议的无状态性，导致服务器收到客户端请求后得到的都是全新的请求，不知道历史记录，为了解决这个问题，便引入了cookie和session来弥补这个不足。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1780,7 +1841,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1791,7 +1852,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1802,7 +1863,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
