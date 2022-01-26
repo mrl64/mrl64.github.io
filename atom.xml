@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-20T10:58:36.345Z</updated>
+  <updated>2022-01-26T11:31:57.039Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ssrf的学习</title>
+    <link href="http://example.com/2022/01/25/ssrf%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2022/01/25/ssrf%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
+    <published>2022-01-25T03:20:12.000Z</published>
+    <updated>2022-01-26T11:31:57.039Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;做题的时候碰到了挺多的ssrf类型的题目，这里做一个学习总结。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -ssrf" scheme="http://example.com/tags/web-ssrf/"/>
+    
+  </entry>
   
   <entry>
     <title>ssti模板注入</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-ctf -web" scheme="http://example.com/tags/ctf-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【2021深育杯】misc-login write up</title>
-    <link href="http://example.com/2021/11/13/%E3%80%902021%E6%B7%B1%E8%82%B2%E6%9D%AF%E3%80%91misc-login-write-up/"/>
-    <id>http://example.com/2021/11/13/%E3%80%902021%E6%B7%B1%E8%82%B2%E6%9D%AF%E3%80%91misc-login-write-up/</id>
-    <published>2021-11-13T11:02:51.000Z</published>
-    <updated>2021-12-06T11:16:15.677Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;别问为什么一个web手写了个misc的题，问就是web根本不会。这次比赛连签到题全队做了3题，并列70-80名那一带。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="write up" scheme="http://example.com/categories/write-up/"/>
-    
-    
-    <category term="-ctf -misc" scheme="http://example.com/tags/ctf-misc/"/>
     
   </entry>
   

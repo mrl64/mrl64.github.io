@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -ssrf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言做题的时候碰到了挺多的ssrf类型的题目，这里做一个学习总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssrf的学习">
+<meta property="og:url" content="http://example.com/2022/01/25/ssrf%E7%9A%84%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言做题的时候碰到了挺多的ssrf类型的题目，这里做一个学习总结。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/01/26/q9GhCVB6Ijy4Aed.jpg">
+<meta property="article:published_time" content="2022-01-25T03:20:12.000Z">
+<meta property="article:modified_time" content="2022-01-26T11:31:57.039Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -ssrf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/01/26/q9GhCVB6Ijy4Aed.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/01/25/ssrf的学习/"/>
+
+
+
+
+
+  <title>ssrf的学习 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/25/ssrf%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ssrf的学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-25T11:20:12+08:00">
+                2022-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>做题的时候碰到了挺多的ssrf类型的题目，这里做一个学习总结。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="什么是ssrf"><a href="#什么是ssrf" class="headerlink" title="什么是ssrf"></a>什么是ssrf</h1><p>SSRF（Server-Side Request Forgery:服务器端请求伪造）是一种由攻击者构造形成并由服务端发起恶意请求的一个安全漏洞。进行SSRF的目的一般都是通过服务端来攻击黑客无法直接访问的内网系统。大致流程如下图所示：<br><img src="https://s2.loli.net/2022/01/26/q9GhCVB6Ijy4Aed.jpg"></p>
+<p>服务器A为web服务器，可以被攻击者访问，而主机B作为内网中其他服务器无法被访问。如果此时服务器A中的web服务存在ssrf漏洞，那么我们就可以通过服务器A发送请求头进行欺骗，达到获取主机B内容的目的。</p>
+<h1 id="漏洞产生原因"><a href="#漏洞产生原因" class="headerlink" title="漏洞产生原因"></a>漏洞产生原因</h1><ul>
+<li>file_get_contents()：将整个文件或一个url所指向的文件读入一个字符串中。</li>
+<li>readfile()：输出一个文件的内容。</li>
+<li>fsockopen()：打开一个网络连接或者一个Unix 套接字连接。</li>
+<li>curl_exec()：初始化一个新的会话，返回一个cURL句柄，供curl_setopt()，curl_exec()和curl_close() 函数使用。</li>
+<li>fopen()：打开一个文件文件或者 URL。</li>
+<li>……<br>上述函数的不当使用以及PHP原生类SoapClient在触发反序列化时都可导致SSRF。</li>
+</ul>
+<h1 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h1><ul>
+<li>对外网、服务器所在内网、服务器本地进行端口扫描，获取一些服务的banner信息等。</li>
+<li>攻击运行在内网或服务器本地的其他应用程序，如redis、mysql等。</li>
+<li>对内网Web应用进行指纹识别，识别企业内部的资产信息。</li>
+<li>攻击内外网的Web应用，主要是使用HTTP GET/POST请求就可以实现的攻击，如sql注入、文件上传等。</li>
+<li>利用file协议读取服务器本地文件等。</li>
+<li>进行跳板攻击等。</li>
+</ul>
+<h1 id="ssrf挖掘"><a href="#ssrf挖掘" class="headerlink" title="ssrf挖掘"></a>ssrf挖掘</h1><ol>
+<li>web功能</li>
+</ol>
+<ul>
+<li>社交分享功能：获取超链接的标题等内容进行显示</li>
+<li>转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</li>
+<li>在线翻译：给网址翻译对应网页的内容</li>
+<li>图片加载/下载：例如富文本编辑器中的点击下载图片到本地、通过URL地址加载或下载图片</li>
+<li>图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</li>
+<li>云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行</li>
+</ul>
+<ol start="2">
+<li>URL关键字<br>share、wap、url、link、src、source、target、u、3g、display、sourceURL、imageURL、domain等</li>
+</ol>
+<h1 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h1><p>SSRF的利用主要就是读取内网文件、探测内网主机存活、扫描内网端口、攻击内网其他应用等，而这些利用的手法无一不与协议息息相关。</p>
+<p>SSRF常用到的协议有：</p>
+<ul>
+<li>file协议： 在有回显的情况下，利用 file 协议可以读取任意文件的内容</li>
+<li>dict协议：泄露安装软件版本信息，查看端口，操作内网redis服务等</li>
+<li>http(s)协议：探测内网主机存活</li>
+<li>gopher协议：gopher支持发出GET、POST请求。可以先截获get请求包和post请求包，再构造成符合gopher协议的请求。gopher协议是ssrf利用中一个最强大的协议(俗称万能协议)。可用于反弹shell</li>
+</ul>
+<h2 id="file协议"><a href="#file协议" class="headerlink" title="file协议"></a>file协议</h2><p>构造如下payload，实现读取服务器上的本地文件及网站源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?url=file:///etc/passwd</span><br><span class="line">?url=file:///var/www/html/index.php</span><br></pre></td></tr></table></figure>
+
+<h2 id="dict协议"><a href="#dict协议" class="headerlink" title="dict协议"></a>dict协议</h2><p>我们可以利用dict协议构造payload查看内网主机上开放的端口及端口上运行服务的版本信息等，例如redis、http、ssh等：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=http://192.168.255.255:80/info</span><br></pre></td></tr></table></figure>
+<p>出现什么的报错就说明该主机上有什么服务。</p>
+<h2 id="http-s-协议"><a href="#http-s-协议" class="headerlink" title="http(s)协议"></a>http(s)协议</h2><p>先读取读取/etc/hosts、/proc/net/arp、/proc/net/fib_trie等文件获得目标主机的网络配置信息，以获得目标主机内网网段并进行爆破。内网段IP分为三类：</p>
+<ul>
+<li>A类：10.0.0.0 - 10.255.255.255</li>
+<li>B类：172.16.0.0 - 172.31.255.255</li>
+<li>C类：192.168.0.0 - 192.168.255.255</li>
+</ul>
+<p>使用bp爆破或构建payload通过服务器发送请求检测内网存活主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=http://192.168.255.255</span><br></pre></td></tr></table></figure>
+
+<h2 id="Gopher协议"><a href="#Gopher协议" class="headerlink" title="Gopher协议"></a>Gopher协议</h2><p>Gopher协议支持发出GET、POST请求，是SSRF中最重要的利用协议之一。我们可以截获请求包，再修改构建成符合Gopher协议格式的payload，攻击面十分之广。<br>payload如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?url=gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_TCP流</span><br><span class="line"></span><br><span class="line">//gopher的默认端口是70</span><br><span class="line">//如果发起POST请求，回车换行需要使用%0d%0a来代替%0a，如果多个参数，参数之间的&amp;也需要进行URL编码</span><br></pre></td></tr></table></figure>
+
+<p>想要构造合法payload，可以利用下面的脚本进行改写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import urllib.parse</span><br><span class="line">payload =\</span><br><span class="line">&quot;&quot;&quot;head payload</span><br><span class="line">&quot;&quot;&quot;  </span><br><span class="line">tmp = urllib.parse.quote(payload)</span><br><span class="line">new = tmp.replace(&#x27;%0A&#x27;,&#x27;%0D%0A&#x27;)</span><br><span class="line">result = &#x27;gopher://url/&#x27;+&#x27;_&#x27;+new</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>要注意：</p>
+<ul>
+<li>问号需要转码为URL编码，也就是%3f</li>
+<li>回车换行要变为%0d%0a,但如果直接用工具转</li>
+<li>在HTTP包的最后要加%0d%0a，代表消息结束</li>
+</ul>
+<h1 id="bypass"><a href="#bypass" class="headerlink" title="bypass"></a>bypass</h1><ol>
+<li><p>基本身份认证绕过<br>如果目标代码限制访问的域名只能为<code>http://www.hack.com</code>，那么我们可以采用HTTP基本身份认证的方式绕过。即@：<code>http://www.xxx.com@www.mrl64.com</code></p>
+</li>
+<li><p>302跳转<br>如果要求从本地访问，我们可以使用<code>xip.io</code>，当访问这个服务的任意子域名的时候，都会重定向到这个子域名。例如，当我们访问<code>http://127.0.0.1.xip.io/flag.php</code>时，实际访问的是<code>http://127.0.0.1/1.php</code>。这样的网址还有<code>http://nip.io</code>和<code>http://sslip.io。</code></p>
+</li>
+</ol>
+<p>或者使用短地址，<code>https://4m.cn/</code>对应的短地址即为本地，例如<code> https://4m.cn/FjOdQ</code>就会自动302跳转到<code>http://127.0.0.1/flag.php</code>上。</p>
+<ol start="3">
+<li>进制绕过<br>利用ip地址的进制变化，绕过，这里提供一个在线工具与脚本：<br><a target="_blank" rel="noopener" href="https://tool.520101.com/wangluo/jinzhizhuanhuan/">IP地址进制转化</a></li>
+</ol>
+<p>脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$ip = &#x27;127.0.0.1&#x27;;</span><br><span class="line">$ip = explode(&#x27;.&#x27;,$ip);</span><br><span class="line">$r = ($ip[0] &lt;&lt; 24) | ($ip[1] &lt;&lt; 16) | ($ip[2] &lt;&lt; 8) | $ip[3] ;</span><br><span class="line">if($r &lt; 0) &#123;</span><br><span class="line">$r += 4294967296;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;int:&quot;;     // 2130706433</span><br><span class="line">echo $r;</span><br><span class="line">echo &quot;oct:&quot;;     // 0177.0.0.1</span><br><span class="line">echo decoct($r);</span><br><span class="line">echo &quot;hex:&quot;;   // 0x7f.0.0.1</span><br><span class="line">echo dechex($r);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>还有其他指向本地的地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/     </span><br><span class="line">http://0/            //0在window下代表0.0.0.0，而在liunx下代表127.0.0.1</span><br><span class="line">http://[0:0:0:0:0:ffff:127.0.0.1]/    //在liunx下可用</span><br><span class="line">http://[::]:80/           //在liunx下可用</span><br><span class="line">http://127。0。0。1/      </span><br><span class="line">http://①②⑦.⓪.⓪.①</span><br><span class="line">http://127.1/</span><br><span class="line">http://127.00000.00000.001/</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>目录穿越<br>PHP的file_get_contents()在遇到不认识的协议头时候会将这个协议头当做文件夹，造成目录穿越漏洞，这个方法可以在SSRF的众多协议被禁止且只能使用它规定的某些协议的情况下来进行读取文件。</li>
+</ol>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=httpssss://../../../../etc/passwd</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>url解析<br>(1)readfile和parse_url函数的解析差异<br>如果后端用<code>parse_url</code>限制我们传递url的端口，例如限定了80，而我们想要读取9999端口中的内容，我们可以这样构建payload：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=http://127.0.0.1:9999:80/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这是因为<code>readfile()</code>获取的端口是最后冒号前面的一部分，而<code>parse_url()</code>获取的则是最后冒号后面的的端口，利用这种差异的不同，从而绕过WAF。</p>
+<p>同样这两个函数对host的解析也是不同的，<code>readfile()</code>获取的是@号后面一部分，而<code>parse_url()</code>获取的则是@号前面的一部分，利用这种差异的不同，我们可以绕过题目中parse_url()函数对指定host的限制。</p>
+<p>(2)curl和parse_url的解析差异<br>这两个函数主要针对host解析上的差异，<code>curl()</code>解析的是第一个@后面的网址，而<code>parse_url()</code>解析的是第二个@后面的网址。利用这个原理我们可以绕过题目中parse_url()对指定host的限制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=http://foo@hack.com:80@mrl64.com</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>SSRF也是web中的一个经典考点了，通过SSRF可以对内网的Redis、FastCGI、Mysql等发起攻击。之后遇到新的题型会继续补充。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-ssrf/" rel="tag"># -web -ssrf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/20/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" rel="next" title="ssti模板注入">
+                <i class="fa fa-chevron-left"></i> ssti模板注入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFssrf"><span class="nav-number"></span> <span class="nav-text">什么是ssrf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-number"></span> <span class="nav-text">漏洞产生原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3"><span class="nav-number"></span> <span class="nav-text">漏洞危害</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssrf%E6%8C%96%E6%8E%98"><span class="nav-number"></span> <span class="nav-text">ssrf挖掘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">利用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#file%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">file协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dict%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">dict协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-s-%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">http(s)协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gopher%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.</span> <span class="nav-text">Gopher协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bypass"><span class="nav-number"></span> <span class="nav-text">bypass</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
