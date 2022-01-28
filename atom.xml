@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-26T11:31:57.039Z</updated>
+  <updated>2022-01-28T14:33:33.672Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【hgame week1】write up</title>
+    <link href="http://example.com/2022/01/28/%E3%80%90hgame-week1%E3%80%91write-up/"/>
+    <id>http://example.com/2022/01/28/%E3%80%90hgame-week1%E3%80%91write-up/</id>
+    <published>2022-01-28T14:32:55.000Z</published>
+    <updated>2022-01-28T14:33:33.672Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;hgame开赛了，第一周的题比较简单，解了大部分非二进制和少部分二进制，估计第二周就不好过了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>ssrf的学习</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-web -mysql" scheme="http://example.com/tags/web-mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【极客大挑战2021】write up</title>
-    <link href="http://example.com/2021/11/15/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982021%E3%80%91write%20up/"/>
-    <id>http://example.com/2021/11/15/%E3%80%90%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982021%E3%80%91write%20up/</id>
-    <published>2021-11-15T09:35:28.000Z</published>
-    <updated>2021-12-06T11:17:18.278Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;2021的极客大挑战结束了，题目还是挺有意思的，也粗略认识学习了很多新东西，web做了11题出来，都大致写下思路吧。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="write up" scheme="http://example.com/categories/write-up/"/>
-    
-    
-    <category term="-ctf -web" scheme="http://example.com/tags/ctf-web/"/>
     
   </entry>
   
