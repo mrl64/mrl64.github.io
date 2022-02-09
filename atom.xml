@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-05T11:22:48.669Z</updated>
+  <updated>2022-02-09T13:25:44.525Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pop链的构建</title>
+    <link href="http://example.com/2022/02/09/pop%E9%93%BE%E7%9A%84%E6%9E%84%E5%BB%BA/"/>
+    <id>http://example.com/2022/02/09/pop%E9%93%BE%E7%9A%84%E6%9E%84%E5%BB%BA/</id>
+    <published>2022-02-09T08:04:47.000Z</published>
+    <updated>2022-02-09T13:25:44.525Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;反序列化plus之pop链的构建，趁寒假还有点时间就继续学习下。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
+    
+  </entry>
   
   <entry>
     <title>【hgame week2】write up</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python盲注脚本编写</title>
-    <link href="http://example.com/2021/11/19/python%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/"/>
-    <id>http://example.com/2021/11/19/python%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/</id>
-    <published>2021-11-19T04:47:02.000Z</published>
-    <updated>2021-11-19T13:53:36.147Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;盲注作为sql注入最常见的考点，掌握脚本的编写是十分重要的，盲注脚本分为布尔盲注和时间盲注，同时还有字典法和二分法。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -mysql -python" scheme="http://example.com/tags/web-mysql-python/"/>
     
   </entry>
   
