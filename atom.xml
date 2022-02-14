@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-14T07:05:26.677Z</updated>
+  <updated>2022-02-14T07:10:07.472Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,16 +21,12 @@
     <link href="http://example.com/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
     <id>http://example.com/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
     <published>2022-02-13T02:33:57.000Z</published>
-    <updated>2022-02-14T07:05:26.677Z</updated>
+    <updated>2022-02-14T07:10:07.472Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;打hgame的时候打出来一个新知识点，赶紧记录下这个漏洞。不过在学习xxe之前，我们要先认识xml。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
