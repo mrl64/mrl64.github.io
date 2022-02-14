@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-11T13:27:57.177Z</updated>
+  <updated>2022-02-14T07:05:26.677Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>XXE的学习</title>
+    <link href="http://example.com/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
+    <published>2022-02-13T02:33:57.000Z</published>
+    <updated>2022-02-14T07:05:26.677Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -XXE" scheme="http://example.com/tags/web-XXE/"/>
+    
+  </entry>
   
   <entry>
     <title>【hgame week3】write up</title>
@@ -412,27 +437,6 @@
     
     
     <category term="-ctf -misc" scheme="http://example.com/tags/ctf-misc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>http协议</title>
-    <link href="http://example.com/2021/11/29/http%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://example.com/2021/11/29/http%E5%8D%8F%E8%AE%AE/</id>
-    <published>2021-11-29T13:47:51.000Z</published>
-    <updated>2021-12-01T08:27:19.886Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;http协议的学习掌握对我们理解底层原理有相当大的作用，可以帮助我们更好地认识web。这里只对http做粗略学习，具体的理解应用需要结合实战。不过你连http都不会怎么好意思说自己是学web的（&lt;br&gt;ps.这篇博客同时含有TCP/IP的三次握手与四次握手。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-http -web" scheme="http://example.com/tags/http-web/"/>
     
   </entry>
   
