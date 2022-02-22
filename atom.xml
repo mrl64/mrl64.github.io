@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-18T13:29:48.942Z</updated>
+  <updated>2022-02-22T10:46:29.062Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu练习2</title>
+    <link href="http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/"/>
+    <id>http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/</id>
+    <published>2022-02-21T12:23:38.000Z</published>
+    <updated>2022-02-22T10:46:29.062Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>【hgame week4】write up</title>
@@ -412,27 +431,6 @@
     
     
     <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cookie、session与token</title>
-    <link href="http://example.com/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/"/>
-    <id>http://example.com/2021/12/05/cookie%E3%80%81session%E4%B8%8Etoken/</id>
-    <published>2021-12-05T04:29:39.000Z</published>
-    <updated>2021-12-05T09:12:39.426Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于http协议的无状态性，导致服务器收到客户端请求后得到的都是全新的请求，不知道历史记录，为了解决这个问题，便引入了cookie和session来弥补这个不足。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-http -web" scheme="http://example.com/tags/http-web/"/>
     
   </entry>
   

