@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-22T10:46:29.062Z</updated>
+  <updated>2022-02-23T13:44:26.486Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,14 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【ctfshow欢乐新春赛】write up</title>
+    <link href="http://example.com/2022/02/22/%E3%80%90ctfshow%E6%AC%A2%E4%B9%90%E6%96%B0%E6%98%A5%E8%B5%9B%E3%80%91write-up/"/>
+    <id>http://example.com/2022/02/22/%E3%80%90ctfshow%E6%AC%A2%E4%B9%90%E6%96%B0%E6%98%A5%E8%B5%9B%E3%80%91write-up/</id>
+    <published>2022-02-22T12:53:29.000Z</published>
+    <updated>2022-02-23T13:44:26.486Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;过年的时候在打hgame，看了下这个新春赛的题目还是有一定难度的，这里补个票。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
     <title>buu练习2</title>
     <link href="http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/"/>
     <id>http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/</id>
     <published>2022-02-21T12:23:38.000Z</published>
-    <updated>2022-02-22T10:46:29.062Z</updated>
+    <updated>2022-02-22T10:57:15.379Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -410,27 +433,6 @@
     
     
     <category term="-web -sql" scheme="http://example.com/tags/web-sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【unctf2021】write up</title>
-    <link href="http://example.com/2021/12/06/%E3%80%90unctf2021%E3%80%91write-up/"/>
-    <id>http://example.com/2021/12/06/%E3%80%90unctf2021%E3%80%91write-up/</id>
-    <published>2021-12-06T11:15:46.000Z</published>
-    <updated>2021-12-07T04:20:38.593Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;unctf的题挺有意思的，题型也很新，不过我主要还是做了misc和密码，web涉及到的知识点挺多的，就很多没做出来。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="write up" scheme="http://example.com/categories/write-up/"/>
-    
-    
-    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
     
   </entry>
   
