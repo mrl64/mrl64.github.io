@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-23T13:44:26.486Z</updated>
+  <updated>2022-02-24T13:16:22.112Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu练习3</title>
+    <link href="http://example.com/2022/02/24/buu%E7%BB%83%E4%B9%A03/"/>
+    <id>http://example.com/2022/02/24/buu%E7%BB%83%E4%B9%A03/</id>
+    <published>2022-02-24T09:47:55.000Z</published>
+    <updated>2022-02-24T13:16:22.112Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;虽然要考核了，但是还是要准备接下来的比赛，而且不是很想看反序列化，所以就继续刷题拓宽知识面了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>【ctfshow欢乐新春赛】write up</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-web -DVWA" scheme="http://example.com/tags/web-DVWA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于sql注入方法的补充</title>
-    <link href="http://example.com/2021/12/07/%E5%85%B3%E4%BA%8Esql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85/"/>
-    <id>http://example.com/2021/12/07/%E5%85%B3%E4%BA%8Esql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%A5%E5%85%85/</id>
-    <published>2021-12-07T13:26:44.000Z</published>
-    <updated>2021-12-13T15:07:22.728Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;打了些比赛后发现sql注入还有很多姿势没有学会，这篇博客专门对新见到的sql注入进行补充说明。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -sql" scheme="http://example.com/tags/web-sql/"/>
     
   </entry>
   
