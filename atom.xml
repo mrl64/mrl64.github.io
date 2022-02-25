@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-24T13:16:22.112Z</updated>
+  <updated>2022-02-25T12:09:49.368Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nmap的使用及ssi注入</title>
+    <link href="http://example.com/2022/02/25/nmap%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8Assi%E6%B3%A8%E5%85%A5/"/>
+    <id>http://example.com/2022/02/25/nmap%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8Assi%E6%B3%A8%E5%85%A5/</id>
+    <published>2022-02-25T07:07:43.000Z</published>
+    <updated>2022-02-25T12:09:49.368Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;昨天挖的坑今天就填，顺便也记录下nmap的使用从，毕竟ssi有时候也要搭配nmap扫描的。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -nmap -ssi" scheme="http://example.com/tags/web-nmap-ssi/"/>
+    
+  </entry>
   
   <entry>
     <title>buu练习3</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-web -CSRF" scheme="http://example.com/tags/web-CSRF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DVWA练习</title>
-    <link href="http://example.com/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/"/>
-    <id>http://example.com/2021/12/08/DVWA%E7%BB%83%E4%B9%A0/</id>
-    <published>2021-12-08T12:43:20.000Z</published>
-    <updated>2021-12-19T11:57:34.451Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;粗略学习过http协议的相关内容，接下来就是刷靶场的环节了。DVWA涵盖了多种常见的web漏洞供我们练习，综合性较强。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -DVWA" scheme="http://example.com/tags/web-DVWA/"/>
     
   </entry>
   
