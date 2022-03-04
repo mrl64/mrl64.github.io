@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-03T11:22:56.674Z</updated>
+  <updated>2022-03-04T11:09:35.043Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NSSCTF练习1</title>
+    <link href="http://example.com/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/"/>
+    <id>http://example.com/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/</id>
+    <published>2022-03-04T07:23:53.000Z</published>
+    <updated>2022-03-04T11:09:35.043Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;换个平台继续刷，碰到什么做什么，然后记录一些比较有意思或者设计知识盲区的题。&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
+    
+  </entry>
   
   <entry>
     <title>buu练习4</title>
@@ -412,27 +438,6 @@
     
     
     <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习</title>
-    <link href="http://example.com/2021/12/18/buu%E7%BB%83%E4%B9%A0/"/>
-    <id>http://example.com/2021/12/18/buu%E7%BB%83%E4%B9%A0/</id>
-    <published>2021-12-18T12:06:15.000Z</published>
-    <updated>2022-01-01T08:26:07.843Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;考前放松心情，就多刷点题。之前已经提到了一些题目了，这里就不会重复了。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   

