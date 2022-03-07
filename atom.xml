@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-06T09:15:25.655Z</updated>
+  <updated>2022-03-07T14:13:31.062Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu练习5</title>
+    <link href="http://example.com/2022/03/07/buu%E7%BB%83%E4%B9%A05/"/>
+    <id>http://example.com/2022/03/07/buu%E7%BB%83%E4%B9%A05/</id>
+    <published>2022-03-07T10:34:20.000Z</published>
+    <updated>2022-03-07T14:13:31.062Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;凑字数用的，前言总要有点字在不显得空荡荡的。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>特殊webshell的构建</title>
@@ -410,27 +431,6 @@
     
     
     <category term="-MD5 -web" scheme="http://example.com/tags/MD5-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>xss challenges</title>
-    <link href="http://example.com/2021/12/29/xss-challenges/"/>
-    <id>http://example.com/2021/12/29/xss-challenges/</id>
-    <published>2021-12-29T13:54:19.000Z</published>
-    <updated>2021-12-30T07:38:29.348Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;考试周摆烂，被复习压得身心俱疲，做会靶场透透气，巩固下xss。这个靶场的要求就是注入&lt;code&gt;alert(document.domain)&lt;/code&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -XSS" scheme="http://example.com/tags/web-XSS/"/>
     
   </entry>
   
