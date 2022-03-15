@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-13T08:51:57.933Z</updated>
+  <updated>2022-03-15T13:31:10.122Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>unctf练习1</title>
+    <link href="http://example.com/2022/03/14/unctf%E7%BB%83%E4%B9%A01/"/>
+    <id>http://example.com/2022/03/14/unctf%E7%BB%83%E4%B9%A01/</id>
+    <published>2022-03-14T13:03:42.000Z</published>
+    <updated>2022-03-15T13:31:10.122Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;unctf的平台上还有前两年的赛题，本着不做白不做的精神，我们做一下。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>总结反弹shell</title>
@@ -410,27 +431,6 @@
     
     
     <category term="-web -ssrf" scheme="http://example.com/tags/web-ssrf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ssti模板注入</title>
-    <link href="http://example.com/2022/01/20/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/"/>
-    <id>http://example.com/2022/01/20/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/</id>
-    <published>2022-01-20T04:41:44.000Z</published>
-    <updated>2022-01-20T10:58:36.345Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;啊哈哈哈哈，ssti，不玩阴的，直接来吧。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -ssti" scheme="http://example.com/tags/web-ssti/"/>
     
   </entry>
   

