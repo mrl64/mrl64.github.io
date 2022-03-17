@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-15T13:31:10.122Z</updated>
+  <updated>2022-03-17T09:38:22.387Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>unctf练习2</title>
+    <link href="http://example.com/2022/03/16/unctf%E7%BB%83%E4%B9%A02/"/>
+    <id>http://example.com/2022/03/16/unctf%E7%BB%83%E4%B9%A02/</id>
+    <published>2022-03-16T13:27:23.000Z</published>
+    <updated>2022-03-17T09:38:22.387Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;继续刷，还有一些web没解决&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>unctf练习1</title>
@@ -410,27 +431,6 @@
     
     
     <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ssrf的学习</title>
-    <link href="http://example.com/2022/01/25/ssrf%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://example.com/2022/01/25/ssrf%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
-    <published>2022-01-25T03:20:12.000Z</published>
-    <updated>2022-01-26T11:31:57.039Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;做题的时候碰到了挺多的ssrf类型的题目，这里做一个学习总结。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -ssrf" scheme="http://example.com/tags/web-ssrf/"/>
     
   </entry>
   

