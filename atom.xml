@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-30T14:43:28.754Z</updated>
+  <updated>2022-03-30T15:21:34.654Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,16 +21,12 @@
     <link href="http://example.com/2022/03/27/%E3%80%90NISACTF%E3%80%91write-up/"/>
     <id>http://example.com/2022/03/27/%E3%80%90NISACTF%E3%80%91write-up/</id>
     <published>2022-03-27T09:47:06.000Z</published>
-    <updated>2022-03-30T14:43:28.754Z</updated>
+    <updated>2022-03-30T15:21:34.654Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;福师大的校赛，有些很简单的题就不写了，这个wp主要是记录下学习到的东西，也不算wp其实，因为有些题是后面复现的。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
