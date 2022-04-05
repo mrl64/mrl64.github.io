@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-03T08:51:01.829Z</updated>
+  <updated>2022-04-05T12:54:04.289Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>php迭代器（原生类）的利用</title>
+    <link href="http://example.com/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/"/>
+    <id>http://example.com/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/</id>
+    <published>2022-04-04T05:55:45.000Z</published>
+    <updated>2022-04-05T12:54:04.289Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;填坑这一块知识了，填完坑就要开始恶补pop和xss这两块的知识来为iscc做准备了。&lt;/p&gt;
+&lt;!--mroe--&gt;
+
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
+    
+  </entry>
   
   <entry>
     <title>【NSSRound#1 Basic】赛后复现</title>
@@ -410,27 +438,6 @@
     
     
     <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XXE的学习</title>
-    <link href="http://example.com/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://example.com/2022/02/13/XXE%E7%9A%84%E5%AD%A6%E4%B9%A0/</id>
-    <published>2022-02-13T02:33:57.000Z</published>
-    <updated>2022-02-14T07:10:07.472Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;打hgame的时候打出来一个新知识点，赶紧记录下这个漏洞。不过在学习xxe之前，我们要先认识xml。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -XXE" scheme="http://example.com/tags/web-XXE/"/>
     
   </entry>
   
