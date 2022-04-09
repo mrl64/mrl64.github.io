@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-07T12:48:28.351Z</updated>
+  <updated>2022-04-09T10:09:45.835Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NSSCTF练习3</title>
+    <link href="http://example.com/2022/04/08/NSSCTF%E7%BB%83%E4%B9%A03/"/>
+    <id>http://example.com/2022/04/08/NSSCTF%E7%BB%83%E4%B9%A03/</id>
+    <published>2022-04-08T06:08:30.000Z</published>
+    <updated>2022-04-09T10:09:45.835Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;继续刷NSSCTF上的题。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
+    
+  </entry>
   
   <entry>
     <title>pop链专练1</title>
@@ -406,27 +425,6 @@
     
     
     <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习2</title>
-    <link href="http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/"/>
-    <id>http://example.com/2022/02/21/buu%E7%BB%83%E4%B9%A02/</id>
-    <published>2022-02-21T12:23:38.000Z</published>
-    <updated>2022-02-22T10:57:15.379Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;刷题没啥好说的，因为懒就没截图了，尽量说的清楚些。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   
