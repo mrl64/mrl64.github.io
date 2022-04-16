@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-14T12:33:47.133Z</updated>
+  <updated>2022-04-16T11:55:04.613Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu练习8</title>
+    <link href="http://example.com/2022/04/16/buu%E7%BB%83%E4%B9%A08/"/>
+    <id>http://example.com/2022/04/16/buu%E7%BB%83%E4%B9%A08/</id>
+    <published>2022-04-16T07:51:06.000Z</published>
+    <updated>2022-04-16T11:55:04.613Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;养好状态准备打MRCTF和ISCC，继续刷题&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>buu练习7</title>
@@ -402,27 +423,6 @@
     
     
     <category term="-web -nmap -ssi" scheme="http://example.com/tags/web-nmap-ssi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习3</title>
-    <link href="http://example.com/2022/02/24/buu%E7%BB%83%E4%B9%A03/"/>
-    <id>http://example.com/2022/02/24/buu%E7%BB%83%E4%B9%A03/</id>
-    <published>2022-02-24T09:47:55.000Z</published>
-    <updated>2022-02-24T13:16:22.112Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;虽然要考核了，但是还是要准备接下来的比赛，而且不是很想看反序列化，所以就继续刷题拓宽知识面了。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   
