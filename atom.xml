@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-21T14:20:19.148Z</updated>
+  <updated>2022-04-28T11:45:14.563Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqlite数据库及注入</title>
+    <link href="http://example.com/2022/04/28/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E6%B3%A8%E5%85%A5/"/>
+    <id>http://example.com/2022/04/28/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E6%B3%A8%E5%85%A5/</id>
+    <published>2022-04-28T08:14:59.000Z</published>
+    <updated>2022-04-28T11:45:14.563Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;最近实在是忙都没时间写博客，难得周四院休赶紧把之前挖的sqlite的坑给填了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -sqlite" scheme="http://example.com/tags/web-sqlite/"/>
+    
+  </entry>
   
   <entry>
     <title>攻防世界3</title>
@@ -402,27 +423,6 @@
     
     
     <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习4</title>
-    <link href="http://example.com/2022/03/03/buu%E7%BB%83%E4%B9%A04/"/>
-    <id>http://example.com/2022/03/03/buu%E7%BB%83%E4%B9%A04/</id>
-    <published>2022-03-03T07:35:36.000Z</published>
-    <updated>2022-03-03T11:22:56.674Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;等打虎符了，虽然应该只能是去看看题，但现在该练的题还得练。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   
