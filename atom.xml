@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-28T11:45:14.563Z</updated>
+  <updated>2022-05-08T07:29:12.895Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>http请求走私</title>
+    <link href="http://example.com/2022/05/08/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/"/>
+    <id>http://example.com/2022/05/08/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/</id>
+    <published>2022-05-08T02:25:32.000Z</published>
+    <updated>2022-05-08T07:29:12.895Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;打比赛碰到了这个知识点，就顺便学习一下，http走私这块如果要考起来难度还是比较高的。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-http -web" scheme="http://example.com/tags/http-web/"/>
+    
+  </entry>
   
   <entry>
     <title>sqlite数据库及注入</title>
@@ -404,25 +425,6 @@
     
     
     <category term="-webshell -web" scheme="http://example.com/tags/webshell-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NSSCTF练习1</title>
-    <link href="http://example.com/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/"/>
-    <id>http://example.com/2022/03/04/NSSCTF%E7%BB%83%E4%B9%A01/</id>
-    <published>2022-03-04T07:23:53.000Z</published>
-    <updated>2022-03-04T11:20:52.047Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;换个平台继续刷，碰到什么做什么，然后记录一些比较有意思或者设计知识盲区的题。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
     
   </entry>
   
