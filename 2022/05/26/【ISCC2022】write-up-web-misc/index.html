@@ -89,7 +89,7 @@
 <meta property="og:description" content="前言 终于打完了ISCC，由于是赛后写的因此没有复现环境，所以就简单写写wp了。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-26T04:07:09.000Z">
-<meta property="article:modified_time" content="2022-05-26T06:30:32.873Z">
+<meta property="article:modified_time" content="2022-05-26T11:32:37.915Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-ctf">
 <meta name="twitter:card" content="summary">
@@ -426,7 +426,7 @@
 <h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="冬奥会-1"><a href="#冬奥会-1" class="headerlink" title="冬奥会"></a>冬奥会</h2><p>这题看描述就可以猜出来压缩包密码就是了。首先给了一张图，010改高发现一串unicode，转码后问我们冰墩墩的小伙伴的原型，那就是灯笼。因此这题压缩包密码就是灯笼，解压后图片用notepad打开就是flag。</p>
 <h2 id="单板小将苏翊鸣"><a href="#单板小将苏翊鸣" class="headerlink" title="单板小将苏翊鸣"></a>单板小将苏翊鸣</h2><p>同样也是010改图片高度，有个二维码，扫描后是unicode，转码后问我们中国队在冬奥获得了几枚奖牌，几金几银几铜，那么答案15942就是压缩包密码，解压得到flag。</p>
 <h2 id="降维打击"><a href="#降维打击" class="headerlink" title="降维打击"></a>降维打击</h2><p>打开图片一个屑魔女，foremost分离出一张图，根据题目意思这里应该对那张图片进行降维，不过我们用强大的zsteg可以提取。</p>
-<p>提取之后是一串看都看不懂的文字，那么结合屑魔女，这里的文字正是出自魔女之旅，b站大哥已经分析出了对应的文字，直接参考就可以了：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv8724055/">魔女之旅》文字破解·印刷体</a></p>
+<p>提取之后是一串看都看不懂的文字，那么结合屑魔女，这里的文字正是出自魔女之旅，b站大哥已经分析出了对应的文字，直接参考就可以了：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv8724055/">《魔女之旅》文字破解·印刷体</a></p>
 <p>翻译出来的玩意就是flag。</p>
 <h2 id="真相只有一个"><a href="#真相只有一个" class="headerlink" title="真相只有一个"></a>真相只有一个</h2><p>下载下来三个文件，首先将stream的请求头修复，改后缀为zip，解压后获取一个压缩包，但是打开这个压缩包需要一个密码。</p>
 <p>接下来是一张图片，LSB发现信息<code>passwd 1998/xx/xx</code>，掩码爆破压缩包出来密码是19981111，解压后得到一个流量包。打开流量包提取TFTP对象，发现password.mp3，查看波形图发现摩斯密码，解码为<code>isccmisc</code>。</p>
@@ -438,7 +438,7 @@
 
 <p>一下就让人想到unicode编码，而对应密码本后发现如果将星星对应的unicode编码的最后一位对应替换，就可以得到一串正确的unicode编码，解码就可以得到flag。</p>
 <h2 id="隐秘的信息"><a href="#隐秘的信息" class="headerlink" title="隐秘的信息"></a>隐秘的信息</h2><p>描述中的base64编码就是压缩包密码，解压后是一张图，用stegslove提取LSB，通道RGB000，发现前三行存在可疑信息，将其16进制值转化为2进制，删除头部第一个0之前的所有1，再转成ascii码即可得到flag。</p>
-<h2 id="套中套"><a href="#套中套" class="headerlink" title="套中套"></a>套中套</h2><p>给了一张图和一个压缩包，压缩包是加密的。修复图片文件头，发现png的crc32错误，改高发现flag1。但是这个flag1明显不完整，我们将图片截图扔进steghide，在Blue0通道发现剩下的隐藏字符。</p>
+<h2 id="套中套"><a href="#套中套" class="headerlink" title="套中套"></a>套中套</h2><p>给了一张图和一个压缩包，压缩包是加密的。修复图片文件头，发现png的crc32错误，改高发现flag1。但是这个flag1明显不完整，我们将图片截图扔进stegslove，在Blue0通道发现剩下的隐藏字符。</p>
 <p>接下来在图片的hex最后发现一串base64，解码后得到flag2，将两个flag组合起来就是压缩包的密码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wELC0m3_T0_tH3_ISCC_Zo2z</span><br></pre></td></tr></table></figure>
 
@@ -446,7 +446,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">pubKey = </span><br><span class="line">nbit = len(pubKey)</span><br><span class="line">encoded = </span><br><span class="line">A = Matrix(ZZ, nbit + 1, nbit + 1)</span><br><span class="line"></span><br><span class="line">for i in range(nbit):</span><br><span class="line">    A[i, i] = 1</span><br><span class="line"></span><br><span class="line">for i in range(nbit):</span><br><span class="line">    A[i, nbit] = pubKey[i]</span><br><span class="line"></span><br><span class="line">A[nbit, nbit] = -(encoded)</span><br><span class="line"></span><br><span class="line">res = A.LLL()</span><br><span class="line">for i in range(0, nbit + 1):</span><br><span class="line">    </span><br><span class="line">    M = res.row(i).list()</span><br><span class="line">    flag = True</span><br><span class="line">    for m in M:</span><br><span class="line">        if m != 0 and m != 1:</span><br><span class="line">            flag = False</span><br><span class="line">            break</span><br><span class="line">    if flag == True:</span><br><span class="line">        M = &#x27;&#x27;.join(str(j) for j in M)</span><br><span class="line">        M = M[:-1]</span><br><span class="line">        M = hex(int(M, 2))[2:]</span><br><span class="line">        print(hex(int(M,16)))</span><br></pre></td></tr></table></figure>
 
 <p>跑sage获得flag。</p>
-<h2 id="小光学AI"><a href="#小光学AI" class="headerlink" title="小光学AI"></a>小光学AI</h2><p>感谢人工智能Strl通过爆破解决了这一维护后0解的世界难题，exp：</p>
+<h2 id="小光学AI"><a href="#小光学AI" class="headerlink" title="小光学AI"></a>小光学AI</h2><p>感谢人工智能Strl通过脑中训练模型，然后得出大致区间，最后遍历可能数据解决了这一维护后0解的世界难题，exp：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">listt=[]</span><br><span class="line">for i in range(1,10):</span><br><span class="line">    for j in range(1,10):</span><br><span class="line">        listt.append(i/j)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">with open(&#x27;./dataplus.txt&#x27;, &#x27;w&#x27;) as f:  # 设置文件对象</span><br><span class="line"></span><br><span class="line">    for a1 in range(20000,40000):</span><br><span class="line">        for a2 in listt:</span><br><span class="line">            for a3 in listt:</span><br><span class="line">                    print(&quot;%d：%d：%d&quot;%(a1,a1*a2,a1*a3),file = f)</span><br></pre></td></tr></table></figure>
 
 <p>跑出字典后爆破压缩包即可，后这个非预期解已被修复。</p>
@@ -490,6 +490,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/05/26/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" rel="prev" title="js的原型链污染">
+                js的原型链污染 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -566,7 +570,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

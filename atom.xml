@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-26T06:30:32.873Z</updated>
+  <updated>2022-05-26T13:35:13.228Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>js的原型链污染</title>
+    <link href="http://example.com/2022/05/26/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/"/>
+    <id>http://example.com/2022/05/26/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</id>
+    <published>2022-05-26T08:06:53.000Z</published>
+    <updated>2022-05-26T13:35:13.228Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;ISCC结束前几天就开始看原型链这一块了，为了填上之前那篇博客的坑还是啃了一会的，因为没有很系统了解过js因此理解起来不是特别顺利。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-js -web" scheme="http://example.com/tags/js-web/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【ISCC2022】write up(web+misc)</title>
     <link href="http://example.com/2022/05/26/%E3%80%90ISCC2022%E3%80%91write-up-web-misc/"/>
     <id>http://example.com/2022/05/26/%E3%80%90ISCC2022%E3%80%91write-up-web-misc/</id>
     <published>2022-05-26T04:07:09.000Z</published>
-    <updated>2022-05-26T06:30:32.873Z</updated>
+    <updated>2022-05-26T11:32:37.915Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
@@ -404,27 +425,6 @@
     
     
     <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习6</title>
-    <link href="http://example.com/2022/03/11/buu%E7%BB%83%E4%B9%A06/"/>
-    <id>http://example.com/2022/03/11/buu%E7%BB%83%E4%B9%A06/</id>
-    <published>2022-03-11T07:53:06.000Z</published>
-    <updated>2022-03-11T13:44:44.008Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;还是凑字数用的，前言总要有点字在，才不显得空荡荡的。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   
