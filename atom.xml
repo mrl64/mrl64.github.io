@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-12T12:09:09.813Z</updated>
+  <updated>2022-05-26T06:30:32.873Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【ISCC2022】write up(web+misc)</title>
+    <link href="http://example.com/2022/05/26/%E3%80%90ISCC2022%E3%80%91write-up-web-misc/"/>
+    <id>http://example.com/2022/05/26/%E3%80%90ISCC2022%E3%80%91write-up-web-misc/</id>
+    <published>2022-05-26T04:07:09.000Z</published>
+    <updated>2022-05-26T06:30:32.873Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;终于打完了ISCC，由于是赛后写的因此没有复现环境，所以就简单写写wp了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>nodejs常见知识点总结</title>
@@ -396,27 +417,6 @@
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;还是凑字数用的，前言总要有点字在，才不显得空荡荡的。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习5</title>
-    <link href="http://example.com/2022/03/07/buu%E7%BB%83%E4%B9%A05/"/>
-    <id>http://example.com/2022/03/07/buu%E7%BB%83%E4%B9%A05/</id>
-    <published>2022-03-07T10:34:20.000Z</published>
-    <updated>2022-03-07T14:13:31.062Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;凑字数用的，前言总要有点字在不显得空荡荡的。&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     
