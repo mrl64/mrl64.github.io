@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-26T13:35:13.228Z</updated>
+  <updated>2022-05-28T09:20:58.913Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu练习9</title>
+    <link href="http://example.com/2022/05/28/buu%E7%BB%83%E4%B9%A09/"/>
+    <id>http://example.com/2022/05/28/buu%E7%BB%83%E4%B9%A09/</id>
+    <published>2022-05-28T06:04:59.000Z</published>
+    <updated>2022-05-28T09:20:58.913Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;国B打完打国A，也有一个多月没刷buu了，刷刷题练练手感。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>js的原型链污染</title>
@@ -63,7 +84,7 @@
     <link href="http://example.com/2022/05/11/nodejs%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
     <id>http://example.com/2022/05/11/nodejs%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
     <published>2022-05-11T08:23:17.000Z</published>
-    <updated>2022-05-12T12:09:09.813Z</updated>
+    <updated>2022-05-26T13:46:41.184Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
@@ -404,27 +425,6 @@
     
     
     <category term="-web -shell" scheme="http://example.com/tags/web-shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NSSCTF练习2</title>
-    <link href="http://example.com/2022/03/12/NSSCTF%E7%BB%83%E4%B9%A02/"/>
-    <id>http://example.com/2022/03/12/NSSCTF%E7%BB%83%E4%B9%A02/</id>
-    <published>2022-03-12T08:20:08.000Z</published>
-    <updated>2022-03-13T05:57:14.417Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;继续刷NSSCTF，web的内容还是很杂的，多刷题还是能学到很多东西的。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
     
   </entry>
   
