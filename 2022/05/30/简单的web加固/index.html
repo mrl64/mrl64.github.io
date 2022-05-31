@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -加固," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 ciscn初赛过了就要准备分区赛了，当然就要来练习awd plus了，awdp最重要的一环还是加固，因此这篇博客来总结一下一些简单常用的web加固。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的web加固">
+<meta property="og:url" content="http://example.com/2022/05/30/%E7%AE%80%E5%8D%95%E7%9A%84web%E5%8A%A0%E5%9B%BA/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 ciscn初赛过了就要准备分区赛了，当然就要来练习awd plus了，awdp最重要的一环还是加固，因此这篇博客来总结一下一些简单常用的web加固。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-30T09:09:50.000Z">
+<meta property="article:modified_time" content="2022-05-31T13:45:13.123Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -加固">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/05/30/简单的web加固/"/>
+
+
+
+
+
+  <title>简单的web加固 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/30/%E7%AE%80%E5%8D%95%E7%9A%84web%E5%8A%A0%E5%9B%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单的web加固</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-05-30T17:09:50+08:00">
+                2022-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>ciscn初赛过了就要准备分区赛了，当然就要来练习awd plus了，awdp最重要的一环还是加固，因此这篇博客来总结一下一些简单常用的web加固。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="常见加固汇总"><a href="#常见加固汇总" class="headerlink" title="常见加固汇总"></a>常见加固汇总</h1><h2 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h2><p>关于sql注入加固的方式有许多不同的方法，这里就简单介绍几个常用方法。</p>
+<ol>
+<li><p>转义法<br>转义法就是将我们输入的值进行转义处理，让引号之类的特殊符号被当做输入内容，从而防止引号的恶意闭合导致sql注入。php中常见的转义函数如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">addslashes() 全版本通用</span><br><span class="line">mysql_real_escape_string() 在php5.5中已经弃用，并在php7中被删除</span><br><span class="line">mysql_escape_string() PHP 4 &gt;= 4.0.3, PHP 5</span><br></pre></td></tr></table></figure></li>
+<li><p>过滤法<br>过滤法，也就是设置黑名单，阻止一些恶意语句的传入。当后端程序检测到输入的内容存在黑名单中时，即立刻终止程序，从而起到防御的作用。</p>
+</li>
+</ol>
+<p>常用waf：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(preg_match(&quot;/xml|extractvalue|regexp|copy|read|file|create|grand|dir|insert|link|server|drop|=|&gt;|&lt;|;|select|union|flag|ascii|subm|right|\&#x27;|\^|\||\ /i&quot;,$username))&#123;</span><br><span class="line">    die(&quot;no&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//使用preg_replace也可，具体要看攻击的exp或payload形式</span><br></pre></td></tr></table></figure>
+
+<h2 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h2><p>对于XSS攻击的防守主要还是以过滤为主。对于XSS攻击最好的过滤方式还得是过滤<code>&lt;</code>、<code>script</code>、<code>&gt;</code>、<code>&quot;</code>、<code>/</code>等等敏感字符，以防止各种各样奇怪的绕过方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(preg_match(&quot;/script|\&lt;|\&gt;|\/|\\|\&quot;|document|console|alert|src|xml|\+|_|data|cookie|flag|var/i&quot;,$username))&#123;</span><br><span class="line">    die(&quot;no&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//使用preg_replace也可，具体要看攻击的exp或payload形式</span><br></pre></td></tr></table></figure>
+
+<p>DVWA中对于XSS攻击的防御采取了设置token的方法。其实我们也可以通过编码转化来进行防御，对输入的值进行一次base64解码等方式来进行防御也是一种可行的策略。</p>
+<h2 id="任意文件包含-读取"><a href="#任意文件包含-读取" class="headerlink" title="任意文件包含/读取"></a>任意文件包含/读取</h2><p>存在这类目录很多都是因为没有对输入的值进行控制，导致在引用或者读取文件时被攻击者以相对路径或者伪协议的方式直接读取到了文件。因此此类漏洞无脑过滤<code>.</code>、<code>/</code>和伪协议就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(preg_match(&quot;/data|ph|file|\:|\/|\.|\+|flag|phar/i&quot;,$username))&#123;</span><br><span class="line">    die(&quot;no&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//使用preg_replace也可，具体要看攻击的exp或payload形式</span><br></pre></td></tr></table></figure>
+
+<p>DVWA中针对此类漏洞做出了无懈可击的防御——白名单机制。或者还有一种思路是控制输出内容，但是不知道这种思路在awdp中能不能实现。</p>
+<h2 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h2><p>关于文件上传就有很多值得说到的东西了，前端的MINE，后端的waf都是进行防御的有效手段。不过必须要注意的是图片码的防御，不能让<code>.htacess</code>文件和<code>.user.ini</code>文件被上传，并且一定要对图片进行二次渲染，杀死藏匿于图片中的木马。</p>
+<p>关于waf，除了常规的后缀黑名单与白名单，更重要的是对上传文件内容的过滤，对于各种一句话木马bypass是绝对不能姑息的。同样，对于文件路径的保护也是防止文件上传漏洞发生的重要手段。</p>
+<p>最后一种方法便是设置权限，upload文件夹下的文件取消执行权限，这样可以使上传的脚本不能够被执行。</p>
+<p>总之，关于upload漏洞的防护加固方式是多样的，我们可以根据exp进行重点针对。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面几个漏洞的加固都是常规的php漏洞，还是比较简单的，打打分区赛暂时还行，不像总决赛什么加固都有，python、java一个不漏。</p>
+<h1 id="Ezsql"><a href="#Ezsql" class="headerlink" title="Ezsql"></a>Ezsql</h1><p>打开网页发现是一个登录框，测试sql万能密码发现登陆成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin&#x27; or 1=1#</span><br></pre></td></tr></table></figure>
+
+<p>那么连接ssh，进入<code>/var/www/html</code>目录，查看index.php文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">include &#x27;dbConnect.php&#x27;;</span><br><span class="line">$username = $_GET[&#x27;username&#x27;];</span><br><span class="line">$password = $_GET[&#x27;password&#x27;];</span><br><span class="line">if (isset($_GET[&#x27;username&#x27;]) &amp;&amp; isset($_GET[&#x27;password&#x27;])) &#123;</span><br><span class="line">    $sql = &quot;SELECT * FROM users WHERE username = &#x27;$username&#x27; AND password = &#x27;$password&#x27;&quot;;</span><br><span class="line">    $result = $mysqli-&gt;query($sql);</span><br><span class="line">    if (!$result)</span><br><span class="line">        die(mysqli_error($mysqli));</span><br><span class="line">    $data = $result-&gt;fetch_all(); // 从结果集中获取所有数据</span><br><span class="line">    if (!empty($data)) &#123;</span><br><span class="line">        echo &#x27;登录成功！&#x27;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;用户名或密码错误&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一点过滤都没有，那么我们只用转义法进行加固：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$username = addslashes($username);</span><br><span class="line">$password = addslashes($password);</span><br></pre></td></tr></table></figure>
+
+<p>加固后返回测试，发现登录失败，那么我们进行check，返回true，在/flag中获取flag。</p>
+<h1 id="网鼎杯-2020-半决赛-faka"><a href="#网鼎杯-2020-半决赛-faka" class="headerlink" title="[网鼎杯 2020 半决赛]faka"></a>[网鼎杯 2020 半决赛]faka</h1><p>这题没在加固题中，但是当时网鼎杯半决赛也是awdp，因此直接拿来做。</p>
+<p>首先打一下这个题，查看源码，发现一个sql文件，源码中发现admin路由，发现需要登录。因此查看数据表内容，在<code>system_user</code>找到用户密码的md5值，用somd5解密，密码为admincccbbb123。</p>
+<p>登录后台成功后，去源码中搜关键函数，在<code>/manage/controller/Bac</code>kup.php`中发现文件读取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function downloadBak() &#123;</span><br><span class="line">        $file_name = $_GET[&#x27;file&#x27;];</span><br><span class="line">        $file_dir = $this-&gt;config[&#x27;path&#x27;];</span><br><span class="line">        if (!file_exists($file_dir . &quot;/&quot; . $file_name)) &#123; //检查文件是否存在</span><br><span class="line">            return false;</span><br><span class="line">            exit;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $file = fopen($file_dir . &quot;/&quot; . $file_name, &quot;r&quot;); // 打开文件</span><br><span class="line">            // 输入文件标签</span><br><span class="line">            header(&#x27;Content-Encoding: none&#x27;);</span><br><span class="line">            header(&quot;Content-type: application/octet-stream&quot;);</span><br><span class="line">            header(&quot;Accept-Ranges: bytes&quot;);</span><br><span class="line">            header(&quot;Accept-Length: &quot; . filesize($file_dir . &quot;/&quot; . $file_name));</span><br><span class="line">            header(&#x27;Content-Transfer-Encoding: binary&#x27;);</span><br><span class="line">            header(&quot;Content-Disposition: attachment; filename=&quot; . $file_name);  //以真实文件名提供给浏览器下载</span><br><span class="line">            header(&#x27;Pragma: no-cache&#x27;);</span><br><span class="line">            header(&#x27;Expires: 0&#x27;);</span><br><span class="line">            //输出文件内容</span><br><span class="line">            echo fread($file, filesize($file_dir . &quot;/&quot; . $file_name));</span><br><span class="line">            fclose($file);</span><br><span class="line">            exit;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>没有过滤，那么我们直接构建payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/manage/backup/downloadbak?file=../../../../../../../../../../flag.txt</span><br></pre></td></tr></table></figure>
+<p>获取flag。</p>
+<p>其实看了别人的wp，发现还有文件上传漏洞可以利用，但是那个利用十分复杂，这里就不多讲了。主要讲一下加固，其实也很简单，过滤<code>..</code>和<code>../</code>就可以了。</p>
+<p>加固代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function downloadBak() &#123;</span><br><span class="line">        $file_name = $_GET[&#x27;file&#x27;];</span><br><span class="line">        $waf = array(&quot;..&quot;,&quot;../&quot;);</span><br><span class="line">        if(in_array($file, $waf))&#123;</span><br><span class="line">            die(&quot;impossible&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        $file_dir = $this-&gt;config[&#x27;path&#x27;];</span><br><span class="line">        if (!file_exists($file_dir . &quot;/&quot; . $file_name)) &#123; //检查文件是否存在</span><br><span class="line">            return false;</span><br><span class="line">            exit;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $file = fopen($file_dir . &quot;/&quot; . $file_name, &quot;r&quot;); // 打开文件</span><br><span class="line">            // 输入文件标签</span><br><span class="line">            header(&#x27;Content-Encoding: none&#x27;);</span><br><span class="line">            header(&quot;Content-type: application/octet-stream&quot;);</span><br><span class="line">            header(&quot;Accept-Ranges: bytes&quot;);</span><br><span class="line">            header(&quot;Accept-Length: &quot; . filesize($file_dir . &quot;/&quot; . $file_name));</span><br><span class="line">            header(&#x27;Content-Transfer-Encoding: binary&#x27;);</span><br><span class="line">            header(&quot;Content-Disposition: attachment; filename=&quot; . $file_name);  //以真实文件名提供给浏览器下载</span><br><span class="line">            header(&#x27;Pragma: no-cache&#x27;);</span><br><span class="line">            header(&#x27;Expires: 0&#x27;);</span><br><span class="line">            //输出文件内容</span><br><span class="line">            echo fread($file, filesize($file_dir . &quot;/&quot; . $file_name));</span><br><span class="line">            fclose($file);</span><br><span class="line">            exit;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-%E5%8A%A0%E5%9B%BA/" rel="tag"># -web -加固</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/28/buu%E7%BB%83%E4%B9%A09/" rel="next" title="buu练习9">
+                <i class="fa fa-chevron-left"></i> buu练习9
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%9B%BA%E6%B1%87%E6%80%BB"><span class="nav-number">2.</span> <span class="nav-text">常见加固汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS%E6%94%BB%E5%87%BB"><span class="nav-number">2.2.</span> <span class="nav-text">XSS攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-%E8%AF%BB%E5%8F%96"><span class="nav-number">2.3.</span> <span class="nav-text">任意文件包含&#x2F;读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upload"><span class="nav-number">2.4.</span> <span class="nav-text">Upload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ezsql"><span class="nav-number">3.</span> <span class="nav-text">Ezsql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E5%8D%8A%E5%86%B3%E8%B5%9B-faka"><span class="nav-number">4.</span> <span class="nav-text">[网鼎杯 2020 半决赛]faka</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
