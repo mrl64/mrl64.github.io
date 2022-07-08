@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-07-07T11:18:58.372Z</updated>
+  <updated>2022-07-08T09:39:03.225Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buu练习10</title>
+    <link href="http://example.com/2022/07/08/buu%E7%BB%83%E4%B9%A010/"/>
+    <id>http://example.com/2022/07/08/buu%E7%BB%83%E4%B9%A010/</id>
+    <published>2022-07-08T06:18:18.000Z</published>
+    <updated>2022-07-08T09:39:03.225Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;继续刷，准备蓝帽，好久没做题了都。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="web" scheme="http://example.com/categories/web/"/>
+    
+    
+    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>Thinkphp框架原理及简单审计</title>
@@ -404,27 +425,6 @@
     
     
     <category term="-ctf -web" scheme="http://example.com/tags/ctf-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>攻防世界2</title>
-    <link href="http://example.com/2022/03/18/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C2/"/>
-    <id>http://example.com/2022/03/18/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C2/</id>
-    <published>2022-03-18T11:51:31.000Z</published>
-    <updated>2022-03-18T13:35:55.445Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;明天打虎符了，好久没打攻防世界的题了，回来练练手，顺便记录下一些有意思的没做过的题。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
     
   </entry>
   

