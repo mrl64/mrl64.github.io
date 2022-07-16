@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-07-12T10:45:26.815Z</updated>
+  <updated>2022-07-16T09:12:22.844Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【otterCTF2018】复盘write up</title>
+    <link href="http://example.com/2022/07/16/%E3%80%90otterCTF2018%E3%80%91%E5%A4%8D%E7%9B%98write-up/"/>
+    <id>http://example.com/2022/07/16/%E3%80%90otterCTF2018%E3%80%91%E5%A4%8D%E7%9B%98write-up/</id>
+    <published>2022-07-16T08:12:49.000Z</published>
+    <updated>2022-07-16T09:12:22.844Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;NSS上看到了这个复习赛，13个取证题，统一附件，还是很有意思的，就打了下，也ak成功了，写下wp。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>【CISCN2022】复盘write up</title>
@@ -404,27 +425,6 @@
     
     
     <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【NSSRound#1 Basic】赛后复现</title>
-    <link href="http://example.com/2022/04/03/%E3%80%90NSSRound-1-Basic%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/"/>
-    <id>http://example.com/2022/04/03/%E3%80%90NSSRound-1-Basic%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/</id>
-    <published>2022-04-03T05:30:05.000Z</published>
-    <updated>2022-04-03T08:51:01.829Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;睡过了忘记了，起来都快结束了，就简单做了下取证还没做完（，赶紧来复现下。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="write up" scheme="http://example.com/categories/write-up/"/>
-    
-    
-    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
     
   </entry>
   
