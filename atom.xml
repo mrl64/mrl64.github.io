@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-07-16T09:12:22.844Z</updated>
+  <updated>2022-07-19T06:50:57.365Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【NepCTF2022】write up</title>
+    <link href="http://example.com/2022/07/18/%E3%80%90NepCTF2022%E3%80%91write-up/"/>
+    <id>http://example.com/2022/07/18/%E3%80%90NepCTF2022%E3%80%91write-up/</id>
+    <published>2022-07-18T01:29:02.000Z</published>
+    <updated>2022-07-19T06:50:57.365Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Nep战队的招新赛，题目还是很有意思的，难度设计也比较合理，比赛质量还不错。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【otterCTF2018】复盘write up</title>
     <link href="http://example.com/2022/07/16/%E3%80%90otterCTF2018%E3%80%91%E5%A4%8D%E7%9B%98write-up/"/>
     <id>http://example.com/2022/07/16/%E3%80%90otterCTF2018%E3%80%91%E5%A4%8D%E7%9B%98write-up/</id>
     <published>2022-07-16T08:12:49.000Z</published>
-    <updated>2022-07-16T09:12:22.844Z</updated>
+    <updated>2022-07-18T16:30:31.552Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
@@ -399,25 +420,6 @@
     
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;说恶补pop就要恶补pop，基础知识已经基本全部过了一遍了，接下来主要就是练题了。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -php" scheme="http://example.com/tags/web-php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php迭代器（原生类）的利用</title>
-    <link href="http://example.com/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/"/>
-    <id>http://example.com/2022/04/04/php%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89%E7%9A%84%E5%88%A9%E7%94%A8/</id>
-    <published>2022-04-04T05:55:45.000Z</published>
-    <updated>2022-04-06T02:52:17.999Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;填坑这一块知识了，填完坑就要开始恶补pop和xss这两块的知识来为iscc做准备了。&lt;/p&gt;</summary>
     
     
     

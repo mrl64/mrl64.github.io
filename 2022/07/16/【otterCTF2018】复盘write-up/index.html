@@ -110,7 +110,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/07/16/hvfPKBFRsExV26N.png">
 <meta property="og:image" content="https://s2.loli.net/2022/07/16/95k3H4BLaIQgMrc.png">
 <meta property="article:published_time" content="2022-07-16T08:12:49.000Z">
-<meta property="article:modified_time" content="2022-07-16T09:12:22.844Z">
+<meta property="article:modified_time" content="2022-07-18T16:30:31.552Z">
 <meta property="article:author" content="liszt_lin">
 <meta property="article:tag" content="-ctf">
 <meta name="twitter:card" content="summary">
@@ -402,7 +402,7 @@
 <p>小黑子，露出鸡脚了吧，这下找到你咯。<br>程序名：vmware-tray.exe</p>
 <h1 id="Path-To-Glory"><a href="#Path-To-Glory" class="headerlink" title="Path To Glory"></a>Path To Glory</h1><p>描述：How did the malware got to rick’s PC? It must be one of rick old illegal habits…</p>
 <p>问我们恶意程序是怎样得到PC机的，怕不是Rick整了些什么好康的东西，直接先进行一波文件的找：<br><img src="https://s2.loli.net/2022/07/16/sgA1IbaZMktOq5e.png"></p>
-<p>有三个种子文件，dump下来看，在其中一个中发现了问题：<br><img src="https://s2.loli.net/2022/07/16/LQrhZxDJemPzFk8.png"><br>flag：M3an_T0rren7_4_R!ck，我也不知道为啥没那个e，可能是多出来的。</p>
+<p>有三个种子文件，dump下来看，在其中一个中发现了问题：<br><img src="https://s2.loli.net/2022/07/16/LQrhZxDJemPzFk8.png"><br>flag：M3an_T0rren7_4_R!ck，因为website字段的内容长度为19，所以那个e就不要进来。</p>
 <h1 id="Path-To-Glory-2"><a href="#Path-To-Glory-2" class="headerlink" title="Path To Glory 2"></a>Path To Glory 2</h1><p>描述：Continue the search after the way that malware got in.</p>
 <p>进一步探查恶意文件的来源，iehistroy里没东西，那就去找chrome浏览器进程：<br><img src="https://s2.loli.net/2022/07/16/OKiNFhIZQ2PHRk9.png"></p>
 <p><img src="https://s2.loli.net/2022/07/16/X3TrMIePS4K2uky.png"></p>
@@ -456,6 +456,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/07/18/%E3%80%90NepCTF2022%E3%80%91write-up/" rel="prev" title="【NepCTF2022】write up">
+                【NepCTF2022】write up <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -532,7 +536,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

