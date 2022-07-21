@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-web -write up -ctf," />
+  <meta name="keywords" content="-ctf," />
 
 
 
@@ -81,24 +81,18 @@
 
 
 
-<meta name="description" content="前言由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。">
+<meta name="description" content="前言 雪姐姐主办的比赛，有的题目挺搞的，不过难度不大。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="攻防世界">
-<meta property="og:url" content="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/index.html">
+<meta property="og:title" content="【SNCTF】write up">
+<meta property="og:url" content="http://example.com/2022/07/21/%E3%80%90SNCTF%E3%80%91write-up/index.html">
 <meta property="og:site_name" content="mrl64&#39;s Blog">
-<meta property="og:description" content="前言由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。">
+<meta property="og:description" content="前言 雪姐姐主办的比赛，有的题目挺搞的，不过难度不大。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/JIupjWC1et4V2KS.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/6XSFjNi1s3BctL7.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/cNXPd4EyxomCKws.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/l3EHVFv48JWZrCm.png">
-<meta property="article:published_time" content="2021-10-17T08:19:20.000Z">
-<meta property="article:modified_time" content="2021-12-01T08:28:48.605Z">
+<meta property="article:published_time" content="2022-07-21T04:15:57.000Z">
+<meta property="article:modified_time" content="2022-07-21T05:04:51.737Z">
 <meta property="article:author" content="liszt_lin">
-<meta property="article:tag" content="-web -write up -ctf">
+<meta property="article:tag" content="-ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png">
 
 
 
@@ -128,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/17/攻防世界/"/>
+  <link rel="canonical" href="http://example.com/2022/07/21/【SNCTF】write-up/"/>
 
 
 
 
 
-  <title>攻防世界 | mrl64's Blog</title>
+  <title>【SNCTF】write up | mrl64's Blog</title>
   
 
 
@@ -271,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/21/%E3%80%90SNCTF%E3%80%91write-up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -288,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">攻防世界</h1>
+          <h1 class="post-title" itemprop="name headline">【SNCTF】write up</h1>
         
 
         <div class="post-meta">
@@ -300,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-17T16:19:20+08:00">
-                2021-10-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-21T12:15:57+08:00">
+                2022-07-21
               </time>
             
 
@@ -323,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
                   </a>
                 </span>
 
@@ -360,29 +354,30 @@
       
 
       
-        <blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于要准备校赛这周就没有刷sqli靶场了，这篇文章主要写攻防世界中web的部分新手题和进阶题，等校赛环境开了就把校赛的wp写了，下周继续刷靶场。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>雪姐姐主办的比赛，有的题目挺搞的，不过难度不大。</p>
 </blockquote>
 <span id="more"></span>
 
-<h1 id="command-execution"><a href="#command-execution" class="headerlink" title="command_execution"></a>command_execution</h1><p>这题难度不是很高，但在web新手题里应该算是最难的了，这题要求我们运用到linux常用指令。不过在这之前，先简单说下提示中的waf，waf为web提供保护，可以有效防护sql注入等等手段，可以和防火墙结合起来一起理解。</p>
-<p>接着我们再介绍linux的命令执行中的“&amp;”和“|”的作用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c1 &amp;&amp; c2 先执行c1再执行c2</span><br><span class="line">c1 &amp; c2 先执行c2后执行c1</span><br><span class="line">c1 || c2 c1执行失败后执行c2，反之不执行c2</span><br><span class="line">c1 | c2 只执行c2</span><br></pre></td></tr></table></figure>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="real-flag"><a href="#real-flag" class="headerlink" title="real_flag"></a>real_flag</h2><p>这题把我整麻了，进去看源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">$action = $_GET[&#x27;a&#x27;];</span><br><span class="line">$waf = $_GET[&#x27;waf&#x27;];</span><br><span class="line">if($action===&#x27;SNCTF&#x27;)&#123;</span><br><span class="line">    die(&#x27;oh???&#x27;);</span><br><span class="line">&#125;elseif($action===&#x27;phpinfo&#x27;)&#123;</span><br><span class="line">    phpinfo();</span><br><span class="line">&#125;</span><br><span class="line">if (isset($_GET[&#x27;env&#x27;]) &amp;&amp; $waf == &quot;Snowywar&quot; &amp;&amp; $action == &#x27;SNCTF&#x27;) &#123;</span><br><span class="line">    foreach ($_GET[&quot;env&quot;] as $k =&gt; $v) &#123;</span><br><span class="line">        putenv(&quot;&#123;$k&#125;=&#123;$v&#125;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    system(&#x27;echo hello&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
 
-<p>除了这些，我们还得了解linux基本指令。这题我们使用了ls指令和cat指令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls 查看目录文件</span><br><span class="line">cat 读取文件</span><br></pre></td></tr></table></figure>
+<p>我横竖看了半天，都想不到这题怎么打，条件完全无法满足，后来群里的师傅说，看phpinfo搜索real就可以了，解base出flag，我谢谢他。</p>
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><p>看描述一眼希尔加密，上网址：<br><a target="_blank" rel="noopener" href="https://www.dcode.fr/hill-cipher">Hill Cipher</a></p>
+<p>直接按照格式解密就可以拿到flag了。</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="到达世界最高城"><a href="#到达世界最高城" class="headerlink" title="到达世界最高城"></a>到达世界最高城</h2><p>给一个wav和压缩包，压缩包是flag但加密了，另一个wav一听是zood，先溜一会（bushi</p>
+<p>binwalk发现藏了zip，直接foremost分离出来另一张图，看那张图的hex有提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#Can you see me:afZ_`AJB</span><br></pre></td></tr></table></figure>
 
-<p>了解了这些，我们就可以解题了。我们直接查找当前目录下的文件：<br><img src="https://i.loli.net/2021/10/17/ZgOEfUyYKdRrWtB.png"></p>
-<p>就像这样，我们一级一级往上查找，找到根目录后进入home中，我们就可以发现flag就躺在里面，用cat指令打开查看就好了。<br><img src="https://i.loli.net/2021/10/17/JIupjWC1et4V2KS.png"><br><img src="https://i.loli.net/2021/10/17/6XSFjNi1s3BctL7.png"><br><img src="https://i.loli.net/2021/10/17/cNXPd4EyxomCKws.png"></p>
-<h1 id="simple-js"><a href="#simple-js" class="headerlink" title="simple_js"></a>simple_js</h1><p>按照道理来说，见面就要输密码的题，一般不太可能字典爆破的出来，再结合题目指向了js，那么我们就去查看网页的js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;JS&lt;/title&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function dechiffre(pass_enc)&#123;</span><br><span class="line">        var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;</span><br><span class="line">        var tab  = pass_enc.split(&#x27;,&#x27;);</span><br><span class="line">                var tab2 = pass.split(&#x27;,&#x27;);var i,j,k,l=0,m,n,o,p = &quot;&quot;;i = 0;j = tab.length;</span><br><span class="line">                        k = j + (l) + (n=0);</span><br><span class="line">                        n = tab2.length;</span><br><span class="line">                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;o = tab[i-l];p += String.fromCharCode((o = tab2[i]));</span><br><span class="line">                                if(i == 5)break;&#125;</span><br><span class="line">                        for(i = (o=0); i &lt; (k = j = n); i++ )&#123;</span><br><span class="line">                        o = tab[i-l];</span><br><span class="line">                                if(i &gt; 5 &amp;&amp; i &lt; k-1)</span><br><span class="line">                                        p += String.fromCharCode((o = tab2[i]));</span><br><span class="line">                        &#125;</span><br><span class="line">        p += String.fromCharCode(tab2[17]);</span><br><span class="line">        pass = p;return pass;</span><br><span class="line">    &#125;</span><br><span class="line">    String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));</span><br><span class="line"></span><br><span class="line">    h = window.prompt(&#x27;Enter password&#x27;);</span><br><span class="line">    alert( dechiffre(h) );</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p>我们发现了一串/x……代码，这串代码的格式为十六进制码，我们把它转换为对应的ascii码值，得出的文本十进制再进行一次转换，得到密码为786OsErtk12，这就是flag内容。</p>
-<h1 id="isc-6"><a href="#isc-6" class="headerlink" title="isc-6"></a>isc-6</h1><p>根据题目我们进入报表中心，发现了熟悉的get点，这里下意识先进行sql注入，但发现全部尝试都失败了，果断排除sql注入。再经历了御剑，抓包的洗礼也没发现有问题，审计源码也没有问题，种种可能性都被排除，那么我们只能把目光锁定在id值上了。</p>
-<p>写一个最简单的脚本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for m in range(10001):</span><br><span class="line">    print(m)</span><br></pre></td></tr></table></figure>
+<p>根据提示，这里是变异凯撒，exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	int i;</span><br><span class="line">	char c[]=&quot;afZ_`AJB&quot;;</span><br><span class="line">	for(i=0;c[i]!=&#x27;\0&#x27;;i++)</span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">		c[i]=i+5+c[i];</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%s&quot;,c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//flagiKUN</span><br></pre></td></tr></table></figure>
 
-<p>输出的数据放入burp suite中进行字典爆破，发现当id值为2333时，返回的长度不同，那么我们把2333get上去，flag就显示出来了。<br><img src="https://i.loli.net/2021/10/17/l3EHVFv48JWZrCm.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>因为这周没做靶场，就拿这周练习的题目写了点wp，实际上做的题不止这些，不过有些因为过于简单，有些因为比较复杂，就都没有写出来，等实验室的比赛平台开了就去写比赛的wp。</p>
+<p>跑出来这个就是压缩包密码，解压压缩包拿到flag。</p>
+<h2 id="派蒙的宝藏"><a href="#派蒙的宝藏" class="headerlink" title="派蒙的宝藏"></a>派蒙的宝藏</h2><p>给了一张图片，结合题目标题猜测是原神的文字，一通找找到了：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv10220424/">【原神考据】提瓦特通用文</a></p>
+<p>解密后是12个单词：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AREA DWARF BARREL CAN LANGUAGE REUNION HAMMER UNUSUAL EPISODE SIBLING EXPIRE FLIP</span><br></pre></td></tr></table></figure>
+
+<p>不出意外的话这些是助记词，接下来就是区块链登录查合约一气呵成了。flag在合约里：<code>1145141919810</code></p>
 
       
     </div>
@@ -400,7 +395,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/web-write-up-ctf/" rel="tag"># -web -write up -ctf</a>
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
           
         </div>
       
@@ -413,8 +408,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/14/bugku%E7%BB%83%E4%B9%A0/" rel="next" title="bugku-web练习">
-                <i class="fa fa-chevron-left"></i> bugku-web练习
+              <a href="/2022/07/19/%E3%80%90NepCTF2022%E3%80%91%E8%B5%9B%E5%90%8E%E5%A4%8D%E7%8E%B0/" rel="next" title="【NepCTF2022】赛后复现">
+                <i class="fa fa-chevron-left"></i> 【NepCTF2022】赛后复现
               </a>
             
           </div>
@@ -422,10 +417,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/21/sqli-labs%E7%BB%83%E4%B9%A0-less23-27/" rel="prev" title="sqli-labs练习-less23-27">
-                sqli-labs练习-less23-27 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -564,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#command-execution"><span class="nav-number"></span> <span class="nav-text">command_execution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-js"><span class="nav-number"></span> <span class="nav-text">simple_js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#isc-6"><span class="nav-number"></span> <span class="nav-text">isc-6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number"></span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#real-flag"><span class="nav-number">1.</span> <span class="nav-text">real_flag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRYPTO"><span class="nav-number"></span> <span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#F"><span class="nav-number">1.</span> <span class="nav-text">F</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B0%E8%BE%BE%E4%B8%96%E7%95%8C%E6%9C%80%E9%AB%98%E5%9F%8E"><span class="nav-number">1.</span> <span class="nav-text">到达世界最高城</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B4%BE%E8%92%99%E7%9A%84%E5%AE%9D%E8%97%8F"><span class="nav-number">2.</span> <span class="nav-text">派蒙的宝藏</span></a></li></ol></div>
             
 
           </div>

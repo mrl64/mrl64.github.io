@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-07-19T14:15:29.718Z</updated>
+  <updated>2022-07-21T05:04:51.737Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【SNCTF】write up</title>
+    <link href="http://example.com/2022/07/21/%E3%80%90SNCTF%E3%80%91write-up/"/>
+    <id>http://example.com/2022/07/21/%E3%80%90SNCTF%E3%80%91write-up/</id>
+    <published>2022-07-21T04:15:57.000Z</published>
+    <updated>2022-07-21T05:04:51.737Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;雪姐姐主办的比赛，有的题目挺搞的，不过难度不大。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>【NepCTF2022】赛后复现</title>
@@ -410,25 +431,6 @@
     
     
     <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NSSCTF练习3</title>
-    <link href="http://example.com/2022/04/08/NSSCTF%E7%BB%83%E4%B9%A03/"/>
-    <id>http://example.com/2022/04/08/NSSCTF%E7%BB%83%E4%B9%A03/</id>
-    <published>2022-04-08T06:08:30.000Z</published>
-    <updated>2022-04-09T10:09:45.835Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;继续刷NSSCTF上的题。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-write up -ctf -web" scheme="http://example.com/tags/write-up-ctf-web/"/>
     
   </entry>
   
