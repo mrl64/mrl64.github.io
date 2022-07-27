@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-07-21T05:04:51.737Z</updated>
+  <updated>2022-07-27T06:43:57.601Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hw2022-杂谈1</title>
+    <link href="http://example.com/2022/07/27/hw2022-%E6%9D%82%E8%B0%881/"/>
+    <id>http://example.com/2022/07/27/hw2022-%E6%9D%82%E8%B0%881/</id>
+    <published>2022-07-27T05:22:43.000Z</published>
+    <updated>2022-07-27T06:43:57.601Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;值了一个夜班后回酒店睡到12点，起床时有一点困倦，突然又百感交集，因此决定写下这篇hw杂谈，记录下我此刻内心的感受。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="hw" scheme="http://example.com/categories/hw/"/>
+    
+    
+    <category term="-杂谈" scheme="http://example.com/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
   
   <entry>
     <title>【SNCTF】write up</title>
@@ -405,25 +426,6 @@
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;养好状态准备打MRCTF和ISCC，继续刷题&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习7</title>
-    <link href="http://example.com/2022/04/14/buu%E7%BB%83%E4%B9%A07/"/>
-    <id>http://example.com/2022/04/14/buu%E7%BB%83%E4%B9%A07/</id>
-    <published>2022-04-14T07:11:52.000Z</published>
-    <updated>2022-04-14T12:33:47.133Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;好久没刷buu了，继续刷&lt;/p&gt;</summary>
     
     
     
