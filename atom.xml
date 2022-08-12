@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-07-27T06:43:57.601Z</updated>
+  <updated>2022-08-12T06:57:53.318Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【CTFSHOW七夕杯】write up及复盘</title>
+    <link href="http://example.com/2022/08/12/%E3%80%90CTFSHOW%E4%B8%83%E5%A4%95%E6%9D%AF%E3%80%91write-up%E5%8F%8A%E5%A4%8D%E7%9B%98/"/>
+    <id>http://example.com/2022/08/12/%E3%80%90CTFSHOW%E4%B8%83%E5%A4%95%E6%9D%AF%E3%80%91write-up%E5%8F%8A%E5%A4%8D%E7%9B%98/</id>
+    <published>2022-08-12T01:33:30.000Z</published>
+    <updated>2022-08-12T06:57:53.318Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;8月4号的比赛，最后第14名就懒得写wp，所以拖到现在来补一个。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="write up" scheme="http://example.com/categories/write-up/"/>
+    
+    
+    <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>hw2022-杂谈1</title>
@@ -404,27 +425,6 @@
     
     <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;齐安信的比赛，当时都没发现有这比赛，现在有环境了来尝试复现下。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buu练习8</title>
-    <link href="http://example.com/2022/04/16/buu%E7%BB%83%E4%B9%A08/"/>
-    <id>http://example.com/2022/04/16/buu%E7%BB%83%E4%B9%A08/</id>
-    <published>2022-04-16T07:51:06.000Z</published>
-    <updated>2022-04-16T11:55:04.613Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;养好状态准备打MRCTF和ISCC，继续刷题&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     
