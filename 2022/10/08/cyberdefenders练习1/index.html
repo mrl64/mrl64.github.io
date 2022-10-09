@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-forensics -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 好久没写博客了，学长给了个取证网站来练习，备战美亚杯。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cyberdefenders练习1">
+<meta property="og:url" content="http://example.com/2022/10/08/cyberdefenders%E7%BB%83%E4%B9%A01/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 好久没写博客了，学长给了个取证网站来练习，备战美亚杯。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-08T06:51:39.000Z">
+<meta property="article:modified_time" content="2022-10-09T08:23:54.761Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-forensics -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/10/08/cyberdefenders练习1/"/>
+
+
+
+
+
+  <title>cyberdefenders练习1 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/08/cyberdefenders%E7%BB%83%E4%B9%A01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cyberdefenders练习1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-08T14:51:39+08:00">
+                2022-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/forensics/" itemprop="url" rel="index">
+                    <span itemprop="name">forensics</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>好久没写博客了，学长给了个取证网站来练习，备战美亚杯。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="Eli（浏览器取证）"><a href="#Eli（浏览器取证）" class="headerlink" title="Eli（浏览器取证）"></a>Eli（浏览器取证）</h1><h2 id="question1"><a href="#question1" class="headerlink" title="question1"></a>question1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The folder to store all your data in - How many files are in Eli&#x27;s downloads directory?</span><br></pre></td></tr></table></figure>
+<p>直接把文件解压出来，搜索Downloads文件夹，找到后发现里面有6个文件。</p>
+<p>answer：6</p>
+<h2 id="question2"><a href="#question2" class="headerlink" title="question2"></a>question2</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Smile for the camera - What is the MD5 hash of the user&#x27;s profile photo?</span><br></pre></td></tr></table></figure>
+<p>刚开始在takeout文件夹中找到profile文件夹，发现两个ProfilePhoto.jpg，计算其md5值并提交后都不对，人就有点麻。然后回另一个文件里面找，结果发现<code>\decrypted\mount\user\Accounts\Avatar Images</code>的<a href="mailto:&#101;&#102;&#108;&#x61;&#x74;&#116;&#54;&#x31;&#x30;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#101;&#102;&#108;&#x61;&#x74;&#116;&#54;&#x31;&#x30;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a>文件是个png，挺无语的。</p>
+<p>answer：5ddd4fe0041839deb0a4b0252002127b</p>
+<h2 id="question3"><a href="#question3" class="headerlink" title="question3"></a>question3</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Road Trip! - What city was Eli&#x27;s destination in?</span><br></pre></td></tr></table></figure>
+<p>题目问我们目的地的位置，之前看Download文件夹就看到一张google地图的图，发现目的地是Plattsburgh，经查询是美国纽约州东北部的一个城市，叫做普拉茨堡，那么答案就是这个了。</p>
+<p>answer：Plattsburgh</p>
+<h2 id="question4"><a href="#question4" class="headerlink" title="question4"></a>question4</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise Me - How many promises does Wickr make?</span><br></pre></td></tr></table></figure>
+<p>同样是在Downloads文件夹，有一个叫做<code>Wickr-Customer-Security-Promises-November-2020.pdf</code>的文件，翻阅一下发现在p3有列出承诺内容，总共9条，因此答案就是9。</p>
+<p>answer：9</p>
+<h2 id="question5"><a href="#question5" class="headerlink" title="question5"></a>question5</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Key-ty Cat - What are the last five characters of the key for the Tabby Cat extension?</span><br></pre></td></tr></table></figure>
+<p>定位文件夹<code>\decrypted\mount\user\Extensions</code>，然后一看一堆全是乱码的文件夹，我的思路是直接搜索tobby，然后定位到<code>\decrypted\mount\user\Extensions\mefhakmgclhhfbdadeojlkbllmecialg\2.0.0_0</code>。最后在<code>manifest.json</code>找到key，并且确认了name为Tabby Cat。</p>
+<p>answer：DAQAB</p>
+<h2 id="question6"><a href="#question6" class="headerlink" title="question6"></a>question6</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Time to jam out - How many songs does Eli have downloaded?</span><br></pre></td></tr></table></figure>
+<p>这个我之前搜索Downloads是就发现了这个文件夹，在<code>\decrypted\mount\user\MyFiles\Music</code>中，里面有2首歌。</p>
+<p>answer：2</p>
+<h2 id="question7"><a href="#question7" class="headerlink" title="question7"></a>question7</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Autofill, roll out - Which word was Autofilled the most?</span><br></pre></td></tr></table></figure>
+<p>搜索了一下发现Autofill是chrome表单自动填写的插件，web data文件是一个sqlite文件，使用工具查看，发现有三个填充，2次是email。</p>
+<p>answer：email</p>
+<h2 id="question8"><a href="#question8" class="headerlink" title="question8"></a>question8</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dress for success - What is this bird&#x27;s image&#x27;s logical size in bytes?</span><br></pre></td></tr></table></figure>
+<p>不知道鸟图是啥，就随便试了几个图，结果试出来是Downloads里面那张企鹅，企鹅也是鸟，合理。</p>
+<p>answer：46,791</p>
+<h2 id="question9"><a href="#question9" class="headerlink" title="question9"></a>question9</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Repeat customer - What was Eli&#x27;s top visited site?</span><br></pre></td></tr></table></figure>
+<p>直接找<code>\Takeout\My Activity\Chrome</code>，然后发现浏览最多的是protonmail.com，那这个就是答案了。</p>
+<p>answer：protonmail.com</p>
+<h2 id="question10"><a href="#question10" class="headerlink" title="question10"></a>question10</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vroom Vroom, What is the name of the car-related theme?</span><br></pre></td></tr></table></figure>
+<p>搜索png找到汽车有关的主题图片，定位到对应目录<code>\decrypted\mount\user\Extensions\dkkklbgbfaeockpgbkleblklmcjdbnbj\1_0</code>下，然后翻看<code>manifest.json</code>找到名字。</p>
+<p>answer：Lamborghini Cherry</p>
+<h2 id="question11"><a href="#question11" class="headerlink" title="question11"></a>question11</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You got mail - How many emails were received from notification@service.tiktok.com?</span><br></pre></td></tr></table></figure>
+<p>定位<code>\Takeout\Mail</code>文件夹下，用notepad++搜索<code>From: &quot;TikTok&quot;</code>，总共有6条结果，说明总共收到了6封邮件。</p>
+<p>answer：6</p>
+<h2 id="question12"><a href="#question12" class="headerlink" title="question12"></a>question12</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hungry for directions - Where did the user request directions to on Mar 4, 2021, at 4:15:18 AM EDT</span><br></pre></td></tr></table></figure>
+<p>因为要找一个地方吃饭（大概），所以应该是搜索地图，因此定位<code>\Takeout\My Activity\Maps</code>，然后找到答案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Directions to Chick-fil-A, 400 NY-3, Plattsburgh, NY 12901</span><br><span class="line">Burlington, VT</span><br><span class="line">Chick-fil-A, 400 NY-3, Plattsburgh, NY 12901</span><br><span class="line">Mar 4, 2021, 4:15:18 AM EDT</span><br></pre></td></tr></table></figure>
+
+<p>answer：Chick-fil-A</p>
+<h2 id="question13"><a href="#question13" class="headerlink" title="question13"></a>question13</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Who defines essential? - What was searched on Mar 4, 2021, at 4:09:35 AM EDT</span><br></pre></td></tr></table></figure>
+<p>和上一题思路差不多，定位<code>\Takeout\My Activity\Search</code>，翻一翻就能找到答案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Searched for is travelling to get chicken essential travel</span><br><span class="line">Mar 4, 2021, 4:09:35 AM EDT</span><br></pre></td></tr></table></figure>
+
+<p>answer：is travelling to get chicken essential travel</p>
+<h2 id="question14"><a href="#question14" class="headerlink" title="question14"></a>question14</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I got three subscribers, and counting - How many YouYube channels is the user subscribed to?</span><br></pre></td></tr></table></figure>
+<p>定位<code>\Takeout\YouTube and YouTube Music\subscriptions</code>，然后这题无语的点是，里面的文件是空的，然后我还在想为什么，结果就是没有关注，蒸无语啊。</p>
+<p>answer：0</p>
+<h2 id="question15"><a href="#question15" class="headerlink" title="question15"></a>question15</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Time flies when you&#x27;re watching YT - What date was the first YouTube video the user watched uploaded?</span><br></pre></td></tr></table></figure>
+<p>定位<code>\Takeout\YouTube and YouTube Music\history</code>，看watch-histroy.html中最早的记录，然后科学上网看看那个视频的发布时间。</p>
+<p>answer：27/01/2021</p>
+<h2 id="question16"><a href="#question16" class="headerlink" title="question16"></a>question16</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How much? - What is the price of the belt?</span><br></pre></td></tr></table></figure>
+<p>定位    <code>\Takeout\Drive\To-Purchase.xlsx</code>就行了，里面直接写了价格，这玩意我还找了老半天，麻。</p>
+<p>answer：98.5</p>
+<h1 id="Spotlight（mac磁盘取证）"><a href="#Spotlight（mac磁盘取证）" class="headerlink" title="Spotlight（mac磁盘取证）"></a>Spotlight（mac磁盘取证）</h1><h2 id="question1-1"><a href="#question1-1" class="headerlink" title="question1"></a>question1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What version of macOS is running on this image?</span><br></pre></td></tr></table></figure>
+<p>告诉我们使用FTK挂载，挂载后在<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina [volume_4]\root\System\Library\CoreServices\SystemVersion.plist</code>中找到版本号。</p>
+<p>answer：10.15</p>
+<h2 id="question2-1"><a href="#question2-1" class="headerlink" title="question2"></a>question2</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What &quot;competitive advantage&quot; did Hansel lie about in the file AnotherExample.jpg? (two words)</span><br></pre></td></tr></table></figure>
+<p>在<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\Users\Shared</code>找到那个png文件，查看hex得到答案。</p>
+<p>answer：flip phone</p>
+<h2 id="question3-1"><a href="#question3-1" class="headerlink" title="question3"></a>question3</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How many bookmarks are registered in safari?</span><br></pre></td></tr></table></figure>
+<p>定位<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\Users\hansel.apricot\Library\Safari\Bookmarks.plist</code>文件，直接数里面有多少个url，可以用在线网站解包看的更清楚。<br><a target="_blank" rel="noopener" href="https://www.wenjiangs.com/tool/iosPlistLook">iOS plist 文件信息查看</a></p>
+<p>answer：13</p>
+<h2 id="question4-1"><a href="#question4-1" class="headerlink" title="question4"></a>question4</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What&#x27;s the content of the note titled &quot;Passwords&quot;?</span><br></pre></td></tr></table></figure>
+<p>搜索note，定位<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\Users\hansel.apricot\Library\Group Containers\group.com.apple.notes</code>，mac的note就记录在这个文件下的sqlite中。</p>
+<p>answer：Passwords</p>
+<h2 id="question5-1"><a href="#question5-1" class="headerlink" title="question5"></a>question5</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Provide the MAC address of the ethernet adapter for this machine.</span><br></pre></td></tr></table></figure>
+<p>经查询，发现<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\private\var\log\daily.out</code>这个日志会记录磁盘使用和网络情况，所以直接去这个里面找，学到了。</p>
+<p>answer：00:0c:29:c4:65:77</p>
+<h2 id="question6-1"><a href="#question6-1" class="headerlink" title="question6"></a>question6</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Name the data URL of the quarantined item.</span><br></pre></td></tr></table></figure>
+<p>搜索quarantine发现有一个文件，定位<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\Users\sneaky\Library\Preferences\com.apple.LaunchServices.QuarantineEventsV2</code>，直接搜索http就可以找到了。</p>
+<p>answer：<a target="_blank" rel="noopener" href="https://futureboy.us/stegano/encode.pl">https://futureboy.us/stegano/encode.pl</a></p>
+<h2 id="question7-1"><a href="#question7-1" class="headerlink" title="question7"></a>question7</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What app did the user &quot;sneaky&quot; try to install via a .dmg file? (one word)</span><br></pre></td></tr></table></figure>
+<p>直接搜索dmg文件，发现文件名叫<code>silenteye-0.4.1b-snowleopard.dmg</code>，那答案不就显而易见了。</p>
+<p>answer：silenteye</p>
+<h2 id="question8-1"><a href="#question8-1" class="headerlink" title="question8"></a>question8</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What was the file &#x27;Examplesteg.jpg&#x27; renamed to?</span><br></pre></td></tr></table></figure>
+<p>因为整个文档就三个jpg，还只有一个G开头的，所以这题就没去找具体的过程了，直接交了。</p>
+<p>answer：GoodExample.jpg</p>
+<h2 id="question9-1"><a href="#question9-1" class="headerlink" title="question9"></a>question9</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How much time was spent on mail.zoho.com on 4/20/2020?</span><br></pre></td></tr></table></figure>
+<p>这题定位的数据库存在问题，最简单就是用mac_apt跑一遍：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 mac_apt.py E01 FruitBook.E01 -o result DOMAINS NETUSAGE SAFARI SCREENTIME -x</span><br></pre></td></tr></table></figure>
+
+<p>answer：20:58</p>
+<h2 id="question10-1"><a href="#question10-1" class="headerlink" title="question10"></a>question10</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What&#x27;s hansel.apricot&#x27;s password hint? (two words)</span><br></pre></td></tr></table></figure>
+<p>mac_apt梭USERS也能做，我们就找文件吧。本来是想搜这种东西存在哪个文件里的，结果没搜出来，那就文件搜索<code>hansel.apricot</code>，然后在一个plist中发现了答案。定位点<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\private\var\db\dslocal\nodes\Default\users\hansel.apricot.plist</code></p>
+<p>answer：Family Opinion</p>
+<h2 id="question11-1"><a href="#question11-1" class="headerlink" title="question11"></a>question11</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The main file that stores Hansel&#x27;s iMessages had a few permissions changes. How many times did the permissions change?</span><br></pre></td></tr></table></figure>
+<p>应该要有一个<code>Users/username/Library/Messages/chat.db</code>文件，但是我挂载了发现没有，离谱，就0-9一个个试过去了。</p>
+<p>answer：7</p>
+<h2 id="question12-1"><a href="#question12-1" class="headerlink" title="question12"></a>question12</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What&#x27;s the UID of the user who is responsible for connecting mobile devices?</span><br></pre></td></tr></table></figure>
+<p>相关文件定位到<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\private\var\db\dslocal\nodes\Default\users</code>，然后可以直接文件夹搜索一些常见移动设备，例如iphone，就找到唯一uid了。</p>
+<p>answer：213</p>
+<h2 id="question13-1"><a href="#question13-1" class="headerlink" title="question13"></a>question13</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Find the flag in the GoodExample.jpg image. It&#x27;s hidden with better tools.</span><br></pre></td></tr></table></figure>
+<p>测试完是steghide，无密码，直接跑工具就出来了。</p>
+<p>answer：helicopter</p>
+<h2 id="question14-1"><a href="#question14-1" class="headerlink" title="question14"></a>question14</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What was exactly typed in the Spotlight search bar on 4/20/2020 02:09:48</span><br></pre></td></tr></table></figure>
+<p>搜spotlight，定位<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\Users\sneaky\Library\Application Support\com.apple.spotlight\com.apple.spotlight.Shortcuts</code>，看这个文件就可以拿到key了。</p>
+<p>answer：term</p>
+<h2 id="question15-1"><a href="#question15-1" class="headerlink" title="question15"></a>question15</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is hansel.apricot&#x27;s Open Directory user UUID?</span><br></pre></td></tr></table></figure>
+<p>搜hansel.apricot，然后定位到<code>E:\FruitBook.E01_Partition 2 [102071MB]_[APFS Container] (5_5) [APFS]\macOS Catalina - Data [volume_0]\root\private\var\db\dslocal\nodes\Default\sharepoints\Hansel Apricot’s Public Folder.plist</code>文件，找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;com_apple_sharing_uuid&quot;: [</span><br><span class="line">     &quot;5BB00259-4F58-4FDE-BC67-C2659BA0A5A4&quot;</span><br><span class="line">   ],</span><br></pre></td></tr></table></figure>
+<p>就此得到答案。</p>
+<p>answer：5BB00259-4F58-4FDE-BC67-C2659BA0A5A4</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/forensics-write-up-ctf/" rel="tag"># -forensics -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/10/%E3%80%90%E6%A6%95%E7%BD%91%E6%9D%AF2022%E3%80%91%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" rel="next" title="【榕网杯2022】题目复现">
+                <i class="fa fa-chevron-left"></i> 【榕网杯2022】题目复现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Eli%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%96%E8%AF%81%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">Eli（浏览器取证）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#question1"><span class="nav-number">1.</span> <span class="nav-text">question1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question2"><span class="nav-number">2.</span> <span class="nav-text">question2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question3"><span class="nav-number">3.</span> <span class="nav-text">question3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question4"><span class="nav-number">4.</span> <span class="nav-text">question4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question5"><span class="nav-number">5.</span> <span class="nav-text">question5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question6"><span class="nav-number">6.</span> <span class="nav-text">question6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question7"><span class="nav-number">7.</span> <span class="nav-text">question7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question8"><span class="nav-number">8.</span> <span class="nav-text">question8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question9"><span class="nav-number">9.</span> <span class="nav-text">question9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question10"><span class="nav-number">10.</span> <span class="nav-text">question10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question11"><span class="nav-number">11.</span> <span class="nav-text">question11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question12"><span class="nav-number">12.</span> <span class="nav-text">question12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question13"><span class="nav-number">13.</span> <span class="nav-text">question13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question14"><span class="nav-number">14.</span> <span class="nav-text">question14</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question15"><span class="nav-number">15.</span> <span class="nav-text">question15</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question16"><span class="nav-number">16.</span> <span class="nav-text">question16</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spotlight%EF%BC%88mac%E7%A3%81%E7%9B%98%E5%8F%96%E8%AF%81%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">Spotlight（mac磁盘取证）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#question1-1"><span class="nav-number">1.</span> <span class="nav-text">question1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question2-1"><span class="nav-number">2.</span> <span class="nav-text">question2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question3-1"><span class="nav-number">3.</span> <span class="nav-text">question3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question4-1"><span class="nav-number">4.</span> <span class="nav-text">question4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question5-1"><span class="nav-number">5.</span> <span class="nav-text">question5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question6-1"><span class="nav-number">6.</span> <span class="nav-text">question6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question7-1"><span class="nav-number">7.</span> <span class="nav-text">question7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question8-1"><span class="nav-number">8.</span> <span class="nav-text">question8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question9-1"><span class="nav-number">9.</span> <span class="nav-text">question9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question10-1"><span class="nav-number">10.</span> <span class="nav-text">question10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question11-1"><span class="nav-number">11.</span> <span class="nav-text">question11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question12-1"><span class="nav-number">12.</span> <span class="nav-text">question12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question13-1"><span class="nav-number">13.</span> <span class="nav-text">question13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question14-1"><span class="nav-number">14.</span> <span class="nav-text">question14</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question15-1"><span class="nav-number">15.</span> <span class="nav-text">question15</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
