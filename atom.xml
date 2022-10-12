@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-10-09T08:23:54.761Z</updated>
+  <updated>2022-10-12T14:07:26.242Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cyberdefenders练习2</title>
+    <link href="http://example.com/2022/10/09/cyberdefenders%E7%BB%83%E4%B9%A02/"/>
+    <id>http://example.com/2022/10/09/cyberdefenders%E7%BB%83%E4%B9%A02/</id>
+    <published>2022-10-09T13:07:29.000Z</published>
+    <updated>2022-10-12T14:07:26.242Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;继续做取证，取证真的很有意思：）。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="forensics" scheme="http://example.com/categories/forensics/"/>
+    
+    
+    <category term="-forensics -write up -ctf" scheme="http://example.com/tags/forensics-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>cyberdefenders练习1</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-js -web" scheme="http://example.com/tags/js-web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>http请求走私</title>
-    <link href="http://example.com/2022/05/08/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/"/>
-    <id>http://example.com/2022/05/08/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/</id>
-    <published>2022-05-08T02:25:32.000Z</published>
-    <updated>2022-05-08T07:29:12.895Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;打比赛碰到了这个知识点，就顺便学习一下，http走私这块如果要考起来难度还是比较高的。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-http -web" scheme="http://example.com/tags/http-web/"/>
     
   </entry>
   

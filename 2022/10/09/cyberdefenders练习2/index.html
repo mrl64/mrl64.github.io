@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-forensics -write up -ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 继续做取证，取证真的很有意思：）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cyberdefenders练习2">
+<meta property="og:url" content="http://example.com/2022/10/09/cyberdefenders%E7%BB%83%E4%B9%A02/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 继续做取证，取证真的很有意思：）。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-09T13:07:29.000Z">
+<meta property="article:modified_time" content="2022-10-12T14:07:26.242Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-forensics -write up -ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/10/09/cyberdefenders练习2/"/>
+
+
+
+
+
+  <title>cyberdefenders练习2 | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/09/cyberdefenders%E7%BB%83%E4%B9%A02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cyberdefenders练习2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-09T21:07:29+08:00">
+                2022-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/forensics/" itemprop="url" rel="index">
+                    <span itemprop="name">forensics</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>继续做取证，取证真的很有意思：）。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="Hacked（linux磁盘取证）"><a href="#Hacked（linux磁盘取证）" class="headerlink" title="Hacked（linux磁盘取证）"></a>Hacked（linux磁盘取证）</h1><h2 id="question1"><a href="#question1" class="headerlink" title="question1"></a>question1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the system timezone?</span><br></pre></td></tr></table></figure>
+<p>取证大师分析，查看时区通过<code>/etc/timezone</code>文件查看。</p>
+<p>answer：Europe/Brussels</p>
+<h2 id="question2"><a href="#question2" class="headerlink" title="question2"></a>question2</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Who was the last user to log in to the system?</span><br></pre></td></tr></table></figure>
+<p>登陆日志在<code>/var/log/wtmp</code>中，导出后在linux执行<code>last -f wtmp</code>就可以看到了。</p>
+<p>answer：mail</p>
+<h2 id="question3"><a href="#question3" class="headerlink" title="question3"></a>question3</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What was the source port the user &#x27;mail&#x27; connected from?</span><br></pre></td></tr></table></figure>
+<p>文件在<code>var/log/auth.log</code>中，找最后一个端口就是答案了。</p>
+<p>answer：57708</p>
+<h2 id="question4"><a href="#question4" class="headerlink" title="question4"></a>question4</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How long was the last session for user &#x27;mail&#x27;? (Minutes only)</span><br></pre></td></tr></table></figure>
+<p>同样是auth.log文件，最后可以看到session open和session close的时间，前后就差了1分钟。</p>
+<p>answer：1</p>
+<h2 id="question5"><a href="#question5" class="headerlink" title="question5"></a>question5</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Which server service did the last user use to log in to the system?</span><br></pre></td></tr></table></figure>
+<p>还还还是那个auth.log文件，可以看出使用的是sshd登录。</p>
+<p>answer：sshd</p>
+<h2 id="question6"><a href="#question6" class="headerlink" title="question6"></a>question6</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What type of authentication attack was performed against the target machine?</span><br></pre></td></tr></table></figure>
+<p>其实直接看format就能猜出来是爆破，当然要验证的话也依然是看auth.log这个文件。</p>
+<p>answer：bruteforce</p>
+<h2 id="question7"><a href="#question7" class="headerlink" title="question7"></a>question7</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How many IP addresses are listed in the &#x27;/var/log/lastlog&#x27; file?</span><br></pre></td></tr></table></figure>
+<p>文件都给了，直接strings找到2个ip。</p>
+<p>answer：2</p>
+<h2 id="question8"><a href="#question8" class="headerlink" title="question8"></a>question8</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How many users have a login shell?</span><br></pre></td></tr></table></figure>
+<p>查看shell登录情况在<code>/etc/passwd</code>中看有没有<code>bin/bash</code>，即可，找到用户是root、mail、php、vulnosadmin和postgres。</p>
+<p>answer：5</p>
+<h2 id="question9"><a href="#question9" class="headerlink" title="question9"></a>question9</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the password of the mail user?</span><br></pre></td></tr></table></figure>
+<p>喜闻乐见的密码环节，<code>/etc/shadow</code>中存了sha512，利用exp和字典进行爆破。<br>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import crypt</span><br><span class="line"></span><br><span class="line">shadow_file = &quot;shadow&quot;                   # 获取系统密码路径</span><br><span class="line">password_file = &quot;pass.txt&quot;    # 自己的密码文件，里面放的是明文密码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_pass(shadow_file):</span><br><span class="line">    used = &#123;&#125;                           # key是用户，value是对应的密文</span><br><span class="line">    f = open(shadow_file, &quot;r&quot;)        # 读取系统密码文件</span><br><span class="line">    userline = f.readlines()            # 将该文件转换为列表格式</span><br><span class="line">    f.close()</span><br><span class="line">    for item in userline:                  # 遍历列表里的内容</span><br><span class="line">        if len(item.split(&quot;:&quot;)[1]) &gt; 3:    # 以&quot;:&quot;分割，取第二个元素的长度，也就是完整密文值的长度，如果大于3，我们认定它有密码，把它取出来</span><br><span class="line">            used[item.split(&quot;:&quot;)[0]] = item.split(&quot;:&quot;)[1]  # 我们将取出的密文给了相应的用户，这里的used[i.split(&quot;:&quot;)[0]]是字典的key,也就是系统中的用户名，后面的i.split(&quot;:&quot;)[1]是用户名后的加密密文</span><br><span class="line">    return used</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 提取自己的密码文件中的明文密码</span><br><span class="line">def look_d(password_file):</span><br><span class="line">    f = open(password_file, &#x27;r&#x27;)</span><br><span class="line">    mwlist = f.readlines()              # 将读取的内容转换为列表</span><br><span class="line">    f.close()</span><br><span class="line">    for i, item in enumerate(mwlist):</span><br><span class="line">        mwlist[i] = item.strip(&quot;\n&quot;)    # 去除每一行的换行符</span><br><span class="line">    return mwlist  # 返回这个列表</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 根据密文是否相同判断出对应的用户和密码</span><br><span class="line">def main(user_passfile, zidian):</span><br><span class="line">    used = get_pass(user_passfile)      # 获取用户和对用的加密密文</span><br><span class="line">    mingwen = look_d(zidian)            # 获取所有的明文密码</span><br><span class="line">    for user in used:</span><br><span class="line">        passwd = used[user]             # 一次遍历每个用户的密文</span><br><span class="line">        salt = &quot;$6$&quot; + passwd.split(&quot;$&quot;)[2]  # 获取盐值</span><br><span class="line">        for passwdmw in mingwen:        # 遍历系统中的每个完整密文</span><br><span class="line">            if passwd == crypt.crypt(passwdmw.rstrip(), salt):  # 如果我们猜想的密文与系统中的密文相同，输入它的用户名和密码</span><br><span class="line">                print(&quot;userName:%s passWord:%s&quot; % (user, passwdmw.rstrip()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    main(shadow_file, password_file)</span><br></pre></td></tr></table></figure>
+
+<p>answer：forensics</p>
+<h2 id="question10"><a href="#question10" class="headerlink" title="question10"></a>question10</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Which user account was created by the attacker?</span><br></pre></td></tr></table></figure>
+<p>因为账户是3字符的不多，而且爆破出来php账户密码和mail一样，再结合php也有登录shell的记录，所以就推断是这个账户了。</p>
+<p>answer：php</p>
+<h2 id="question11"><a href="#question11" class="headerlink" title="question11"></a>question11</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How many user groups exist on the machine?</span><br></pre></td></tr></table></figure>
+<p>查看用户组定位到<code>/etc/group</code>，一共58行，对应58个用户组。</p>
+<p>answer：58</p>
+<h2 id="question12"><a href="#question12" class="headerlink" title="question12"></a>question12</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">How many users have sudo access?</span><br></pre></td></tr></table></figure>
+<p>那就看sudo的用户组下有几个用户就行了，很明显是php和mail这两个。</p>
+<p>answer：2</p>
+<h2 id="question13"><a href="#question13" class="headerlink" title="question13"></a>question13</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the home directory of the PHP user?</span><br></pre></td></tr></table></figure>
+<p>php用户的主目录，送分题属于是了。</p>
+<p>answer：/usr/php</p>
+<h2 id="question14"><a href="#question14" class="headerlink" title="question14"></a>question14</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What command did the attacker use to gain root privilege? (Answer contains two spaces).</span><br></pre></td></tr></table></figure>
+<p>那就是寻找命令执行的历史，我们查询到<code>/var/mail/.bash_history</code>时发现了sudo su-命令，经验证确实是使用的这个。</p>
+<p>answer：sudo su -</p>
+<h2 id="question15"><a href="#question15" class="headerlink" title="question15"></a>question15</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Which file did the user &#x27;root&#x27; delete?</span><br></pre></td></tr></table></figure>
+<p>那就去看root用户的命令执行历史，定位<code>/root/.bash_history</code>，发现命令rm 37292.c。</p>
+<p>answer：37292.c</p>
+<h2 id="question16"><a href="#question16" class="headerlink" title="question16"></a>question16</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Recover the deleted file, open it and extract the exploit author name.</span><br></pre></td></tr></table></figure>
+<p>用工具恢复文件即可。</p>
+<p>answer：rebel</p>
+<h2 id="question17"><a href="#question17" class="headerlink" title="question17"></a>question17</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the content management system (CMS) installed on the machine?</span><br></pre></td></tr></table></figure>
+<p>一般cms装在usr里，翻了一下最后定位到了<code>/usr/share/drupal7</code>中。</p>
+<p>answer：drupal</p>
+<h2 id="question18"><a href="#question18" class="headerlink" title="question18"></a>question18</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the version of the CMS installed on the machine?</span><br></pre></td></tr></table></figure>
+<p>查了下怎么查看drupal的版本号，文件位置在<code>drupal/modules/system/system.info</code></p>
+<p>answer：7.26</p>
+<h2 id="question19"><a href="#question19" class="headerlink" title="question19"></a>question19</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Which port was listening to receive the attacker&#x27;s reverse shell?</span><br></pre></td></tr></table></figure>
+<p>定位<code>/var/log/access.log</code>查看服务器日志，最后有一串base64，解码出来就有端口了。</p>
+<p>answer：4444</p>
+<h1 id="DeepDive（Windows内存）"><a href="#DeepDive（Windows内存）" class="headerlink" title="DeepDive（Windows内存）"></a>DeepDive（Windows内存）</h1><h2 id="question1-1"><a href="#question1-1" class="headerlink" title="question1"></a>question1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What profile should you use for this memory sample?</span><br></pre></td></tr></table></figure>
+<p>内存取证用vol工具，问内存文件的profile，直接用命令<code>python2 vol.py -f ../banking-malware.vmem imageinfo</code>查看就行。</p>
+<p>answer：Win7SP1x64_24000</p>
+<h2 id="question2-1"><a href="#question2-1" class="headerlink" title="question2"></a>question2</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the KDBG virtual address of the memory sample?</span><br></pre></td></tr></table></figure>
+<p>同样在imageinfo中可以得到。</p>
+<p>answer：0xf80002bef120</p>
+<h2 id="question3-1"><a href="#question3-1" class="headerlink" title="question3"></a>question3</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">There is a malicious process running, but it&#x27;s hidden. What&#x27;s its name?</span><br></pre></td></tr></table></figure>
+<p>我们需要找到一个隐藏的进程，我刚开始用psscan，结果没找到，后来搜了下发现还有一个命令叫psxview，用这个就找到了。</p>
+<p>answer：vds_ps.exe</p>
+<h2 id="question4-1"><a href="#question4-1" class="headerlink" title="question4"></a>question4</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the physical offset of the malicious process?</span><br></pre></td></tr></table></figure>
+<p>偏移量也是上个命令就能看到了。</p>
+<p>answer：0x000000007d336950</p>
+<h2 id="question5-1"><a href="#question5-1" class="headerlink" title="question5"></a>question5</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the full path (including executable name) of the hidden executable?</span><br></pre></td></tr></table></figure>
+<p>直接<code>python2 vol.py -f ../banking-malware.vmem --profile Win7SP1x64 filescan | grep vds_ps.exe</code>就找到路径了。</p>
+<p>answer：C:\Users\john\AppData\Local\api-ms-win-service-management-l2-1-0\vds_ps.exe</p>
+<h2 id="question6-1"><a href="#question6-1" class="headerlink" title="question6"></a>question6</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Which malware is this?</span><br></pre></td></tr></table></figure>
+<p>首先将exe给dump出来：<code>python2 vol.py -f ../banking-malware.vmem --profile Win7SP1x64 procdump --offset=0x000000007d336950 --dump-dir=../</code>。接着放到微步里面分析，得到木马类型。</p>
+<p>asnwer：Emotet</p>
+<h2 id="question7-1"><a href="#question7-1" class="headerlink" title="question7"></a>question7</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The malicious process had two PEs injected into its memory. What&#x27;s the size in bytes of the Vad that contains the largest injected PE? Answer in hex, like: 0xABC</span><br></pre></td></tr></table></figure>
+<p>先用命令显示出注入点：<code>python2 vol.py -f ../banking-malware.vmem --profile Win7SP1x64 malfind -p 2448</code>。找到地址后用<code>python2 vol.py -f ../banking-malware.vmem --profile Win7SP1x64 vadinfo -a 0x2a80000 --offset=0x000000007d336950</code>查看所有的关于这个文件的大小，找出最大的即可。</p>
+<p>answer：0x36fff</p>
+<h2 id="question8-1"><a href="#question8-1" class="headerlink" title="question8"></a>question8</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This process was unlinked from the ActiveProcessLinks list. Follow its forward link. Which process does it lead to? Answer with its name and extension</span><br></pre></td></tr></table></figure>
+<p>psxview看PID为2448后面的一个，那就是PID为2616的SearchIndexer.exe了。</p>
+<p>answer：SearchIndexer.exe</p>
+<h2 id="question9-1"><a href="#question9-1" class="headerlink" title="question9"></a>question9</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the pooltag of the malicious process in ascii? (HINT: use volshell)</span><br></pre></td></tr></table></figure>
+<p>之前都没有用过volshell，而且这题还要计算偏移量，我实在不会做，去看wp了，看完wp直呼太难了。首先用<code>dt(&#39;_EPROCESS&#39;,0x000000007d336950,space=addrspace().base)</code>命令看看恶意文件的信息，并没有我们要找的东西。这里要计算偏移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WinXP - Win7 cbDataOffsetPoolHdr = 0x5c</span><br><span class="line">need to move backwards addition 0x4 - for the POOLTAG to lineup correctly</span><br><span class="line">0x000000007d336950 - 0x60 </span><br></pre></td></tr></table></figure>
+<p>所以执行<code>dt(&quot;_POOL_HEADER&quot;,0x0000000007D3368F0, space=addrspace().base)</code>就可以了，由于是小端序存储，在转成16进制后要记得逆一下。</p>
+<p>answer：R0oT</p>
+<h2 id="question10-1"><a href="#question10-1" class="headerlink" title="question10"></a>question10</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">What is the physical address of the hidden executable&#x27;s pooltag? (HINT: use volshell)</span><br></pre></td></tr></table></figure>
+<p>问物理地址，前面算出来的再+4就行了。</p>
+<p>answer：0x7D3368F4</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/forensics-write-up-ctf/" rel="tag"># -forensics -write up -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/08/cyberdefenders%E7%BB%83%E4%B9%A01/" rel="next" title="cyberdefenders练习1">
+                <i class="fa fa-chevron-left"></i> cyberdefenders练习1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hacked%EF%BC%88linux%E7%A3%81%E7%9B%98%E5%8F%96%E8%AF%81%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">Hacked（linux磁盘取证）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#question1"><span class="nav-number">1.</span> <span class="nav-text">question1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question2"><span class="nav-number">2.</span> <span class="nav-text">question2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question3"><span class="nav-number">3.</span> <span class="nav-text">question3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question4"><span class="nav-number">4.</span> <span class="nav-text">question4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question5"><span class="nav-number">5.</span> <span class="nav-text">question5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question6"><span class="nav-number">6.</span> <span class="nav-text">question6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question7"><span class="nav-number">7.</span> <span class="nav-text">question7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question8"><span class="nav-number">8.</span> <span class="nav-text">question8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question9"><span class="nav-number">9.</span> <span class="nav-text">question9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question10"><span class="nav-number">10.</span> <span class="nav-text">question10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question11"><span class="nav-number">11.</span> <span class="nav-text">question11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question12"><span class="nav-number">12.</span> <span class="nav-text">question12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question13"><span class="nav-number">13.</span> <span class="nav-text">question13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question14"><span class="nav-number">14.</span> <span class="nav-text">question14</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question15"><span class="nav-number">15.</span> <span class="nav-text">question15</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question16"><span class="nav-number">16.</span> <span class="nav-text">question16</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question17"><span class="nav-number">17.</span> <span class="nav-text">question17</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question18"><span class="nav-number">18.</span> <span class="nav-text">question18</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question19"><span class="nav-number">19.</span> <span class="nav-text">question19</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepDive%EF%BC%88Windows%E5%86%85%E5%AD%98%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">DeepDive（Windows内存）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#question1-1"><span class="nav-number">1.</span> <span class="nav-text">question1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question2-1"><span class="nav-number">2.</span> <span class="nav-text">question2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question3-1"><span class="nav-number">3.</span> <span class="nav-text">question3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question4-1"><span class="nav-number">4.</span> <span class="nav-text">question4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question5-1"><span class="nav-number">5.</span> <span class="nav-text">question5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question6-1"><span class="nav-number">6.</span> <span class="nav-text">question6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question7-1"><span class="nav-number">7.</span> <span class="nav-text">question7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question8-1"><span class="nav-number">8.</span> <span class="nav-text">question8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question9-1"><span class="nav-number">9.</span> <span class="nav-text">question9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#question10-1"><span class="nav-number">10.</span> <span class="nav-text">question10</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
