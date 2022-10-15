@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-10-12T14:07:26.242Z</updated>
+  <updated>2022-10-15T02:19:02.275Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cyberdefenders练习3</title>
+    <link href="http://example.com/2022/10/13/cyberdefenders%E7%BB%83%E4%B9%A03/"/>
+    <id>http://example.com/2022/10/13/cyberdefenders%E7%BB%83%E4%B9%A03/</id>
+    <published>2022-10-13T02:39:09.000Z</published>
+    <updated>2022-10-15T02:19:02.275Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;继续取证：）&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="forensics" scheme="http://example.com/categories/forensics/"/>
+    
+    
+    <category term="-forensics -write up -ctf" scheme="http://example.com/tags/forensics-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>cyberdefenders练习2</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-ctf" scheme="http://example.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nodejs常见知识点总结</title>
-    <link href="http://example.com/2022/05/11/nodejs%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2022/05/11/nodejs%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
-    <published>2022-05-11T08:23:17.000Z</published>
-    <updated>2022-05-26T13:46:41.184Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;不知道这个坑有没有挖，不过这块可以说是知识盲区了，简单安排一下nodejs这块的知识吧。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-js -web" scheme="http://example.com/tags/js-web/"/>
     
   </entry>
   
