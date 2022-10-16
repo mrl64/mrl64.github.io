@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mrl64's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 做了两题密码，也是学了一些东西吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NSSRound6】write up">
+<meta property="og:url" content="http://example.com/2022/10/16/%E3%80%90NSSCTF-Round6%E3%80%91write-up/index.html">
+<meta property="og:site_name" content="mrl64&#39;s Blog">
+<meta property="og:description" content="前言 做了两题密码，也是学了一些东西吧。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-16T09:05:11.000Z">
+<meta property="article:modified_time" content="2022-10-16T09:34:02.166Z">
+<meta property="article:author" content="liszt_lin">
+<meta property="article:tag" content="-ctf">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/10/16/【NSSCTF-Round6】write-up/"/>
+
+
+
+
+
+  <title>【NSSRound6】write up | mrl64's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrl64's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/16/%E3%80%90NSSCTF-Round6%E3%80%91write-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrl64's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【NSSRound6】write up</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-16T17:05:11+08:00">
+                2022-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>做了两题密码，也是学了一些东西吧。</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="binary-V1"><a href="#binary-V1" class="headerlink" title="binary(V1)"></a>binary(V1)</h1><p>题目：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">from gmpy2 import *</span><br><span class="line"></span><br><span class="line">flag = b&#x27;NSSCTF&#123;xxxxx&#125;&#x27;</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">e = 65537</span><br><span class="line">p = getPrime(512)</span><br><span class="line">q = next_prime(p ^ (1 &lt;&lt; 512) - 1 ^ 3)</span><br><span class="line">n = p * q</span><br><span class="line">c = powmod(m, e, n)</span><br><span class="line"></span><br><span class="line">print(&#x27;n =&#x27;, n)</span><br><span class="line">print(&#x27;c =&#x27;, c)</span><br><span class="line"># n = 28439705991045663908857355142942262888109378224567220640321971170147687906191867226507772290105722468453003997560405961037860301720566204163583071580117631863630591384712172525673589612679984312909885721474004407318513252973235607119935090030342220110613332646827222206888937013221686874130002976891337482347</span><br><span class="line"># c = 19147147229180935592900776234339673387299394177535713949270580797239517644947690854918878134729963297207021578792506584675663899080028514789587402852322201811049767759204792874820803675496704837543205833779286293353943614755261264004375211872686806028504902564331881943276490126603876805247247189761895772971</span><br></pre></td></tr></table></figure>
+<p>这题我参考了【zer0pts CTF 2022】 Anti-Fermat的解法，求出近似值。</p>
+<p>首先我们发现我们知道q是<code>p ^ (1 &lt;&lt; 512) - 1 ^ 3</code>的下一个素数，而我们知道<code>p ^ (1 &lt;&lt; 512) - 1</code>实际上就是<code>2**1024-1</code>，作用就是给p取反，所以<code>p^2**1024-1</code>的结果x是把p的每一位取反，所以<code>x+p=2**1024-1</code>。由于q是x的下一个素数所以q=x+r，带进去<code>p+q=2**1024-1+r</code>，所以p+q就约等于<code>2**1024</code>。</p>
+<p>之后就是带入<code>n=((p+q)/2)**2 - ((p-q)/2)**2</code>，得到p的近似值，再爆破p即可。由于异或的值为3，实际上只影响到了最后两位，因此对这个方法不影响。</p>
+<p>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">import gmpy2</span><br><span class="line">n= 28439705991045663908857355142942262888109378224567220640321971170147687906191867226507772290105722468453003997560405961037860301720566204163583071580117631863630591384712172525673589612679984312909885721474004407318513252973235607119935090030342220110613332646827222206888937013221686874130002976891337482347</span><br><span class="line">c = 19147147229180935592900776234339673387299394177535713949270580797239517644947690854918878134729963297207021578792506584675663899080028514789587402852322201811049767759204792874820803675496704837543205833779286293353943614755261264004375211872686806028504902564331881943276490126603876805247247189761895772971</span><br><span class="line">e=65537</span><br><span class="line">t1=1&lt;&lt;512</span><br><span class="line">p=((2**512+gmpy2.iroot((2**512)**2-4*n,2)[0])//2)</span><br><span class="line">p=int(p)</span><br><span class="line">while n%p!=0:</span><br><span class="line">    p=gmpy2.next_prime(p)</span><br><span class="line">q=n//p</span><br><span class="line">phi=(p-1)*(q-1)</span><br><span class="line">d=gmpy2.invert(e,phi)</span><br><span class="line">m=pow(c,d,n)</span><br><span class="line">print(long_to_bytes(m))</span><br><span class="line"></span><br><span class="line">#NSSCTF&#123;a974e2f02002874825ab6e8123eaef42&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="binary-V2"><a href="#binary-V2" class="headerlink" title="binary(V2)"></a>binary(V2)</h1><p>题目：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">from gmpy2 import *</span><br><span class="line"></span><br><span class="line">flag = b&#x27;NSSCTF&#123;xxxxxx&#125;&#x27;</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">e = 65537</span><br><span class="line">p = getPrime(512)</span><br><span class="line">q = next_prime(p ^ (1 &lt;&lt; 512) - 1 ^ 386031728400388)</span><br><span class="line">n = p * q</span><br><span class="line">c = powmod(m, e, n)</span><br><span class="line"></span><br><span class="line">print(&#x27;n =&#x27;, n)</span><br><span class="line">print(&#x27;c =&#x27;, c)</span><br><span class="line"></span><br><span class="line"># n = 30922990347456222917444539556680823943887227159919972225540984336960832339775501069487618715102061181838518715208122786885229224735713077740655704542042089733020521332143961366919882134247596845707777520653357831207540764924471585714534980480437755533066407887622784022020839396643521892154136823395518763847</span><br><span class="line"># c = 14404101377910063215556811836598054698395805241539170278590413082852350322381754181749356420746244575121938620896549335174534133100850321380464588512818088008879625862657133634998081654516156005613557049123826706652115924967600775632920027926373724318084460740820944304520569864767315879749100114552218784151</span><br></pre></td></tr></table></figure>
+<p>这题我参考的题目是【*CTF】ezRSA 这题。它的原题长这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import getStrongPrime</span><br><span class="line">from gmpy import next_prime</span><br><span class="line">from random import getrandbits</span><br><span class="line">from libnum import s2n</span><br><span class="line">#from flag import flag</span><br><span class="line">flag = &#x27;this_is_f1ag&#x27;</span><br><span class="line">p=getStrongPrime(1024)</span><br><span class="line">q=next_prime(p^((1&lt;&lt;900)-1)^getrandbits(300))</span><br><span class="line">n=p*q</span><br><span class="line">e=65537</span><br><span class="line"></span><br><span class="line">m=int(flag.encode(&#x27;hex&#x27;),16)</span><br><span class="line">assert m&lt;n</span><br><span class="line">c=pow(m,e,n)</span><br><span class="line"></span><br><span class="line">print(hex(n))</span><br><span class="line">print(hex(c))</span><br></pre></td></tr></table></figure>
+<p>两题的区别在于移位不一样以及异或的位数不一样。*ctf中的题目由于只移位了900位，所以前124位是不变的，采用开根号的方式可以解出高124位。接下来因为300-900位是相反的，中间600位通过爆破可以得到一个大概值，最后300位coppersmith解出。</p>
+<p>爆破过程就是<code>p * q &lt; n</code>所以可以从高位开始，让p，q同位置的比特同时亦或1，若<code>p * q &lt; n</code>则保留当前的p，q，一直循环600次，即遍历900~301比特。</p>
+<p>而这道题由于没有留下高位不异或，所以没有开方这个过程，我们直接爆破p高位：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">n=30922990347456222917444539556680823943887227159919972225540984336960832339775501069487618715102061181838518715208122786885229224735713077740655704542042089733020521332143961366919882134247596845707777520653357831207540764924471585714534980480437755533066407887622784022020839396643521892154136823395518763847</span><br><span class="line"></span><br><span class="line">p = (1&lt;&lt;512)-1  </span><br><span class="line">q = 1&lt;&lt;60-1</span><br><span class="line">assert p * q &lt; n</span><br><span class="line">for i in range(511, 60, -1):</span><br><span class="line">    cur = 1&lt;&lt;i</span><br><span class="line">    if (p^cur) * (q^cur) &lt; n:</span><br><span class="line">        p ^= cur</span><br><span class="line">        q ^= cur</span><br><span class="line">print(p0)</span><br><span class="line">#p0 = 10448144612165556385206311886141360231410940981240932869029890970634461091646882845169987826840400211179280084597554623669476308095974836695836265075965951</span><br></pre></td></tr></table></figure>
+
+<p>有了p的高位后，我们只要恢复p的低60位了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = p0 + x</span><br><span class="line">x0 = f.small_roots(X=2^216, beta=0.4)[0]</span><br><span class="line">p = x0 + p0</span><br><span class="line">#p=10448144612165556385206311886141360231410940981240932869029890970634461091646882845169987826840400211179280084597554623669476308095974834953990213093053961</span><br></pre></td></tr></table></figure>
+
+<p>得出了p的结果，就可以计算密文了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">import libnum</span><br><span class="line"></span><br><span class="line">n=30922990347456222917444539556680823943887227159919972225540984336960832339775501069487618715102061181838518715208122786885229224735713077740655704542042089733020521332143961366919882134247596845707777520653357831207540764924471585714534980480437755533066407887622784022020839396643521892154136823395518763847</span><br><span class="line">c=14404101377910063215556811836598054698395805241539170278590413082852350322381754181749356420746244575121938620896549335174534133100850321380464588512818088008879625862657133634998081654516156005613557049123826706652115924967600775632920027926373724318084460740820944304520569864767315879749100114552218784151</span><br><span class="line">p=10448144612165556385206311886141360231410940981240932869029890970634461091646882845169987826840400211179280084597554623669476308095974834953990213093053961</span><br><span class="line">e = 65537</span><br><span class="line"></span><br><span class="line">q = n//p</span><br><span class="line">d = gmpy2.invert(e, (p-1)*(q-1))</span><br><span class="line">m = pow(c, d, n)</span><br><span class="line">print(libnum.n2s(int(m)))</span><br><span class="line"></span><br><span class="line">#NSSCTF&#123;0c9ff400e7296837fd85890866a48cdd&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"># -ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/13/cyberdefenders%E7%BB%83%E4%B9%A03/" rel="next" title="cyberdefenders练习3">
+                <i class="fa fa-chevron-left"></i> cyberdefenders练习3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#binary-V1"><span class="nav-number">2.</span> <span class="nav-text">binary(V1)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#binary-V2"><span class="nav-number">3.</span> <span class="nav-text">binary(V2)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liszt_lin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
