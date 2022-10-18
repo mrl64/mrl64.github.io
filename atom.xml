@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-10-16T09:34:02.166Z</updated>
+  <updated>2022-10-18T12:19:33.314Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>cyberdefenders练习4</title>
+    <link href="http://example.com/2022/10/17/cyberdefenders%E7%BB%83%E4%B9%A04/"/>
+    <id>http://example.com/2022/10/17/cyberdefenders%E7%BB%83%E4%B9%A04/</id>
+    <published>2022-10-17T10:51:02.000Z</published>
+    <updated>2022-10-18T12:19:33.314Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;火眼到货了，等新电脑到了配完环境应该就会开始整整手机了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="forensics" scheme="http://example.com/categories/forensics/"/>
+    
+    
+    <category term="-forensics -write up -ctf" scheme="http://example.com/tags/forensics-write-up-ctf/"/>
+    
+  </entry>
   
   <entry>
     <title>【NSSRound6】write up</title>
@@ -412,27 +433,6 @@
     
     
     <category term="-web -write up -ctf" scheme="http://example.com/tags/web-write-up-ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>js的原型链污染</title>
-    <link href="http://example.com/2022/05/26/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/"/>
-    <id>http://example.com/2022/05/26/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</id>
-    <published>2022-05-26T08:06:53.000Z</published>
-    <updated>2022-05-26T13:35:13.228Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;ISCC结束前几天就开始看原型链这一块了，为了填上之前那篇博客的坑还是啃了一会的，因为没有很系统了解过js因此理解起来不是特别顺利。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="web" scheme="http://example.com/categories/web/"/>
-    
-    
-    <category term="-js -web" scheme="http://example.com/tags/js-web/"/>
     
   </entry>
   
